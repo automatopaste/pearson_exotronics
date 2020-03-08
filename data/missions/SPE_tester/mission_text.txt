@@ -1,0 +1,3 @@
+Location: SPExotech Tacti-Spec Simulator V-138/2
+
+Test out the Sadler-Pearson arsenal on some simulated enemies.
