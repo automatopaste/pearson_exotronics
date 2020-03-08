@@ -1,0 +1,10 @@
+{
+	"id":"sadler_pearson_exotech",
+	"name":"Sadler-Pearson Exotech",
+	"author":"tomatopaste",
+	"version":"0.1a",
+	"description":"A mismanaged engineering powerhouse suffering from undeservedly good luck. Includes unique ships, weapons and flavour. Currently unfinished, contact the author for queries, bugs and suggestions! :)",
+	"gameVersion":"0.9.1a-RC8",
+	"jars":["jars/SPE.jar"],
+	"modPlugin":"data.scripts.SPEModPlugin",
+}
