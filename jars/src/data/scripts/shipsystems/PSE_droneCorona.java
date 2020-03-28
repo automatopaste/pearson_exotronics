@@ -4,27 +4,25 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
-import data.scripts.SPEDroneAPI;
-import data.scripts.SPEModPlugin;
-import data.scripts.plugins.SPE_droneManagerPlugin;
+import data.scripts.PSEDroneAPI;
+import data.scripts.PSEModPlugin;
+import data.scripts.plugins.PSE_droneManagerPlugin;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-public class SPE_droneCorona extends BaseShipSystemScript {
+public class PSE_droneCorona extends BaseShipSystemScript {
     public enum CoronaDroneOrders {
         DEPLOY,
         ATTACK,
         RECALL
     }
 
-    public ArrayList<SPEDroneAPI> deployedDrones = new ArrayList<>();
+    public ArrayList<PSEDroneAPI> deployedDrones = new ArrayList<>();
 
     private CombatEngineAPI engine;
 
@@ -42,10 +40,10 @@ public class SPE_droneCorona extends BaseShipSystemScript {
     private String droneVariant;
     private Vector2f launchVelocity;
 
-    private SPE_droneManagerPlugin plugin;
+    private PSE_droneManagerPlugin plugin;
 
-    public SPE_droneCorona() {
-        this.specJson = SPEModPlugin.droneCoronaSpecJson;
+    public PSE_droneCorona() {
+        this.specJson = PSEModPlugin.droneCoronaSpecJson;
         try {
             this.maxDeployedDrones = specJson.getInt("maxDrones");
         } catch (JSONException e) {
@@ -80,11 +78,11 @@ public class SPE_droneCorona extends BaseShipSystemScript {
         this.ship = (ShipAPI) stats.getEntity();
 
         if (plugin == null) {
-            plugin = new SPE_droneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
+            plugin = new PSE_droneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
             engine.addPlugin(plugin);
         }
 
-        String UNIQUE_SYSTEM_ID = "SPE_droneCorona_" + ship.hashCode();
+        String UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
         engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
 
         if (ship.getSystem().isOn()) {
@@ -111,9 +109,9 @@ public class SPE_droneCorona extends BaseShipSystemScript {
         return specJson;
     }
 
-    public int getIndex(SPEDroneAPI drone) {
+    public int getIndex(PSEDroneAPI drone) {
         int index = 0;
-        for (SPEDroneAPI deployedDrone : deployedDrones) {
+        for (PSEDroneAPI deployedDrone : deployedDrones) {
             if (deployedDrone == drone) {
                 return index;
             }
@@ -151,7 +149,7 @@ public class SPE_droneCorona extends BaseShipSystemScript {
         }
     }
 
-    public ArrayList<SPEDroneAPI> getDeployedDrones() {
+    public ArrayList<PSEDroneAPI> getDeployedDrones() {
         return deployedDrones;
     }
 }

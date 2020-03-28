@@ -2,28 +2,20 @@ package data.scripts;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.PluginPick;
-import com.fs.starfarer.api.campaign.CampaignPlugin;
-import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 //import data.scripts.ai.kiprad_droneCoronaDroneAI;
 //import data.scripts.weapons.ai.kiprad_eclipseAI;
 //import data.scripts.world.kiprad.KIPRADGen;//
-import com.fs.starfarer.combat.entities.Ship;
-//import data.scripts.ai.SPE_droneCoronaDroneAI;
-import data.scripts.ai.SPE_droneCoronaDroneAI;
+//import data.scripts.ai.PSE_droneCoronaDroneAI;
+import data.scripts.ai.PSE_droneCoronaDroneAI;
 import exerelin.campaign.SectorManager;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.lazywizard.lazylib.combat.AIUtils;
-import org.lazywizard.lazylib.combat.CombatUtils;
 
 import java.io.IOException;
-import java.util.List;
 
-public class SPEModPlugin extends BaseModPlugin {
+public class PSEModPlugin extends BaseModPlugin {
 
-    public static final String DEUCES_DRONE_CORONA_ID = "SPE_deuces";
+    public static final String DEUCES_DRONE_CORONA_ID = "PSE_deuces";
 
     public static JSONObject droneCoronaSpecJson;
 
@@ -34,16 +26,6 @@ public class SPEModPlugin extends BaseModPlugin {
             //new KIPRADGen().generate(Global.getSector());
         }
     }
-
-    /*@Override
-    public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
-        if (DEUCES_DRONE_CORONA_ID.contentEquals(ship.getHullSpec().getBaseHullId())) {
-            SPEDroneAPI modDrone = new SPEDroneAPI(ship, AIUtils.getNearestAlly(ship));
-
-            return new PluginPick<ShipAIPlugin>(new SPE_droneCoronaDroneAI(member, modDrone), CampaignPlugin.PickPriority.MOD_SET);
-        }
-        return null;
-    }*/
 
     @Override
     public void onApplicationLoad() throws ClassNotFoundException {
@@ -77,7 +59,7 @@ public class SPEModPlugin extends BaseModPlugin {
 
     public JSONObject loadDroneCoronaSpecJson() {
         try {
-            return SPE_specJsonLoader.getDroneCoronaSpecJson();
+            return PSE_specJsonLoader.getDroneCoronaSpecJson();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

@@ -5,10 +5,10 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.SPEDroneAPI;
-import data.scripts.ai.SPE_droneCoronaDroneAI;
-import data.scripts.ai.SPE_dummyAI;
-import data.scripts.shipsystems.SPE_droneCorona;
+import data.scripts.PSEDroneAPI;
+import data.scripts.ai.PSE_droneCoronaDroneAI;
+import data.scripts.ai.PSE_dummyAI;
+import data.scripts.shipsystems.PSE_droneCorona;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -16,29 +16,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SPE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
-    private enum SPE_DroneSystemTypes {
+public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
+    private enum PSE_DroneSystemTypes {
         CORONA
     }
 
     private CombatEngineAPI engine;
-    private SPE_DroneSystemTypes droneSystemType;
+    private PSE_DroneSystemTypes droneSystemType;
     IntervalUtil tracker;
-    private SPE_droneCorona coronaSystem;
+    private PSE_droneCorona coronaSystem;
     private ShipAPI ship;
     private ShipSystemAPI system;
     private String droneVariant;
     private float launchSpeed;
     private float maxDeployedDrones;
 
-    private ArrayList<SPEDroneAPI> toRemove = new ArrayList<>();
+    private ArrayList<PSEDroneAPI> toRemove = new ArrayList<>();
 
-    public SPE_droneManagerPlugin(Object object, float maxDeployedDrones, float launchDelay, float launchSpeed, ShipAPI ship, String droneVariant) {
-        if (object instanceof SPE_droneCorona) {
-            this.coronaSystem = (SPE_droneCorona) object;
-            this.droneSystemType = SPE_DroneSystemTypes.CORONA;
+    public PSE_droneManagerPlugin(Object object, float maxDeployedDrones, float launchDelay, float launchSpeed, ShipAPI ship, String droneVariant) {
+        if (object instanceof PSE_droneCorona) {
+            this.coronaSystem = (PSE_droneCorona) object;
+            this.droneSystemType = PSE_DroneSystemTypes.CORONA;
         } else {
-            throw new NullPointerException("Unlucky: SPE undefined system launcher");
+            throw new NullPointerException("Unlucky: PSE undefined system launcher");
         }
 
         this.tracker = new IntervalUtil(launchDelay, launchDelay);
@@ -75,7 +75,7 @@ public class SPE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
 
                 //remove inactive drones from list
-                for (SPEDroneAPI drone : coronaSystem.getDeployedDrones()) {
+                for (PSEDroneAPI drone : coronaSystem.getDeployedDrones()) {
                     if (!drone.isAlive()) {
                         toRemove.add(drone);
                         continue;
@@ -86,19 +86,19 @@ public class SPE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
                         system.setAmmo(system.getAmmo() + 1);
 
                         //set AI to one with no moving parts that would cause nullpointers
-                        drone.setShipAI(new SPE_dummyAI());
+                        drone.setShipAI(new PSE_dummyAI());
                         drone.remove();
 
                         toRemove.add(drone);
                     }
                 }
                 if (!toRemove.isEmpty()) {
-                    for (SPEDroneAPI drone : toRemove) {
+                    for (PSEDroneAPI drone : toRemove) {
                         coronaSystem.getDeployedDrones().remove(drone);
                     }
                 }
 
-                if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(SPE_droneCorona.CoronaDroneOrders.RECALL) && system.getAmmo() > 0) {
+                if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(PSE_droneCorona.CoronaDroneOrders.RECALL) && system.getAmmo() > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
                         spawnDroneFromShip();
@@ -115,8 +115,8 @@ public class SPE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
     public void spawnDroneFromShip() {
         engine.getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(true);
-        SPEDroneAPI spawnedDrone = new SPEDroneAPI(
-                engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing("SPE_deuces_wing", ship.getLocation(), ship.getFacing()),
+        PSEDroneAPI spawnedDrone = new PSEDroneAPI(
+                engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing("PSE_deuces_wing", ship.getLocation(), ship.getFacing()),
                 ship
         );
         spawnedDrone.setAnimatedLaunch();
@@ -126,7 +126,7 @@ public class SPE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
         VectorUtils.clampLength(launchVelocity, launchSpeed);
         spawnedDrone.getVelocity().set(launchVelocity);
 
-        spawnedDrone.setShipAI(new SPE_droneCoronaDroneAI(spawnedDrone.getFleetMember(), spawnedDrone));
+        spawnedDrone.setShipAI(new PSE_droneCoronaDroneAI(spawnedDrone.getFleetMember(), spawnedDrone));
 
         spawnedDrone.setDroneSource(ship);
         spawnedDrone.setDrone();

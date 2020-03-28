@@ -15,11 +15,11 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-public class SPEDroneAPI implements ShipAPI {
+public class PSEDroneAPI implements ShipAPI {
     private ShipAPI mothership;
     private ShipAPI drone;
 
-    public SPEDroneAPI(ShipAPI drone, ShipAPI mothership) {
+    public PSEDroneAPI(ShipAPI drone, ShipAPI mothership) {
         this.drone = drone;
         this.mothership = mothership;
     }

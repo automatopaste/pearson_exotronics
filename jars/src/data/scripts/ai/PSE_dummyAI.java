@@ -4,7 +4,7 @@ import com.fs.starfarer.api.combat.ShipAIConfig;
 import com.fs.starfarer.api.combat.ShipAIPlugin;
 import com.fs.starfarer.api.combat.ShipwideAIFlags;
 
-public class SPE_dummyAI implements ShipAIPlugin {
+public class PSE_dummyAI implements ShipAIPlugin {
     @Override
     public void setDoNotFireDelay(float amount) {
 

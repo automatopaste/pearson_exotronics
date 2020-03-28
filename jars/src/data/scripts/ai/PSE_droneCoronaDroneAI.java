@@ -3,9 +3,9 @@ package data.scripts.ai;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import data.scripts.SPEDroneAPI;
-import data.scripts.SPEModPlugin;
-import data.scripts.shipsystems.SPE_droneCorona;
+import data.scripts.PSEDroneAPI;
+import data.scripts.PSEModPlugin;
+import data.scripts.shipsystems.PSE_droneCorona;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,9 +16,9 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.util.*;
 
-public class SPE_droneCoronaDroneAI implements ShipAIPlugin {
+public class PSE_droneCoronaDroneAI implements ShipAIPlugin {
 
-    private final SPEDroneAPI drone;
+    private final PSEDroneAPI drone;
     private final ShipAPI ship;
     private CombatEngineAPI engine;
 
@@ -41,20 +41,20 @@ public class SPE_droneCoronaDroneAI implements ShipAIPlugin {
     private boolean isInFocusMode;
 
     private String DRONE_UNIQUE_ID;
-    private SPE_droneCorona.CoronaDroneOrders coronaDroneOrders;
+    private PSE_droneCorona.CoronaDroneOrders coronaDroneOrders;
     private String UNIQUE_SYSTEM_ID;
 
-    private SPE_droneCorona shipDroneCoronaSystem;
+    private PSE_droneCorona shipDroneCoronaSystem;
 
 
-    public SPE_droneCoronaDroneAI (FleetMemberAPI member, SPEDroneAPI passedDrone) {
+    public PSE_droneCoronaDroneAI (FleetMemberAPI member, PSEDroneAPI passedDrone) {
         this.engine = Global.getCombatEngine();
 
         this.drone = passedDrone;
 
         this.ship = drone.getDroneSource();
 
-        droneSystemSpecJson = SPEModPlugin.droneCoronaSpecJson;
+        droneSystemSpecJson = PSEModPlugin.droneCoronaSpecJson;
 
         try {
             droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("droneBehavior");
@@ -72,7 +72,7 @@ public class SPE_droneCoronaDroneAI implements ShipAIPlugin {
             }
         }
 
-        this.UNIQUE_SYSTEM_ID = "SPE_droneCorona_" + ship.hashCode();
+        this.UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class SPE_droneCoronaDroneAI implements ShipAIPlugin {
         float droneFacing = drone.getFacing();
 
         //get ship system object
-        shipDroneCoronaSystem = (SPE_droneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        shipDroneCoronaSystem = (PSE_droneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
 
         int droneIndex = shipDroneCoronaSystem.getIndex(drone);
 
@@ -270,8 +270,8 @@ public class SPE_droneCoronaDroneAI implements ShipAIPlugin {
         }
 
         //useful debugging things
-        //engine.maintainStatusForPlayerShip("SPE_STATUS_KEY0", "graphics/icons/hullsys/drone_pd_high.png", "DRONE TARGET VECTOR " + droneIndex, "", true);
-        //engine.maintainStatusForPlayerShip("SPE_STATUS_KEY1", "graphics/icons/hullsys/drone_pd_high.png", "DRONE VEL ANGLE" + droneIndex, "" + decelerationDistance, true);
+        //engine.maintainStatusForPlayerShip("PSE_STATUS_KEY0", "graphics/icons/hullsys/drone_pd_high.png", "DRONE TARGET VECTOR " + droneIndex, "", true);
+        //engine.maintainStatusForPlayerShip("PSE_STATUS_KEY1", "graphics/icons/hullsys/drone_pd_high.png", "DRONE VEL ANGLE" + droneIndex, "" + decelerationDistance, true);
 
 
 

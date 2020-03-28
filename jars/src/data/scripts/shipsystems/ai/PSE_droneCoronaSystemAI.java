@@ -2,7 +2,7 @@ package data.scripts.shipsystems.ai;
 
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.shipsystems.SPE_droneCorona;
+import data.scripts.shipsystems.PSE_droneCorona;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
@@ -10,13 +10,13 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
 
-public class SPE_droneCoronaSystemAI implements ShipSystemAIScript {
+public class PSE_droneCoronaSystemAI implements ShipSystemAIScript {
 
     private ShipAPI ship;
     private CombatEngineAPI engine;
     private ShipwideAIFlags flags;
     private ShipSystemAPI system;
-    private SPE_droneCorona droneSystem;
+    private PSE_droneCorona droneSystem;
 
     private IntervalUtil tracker = new IntervalUtil(0.5f, 1f);
 
@@ -41,7 +41,7 @@ public class SPE_droneCoronaSystemAI implements ShipSystemAIScript {
             }
         }
 
-        UNIQUE_SYSTEM_ID = "SPE_droneCorona_" + ship.hashCode();
+        UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
 
         ship.useSystem();
     }
@@ -49,7 +49,7 @@ public class SPE_droneCoronaSystemAI implements ShipSystemAIScript {
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
         tracker.advance(amount);
 
-        this.droneSystem = (SPE_droneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        this.droneSystem = (PSE_droneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
 
         if (target != null) {
             float TARGET_VENT_TIME_REMAINING_THRESHOLD = 4f;

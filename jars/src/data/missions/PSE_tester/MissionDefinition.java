@@ -1,4 +1,4 @@
-package data.missions.SPE_tester;
+package data.missions.PSE_tester;
 
 import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.fleet.FleetMemberType;
@@ -24,10 +24,10 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addBriefingItem("Dick around with these ships for science.");
 
         // Set up the player's fleet
-        api.addToFleet(FleetSide.PLAYER, "SPE_denmark_Assault", FleetMemberType.SHIP, true);
+        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, true);
 
         // Set up the enemy fleet
-        api.addToFleet(FleetSide.ENEMY, "SPE_denmark_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
 
         // Set up the map.
         float width = 20000f;

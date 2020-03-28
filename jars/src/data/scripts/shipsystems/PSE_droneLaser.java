@@ -8,7 +8,7 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import java.util.Iterator;
 import java.util.List;
 
-public class SPE_droneLaser extends BaseShipSystemScript {
+public class PSE_droneLaser extends BaseShipSystemScript {
     private String ACTIVE_WEAPON_ID = "hil";
     private String DEFAULT_WEAPON_ID = "pdburst";
 

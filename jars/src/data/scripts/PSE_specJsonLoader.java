@@ -6,11 +6,11 @@ import org.lazywizard.lazylib.JSONUtils;
 
 import java.io.IOException;
 
-public class SPE_specJsonLoader {
-    public static final String droneCoronaSpecJsonFilepath = "data/shipsystems/SPE_droneCorona.system";
-    public static final String droneCoronaSpecJsonFilename = "SPE_droneCorona";
+public class PSE_specJsonLoader {
+    public static final String droneCoronaSpecJsonFilepath = "data/shipsystems/PSE_droneCorona.system";
+    public static final String droneCoronaSpecJsonFilename = "PSE_droneCorona";
 
-    public SPE_specJsonLoader () {
+    public PSE_specJsonLoader() {
     }
 
     public static JSONObject getDroneCoronaSpecJson() throws IOException, JSONException {
