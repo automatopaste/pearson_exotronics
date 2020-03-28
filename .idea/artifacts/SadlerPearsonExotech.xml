@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="SadlerPearsonExotech">
-    <output-path>$PROJECT_DIR$/jars</output-path>
-    <root id="archive" name="SadlerPearsonExotech.jar">
-      <element id="module-output" name="SPE" />
-    </root>
-  </artifact>
-</component>

@@ -1,0 +1,13 @@
+{
+    "id": "PSE_droneLaser",
+
+    "type": "STAT_MOD",
+    "aiType": "NONE",
+
+    "statsScript": "data.scripts.shipsystems.PSE_droneLaser",
+
+    #"loopSound": "system_high_energy_focus_loop",
+    #"deactivateSound":"system_high_energy_focus_deactivate",
+
+    "outOfUsesSound": "gun_out_of_ammo"
+}

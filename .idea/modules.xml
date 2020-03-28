@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SPE.iml" filepath="$PROJECT_DIR$/SPE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PSE.iml" filepath="$PROJECT_DIR$/PSE.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,5 @@
 {
-	"SPE_specOpsFlare":{
+	"PSE_specOpsFlare":{
 		"engineColor":[220,180,90,121],
 		"contrailParticleSizeMult":2.23,
 		"contrailParticleDuration":1.68,
@@ -11,7 +11,7 @@
 		"contrailCampaignColor":[220,180,90,54],	
 		"type":"SMOKE" # GLOW or SMOKE
 	},
-	"SPE_baseFlare":{
+	"PSE_baseFlare":{
 		"engineColor":[220,110,90,121],
 		"contrailParticleSizeMult":2.23,
 		"contrailParticleDuration":1.68,
