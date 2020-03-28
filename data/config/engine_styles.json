@@ -1,0 +1,26 @@
+{
+	"SPE_specOpsFlare":{
+		"engineColor":[220,180,90,121],
+		"contrailParticleSizeMult":2.23,
+		"contrailParticleDuration":1.68,
+		"contrailParticleFinalSizeMult":1.75,		
+		"contrailMaxSpeedMult":0.039,
+		"contrailAngularVelocityMult":0.49,
+		"contrailColor":[50,35,50,40],
+		"engineGlowGlowMult":2.2,
+		"contrailCampaignColor":[220,180,90,54],	
+		"type":"SMOKE" # GLOW or SMOKE
+	},
+	"SPE_baseFlare":{
+		"engineColor":[220,110,90,121],
+		"contrailParticleSizeMult":2.23,
+		"contrailParticleDuration":1.68,
+		"contrailParticleFinalSizeMult":1.75,		
+		"contrailMaxSpeedMult":0.039,
+		"contrailAngularVelocityMult":0.49,
+		"contrailColor":[50,35,50,40],
+		"engineGlowGlowMult":2.2,
+		"contrailCampaignColor":[220,110,90,54],	
+		"type":"SMOKE" # GLOW or SMOKE
+	},
+}

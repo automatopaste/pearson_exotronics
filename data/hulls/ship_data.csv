@@ -1,0 +1,4 @@
+name,id,designation,tech/manufacturer,system id,fleet pts,hitpoints,armor rating,max flux,8/6/5/4%,flux dissipation,ordnance points,fighter bays,max speed,acceleration,deceleration,max turn rate,turn acceleration,mass,shield type,defense id,shield arc,shield upkeep,shield efficiency,phase cost,phase upkeep,min crew,max crew,cargo,fuel,fuel/ly,range,max burn,base value,cr %/day,CR to deploy,peak CR sec,CR loss/sec,supplies/rec,supplies/mo,hints,tags,rarity,breakProb,minPieces,maxPieces,number
+Denmark,SPE_denmark,Light Cruiser,SPExotech,SPE_droneCorona,13,6000,750,7000,5,350,125,,75,50,30,20,25,650,OMNI,,120,0.5,0.9,,,90,120,35,25,3,33,9,85000,4,12,480,0.25,15,15,COMBAT,midline_bp,,0.5,2,3,47601
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deuces,SPE_deuces,Drone,SPExotech,SPE_droneLaser,,150,5,100,,200,0,,350,500,500,250,600,15,NONE,,,,,,,0,0,,,,,,,,,,,,,,,,0,,,47602

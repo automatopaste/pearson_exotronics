@@ -1,0 +1,76 @@
+{
+  "hullName": "Deuces",
+  "hullId": "SPE_deuces",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/SPE/ships/SPE_deuces.png",
+  "style": "MIDLINE",
+  "height": 21,
+  "width": 18,
+  "center": [9, 9],
+  "collisionRadius": 32.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 19.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "no_weapon_flux",
+    "terminator_core"
+  ],
+  "builtInWeapons": {
+    "WS0001": "pdburst",
+    "WS0002": "hil"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 35,
+      "angle": 0,
+      "locations": [-1, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 90,
+      "angle": 0,
+      "locations": [-7.5, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-5, 1],
+      "length": 24,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 12,
+      "style": "CUSTOM",
+      "styleId": "COBRA_BOMBER"
+    },
+    {
+      "location": [-3.5, 7],
+      "length": 5,
+      "width": 2,
+      "angle": 169,
+      "contrailSize": 2,
+      "style": "CUSTOM",
+      "styleId": "SPE_specOpsFlare"
+    },
+    {
+      "location": [-3.5, -5],
+      "length": 5,
+      "width": 2,
+      "angle": -169,
+      "contrailSize": 2,
+      "style": "CUSTOM",
+      "styleId": "SPE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    5, -5,
+    5, 7,
+    -8.5, 1
+  ]
+}

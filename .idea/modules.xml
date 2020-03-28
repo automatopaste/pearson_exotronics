@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SadlerPearsonExotech/SadlerPearsonExotech.iml" filepath="$PROJECT_DIR$/SadlerPearsonExotech/SadlerPearsonExotech.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SPE.iml" filepath="$PROJECT_DIR$/SPE.iml" />
     </modules>
   </component>
 </project>
