@@ -1,0 +1,12 @@
+========Beta 0.3a========
+-added cassius frigate
+-polished corona system behaviour
+	-added landing behaviour indicator
+	-AI will now prioritise targeting ships over fighters when in focus mode
+	-drones will now target visible decks on ships instead of the ship's center
+	-drones no longer have burst lasers, now have PD lasers
+	-smoothed drone movement behaviour, now has minor course correcting
+	-system AI no longer automatically cycles system on activation
+	-drone manager plugin is now added to engine automatically on entering combat
+	-removed uneccessary friendly fire raycasting from drone AI
+-updated testing mission with new variants
