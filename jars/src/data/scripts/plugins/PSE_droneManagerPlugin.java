@@ -2,22 +2,25 @@ package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.combat.entities.Ship;
 import data.scripts.PSEDroneAPI;
 import data.scripts.ai.PSE_droneCoronaDroneAI;
-import data.scripts.ai.PSE_dummyAI;
 import data.scripts.shipsystems.PSE_droneCorona;
 import org.lazywizard.lazylib.VectorUtils;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
-    private enum PSE_DroneSystemTypes {
+    enum PSE_DroneSystemTypes {
         CORONA
     }
 
@@ -52,9 +55,14 @@ public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
     }
 
     boolean isActivePreviousFrame = false;
+    boolean isActivationKeyDownPreviousFrame = false;
 
     public void advance(float amount, List<InputEventAPI> events) {
         tracker.advance(amount);
+
+        if (engine.isPaused()) {
+            return;
+        }
 
         int numDronesActive;
         switch (droneSystemType) {
@@ -70,7 +78,7 @@ public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 }
                 //make sure total drone count can not go above maximum ammo
                 if (system.getAmmo() > system.getMaxAmmo() - numDronesActive) {
-                    system.setAmmo(system.getAmmo() - 1);
+                    system.setAmmo(system.getMaxAmmo() - numDronesActive);
                 }
 
 
@@ -85,8 +93,6 @@ public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
                         //add to system ammo count / reserve
                         system.setAmmo(system.getAmmo() + 1);
 
-                        //set AI to one with no moving parts that would cause nullpointers
-                        drone.setShipAI(new PSE_dummyAI());
                         drone.remove();
 
                         toRemove.add(drone);
@@ -108,15 +114,20 @@ public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     }
                 }
 
+                if (coronaSystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                    coronaSystem.nextDroneOrder();
+                }
+
                 isActivePreviousFrame = system.isActive();
+                isActivationKeyDownPreviousFrame = Keyboard.isKeyDown(Keyboard.KEY_F);
                 break;
         }
     }
 
     public void spawnDroneFromShip() {
-        engine.getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(true);
+        engine.getFleetManager(ship.getOriginalOwner()).setSuppressDeploymentMessages(true);
         PSEDroneAPI spawnedDrone = new PSEDroneAPI(
-                engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing("PSE_deuces_wing", ship.getLocation(), ship.getFacing()),
+                engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing("PSE_deuces_wing", getLandingLocation(), ship.getFacing()),
                 ship
         );
         spawnedDrone.setAnimatedLaunch();
@@ -136,13 +147,28 @@ public class PSE_droneManagerPlugin extends BaseEveryFrameCombatPlugin {
         engine.getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(false);
     }
 
-    //unused, but useful when i get around to it
-    public FighterLaunchBayAPI getLandingBay(ShipAPI mothership) {
-        List<FighterLaunchBayAPI> bays = mothership.getLaunchBaysCopy();
-        if (!bays.isEmpty()) {
-            int index = new Random().nextInt(bays.size() + 1);
+    public WeaponAPI getLandingBayWeaponAPI() {
+        List<WeaponAPI> weapons = ship.getAllWeapons();
+        if (!weapons.isEmpty()) {
+            //these aren't actually bays, but since launch bays have no way of getting their location deco weapons are used
+            List<WeaponAPI> bays = new ArrayList<>();
+            for (WeaponAPI weapon : weapons) {
+                if (weapon.getType().equals(WeaponAPI.WeaponType.DECORATIVE)) {
+                    bays.add(weapon);
+                }
+            }
+
+            //pick random entry in bay list
+            int index = new Random().nextInt(bays.size());
             return bays.get(index);
         }
         return null;
+    }
+
+    public Vector2f getLandingLocation() {
+        if (getLandingBayWeaponAPI() != null) {
+            return getLandingBayWeaponAPI().getLocation();
+        }
+        return ship.getLocation();
     }
 }

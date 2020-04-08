@@ -1,5 +1,6 @@
 package data.scripts.shipsystems;
 
+import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
@@ -11,11 +12,12 @@ import data.scripts.PSEModPlugin;
 import data.scripts.plugins.PSE_droneManagerPlugin;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
 
 public class PSE_droneCorona extends BaseShipSystemScript {
+    static final float FLUX_PER_SECOND = 100f;
+
     public enum CoronaDroneOrders {
         DEPLOY,
         ATTACK,
@@ -26,7 +28,7 @@ public class PSE_droneCorona extends BaseShipSystemScript {
 
     private CombatEngineAPI engine;
 
-    private CoronaDroneOrders droneOrders = CoronaDroneOrders.DEPLOY;
+    private CoronaDroneOrders droneOrders = CoronaDroneOrders.RECALL;
 
     private ShipAPI ship;
 
@@ -38,9 +40,10 @@ public class PSE_droneCorona extends BaseShipSystemScript {
     private float launchDelay;
     private float launchSpeed;
     private String droneVariant;
-    private Vector2f launchVelocity;
 
     private PSE_droneManagerPlugin plugin;
+
+    private boolean canSwitchDroneOrders;
 
     public PSE_droneCorona() {
         this.specJson = PSEModPlugin.droneCoronaSpecJson;
@@ -64,44 +67,42 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         plugin = null;
-
+        canSwitchDroneOrders = true;
     }
 
-    boolean canSwitchDroneOrders;
+    @Override
+    public void unapply(MutableShipStatsAPI stats, java.lang.String id) {
+        //initialisation and engine data stuff
+        this.ship = (ShipAPI) stats.getEntity();
+        this.engine = Global.getCombatEngine();
+
+        if (engine != null) {
+            ensurePluginExistence();
+
+            String UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+            engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
+        }
+    }
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
-        //initialisation and engine data stuff
-        this.engine = Global.getCombatEngine();
-        this.ship = (ShipAPI) stats.getEntity();
-
-        if (plugin == null) {
-            plugin = new PSE_droneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
-            engine.addPlugin(plugin);
-        }
-
-        String UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
-        engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
-
         if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
-                droneOrders = getNextOrder(droneOrders);
+                /*
+                if (getNextOrder() == CoronaDroneOrders.ATTACK) {
+                    ship.getSystem().setFluxPerSecond(FLUX_PER_SECOND);
+                } else {
+                    ship.getSystem().setFluxPerSecond(0f);
+                }
+
+                 */
+                nextDroneOrder();
                 canSwitchDroneOrders = false;
             }
         } else {
             canSwitchDroneOrders = true;
-        }
-
-        switch (droneOrders) {
-            case DEPLOY:
-                break;
-            case ATTACK:
-                break;
-            case RECALL:
-                break;
         }
     }
 
@@ -124,11 +125,23 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         return droneOrders;
     }
 
+    public void nextDroneOrder() {
+        droneOrders = getNextOrder();
+    }
+
     public ShipAPI getShip() {
         return this.ship;
     }
 
-    public CoronaDroneOrders getNextOrder(CoronaDroneOrders droneOrders) {
+    public String getDroneVariant() {
+        return this.droneVariant;
+    }
+
+    public PSE_droneManagerPlugin getPlugin() {
+        return plugin;
+    }
+
+    public CoronaDroneOrders getNextOrder() {
         if (droneOrders.ordinal() == CoronaDroneOrders.values().length - 1) {
             return CoronaDroneOrders.values()[0];
         }
@@ -144,12 +157,23 @@ public class PSE_droneCorona extends BaseShipSystemScript {
                 engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "FOCUS FORMATION", false);
                 break;
             case RECALL:
-                engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
+                if (deployedDrones.isEmpty()) {
+                    engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
+                } else {
+                    engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
+                }
                 break;
         }
     }
 
     public ArrayList<PSEDroneAPI> getDeployedDrones() {
         return deployedDrones;
+    }
+
+    public void ensurePluginExistence() {
+        if (plugin == null) {
+            plugin = new PSE_droneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
+            engine.addPlugin(plugin);
+        }
     }
 }

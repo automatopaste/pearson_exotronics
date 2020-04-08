@@ -1,6 +1,7 @@
 package data.scripts.shipsystems.ai;
 
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.shipsystems.PSE_droneCorona;
 import org.lazywizard.lazylib.MathUtils;
@@ -40,16 +41,21 @@ public class PSE_droneCoronaSystemAI implements ShipSystemAIScript {
                 longestWeaponRange = weapon.getRange();
             }
         }
-
-        UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
-
-        ship.useSystem();
     }
 
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
         tracker.advance(amount);
 
+        //unique identifier so that individual system can be gotten from combat engine custom data
+        UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+
         this.droneSystem = (PSE_droneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        if (droneSystem == null) {
+            engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_SHIP_AI", "graphics/icons/hullsys/drone_pd_high.png", "AI ", "returning null", true);
+            return;
+        }
+
+        engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_SHIP_AI", "graphics/icons/hullsys/drone_pd_high.png", "AI ", "not returning null", true);
 
         if (target != null) {
             float TARGET_VENT_TIME_REMAINING_THRESHOLD = 4f;
@@ -57,7 +63,7 @@ public class PSE_droneCoronaSystemAI implements ShipSystemAIScript {
 
             float distanceToTarget = MathUtils.getDistance(ship.getLocation(), target.getLocation());
 
-            isShipInFocusModeEngagementRange = droneLongestWeaponRange > distanceToTarget;
+            isShipInFocusModeEngagementRange = droneLongestWeaponRange >= distanceToTarget;
         }
 
         if (tracker.intervalElapsed()  && ship != null) {
@@ -104,16 +110,21 @@ public class PSE_droneCoronaSystemAI implements ShipSystemAIScript {
                         ship.useSystem();
                     } else if (!PANICAAAAA && isShipInFocusModeEngagementRange) {
                         ship.useSystem();
+                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                        ship.useSystem();
                     }
 
                     break;
                 case ATTACK:
-                    if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    //switch to defensive mode if pilot is not a gigachad HIL user
+                    if (PANICAAAAA && (!ship.getFleetMember().getCaptain().getPersonalityAPI().equals(Personalities.RECKLESS) || ship.getFleetMember().getCaptain().getPersonalityAPI().equals(Personalities.AGGRESSIVE))) {
+                        ship.useSystem();
+                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         ship.useSystem();
                     }
                     break;
                 case RECALL:
-                    if (PANICAAAAA) {
+                    if (!AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         ship.useSystem();
                     }
                     break;

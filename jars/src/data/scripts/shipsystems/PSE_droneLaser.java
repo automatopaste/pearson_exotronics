@@ -5,12 +5,11 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class PSE_droneLaser extends BaseShipSystemScript {
-    private String ACTIVE_WEAPON_ID = "hil";
-    private String DEFAULT_WEAPON_ID = "pdburst";
+    static final String FOCUS_WEAPON_ID = "hil";
+    static final String PD_WEAPON_ID = "pdlaser";
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
@@ -24,10 +23,10 @@ public class PSE_droneLaser extends BaseShipSystemScript {
         List<WeaponAPI> weapons = ship.getAllWeapons();
         if (weapons != null) {
             for (WeaponAPI weapon : weapons) {
-                if (weapon.getId().equals(DEFAULT_WEAPON_ID)) {
+                if (weapon.getId().equals(PD_WEAPON_ID)) {
                     weapon.disable(true);
                 }
-                if (weapon.getId().equals(ACTIVE_WEAPON_ID)) {
+                if (weapon.getId().equals(FOCUS_WEAPON_ID)) {
                     weapon.repair();
                 }
             }
@@ -46,10 +45,10 @@ public class PSE_droneLaser extends BaseShipSystemScript {
         List<WeaponAPI> weapons = ship.getAllWeapons();
         if (weapons != null) {
             for (WeaponAPI weapon : weapons) {
-                if (weapon.getId().equals(DEFAULT_WEAPON_ID)) {
+                if (weapon.getId().equals(PD_WEAPON_ID)) {
                     weapon.repair();
                 }
-                if (weapon.getId().equals(ACTIVE_WEAPON_ID)) {
+                if (weapon.getId().equals(FOCUS_WEAPON_ID)) {
                     weapon.disable(true);
                 }
             }
