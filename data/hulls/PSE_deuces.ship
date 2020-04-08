@@ -9,14 +9,14 @@
   "center": [9, 9],
   "collisionRadius": 32.5,
   "shieldCenter": [0, -0],
-  "shieldRadius": 19.5,
+  "shieldRadius": 40,
   "viewOffset": 0,
   "builtInMods": [
     "no_weapon_flux",
     "terminator_core"
   ],
   "builtInWeapons": {
-    "WS0001": "pdburst",
+    "WS0001": "pdlaser",
     "WS0002": "hil"
   },
   "weaponSlots": [

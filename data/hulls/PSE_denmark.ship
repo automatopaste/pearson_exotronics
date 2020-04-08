@@ -1,7 +1,7 @@
 {
   "hullName": "Denmark",
   "hullId": "PSE_denmark",
-  "hullSize": "CRUISER",
+  "hullSize": "DESTROYER",
   "spriteName": "graphics/PSE/ships/PSE_denmark.png",
   "style": "MIDLINE",
   "height": 200,
@@ -9,8 +9,12 @@
   "center": [80, 100],
   "collisionRadius": 180,
   "shieldCenter": [-12, -0],
-  "shieldRadius": 180,
+  "shieldRadius": 190,
   "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0007": "PSE_denmark_deco",
+    "WS0008": "PSE_denmark_deco"
+  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -54,7 +58,7 @@
       "type": "BALLISTIC",
       "mount": "HARDPOINT",
       "arc": 10,
-      "angle": 0,
+      "angle": 156.5,
       "locations": [77, 22]
     },
     {
@@ -63,26 +67,32 @@
       "type": "BALLISTIC",
       "mount": "HARDPOINT",
       "arc": 10,
-      "angle": -0,
+      "angle": -156.5,
       "locations": [77, -22]
     },
     {
-      "id": "LB 1",
-      "size": "LARGE",
-      "type": "LAUNCH_BAY",
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "DECORATIVE",
       "mount": "HIDDEN",
-      "arc": 360,
-      "angle": 0,
-      "locations": [
-        -48, 33.5,
-        -48.5, -33.5
-      ]
+      "arc": 210,
+      "angle": -105,
+      "locations": [-48.5, -34]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HIDDEN",
+      "arc": 210,
+      "angle": 105,
+      "locations": [-48.5, 34]
     }
   ],
   "engineSlots": [
     {
       "location": [-23.5, 26],
-      "length": 7,
+      "length": 18,
       "width": 15,
       "angle": 180,
       "contrailSize": 15,
@@ -91,7 +101,7 @@
     },
     {
       "location": [-23.5, -26],
-      "length": 7,
+      "length": 18,
       "width": 15,
       "angle": -180,
       "contrailSize": 15,
@@ -100,19 +110,19 @@
     },
     {
       "location": [-19, 19],
-      "length": 6,
-      "width": 6,
+      "length": 13,
+      "width": 10,
       "angle": 180,
-      "contrailSize": 6,
+      "contrailSize": 10,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-19, -19],
-      "length": 6,
-      "width": 6,
+      "length": 13,
+      "width": 10,
       "angle": -180,
-      "contrailSize": 6,
+      "contrailSize": 10,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
@@ -153,128 +163,74 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-79.5, -35.5],
-      "length": 7,
-      "width": 15,
-      "angle": -180,
-      "contrailSize": 15,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-79.5, 35.5],
-      "length": 7,
-      "width": 15,
+      "location": [-74.5, 29],
+      "length": 4,
+      "width": 6,
       "angle": 180,
-      "contrailSize": 15,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-83, -28.5],
-      "length": 6,
-      "width": 4,
+      "location": [-74.5, -29],
+      "length": 4,
+      "width": 6,
       "angle": -180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-83, 28.5],
-      "length": 6,
-      "width": 4,
+      "location": [-77.5, 37],
+      "length": 4,
+      "width": 6,
       "angle": 180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-82, -25.5],
-      "length": 6,
-      "width": 4,
+      "location": [-77.5, -37],
+      "length": 4,
+      "width": 6,
       "angle": -180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-82, 25.5],
-      "length": 6,
-      "width": 4,
+      "location": [-76, 32.5],
+      "length": 4,
+      "width": 6,
       "angle": 180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-81, -23.5],
-      "length": 6,
-      "width": 4,
+      "location": [-76, -32.5],
+      "length": 4,
+      "width": 6,
       "angle": -180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-81, 23.5],
-      "length": 6,
-      "width": 4,
+      "location": [-74.5, 25.5],
+      "length": 4,
+      "width": 6,
       "angle": 180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-79, -21],
-      "length": 6,
-      "width": 4,
+      "location": [-74.5, -25.5],
+      "length": 4,
+      "width": 6,
       "angle": -180,
-      "contrailSize": 4,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-79, 21],
-      "length": 6,
-      "width": 4,
-      "angle": 180,
-      "contrailSize": 4,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-76.5, -16],
-      "length": 8,
-      "width": 4,
-      "angle": -180,
-      "contrailSize": 4,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-76.5, 16],
-      "length": 8,
-      "width": 4,
-      "angle": 180,
-      "contrailSize": 4,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-78, -10.5],
-      "length": 8,
-      "width": 4,
-      "angle": -180,
-      "contrailSize": 4,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-78, 10.5],
-      "length": 8,
-      "width": 4,
-      "angle": 180,
-      "contrailSize": 4,
+      "contrailSize": 6,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }
