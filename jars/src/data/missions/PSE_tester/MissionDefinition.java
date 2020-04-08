@@ -25,13 +25,24 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         // Set up the player's fleet
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, true);
+        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
+
+        api.addToFleet(FleetSide.PLAYER, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
+
 
         // Set up the enemy fleet
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.ENEMY, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
+
+        api.addToFleet(FleetSide.ENEMY, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.ENEMY, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
 
         // Set up the map.
-        float width = 20000f;
-        float height = 20000f;
+        float width = 10000f;
+        float height = 10000f;
         api.initMap(-width / 2f, width / 2f, -height / 2f, height / 2f);
 
         float minX = -width / 2;
