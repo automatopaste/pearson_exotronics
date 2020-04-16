@@ -1,0 +1,36 @@
+todo - add hullmod packages that shift drone playstyle
+
+Ships:
+
+    Frigates
+        -line combat frigate - COMPLETED - Cassius
+        -small combat freighter - SKETCHED - Torrens
+        -advanced combat frigate - SKETCHED - Kiruna
+        -civilian freighter - SKETCHED - Eyre
+
+    Destroyers:
+        -heavy combat destroyer - COMPLETED - Denmark
+        -line combat destroyer - SKETCHED - Richmond
+        -carrier destroyer - SKETCHED - Armstrong
+        -super destroyer
+        -civilian freighter
+
+    Cruisers:
+        -line combat cruiser - SKETCHED - Hammond
+        -line carrier cruiser - SKETCHED - Essendon
+        -heavy combat cruiser - SKETCHED - Serrano
+        -civilian freighter
+        -fast combat cruiser - SKETCHED - Leyland
+
+    Capitals
+        -line combat capital - SKETCHED - Kingston
+        -fast combat capital - SKETCHED - Roland
+
+Weapons:
+
+    Energy:
+       -medium - long range HE beam, for use on drones, modular
+       -light - mid range HE PD beam, for use on drones, modular
+
+    Missile:
+       -medium: mid range energy damage missile, poor tracking

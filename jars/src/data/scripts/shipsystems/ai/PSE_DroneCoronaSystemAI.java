@@ -3,21 +3,20 @@ package data.scripts.shipsystems.ai;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.shipsystems.PSE_droneCorona;
+import data.scripts.shipsystems.PSE_DroneCorona;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
-import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
 
-public class PSE_droneCoronaSystemAI implements ShipSystemAIScript {
+public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
 
     private ShipAPI ship;
     private CombatEngineAPI engine;
     private ShipwideAIFlags flags;
     private ShipSystemAPI system;
-    private PSE_droneCorona droneSystem;
+    private PSE_DroneCorona droneSystem;
 
     private IntervalUtil tracker = new IntervalUtil(0.5f, 1f);
 
@@ -49,13 +48,10 @@ public class PSE_droneCoronaSystemAI implements ShipSystemAIScript {
         //unique identifier so that individual system can be gotten from combat engine custom data
         UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
 
-        this.droneSystem = (PSE_droneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        this.droneSystem = (PSE_DroneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (droneSystem == null) {
-            engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_SHIP_AI", "graphics/icons/hullsys/drone_pd_high.png", "AI ", "returning null", true);
             return;
         }
-
-        engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_SHIP_AI", "graphics/icons/hullsys/drone_pd_high.png", "AI ", "not returning null", true);
 
         if (target != null) {
             float TARGET_VENT_TIME_REMAINING_THRESHOLD = 4f;

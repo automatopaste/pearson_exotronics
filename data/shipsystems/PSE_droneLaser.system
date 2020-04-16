@@ -4,7 +4,7 @@
     "type": "STAT_MOD",
     "aiType": "NONE",
 
-    "statsScript": "data.scripts.shipsystems.PSE_droneLaser",
+    "statsScript": "data.scripts.shipsystems.PSE_DroneLaser",
 
     #"loopSound": "system_high_energy_focus_loop",
     #"deactivateSound":"system_high_energy_focus_deactivate",

@@ -31,6 +31,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
 
+        api.addToFleet(FleetSide.PLAYER, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
 
         // Set up the enemy fleet
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Assault", FleetMemberType.SHIP, false);

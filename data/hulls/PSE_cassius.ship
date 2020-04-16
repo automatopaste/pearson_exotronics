@@ -7,8 +7,8 @@
   "height": 73,
   "width": 104,
   "center": [52, 36.5],
-  "collisionRadius": 84.5,
-  "shieldCenter": [-6, -0],
+  "collisionRadius": 92,
+  "shieldCenter": [0, -0],
   "shieldRadius": 80,
   "viewOffset": 0,
   "builtInWeapons": {

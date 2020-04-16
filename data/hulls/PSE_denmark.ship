@@ -9,7 +9,7 @@
   "center": [80, 100],
   "collisionRadius": 180,
   "shieldCenter": [-12, -0],
-  "shieldRadius": 190,
+  "shieldRadius": 151.5,
   "viewOffset": 0,
   "builtInWeapons": {
     "WS0007": "PSE_denmark_deco",
@@ -58,7 +58,7 @@
       "type": "BALLISTIC",
       "mount": "HARDPOINT",
       "arc": 10,
-      "angle": 156.5,
+      "angle": -0,
       "locations": [77, 22]
     },
     {
@@ -67,7 +67,7 @@
       "type": "BALLISTIC",
       "mount": "HARDPOINT",
       "arc": 10,
-      "angle": -156.5,
+      "angle": 0,
       "locations": [77, -22]
     },
     {

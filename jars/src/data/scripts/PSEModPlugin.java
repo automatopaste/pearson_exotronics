@@ -6,7 +6,7 @@ import com.fs.starfarer.api.Global;
 //import data.scripts.weapons.ai.kiprad_eclipseAI;
 //import data.scripts.world.kiprad.KIPRADGen;//
 //import data.scripts.ai.PSE_droneCoronaDroneAI;
-import data.scripts.ai.PSE_droneCoronaDroneAI;
+import data.scripts.util.PSE_BaseUtil;
 import exerelin.campaign.SectorManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,10 +14,19 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class PSEModPlugin extends BaseModPlugin {
+    public static final String MOD_ID = "pearson_exotronics";
+    public static final String MOD_AUTHOR = "tomatopaste";
+    public static final String MOD_ERROR_PREFIX =
+            System.lineSeparator()
+                    + System.lineSeparator() + MOD_ID + " by " + MOD_AUTHOR
+                    + System.lineSeparator() + System.lineSeparator()
+                    + "This wasn't supposed to happen..."
+                    + System.lineSeparator();
 
     public static final String DEUCES_DRONE_CORONA_ID = "PSE_deuces";
 
     public static JSONObject droneCoronaSpecJson;
+    public static JSONObject droneBastionSpecJson;
 
     @Override
     public void onNewGame() {
@@ -54,16 +63,24 @@ public class PSEModPlugin extends BaseModPlugin {
 
         //load some custom jsons
         droneCoronaSpecJson = loadDroneCoronaSpecJson();
+        droneBastionSpecJson = loadDroneBastionSpecJson();
+    }
 
+    public JSONObject loadDroneBastionSpecJson() {
+        try {
+            return PSE_BaseUtil.getDroneBastionSpecJson();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException(MOD_ERROR_PREFIX + "Incorrectly loaded JSON file in: " + new Throwable().getStackTrace()[0].getMethodName());
     }
 
     public JSONObject loadDroneCoronaSpecJson() {
         try {
-            return PSE_specJsonLoader.getDroneCoronaSpecJson();
+            return PSE_BaseUtil.getDroneCoronaSpecJson();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException(MOD_ERROR_PREFIX + "Incorrectly loaded JSON file in: " + new Throwable().getStackTrace()[0].getMethodName());
     }
-
 }

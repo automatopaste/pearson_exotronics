@@ -1,6 +1,5 @@
 package data.scripts.shipsystems;
 
-import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
@@ -9,18 +8,18 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDroneAPI;
 import data.scripts.PSEModPlugin;
-import data.scripts.plugins.PSE_droneManagerPlugin;
+import data.scripts.plugins.PSE_DroneManagerPlugin;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PSE_droneCorona extends BaseShipSystemScript {
+public class PSE_DroneBastion extends BaseShipSystemScript {
     static final float FLUX_PER_SECOND = 100f;
 
-    public enum CoronaDroneOrders {
-        DEPLOY,
-        ATTACK,
+    public enum BastionDroneOrders {
+        CARDINAL,
+        FRONT,
         RECALL
     }
 
@@ -28,7 +27,7 @@ public class PSE_droneCorona extends BaseShipSystemScript {
 
     private CombatEngineAPI engine;
 
-    private CoronaDroneOrders droneOrders = CoronaDroneOrders.RECALL;
+    private BastionDroneOrders droneOrders = BastionDroneOrders.RECALL;
 
     private ShipAPI ship;
 
@@ -41,12 +40,12 @@ public class PSE_droneCorona extends BaseShipSystemScript {
     private float launchSpeed;
     private String droneVariant;
 
-    private PSE_droneManagerPlugin plugin;
+    private PSE_DroneManagerPlugin plugin;
 
     private boolean canSwitchDroneOrders;
 
-    public PSE_droneCorona() {
-        this.specJson = PSEModPlugin.droneCoronaSpecJson;
+    public PSE_DroneBastion() {
+        this.specJson = PSEModPlugin.droneBastionSpecJson;
         try {
             this.maxDeployedDrones = specJson.getInt("maxDrones");
         } catch (JSONException e) {
@@ -80,7 +79,7 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = "PSE_droneBastion_" + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }
@@ -90,14 +89,6 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
-                /*
-                if (getNextOrder() == CoronaDroneOrders.ATTACK) {
-                    ship.getSystem().setFluxPerSecond(FLUX_PER_SECOND);
-                } else {
-                    ship.getSystem().setFluxPerSecond(0f);
-                }
-
-                 */
                 nextDroneOrder();
                 canSwitchDroneOrders = false;
             }
@@ -121,7 +112,7 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         return -1;
     }
 
-    public CoronaDroneOrders getDroneOrders() {
+    public BastionDroneOrders getDroneOrders() {
         return droneOrders;
     }
 
@@ -137,30 +128,30 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         return this.droneVariant;
     }
 
-    public PSE_droneManagerPlugin getPlugin() {
+    public PSE_DroneManagerPlugin getPlugin() {
         return plugin;
     }
 
-    public CoronaDroneOrders getNextOrder() {
-        if (droneOrders.ordinal() == CoronaDroneOrders.values().length - 1) {
-            return CoronaDroneOrders.values()[0];
+    public BastionDroneOrders getNextOrder() {
+        if (droneOrders.ordinal() == BastionDroneOrders.values().length - 1) {
+            return BastionDroneOrders.values()[0];
         }
-        return CoronaDroneOrders.values()[droneOrders.ordinal() + 1];
+        return BastionDroneOrders.values()[droneOrders.ordinal() + 1];
     }
 
     public void maintainStatusMessage() {
         switch (droneOrders) {
-            case DEPLOY:
-                engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
+            case CARDINAL:
+                engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
                 break;
-            case ATTACK:
-                engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "FOCUS FORMATION", false);
+            case FRONT:
+                engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "FRONT FORMATION", false);
                 break;
             case RECALL:
                 if (deployedDrones.isEmpty()) {
-                    engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
+                    engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
                 } else {
-                    engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
+                    engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
                 }
                 break;
         }
@@ -170,9 +161,13 @@ public class PSE_droneCorona extends BaseShipSystemScript {
         return deployedDrones;
     }
 
+    public void setDeployedDrones(ArrayList<PSEDroneAPI> list) {
+        this.deployedDrones = list;
+    }
+
     public void ensurePluginExistence() {
         if (plugin == null) {
-            plugin = new PSE_droneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
+            plugin = new PSE_DroneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
             engine.addPlugin(plugin);
         }
     }

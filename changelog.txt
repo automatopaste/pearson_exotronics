@@ -1,3 +1,8 @@
+========Beta 0.3b========
+-added kiruna frigate
+-added bastion system
+-fixed json loading
+-adjusted shield arcs of denmark and cassius
 ========Beta 0.3a========
 -added cassius frigate
 -polished corona system behaviour

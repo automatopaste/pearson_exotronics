@@ -7,7 +7,7 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
 import java.util.List;
 
-public class PSE_droneLaser extends BaseShipSystemScript {
+public class PSE_DroneLaser extends BaseShipSystemScript {
     static final String FOCUS_WEAPON_ID = "hil";
     static final String PD_WEAPON_ID = "pdlaser";
 
