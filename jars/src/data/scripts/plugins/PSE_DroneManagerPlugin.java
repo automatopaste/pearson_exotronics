@@ -67,6 +67,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         if (engine.isPaused()) {
             return;
         }
+        if (ship == null) {
+            return;
+        }
 
         int numDronesActive;
         ArrayList<PSEDroneAPI> deployedDrones = null;

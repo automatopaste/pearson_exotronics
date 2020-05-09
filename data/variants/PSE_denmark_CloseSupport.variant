@@ -3,7 +3,7 @@
   "hullId": "PSE_denmark",
   "displayName": "Close Support",
   "goalVariant": true,
-  "fluxCapacitors": 17,
+  "fluxCapacitors": 13,
   "fluxVents": 20,
   "quality": 0.8,
   "permaMods": [],
@@ -16,8 +16,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0005": "lightdualac",
-        "WS0006": "lightdualac"
+        "WS0005": "railgun",
+        "WS0006": "railgun"
       }
     },
     {
@@ -31,7 +31,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "lightdualac"
+        "WS0003": "lightdualmg"
       }
     },
     {

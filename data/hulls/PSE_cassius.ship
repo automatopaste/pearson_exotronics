@@ -54,92 +54,20 @@
   ],
   "engineSlots": [
     {
-      "location": [-33, -16.5],
-      "length": 6,
-      "width": 8,
-      "angle": 180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-33, 16.5],
-      "length": 6,
-      "width": 8,
-      "angle": -180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-31, -20],
-      "length": 6,
-      "width": 8,
-      "angle": 180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-31, 20],
-      "length": 6,
-      "width": 8,
-      "angle": -180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
       "location": [-30, -22.5],
-      "length": 6,
-      "width": 8,
+      "length": 9,
+      "width": 18,
       "angle": 180,
-      "contrailSize": 8,
+      "contrailSize": 18,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-30, 22.5],
-      "length": 6,
-      "width": 8,
+      "length": 9,
+      "width": 18,
       "angle": -180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-29.5, -25],
-      "length": 6,
-      "width": 8,
-      "angle": 180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-29.5, 25],
-      "length": 6,
-      "width": 8,
-      "angle": -180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-29.5, -29.5],
-      "length": 6,
-      "width": 8,
-      "angle": 180,
-      "contrailSize": 8,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-29.5, 29.5],
-      "length": 6,
-      "width": 8,
-      "angle": -180,
-      "contrailSize": 8,
+      "contrailSize": 18,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },

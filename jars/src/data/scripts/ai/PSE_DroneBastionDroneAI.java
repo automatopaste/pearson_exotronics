@@ -14,10 +14,14 @@ import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+
+
 import static data.scripts.util.PSE_DroneUtil.getNearestEnemyFighter;
 import static data.scripts.util.PSE_DroneUtil.getNearestEnemyNonFighterShip;
 
 public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
+
+
 
     private final PSEDroneAPI drone;
     private final ShipAPI ship;
@@ -67,6 +71,8 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         }
 
         this.UNIQUE_SYSTEM_ID = "PSE_droneBastion_" + ship.hashCode();
+
+        drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
 
     @Override

@@ -31,8 +31,11 @@ public class PSEModPlugin extends BaseModPlugin {
     @Override
     public void onNewGame() {
         boolean haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
-        if (!haveNexerelin || SectorManager.getCorvusMode()) {
-            //new KIPRADGen().generate(Global.getSector());
+        boolean haveSSTC = Global.getSettings().getModManager().isModEnabled("salvage_and_solder_tc");
+        if (!haveSSTC) {
+
+        }else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
+            //do generation
         }
     }
 

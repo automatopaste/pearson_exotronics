@@ -1,0 +1,35 @@
+{
+  "variantId": "PSE_kiruna_Strike",
+  "hullId": "PSE_kiruna",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 3,
+  "quality": 0.8,
+  "permaMods": [],
+  "hullMods": [
+    "unstable_injector",
+    "fluxbreakers",
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0001": "amblaster",
+        "WS0002": "amblaster"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0006": "sabot",
+        "WS0007": "sabot"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

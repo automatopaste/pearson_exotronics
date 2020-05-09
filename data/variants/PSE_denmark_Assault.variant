@@ -3,7 +3,7 @@
   "hullId": "PSE_denmark",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 14,
+  "fluxCapacitors": 16,
   "fluxVents": 20,
   "quality": 0.9,
   "permaMods": [],
@@ -38,8 +38,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "lrpdlaser",
-        "WS0002": "lrpdlaser"
+        "WS0001": "pdlaser",
+        "WS0002": "pdlaser"
       }
     }
   ],

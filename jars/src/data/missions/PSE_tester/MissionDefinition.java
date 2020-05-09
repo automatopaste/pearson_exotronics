@@ -24,7 +24,9 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addBriefingItem("Dick around with these ships for science.");
 
         // Set up the player's fleet
-        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, true);
+        api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Assault", FleetMemberType.SHIP, true);
+
+        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
 
@@ -34,12 +36,16 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addToFleet(FleetSide.PLAYER, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
 
         // Set up the enemy fleet
+        api.addToFleet(FleetSide.ENEMY, "PSE_serrano_Assault", FleetMemberType.SHIP, false);
+
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
 
         api.addToFleet(FleetSide.ENEMY, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
+
+        api.addToFleet(FleetSide.ENEMY, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
 
         // Set up the map.
         float width = 10000f;

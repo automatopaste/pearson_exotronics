@@ -47,24 +47,6 @@
       "angle": 180,
       "contrailSize": 12,
       "style": "CUSTOM",
-      "styleId": "COBRA_BOMBER"
-    },
-    {
-      "location": [-3.5, 7],
-      "length": 5,
-      "width": 2,
-      "angle": 169,
-      "contrailSize": 2,
-      "style": "CUSTOM",
-      "styleId": "PSE_specOpsFlare"
-    },
-    {
-      "location": [-3.5, -5],
-      "length": 5,
-      "width": 2,
-      "angle": -169,
-      "contrailSize": 2,
-      "style": "CUSTOM",
       "styleId": "PSE_specOpsFlare"
     }
   ],

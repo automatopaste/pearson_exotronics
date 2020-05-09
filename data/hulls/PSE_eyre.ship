@@ -1,0 +1,68 @@
+{
+  "hullName": "Eyre",
+  "hullId": "PSE_eyre",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/PSE/ships/PSE_eyre.png",
+  "style": "MIDLINE",
+  "height": 80,
+  "width": 80,
+  "center": [40, 36.5],
+  "collisionRadius": 66,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 55.5,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0002": "PSE_denmark_deco",
+    "WS0003": "PSE_denmark_deco"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-10.5, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "TURRET",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-22, 11.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "TURRET",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-22, -11.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-33, 13.5],
+      "length": 6,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-33, -13.5],
+      "length": 6,
+      "width": 16,
+      "angle": -180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": []
+}

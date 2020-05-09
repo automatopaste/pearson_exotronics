@@ -74,6 +74,8 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         }
 
         this.UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+
+        drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
 
     @Override
@@ -123,6 +125,8 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         }
 
         engine.maintainStatusForPlayerShip("PSE_STATUS_KEY" + drone.getId(), "graphics/icons/hullsys/drone_pd_high.png", "title", "" + droneIndex + " " + initialOrbitAngle + " " + focusModeOrbitAngle + " " + orbitRadius, true);
+
+        float sanity = 1f;
 
 
         /////////////////////////
@@ -195,7 +199,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
                 movementTargetLocation = ship.getLocation();
         }
 
-        move(droneFacing, movementTargetLocation);
+        move(droneFacing, movementTargetLocation, sanity);
 
         //useful debugging things
         //engine.maintainStatusForPlayerShip("PSE_STATUS_KEY" + drone.getId(), "graphics/icons/hullsys/drone_pd_high.png", "DRONE TARGET ANGLE " + droneIndex, rotationFromFacingToLocationAngle + "", true);
@@ -315,7 +319,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         return targetedLocation;
     }
 
-    public void move(float droneFacing, Vector2f movementTargetLocation) {
+    public void move(float droneFacing, Vector2f movementTargetLocation, float sanity) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
 
         //GET USEFUL VALUES
@@ -376,7 +380,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         } else {
             //COURSE CORRECTION
             if (velocityRotationIntervalTracker.intervalElapsed()) {
-                drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle));
+                drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * sanity));
             }
         }
     }
@@ -395,6 +399,10 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         if (delayBeforeLandingTracker.intervalElapsed()) {
             drone.beginLandingAnimation(ship);
         }
+    }
+
+    public void doIndependentBehaviour(float facing, float sanity) {
+        move(facing, AIUtils.getNearestEnemy(drone).getLocation(), sanity);
     }
 
     //OVERRIDES
