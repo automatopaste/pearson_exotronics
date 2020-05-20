@@ -1,0 +1,21 @@
+{
+    "id":"PSE_pulseImpeller",
+    "type":"ENGINE_MOD",
+    "aiType":"MANEUVERING_JETS",
+
+    "statsScript":"data.scripts.shipsystems.PSE_PulseImpeller",
+
+    "engineGlowLengthMult":1.5,
+
+    "flameoutOnImpactChance":0,
+
+    "useSound":"system_plasma_jets",
+
+    "outOfUsesSound":"engine_disabled",
+
+    "aiHints":{
+	"activeSpeedIncrease":125,
+        "burstMovementPotential":200,
+        "averageSpeedIncrease":25
+    }
+}

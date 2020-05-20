@@ -1,0 +1,54 @@
+{
+  "hullName": "EMP Drone",
+  "hullId": "PSE_drone2",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_drone2.png",
+  "style": "LOW_TECH",
+  "height": 32,
+  "width": 26,
+  "center": [13, 16],
+  "collisionRadius": 34.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 26.5,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0002": "irpulse_fighter"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-0.5, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 140,
+      "angle": 0,
+      "locations": [-5, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-7, -0],
+      "length": 11,
+      "width": 13,
+      "angle": 180,
+      "contrailSize": 13,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    6, -10,
+    -12, -10,
+    -12, 10,
+    6, 10
+  ]
+}

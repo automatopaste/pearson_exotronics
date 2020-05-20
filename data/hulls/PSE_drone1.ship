@@ -1,0 +1,59 @@
+{
+  "hullName": "PD Drone Mk1",
+  "hullId": "PSE_drone1",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_drone1.png",
+  "style": "MIDLINE",
+  "height": 34,
+  "width": 26,
+  "center": [13, 17],
+  "collisionRadius": 43,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 24,
+  "viewOffset": 0,
+  "builtInMods": [
+    "no_weapon_flux",
+    "terminator_core"
+  ],
+  "builtInWeapons": {
+    "WS0001": "pdlaser",
+    "WS0002": "hil"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 90,
+      "angle": 0,
+      "locations": [-1.5, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 40,
+      "angle": 0,
+      "locations": [-17, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-12.5, -0],
+      "length": 15,
+      "width": 18,
+      "angle": 180,
+      "contrailSize": 18,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    9.5, -8.5,
+    -11, -8.5,
+    -11, 8.5,
+    9.5, 8.5
+  ]
+}
