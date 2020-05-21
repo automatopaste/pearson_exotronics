@@ -5,6 +5,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.shipsystems.PSE_DroneBastion;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -53,74 +54,49 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
             return;
         }
 
-        if (target != null) {
-            float TARGET_VENT_TIME_REMAINING_THRESHOLD = 4f;
-            isTargetVulnerable = target.getShield() == null || (target.getFluxTracker().isOverloadedOrVenting() && (target.getFluxTracker().getTimeToVent() > TARGET_VENT_TIME_REMAINING_THRESHOLD || target.getFluxTracker().getOverloadTimeRemaining() > TARGET_VENT_TIME_REMAINING_THRESHOLD));
-
-            float distanceToTarget = MathUtils.getDistance(ship.getLocation(), target.getLocation());
-
-            isShipInFocusModeEngagementRange = droneLongestWeaponRange >= distanceToTarget;
-        }
-
         if (tracker.intervalElapsed()  && ship != null) {
             List<MissileAPI> missilesInRange = AIUtils.getNearbyEnemyMissiles(ship, longestWeaponRange);
-            boolean isMissileThreatPresent;
-            isMissileThreatPresent = !missilesInRange.isEmpty();
-
-            List<ShipAPI> shipsInRange = AIUtils.getNearbyEnemies(ship, longestWeaponRange);
-            boolean isBomberThreatPresent;
-            if (!shipsInRange.isEmpty()) {
-                int num = 0;
-
-                for (ShipAPI ship : shipsInRange) {
-                    if (ship.getHullSize() == ShipAPI.HullSize.FIGHTER) {
-                        for (WeaponAPI weapon : ship.getAllWeapons()) {
-                            if (weapon.getType().equals(WeaponAPI.WeaponType.MISSILE)) {
-                                num++;
-                            }
-                        }
+            boolean isMissileThreatPresent = !missilesInRange.isEmpty();
+            float missileThreatAngle = 0;
+            if (isMissileThreatPresent) {
+                for (MissileAPI missile : missilesInRange) {
+                    float a = MathUtils.getShortestRotation(ship.getFacing(), VectorUtils.getFacing(VectorUtils.getDirectionalVector(ship.getLocation(), missile.getLocation())));
+                    a = Math.abs(a);
+                    if (a > missileThreatAngle) {
+                        missileThreatAngle = a;
                     }
                 }
-
-                isBomberThreatPresent = (num > 0);
-            } else {
-                isBomberThreatPresent = false;
             }
 
-            boolean PANICAAAAA = isMissileThreatPresent || isBomberThreatPresent;
+            List<ShipAPI> shipsInRange = AIUtils.getNearbyEnemies(ship, longestWeaponRange);
+            boolean isShipThreatPresent = !shipsInRange.isEmpty();
+            float shipThreatAngle = 0;
+            if (isShipThreatPresent) {
+                for (ShipAPI eship : shipsInRange) {
+                    float a = MathUtils.getShortestRotation(ship.getFacing(), VectorUtils.getFacing(VectorUtils.getDirectionalVector(ship.getLocation(), eship.getLocation())));
+                    a = Math.abs(a);
+                    if (a > shipThreatAngle) {
+                        shipThreatAngle = a;
+                    }
+                }
+            }
 
             switch (droneSystem.getDroneOrders()) {
                 case CARDINAL:
-
-                    for (ShipAPI drone : droneSystem.getDeployedDrones()) {
-                        List<WeaponAPI> weapons = drone.getAllWeapons();
-                        for (WeaponAPI weapon : weapons) {
-                            if (weapon.getRange() > droneLongestWeaponRange) {
-                                droneLongestWeaponRange = weapon.getRange();
-                            }
-                        }
-                    }
-
-
-                    if (isTargetVulnerable) {
-                        ship.useSystem();
-                    } else if (!PANICAAAAA && isShipInFocusModeEngagementRange) {
-                        ship.useSystem();
-                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle < 60 || missileThreatAngle < 90)) {
                         ship.useSystem();
                     }
-
                     break;
                 case FRONT:
                     //switch to defensive mode if pilot is not a gigachad HIL user
-                    if (PANICAAAAA && (!ship.getFleetMember().getCaptain().getPersonalityAPI().equals(Personalities.RECKLESS) || ship.getFleetMember().getCaptain().getPersonalityAPI().equals(Personalities.AGGRESSIVE))) {
+                    if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle >= 60 || missileThreatAngle >= 90)) {
                         ship.useSystem();
-                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    } else if (AIUtils.getNearbyEnemies(ship, longestWeaponRange * 2f).isEmpty()) {
                         ship.useSystem();
                     }
                     break;
                 case RECALL:
-                    if (!AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    if (!AIUtils.getNearbyEnemies(ship, longestWeaponRange * 2f).isEmpty()) {
                         ship.useSystem();
                     }
                     break;

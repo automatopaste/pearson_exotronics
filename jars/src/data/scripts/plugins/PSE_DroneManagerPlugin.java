@@ -14,6 +14,7 @@ import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -87,7 +88,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.RECALL) && system.getAmmo() > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
-                        coronaSystem.getDeployedDrones().add(spawnDroneFromShip("PSE_deuces_wing"));
+                        coronaSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
                         system.setAmmo(system.getAmmo() - 1);
@@ -96,6 +97,14 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
                 if (coronaSystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
                     coronaSystem.nextDroneOrder();
+                }
+
+                if (coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
+                    ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 6, 1f, 2f);
+
+                    ship.getMutableStats().getFluxDissipation().modifyMult("DroneManagerPlugin"+this.hashCode(), 0f);
+                } else {
+                    ship.getMutableStats().getFluxDissipation().unmodify();
                 }
 
                 coronaSystem.setDeployedDrones(deployedDrones);
@@ -114,7 +123,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 if (numDronesActive < maxDeployedDrones && !bastionSystem.getDroneOrders().equals(PSE_DroneBastion.BastionDroneOrders.RECALL) && system.getAmmo() > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
-                        bastionSystem.getDeployedDrones().add(spawnDroneFromShip("PSE_deuces_wing"));
+                        bastionSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
                         system.setAmmo(system.getAmmo() - 1);

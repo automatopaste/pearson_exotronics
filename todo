@@ -30,7 +30,7 @@ Weapons:
 
     Energy:
        -medium - long range HE beam, for use on drones, modular
-       -light - mid range HE PD beam, for use on drones, modular
+       -small - mid range gatling beam cannon
 
     Missile:
        -medium: mid range energy damage missile, poor tracking

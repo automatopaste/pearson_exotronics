@@ -8,8 +8,7 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import java.util.List;
 
 public class PSE_DroneLaser extends BaseShipSystemScript {
-    static final String FOCUS_WEAPON_ID = "hil";
-    static final String PD_WEAPON_ID = "pdlaser";
+    static final String WEAPON_ID = "hil";
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
@@ -19,14 +18,14 @@ public class PSE_DroneLaser extends BaseShipSystemScript {
         } else {
             return;
         }
+        if (ship.isHulk()) {
+            return;
+        }
 
         List<WeaponAPI> weapons = ship.getAllWeapons();
         if (weapons != null) {
             for (WeaponAPI weapon : weapons) {
-                if (weapon.getId().equals(PD_WEAPON_ID)) {
-                    weapon.disable(true);
-                }
-                if (weapon.getId().equals(FOCUS_WEAPON_ID)) {
+                if (weapon.getId().equals(WEAPON_ID)) {
                     weapon.repair();
                 }
             }
@@ -45,10 +44,7 @@ public class PSE_DroneLaser extends BaseShipSystemScript {
         List<WeaponAPI> weapons = ship.getAllWeapons();
         if (weapons != null) {
             for (WeaponAPI weapon : weapons) {
-                if (weapon.getId().equals(PD_WEAPON_ID)) {
-                    weapon.repair();
-                }
-                if (weapon.getId().equals(FOCUS_WEAPON_ID)) {
+                if (weapon.getId().equals(WEAPON_ID)) {
                     weapon.disable(true);
                 }
             }

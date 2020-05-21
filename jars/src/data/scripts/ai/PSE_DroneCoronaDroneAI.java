@@ -2,20 +2,20 @@ package data.scripts.ai;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDroneAPI;
 import data.scripts.PSEModPlugin;
 import data.scripts.shipsystems.PSE_DroneCorona;
+import data.scripts.util.PSE_DroneUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
+import java.util.Objects;
 
 import static data.scripts.util.PSE_DroneUtil.getNearestEnemyFighter;
 import static data.scripts.util.PSE_DroneUtil.getNearestEnemyNonFighterShip;
@@ -40,12 +40,10 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
     //USED FOR SYSTEM ACTIVATION AI
     private final String PD_WEAPON_ID = "pdlaser";
-    private final String FOCUS_WEAPON_ID = "hil";
     private float PDWeaponRange;
     private float focusWeaponRange;
     private boolean isInFocusMode;
 
-    private String DRONE_UNIQUE_ID;
     private String UNIQUE_SYSTEM_ID;
 
     public PSE_DroneCoronaDroneAI(PSEDroneAPI passedDrone) {
@@ -66,6 +64,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         List<WeaponAPI> droneWeapons = drone.getAllWeapons();
 
         for (WeaponAPI weapon : droneWeapons) {
+            String FOCUS_WEAPON_ID = "hil";
             if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
                 PDWeaponRange = weapon.getRange();
             } else if (weapon.getId().contentEquals(FOCUS_WEAPON_ID)) {
@@ -107,24 +106,22 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             }
 
             try {
-                initialOrbitAngle = droneConfigPerIndexJsonObject.getInt("initialOrbitAngle");
+                initialOrbitAngle = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             try {
-                focusModeOrbitAngle = droneConfigPerIndexJsonObject.getInt("focusModeOrbitAngle");
+                focusModeOrbitAngle = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             try {
-                orbitRadius = droneConfigPerIndexJsonObject.getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
+                orbitRadius = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
              hasLoadedJson = true;
         }
-
-        engine.maintainStatusForPlayerShip("PSE_STATUS_KEY" + drone.getId(), "graphics/icons/hullsys/drone_pd_high.png", "title", "" + droneIndex + " " + initialOrbitAngle + " " + focusModeOrbitAngle + " " + orbitRadius, true);
 
         float sanity = 1f;
 
@@ -144,8 +141,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
 
         //ROTATION
-        rotateToTarget(targetedLocation, droneFacing, 0.1f);
-
+        PSE_DroneUtil.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
 
         ////////////////////////
         ///MOVEMENT BEHAVIOUR///
@@ -171,7 +167,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
                 break;
             case RECALL:
-                attemptToLand(amount);
+                PSE_DroneUtil.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
 
                 if (landingLocation == null) {
                     landingLocation = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponAPI();
@@ -199,11 +195,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
                 movementTargetLocation = ship.getLocation();
         }
 
-        move(droneFacing, movementTargetLocation, sanity);
-
-        //useful debugging things
-        //engine.maintainStatusForPlayerShip("PSE_STATUS_KEY" + drone.getId(), "graphics/icons/hullsys/drone_pd_high.png", "DRONE TARGET ANGLE " + droneIndex, rotationFromFacingToLocationAngle + "", true);
-        //engine.maintainStatusForPlayerShip("PSE_STATUS_KEY1", "graphics/icons/hullsys/drone_pd_high.png", "DRONE DECEL DISTANCE" + droneIndex, "" + decelerationDistance, true);
+        PSE_DroneUtil.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 2f);
 
 
         ///////////////////////////////////
@@ -211,56 +203,28 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         ///////////////////////////////////
 
 
-        if (droneIndex == 0) {
-            if (isInFocusMode) {
-                if (!drone.getSystem().isStateActive()) {
-                    drone.useSystem();
-                }
-            } else {
-                if (drone.getSystem().isStateActive()) {
-                    drone.useSystem();
+        if (isInFocusMode) {
+            for (WeaponAPI weapon : drone.getAllWeapons()) {
+                if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
+                    weapon.disable(true);
                 }
             }
-        } else {
-            if (isInFocusMode) {
-                for (WeaponAPI weapon : drone.getAllWeapons()) {
-                    if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
-                        weapon.disable(true);
-                    }
-                }
+
+            if (droneIndex == 0 && !drone.getSystem().isStateActive()) {
+                drone.useSystem();
+            }
             } else {
-                for (WeaponAPI weapon : drone.getAllWeapons()) {
-                    if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
-                        weapon.repair();
-                    }
+            for (WeaponAPI weapon : drone.getAllWeapons()) {
+                if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
+                    weapon.repair();
                 }
+            }
+
+            if (droneIndex == 0 && drone.getSystem().isStateActive()) {
+                drone.useSystem();
             }
         }
     }
-
-    //FUNCTIONS
-    public void rotateToTarget(Vector2f targetedLocation, float droneFacing, float rotationMagnitude) {
-        //ROTATION
-
-        //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm)
-        //float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
-
-        //point at target, if that doesn't exist then point in direction of mothership facing
-        float rotationAngleDelta;
-        if (targetedLocation != null) {
-            //GET ABSOLUTE ANGLE FROM DRONE TO TARGETED LOCATION
-            Vector2f droneToTargetedLocDir = VectorUtils.getDirectionalVector(drone.getLocation(), targetedLocation);
-            float droneAngleToTargetedLoc = VectorUtils.getFacing(droneToTargetedLocDir); //ABSOLUTE 360 ANGLE
-
-            rotationAngleDelta = MathUtils.getShortestRotation(droneFacing, droneAngleToTargetedLoc);
-        } else {
-            rotationAngleDelta = MathUtils.getShortestRotation(droneFacing, ship.getFacing());
-        }
-
-        //ROTATE TOWARDS TARGET would prefer to use shipcommands but this is more reliable
-        drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
-    }
-
 
     public Vector2f getTargetLocation(boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
         //GET NEARBY OBJECTS TO SHOOT AT priority missiles > fighters > ships
@@ -319,91 +283,9 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         return targetedLocation;
     }
 
-    public void move(float droneFacing, Vector2f movementTargetLocation, float sanity) {
-        //The bones of the movement AI are below, all it needs is a target vector location to move to
-
-        //GET USEFUL VALUES
-        float angleFromDroneToTargetLocation = VectorUtils.getAngle(drone.getLocation(), movementTargetLocation); //ABSOLUTE 360 ANGLE
-
-        float droneVelocityAngle = VectorUtils.getFacing(drone.getVelocity()); //ABSOLUTE 360 ANGLE
-
-        float rotationFromFacingToLocationAngle = MathUtils.getShortestRotation(droneFacing, angleFromDroneToTargetLocation); //ROTATION ANGLE
-        float rotationFromVelocityToLocationAngle = MathUtils.getShortestRotation(droneVelocityAngle, angleFromDroneToTargetLocation); //ROTATION ANGLE
-
-        float distanceToTargetLocation = MathUtils.getDistance(drone.getLocation(), movementTargetLocation); //DISTANCE
-
-
-        //CHECK IF VELOCITY INTERSECTS WITH TARGET LOCATION
-        boolean isDronePathIntersectingTarget;
-        isDronePathIntersectingTarget = Math.round(droneVelocityAngle) == Math.round(angleFromDroneToTargetLocation);
-
-
-        //FIND DISTANCE THAT CAN BE DECELERATED FROM CURRENT SPEED TO ZERO s = v^2 / 2a
-        float decelerationDistance = (float) (Math.pow(drone.getVelocity().length(), 2)) / (2 * drone.getDeceleration());
-
-
-        //DECELERATE IF IN THRESHOLD DISTANCE OF TARGET
-        if (distanceToTargetLocation <= decelerationDistance) {
-            drone.giveCommand(ShipCommand.DECELERATE, null, 0);
-        }
-
-        //DO LARGE MOVEMENT IF OVER DISTANCE THRESHOLD
-        if (distanceToTargetLocation >= decelerationDistance) {
-            rotationFromFacingToLocationAngle = Math.round(rotationFromFacingToLocationAngle);
-
-            //COURSE CORRECTION
-            drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * 0.05f));
-
-            if (!isDronePathIntersectingTarget) {
-                //accelerate forwards or backwards
-                if (
-                        90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -90f
-                ) { //between 90 and -90 is an acute angle therefore in front
-                    drone.giveCommand(ShipCommand.ACCELERATE, null, 0);
-                } else if (
-                        (180f >= rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 90f) || (-90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle >= -180f)
-                ) { //falls between 90 to 180 or -90 to -180, which should be obtuse and thus relatively behind
-                    drone.giveCommand(ShipCommand.ACCELERATE_BACKWARDS, null, 0);
-                }
-
-                //strafe left or right
-                if (
-                        180f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 0f
-                ) { //between 0 and 180 (i.e. left)
-                    drone.giveCommand(ShipCommand.STRAFE_LEFT, null, 0);
-                } else if (
-                        0f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -180f
-                ) { //between 0 and -180 (i.e. right)
-                    drone.giveCommand(ShipCommand.STRAFE_RIGHT, null, 0);
-                }
-            }
-        } else {
-            //COURSE CORRECTION
-            if (velocityRotationIntervalTracker.intervalElapsed()) {
-                drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * sanity));
-            }
-        }
-    }
-
-    public void attemptToLand(float amount) {
-        delayBeforeLandingTracker.advance(amount);
-
-        if (drone.isLanding()) {
-            delayBeforeLandingTracker.setElapsed(0);
-            engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_DRONE_LANDING_STATE", "graphics/icons/hullsys/drone_pd_high.png", "LANDING STATUS", "LANDING... ", false);
-        } else {
-            float round = Math.round((delayBeforeLandingTracker.getIntervalDuration() - delayBeforeLandingTracker.getElapsed()) * 100) / 100f;
-            engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_DRONE_LANDING_STATE", "graphics/icons/hullsys/drone_pd_high.png", "LANDING STATUS", "LANDING IN " + round, false);
-        }
-
-        if (delayBeforeLandingTracker.intervalElapsed()) {
-            drone.beginLandingAnimation(ship);
-        }
-    }
-
+    /*
     public void doIndependentBehaviour(float facing, float sanity) {
-        move(facing, AIUtils.getNearestEnemy(drone).getLocation(), sanity);
-    }
+    }*/
 
     //OVERRIDES
 

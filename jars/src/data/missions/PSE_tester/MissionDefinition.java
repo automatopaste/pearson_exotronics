@@ -29,6 +29,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
 
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
@@ -41,6 +43,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.ENEMY, "PSE_richmond_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.ENEMY, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
 
         api.addToFleet(FleetSide.ENEMY, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);

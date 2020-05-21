@@ -13,11 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PSE_DroneCorona extends BaseShipSystemScript {
-    static final float FLUX_PER_SECOND = 100f;
-
     public enum CoronaDroneOrders {
         DEPLOY,
         ATTACK,
@@ -32,9 +29,6 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
 
     private ShipAPI ship;
 
-    //json as loaded from shipsystem file
-    private JSONObject specJson;
-
     //initialise values from json
     private int maxDeployedDrones;
     private float launchDelay;
@@ -46,7 +40,8 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
     private boolean canSwitchDroneOrders;
 
     public PSE_DroneCorona() {
-        this.specJson = PSEModPlugin.droneCoronaSpecJson;
+        //json as loaded from shipsystem file
+        JSONObject specJson = PSEModPlugin.droneCoronaSpecJson;
         try {
             this.maxDeployedDrones = specJson.getInt("maxDrones");
         } catch (JSONException e) {
@@ -90,24 +85,12 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
-                /*
-                if (getNextOrder() == CoronaDroneOrders.ATTACK) {
-                    ship.getSystem().setFluxPerSecond(FLUX_PER_SECOND);
-                } else {
-                    ship.getSystem().setFluxPerSecond(0f);
-                }
-
-                 */
                 nextDroneOrder();
                 canSwitchDroneOrders = false;
             }
         } else {
             canSwitchDroneOrders = true;
         }
-    }
-
-    public JSONObject getSpecJson() {
-        return specJson;
     }
 
     public int getIndex(PSEDroneAPI drone) {
@@ -131,10 +114,6 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
 
     public ShipAPI getShip() {
         return this.ship;
-    }
-
-    public String getDroneVariant() {
-        return this.droneVariant;
     }
 
     public PSE_DroneManagerPlugin getPlugin() {
