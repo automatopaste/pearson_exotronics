@@ -2,6 +2,7 @@ package data.scripts.ai;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDroneAPI;
 import data.scripts.PSEModPlugin;
@@ -28,15 +29,15 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
     private boolean hasLoadedJson = false;
 
     //USED FOR MOVEMENT AND POSITIONING AI
-    private float frontOrbitAngle;
-    private float cardinalOrbitAngle;
-    private float orbitRadius;
-    WeaponAPI landingLocation;
-    IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
-    IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
+    private float[] cardinalOrbitAngleArray;
+    private float[] frontOrbitAngleArray;
+    private float[] orbitRadiusArray;
+    private IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
+    private IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
+    private WeaponSlotAPI landingSlot;
 
     //USED FOR SYSTEM ACTIVATION AI
-    private final String WEAPON_ID = "pdlaser";
+    private static final String WEAPON_ID = "pdlaser";
     private float weaponRange;
 
     private String UNIQUE_SYSTEM_ID;
@@ -69,6 +70,10 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
     @Override
     public void advance(float amount) {
+        if (engine.isPaused()) {
+            return;
+        }
+
         ////////////////////
         ///INITIALISATION///
         ///////////////////
@@ -88,32 +93,46 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
         PSE_DroneBastion.BastionDroneOrders bastionDroneOrders = shipDroneBastionSystem.getDroneOrders();
 
-        //JSON loading
+        //get number of different drone spots
+        int numIndexes = shipDroneBastionSystem.getNumIndexes();
+
+        //JSON config checking
         if (!hasLoadedJson) {
+            cardinalOrbitAngleArray = new float[numIndexes];
+            frontOrbitAngleArray = new float[numIndexes];
+            orbitRadiusArray = new float[numIndexes];
             JSONObject droneConfigPerIndexJsonObject = null;
-            try {
-                droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(droneIndex);
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+            for (int i = 0; i < numIndexes; i++) {
+                try {
+                    droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    cardinalOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    frontOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
-            try {
-                frontOrbitAngle = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                cardinalOrbitAngle = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("bastionModeOrbitAngle");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                orbitRadius = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             hasLoadedJson = true;
         }
+
+        float cardinalOrbitAngle = cardinalOrbitAngleArray[droneIndex];
+        float frontOrbitAngle = frontOrbitAngleArray[droneIndex];
+        float orbitRadius = orbitRadiusArray[droneIndex];
 
 
         /////////////////////////
@@ -147,29 +166,31 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             case CARDINAL:
                 angle = cardinalOrbitAngle + shipFacing;
 
-                landingLocation = null;
                 delayBeforeLandingTracker.setElapsed(0f);
 
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), orbitRadius, angle);
+
+                landingSlot = null;
 
                 break;
             case RECALL:
                 PSE_DroneUtil.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
 
-                if (landingLocation == null) {
-                    landingLocation = shipDroneBastionSystem.getPlugin().getLandingBayWeaponAPI();
+                if (landingSlot == null) {
+                    landingSlot = shipDroneBastionSystem.getPlugin().getLandingBayWeaponSlotAPI();
                 }
 
-                movementTargetLocation = landingLocation.getLocation();
+                movementTargetLocation = landingSlot.computePosition(ship);
 
                 break;
             case FRONT:
                 angle = frontOrbitAngle + shipFacing;
 
-                landingLocation = null;
                 delayBeforeLandingTracker.setElapsed(0f);
 
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), orbitRadius, angle);
+
+                landingSlot = null;
 
                 break;
             default:

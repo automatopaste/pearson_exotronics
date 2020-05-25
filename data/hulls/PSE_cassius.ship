@@ -11,9 +11,6 @@
   "shieldCenter": [0, -0],
   "shieldRadius": 80,
   "viewOffset": 0,
-  "builtInWeapons": {
-    "WS0004": "PSE_denmark_deco"
-  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -45,11 +42,11 @@
     {
       "id": "WS0004",
       "size": "SMALL",
-      "type": "DECORATIVE",
+      "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": 0,
-      "locations": [-23.5, -0]
+      "angle": 180,
+      "locations": [-24, -0]
     }
   ],
   "engineSlots": [

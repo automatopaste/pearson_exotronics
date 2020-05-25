@@ -11,10 +11,6 @@
   "shieldCenter": [-12, -0],
   "shieldRadius": 124.5,
   "viewOffset": 0,
-  "builtInWeapons": {
-    "WS0007": "PSE_denmark_deco",
-    "WS0008": "PSE_denmark_deco"
-  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -73,20 +69,20 @@
     {
       "id": "WS0007",
       "size": "SMALL",
-      "type": "DECORATIVE",
+      "type": "SYSTEM",
       "mount": "HIDDEN",
-      "arc": 210,
-      "angle": -105,
-      "locations": [-48.5, -34]
+      "arc": 0,
+      "angle": 0,
+      "locations": [-50.5, 34.5]
     },
     {
       "id": "WS0008",
       "size": "SMALL",
-      "type": "DECORATIVE",
+      "type": "SYSTEM",
       "mount": "HIDDEN",
-      "arc": 210,
-      "angle": 105,
-      "locations": [-48.5, 34]
+      "arc": 0,
+      "angle": -0,
+      "locations": [-50.5, -34.5]
     }
   ],
   "engineSlots": [

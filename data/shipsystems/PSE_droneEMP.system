@@ -3,10 +3,10 @@
 	"type":"EMP",
 	"aiType":"EMP",
 	
-	"range":150,
+	"range":250,
 	
-	"empDamage":500,
-	"damage":100,
+	"empDamage":300,
+	"damage":80,
 	"damageType":ENERGY,
 
 	"effectColor1":[100,150,100,200],

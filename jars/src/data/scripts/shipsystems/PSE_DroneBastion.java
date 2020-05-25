@@ -112,6 +112,10 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         return -1;
     }
 
+    public int getNumIndexes() {
+        return this.maxDeployedDrones;
+    }
+
     public BastionDroneOrders getDroneOrders() {
         return droneOrders;
     }

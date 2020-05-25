@@ -11,12 +11,6 @@
   "shieldCenter": [0, -0],
   "shieldRadius": 133,
   "viewOffset": 0,
-  "builtInWeapons": {
-    "WS0013": "PSE_denmark_deco",
-    "WS0014": "PSE_denmark_deco",
-    "WS0015": "PSE_denmark_deco",
-    "WS0016": "PSE_denmark_deco"
-  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -127,42 +121,6 @@
       "locations": [30, -0]
     },
     {
-      "id": "WS0013",
-      "size": "SMALL",
-      "type": "DECORATIVE",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": -0,
-      "locations": [11, 72.5]
-    },
-    {
-      "id": "WS0014",
-      "size": "SMALL",
-      "type": "DECORATIVE",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 0,
-      "locations": [11, -72.5]
-    },
-    {
-      "id": "WS0015",
-      "size": "SMALL",
-      "type": "DECORATIVE",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 0,
-      "locations": [63.5, 10]
-    },
-    {
-      "id": "WS0016",
-      "size": "SMALL",
-      "type": "DECORATIVE",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": -0,
-      "locations": [63.5, -10]
-    },
-    {
       "id": "LB 1",
       "size": "LARGE",
       "type": "LAUNCH_BAY",
@@ -185,6 +143,42 @@
         11.5, 72,
         63.5, 10.5
       ]
+    },
+    {
+      "id": "WS0013",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [9, -72.5]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [9, 72.5]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [64.5, -12]
+    },
+    {
+      "id": "WS0016",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [64.5, 12]
     }
   ],
   "engineSlots": [

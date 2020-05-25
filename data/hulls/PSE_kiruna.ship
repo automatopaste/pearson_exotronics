@@ -15,10 +15,6 @@
     "delicate",
     "eccm"
   ],
-  "builtInWeapons": {
-    "WS0003": "PSE_denmark_deco",
-    "WS0004": "PSE_denmark_deco"
-  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -37,24 +33,6 @@
       "arc": 60,
       "angle": -0,
       "locations": [-8.5, -30]
-    },
-    {
-      "id": "WS0003",
-      "size": "SMALL",
-      "type": "DECORATIVE",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": -0,
-      "locations": [20, 19]
-    },
-    {
-      "id": "WS0004",
-      "size": "SMALL",
-      "type": "DECORATIVE",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 0,
-      "locations": [20, -19]
     },
     {
       "id": "WS0005",
@@ -82,6 +60,24 @@
       "arc": 10,
       "angle": -0,
       "locations": [-9.5, -56]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [20, -18]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [20, 18]
     }
   ],
   "engineSlots": [

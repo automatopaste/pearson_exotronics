@@ -2,6 +2,7 @@ package data.scripts.ai;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDroneAPI;
 import data.scripts.PSEModPlugin;
@@ -31,15 +32,15 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
     private boolean hasLoadedJson = false;
 
     //USED FOR MOVEMENT AND POSITIONING AI
-    private float initialOrbitAngle;
-    private float focusModeOrbitAngle;
-    private float orbitRadius;
-    private WeaponAPI landingLocation;
+    private float[] initialOrbitAngleArray;
+    private float[] focusModeOrbitAngleArray;
+    private float[] orbitRadiusArray;
     private IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
     private IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
+    private WeaponSlotAPI landingSlot;
 
     //USED FOR SYSTEM ACTIVATION AI
-    private final String PD_WEAPON_ID = "pdlaser";
+    private static final String PD_WEAPON_ID = "pdlaser";
     private float PDWeaponRange;
     private float focusWeaponRange;
     private boolean isInFocusMode;
@@ -79,12 +80,14 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
     @Override
     public void advance(float amount) {
+        if (engine.isPaused()) {
+            return;
+        }
+
         ////////////////////
         ///INITIALISATION///
         ///////////////////
 
-
-        float droneFacing = drone.getFacing();
 
         //get ship system object
         PSE_DroneCorona shipDroneCoronaSystem = (PSE_DroneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
@@ -92,38 +95,53 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             return;
         }
 
-        int droneIndex = shipDroneCoronaSystem.getIndex(drone);
+        //get number of different drone spots
+        int numIndexes = shipDroneCoronaSystem.getNumIndexes();
 
-        PSE_DroneCorona.CoronaDroneOrders coronaDroneOrders = shipDroneCoronaSystem.getDroneOrders();
-
-        //JSON loading
+        //JSON config checking
         if (!hasLoadedJson) {
+            initialOrbitAngleArray = new float[numIndexes];
+            focusModeOrbitAngleArray = new float[numIndexes];
+            orbitRadiusArray = new float[numIndexes];
             JSONObject droneConfigPerIndexJsonObject = null;
-            try {
-                droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(droneIndex);
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+            for (int i = 0; i < numIndexes; i++) {
+                try {
+                    droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    initialOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    focusModeOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
-            try {
-                initialOrbitAngle = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                focusModeOrbitAngle = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                orbitRadius = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
              hasLoadedJson = true;
         }
 
+        int droneIndex = shipDroneCoronaSystem.getIndex(drone);
+        float initialOrbitAngle = initialOrbitAngleArray[droneIndex];
+        float focusModeOrbitAngle = focusModeOrbitAngleArray[droneIndex];
+        float orbitRadius = orbitRadiusArray[droneIndex];
+
+        //UNUSED AS YET CONSTANT FOR BEHAVIOUR WHEN HOST SIGNAL LOST
         float sanity = 1f;
+
+        //GET DRONE ORDERS STATE
+        PSE_DroneCorona.CoronaDroneOrders coronaDroneOrders = shipDroneCoronaSystem.getDroneOrders();
 
 
         /////////////////////////
@@ -139,9 +157,10 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             targetedLocation = getTargetLocation(false, false, false);
         }
 
-
         //ROTATION
+        float droneFacing = drone.getFacing();
         PSE_DroneUtil.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
+
 
         ////////////////////////
         ///MOVEMENT BEHAVIOUR///
@@ -158,10 +177,10 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
                 radius = orbitRadius;
 
-                landingLocation = null;
                 delayBeforeLandingTracker.setElapsed(0f);
 
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
+                landingSlot = null;
 
                 isInFocusMode = false;
 
@@ -169,11 +188,11 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             case RECALL:
                 PSE_DroneUtil.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
 
-                if (landingLocation == null) {
-                    landingLocation = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponAPI();
+                if (landingSlot == null) {
+                    landingSlot = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponSlotAPI();
                 }
 
-                movementTargetLocation = landingLocation.getLocation();
+                movementTargetLocation = landingSlot.computePosition(ship);
 
                 isInFocusMode = false;
 
@@ -183,10 +202,10 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
                 radius = orbitRadius;
 
-                landingLocation = null;
                 delayBeforeLandingTracker.setElapsed(0f);
 
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
+                landingSlot = null;
 
                 isInFocusMode = true;
 

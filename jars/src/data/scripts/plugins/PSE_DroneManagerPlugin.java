@@ -3,6 +3,7 @@ package data.scripts.plugins;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
+import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDroneAPI;
@@ -73,7 +74,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         int numDronesActive;
-        ArrayList<PSEDroneAPI> deployedDrones = null;
+        ArrayList<PSEDroneAPI> deployedDrones;
         switch (droneSystemType) {
             case CORONA:
                 coronaSystem.maintainStatusMessage();
@@ -206,27 +207,29 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         return spawnedDrone;
     }
 
-    public WeaponAPI getLandingBayWeaponAPI() {
-        List<WeaponAPI> weapons = ship.getAllWeapons();
+    public WeaponSlotAPI getLandingBayWeaponSlotAPI() {
+        List<WeaponSlotAPI> weapons = ship.getHullSpec().getAllWeaponSlotsCopy();
         if (!weapons.isEmpty()) {
-            //these aren't actually bays, but since launch bays have no way of getting their location deco weapons are used
-            List<WeaponAPI> bays = new ArrayList<>();
-            for (WeaponAPI weapon : weapons) {
-                if (weapon.getType().equals(WeaponAPI.WeaponType.DECORATIVE)) {
+            //these aren't actually bays, but since launch bays have no way of getting their location system mounts are used
+            List<WeaponSlotAPI> bays = new ArrayList<>();
+            for (WeaponSlotAPI weapon : weapons) {
+                if (weapon.isSystemSlot()) {
                     bays.add(weapon);
                 }
             }
 
-            //pick random entry in bay list
-            Random index = new Random();
-            return bays.get(index.nextInt(bays.size()));
+            if (!bays.isEmpty()) {
+                //pick random entry in bay list
+                Random index = new Random();
+                return bays.get(index.nextInt(bays.size()));
+            }
         }
         return null;
     }
 
     public Vector2f getLandingLocation() {
-        if (getLandingBayWeaponAPI() != null) {
-            return getLandingBayWeaponAPI().getLocation();
+        if (getLandingBayWeaponSlotAPI() != null) {
+            return getLandingBayWeaponSlotAPI().computePosition(ship);
         }
         return ship.getLocation();
     }

@@ -104,7 +104,7 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
 
                     if (isTargetVulnerable) {
                         ship.useSystem();
-                    } else if (!PANICAAAAA && isShipInFocusModeEngagementRange) {
+                    } else if (!PANICAAAAA && isShipInFocusModeEngagementRange && !(ship.getFluxTracker().getFluxLevel() >= ship.getFluxTracker().getMaxFlux() * 0.8f)) {
                         ship.useSystem();
                     } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         ship.useSystem();
@@ -113,9 +113,11 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                     break;
                 case ATTACK:
                     //switch to defensive mode if pilot is not a gigachad HIL user
-                    if (PANICAAAAA && (!ship.getFleetMember().getCaptain().getPersonalityAPI().equals(Personalities.RECKLESS) || ship.getFleetMember().getCaptain().getPersonalityAPI().equals(Personalities.AGGRESSIVE))) {
+                    if (PANICAAAAA) {
                         ship.useSystem();
-                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    } else if (ship.getFluxTracker().getFluxLevel() >= ship.getFluxTracker().getMaxFlux() * 0.8f) {
+                        ship.useSystem();
+                    }else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         ship.useSystem();
                     }
                     break;

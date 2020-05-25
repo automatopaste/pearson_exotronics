@@ -104,6 +104,10 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         return -1;
     }
 
+    public int getNumIndexes() {
+        return this.maxDeployedDrones;
+    }
+
     public CoronaDroneOrders getDroneOrders() {
         return droneOrders;
     }

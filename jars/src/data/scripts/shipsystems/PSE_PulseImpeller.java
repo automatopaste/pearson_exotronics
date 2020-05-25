@@ -1,5 +1,6 @@
 package data.scripts.shipsystems;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipEngineControllerAPI;
@@ -75,14 +76,37 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
                     VectorUtils.rotate(ship.getVelocity(), MathUtils.getShortestRotation(VectorUtils.getFacing(ship.getVelocity()), ship.getFacing()));
                 }
 
-                Vector2f facing = new Vector2f(0f, 1f);
-                VectorUtils.rotate(facing, MathUtils.getShortestRotation(VectorUtils.getFacing(facing), ship.getFacing()));
-                facing.normalise();
-                facing.scale(ship.getMass() * BOOST_SPEED_MULT);
+                Vector2f boostDir = new Vector2f();
+                boolean notAcc = true;
+                if(ship.getEngineController().isAccelerating()) {
+                    boostDir.y += 1f;
+                    notAcc = false;
+                } else if (ship.getEngineController().isAcceleratingBackwards()) {
+                    boostDir.y -= 1f;
+                    notAcc = false;
+                }
+                if (ship.getEngineController().isStrafingRight()) {
+                    boostDir.x += 1f;
+                    notAcc = false;
+                } else if (ship.getEngineController().isStrafingLeft()) {
+                    boostDir.x -= 1f;
+                    notAcc = false;
+                }
+                if (notAcc) {
+                    if (VectorUtils.isZeroVector(ship.getVelocity())) {
+                        boostDir.y += 1f;
+                    } else {
+                        boostDir = ship.getVelocity();
+                    }
+                }
+
+                VectorUtils.rotate(boostDir, ship.getFacing() - 90f);
+                boostDir.normalise();
+                boostDir.scale(ship.getMass() * BOOST_SPEED_MULT);
 
                 Vector2f velocity = ship.getVelocity();
-                velocity.scale(0.25f);
-                Vector2f.add(velocity, facing, composite);
+                velocity.scale(0.5f);
+                Vector2f.add(velocity, boostDir, composite);
 
                 CombatUtils.applyForce(ship, composite, ship.getMass() * BOOST_SPEED_MULT);
                 VectorUtils.clampLength(ship.getVelocity(), boostLimit);
@@ -90,7 +114,7 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
                 ended = true;
             }
 
-            afterimageInterval.advance(0.01f);
+            afterimageInterval.advance(Global.getCombatEngine().getElapsedInLastFrame());
             if (afterimageInterval.intervalElapsed()) {
                 Color modColour = new Color(
                         MathUtils.clamp(CONTRAIL_COLOUR.getRed() * modlevel, 1f, 255f) / 255f,

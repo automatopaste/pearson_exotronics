@@ -1,0 +1,47 @@
+{
+  "hullName": "Rapley",
+  "hullId": "PSE_drone3",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_drone3.png",
+  "style": "MIDLINE",
+  "height": 20,
+  "width": 24,
+  "center": [12, 10],
+  "collisionRadius": 30,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 21.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "pointdefenseai"
+  ],
+  "builtInWeapons": {
+    "WS0001": "PSE_mk1LRC"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [0, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-6, -0],
+      "length": 15.5,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    5, -6.5,
+    5, 6.5,
+    -8, -0
+  ]
+}
