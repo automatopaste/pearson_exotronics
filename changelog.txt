@@ -1,3 +1,5 @@
+========Beta 0.4b========
+-added starport to new caledonia
 ========Beta 0.4a========
 -added torrens frigate
     -has drone bastion shipsystem

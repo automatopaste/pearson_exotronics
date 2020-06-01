@@ -60,12 +60,12 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 )),
                 new ArrayList<String>(Arrays.asList(
                         Industries.POPULATION,
+                        Industries.SPACEPORT,
                         Industries.BATTLESTATION_MID,
                         Industries.MINING,
                         Industries.MILITARYBASE,
                         Industries.PLANETARYSHIELD,
-                        Industries.ORBITALWORKS,
-                        Industries.REFINING
+                        Industries.ORBITALWORKS
                 )),
                 true,
                 false
