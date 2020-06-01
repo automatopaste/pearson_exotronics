@@ -1,3 +1,23 @@
+========Beta 0.4a========
+-added torrens frigate
+    -has drone bastion shipsystem
+-added richmond destroyer
+    -new pulse impeller shipsystem
+-added serrano heavy cruiser
+    -has drone corona shipsystem
+-added eyre freighter frigate
+    -has flare launcher shipsystem
+-fixed drone AI bugs
+-fixed/improved shipsystem behaviour
+-added flux buildup to corona shipsystem focus mode to prevent kiting
+-added VFX to shipsystems
+-adjusted some ship stats
+-improved/optimised json checking behaviour
+-cassius now uses pulse impeller shipsystem
+-replace placeholder drone sprite with new custom drones
+-added faction to world
+-added nexerelin integration
+-added blueprint packages
 ========Beta 0.3b========
 -added kiruna frigate
 -added bastion system

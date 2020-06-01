@@ -7,10 +7,8 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDroneAPI;
-import data.scripts.PSEModPlugin;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
-import org.json.JSONException;
-import org.json.JSONObject;
+import data.scripts.util.PSE_MiscUtils;
 
 import java.util.ArrayList;
 
@@ -31,10 +29,6 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
 
     private ShipAPI ship;
 
-    //json as loaded from shipsystem file
-    private JSONObject specJson;
-
-    //initialise values from json
     private int maxDeployedDrones;
     private float launchDelay;
     private float launchSpeed;
@@ -45,27 +39,11 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
     private boolean canSwitchDroneOrders;
 
     public PSE_DroneBastion() {
-        this.specJson = PSEModPlugin.droneBastionSpecJson;
-        try {
-            this.maxDeployedDrones = specJson.getInt("maxDrones");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.launchDelay = (float) specJson.getDouble("launchDelay");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.launchSpeed = (float) specJson.getDouble("launchSpeed");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.droneVariant = specJson.getString("droneVariant");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        maxDeployedDrones = PSE_MiscUtils.PSE_BastionSpecLoading.getMaxDeployedDrones();
+        launchDelay = (float) PSE_MiscUtils.PSE_BastionSpecLoading.getLaunchDelay();
+        launchSpeed = (float) PSE_MiscUtils.PSE_BastionSpecLoading.getLaunchSpeed();
+        droneVariant = PSE_MiscUtils.PSE_BastionSpecLoading.getDroneVariant();
+
         plugin = null;
         canSwitchDroneOrders = true;
     }
@@ -97,10 +75,6 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         }
     }
 
-    public JSONObject getSpecJson() {
-        return specJson;
-    }
-
     public int getIndex(PSEDroneAPI drone) {
         int index = 0;
         for (PSEDroneAPI deployedDrone : deployedDrones) {
@@ -110,10 +84,6 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
             ++index;
         }
         return -1;
-    }
-
-    public int getNumIndexes() {
-        return this.maxDeployedDrones;
     }
 
     public BastionDroneOrders getDroneOrders() {
@@ -126,10 +96,6 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
 
     public ShipAPI getShip() {
         return this.ship;
-    }
-
-    public String getDroneVariant() {
-        return this.droneVariant;
     }
 
     public PSE_DroneManagerPlugin getPlugin() {

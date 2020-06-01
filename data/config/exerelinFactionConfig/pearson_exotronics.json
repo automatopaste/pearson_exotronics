@@ -1,0 +1,81 @@
+{
+    "playableFaction":true,
+    "corvusCompatible":true,
+    
+    "rebelFleetSuffix":"Splinter Group",
+    
+    "directoryUseShortName":true,
+	
+	"marketSpawnWeight":0.55,
+     
+    "startRelationships":{
+        "hegemony": 0.35,             #have their heads screwed on
+        "luddic_church":-0.15,        #religion offends us
+        "cabal":-0.6,                 #weirdos
+        "persean": 0.1,               #they just kind of exist
+        "pirates": -0.6,              #bastards with no money
+        "independent": 0.35           #good guys with shallow pockets
+    },
+    "maxRelationships":{},
+    "diplomacyPositiveChance":{},
+    "diplomacyNegativeChance":{},
+    "morality":"good",
+    
+    "alignments":{
+        "corporate":1,
+        "technocratic":0.5,
+        "militarist":0.25,
+        "ideological":-0.5,
+	    "diplomatic":0
+    },
+
+    "diplomacyTraits":["pacifist", "neutralist"],
+    
+    "freeMarket":false,
+    
+    "colonyExpeditionChance":0.8, #go for it mate
+    "colonyTargetValuator":"exerelin.campaign.colony.IndustrialColonyTargetValuator",
+        
+    "startShipsSolo":[["PSE_cassius_Assault"]],
+    "startShipsCombatSmall":[
+      ["PSE_cassius_CloseSupport", "PSE_cassius_Assault", "PSE_eyre_Standard"],
+      ["PSE_denmark_Assault", "wolf_CS", "PSE_kiruna_Assault"]
+    ],
+    "startShipsTradeSmall":[
+      ["PSE_torrens_Standard", "PSE_eyre_Standard", "mercury_Standard"],
+      ["PSE_torrens_Standard", "PSE_cassius_CloseSupport", "tarsus_Standard"]
+    ],
+    "startShipsCombatLarge":[
+      ["PSE_serrano_Assault", "PSE_torrens_Standard", "PSE_richmond_Assault"],
+      ["apogee_Balanced", "PSE_richmond_Assault", "PSE_kiruna_CloseSupport"]
+    ],
+    "startShipsTradeLarge":[
+      ["PSE_eyre_Standard", "buffalo_hegemony_Standard", "buffalo_Standard", "PSE_denmark_Assault"],
+      ["colossus_Standard", "PSE_cassius_Assault", "PSE_richmond_Assault"]
+    ],
+    "startShipsCarrierSmall":[["PSE_torrens_Standard", "tempest_Attack", "PSE_richmond_Assault"]],
+    "startShipsCarrierLarge":[["PSE_serrano_Assault", "PSE_cassius_CloseSupport", "PSE_richmond_Assault"]],
+    "startShipsSuper":[
+        ["PSE_kiruna_Strike"]
+    ],
+
+    "startSpecialItems":[
+        [["PSE_base_package", "PSE_military_package", "PSE_support_package"]]
+    ],
+    
+    "defenceStations":[
+        {"ids":["orbitalstation", "battlestation", "starfortress"]}
+    ],
+    
+    "industrySeeds":[
+        {"id":"orbitalworks", "mult":0.1},
+        {"id":"lightindustry", "mult":0.1}
+    ],
+    
+    "bonusSeeds":[
+        {"id":"aiCore_station", "count":2, "mult":0.2},
+        {"id":"aiCore_military", "mult":2},
+        {"id":"aiCore_heavyindustry", "count":1},
+        {"id":"aiCore_any", "mult":0.5}
+    ]
+}

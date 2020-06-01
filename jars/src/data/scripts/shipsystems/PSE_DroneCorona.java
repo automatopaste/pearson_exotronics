@@ -7,14 +7,14 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDroneAPI;
-import data.scripts.PSEModPlugin;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
-import org.json.JSONException;
-import org.json.JSONObject;
+import data.scripts.util.PSE_MiscUtils;
 
 import java.util.ArrayList;
 
 public class PSE_DroneCorona extends BaseShipSystemScript {
+    public static final float FLUX_PER_SECOND_MULT = 0.05f;
+
     public enum CoronaDroneOrders {
         DEPLOY,
         ATTACK,
@@ -29,7 +29,6 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
 
     private ShipAPI ship;
 
-    //initialise values from json
     private int maxDeployedDrones;
     private float launchDelay;
     private float launchSpeed;
@@ -40,28 +39,11 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
     private boolean canSwitchDroneOrders;
 
     public PSE_DroneCorona() {
-        //json as loaded from shipsystem file
-        JSONObject specJson = PSEModPlugin.droneCoronaSpecJson;
-        try {
-            this.maxDeployedDrones = specJson.getInt("maxDrones");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.launchDelay = (float) specJson.getDouble("launchDelay");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.launchSpeed = (float) specJson.getDouble("launchSpeed");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.droneVariant = specJson.getString("droneVariant");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        maxDeployedDrones = PSE_MiscUtils.PSE_CoronaSpecLoading.getMaxDeployedDrones();
+        launchDelay = (float) PSE_MiscUtils.PSE_CoronaSpecLoading.getLaunchDelay();
+        launchSpeed = (float) PSE_MiscUtils.PSE_CoronaSpecLoading.getLaunchSpeed();
+        droneVariant = PSE_MiscUtils.PSE_CoronaSpecLoading.getDroneVariant();
+
         plugin = null;
         canSwitchDroneOrders = true;
     }
@@ -102,10 +84,6 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
             ++index;
         }
         return -1;
-    }
-
-    public int getNumIndexes() {
-        return this.maxDeployedDrones;
     }
 
     public CoronaDroneOrders getDroneOrders() {
@@ -162,5 +140,9 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
             plugin = new PSE_DroneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
             engine.addPlugin(plugin);
         }
+    }
+
+    public float getFluxPerSecond() {
+        return FLUX_PER_SECOND_MULT * ship.getMaxFlux();
     }
 }

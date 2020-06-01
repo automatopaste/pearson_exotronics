@@ -1,0 +1,27 @@
+{
+  "variantId": "PSE_eyre_Standard",
+  "hullId": "PSE_eyre",
+  "displayName": "Stanard",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "armoredweapons",
+    "ecm",
+    "pointdefenseai",
+    "fluxbreakers"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lrpdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

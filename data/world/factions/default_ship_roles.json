@@ -1,0 +1,26 @@
+{
+	"combatSmall":{
+		"PSE_cassius_Assault":4,
+		"PSE_cassius_CloseSupport":4,
+		"PSE_kiruna_Assault":2,
+		"PSE_kiruna_CloseSupport":2,
+		"PSE_kiruna_Strike":2,
+	},
+
+	"combatMedium":{
+		"PSE_denmark_Assault":4,
+		"PSE_denmark_CloseSupport":3,
+		"PSE_denmark_Elite":2,
+		"PSE_richmond_Assault":4,
+		"PSE_richmond_Overdriven":3,
+	},
+
+	"combatLarge":{
+		"PSE_serrano_Assault":4,
+		"PSE_serrano_Overdriven":2,
+	},
+
+	"combatFreighterSmall":{
+		"PSE_torrens_Standard":3,
+	},
+},

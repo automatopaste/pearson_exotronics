@@ -1,0 +1,14 @@
+{
+    "designTypeColors":{
+            "Pearson Exotronics":[58,197,150,255],
+    },
+
+    "graphics":{
+        "blueprint_packages":{
+            "kiprad_support_package":"graphics/PSE/icons/cargo/PSE_package.png",
+		    "kiprad_missile_package":"graphics/PSE/icons/cargo/PSE_package.png",
+		    "kiprad_gun_package":"graphics/PSE/icons/cargo/PSE_package.png",
+            },
+        },
+    }
+}

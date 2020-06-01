@@ -15,7 +15,7 @@
     "pointdefenseai"
   ],
   "builtInWeapons": {
-    "WS0001": "PSE_mk1LRC"
+    "WS0001": "pdlaser"
   },
   "weaponSlots": [
     {

@@ -2,11 +2,8 @@ package data.scripts;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
-//import data.scripts.ai.kiprad_droneCoronaDroneAI;
-//import data.scripts.weapons.ai.kiprad_eclipseAI;
-//import data.scripts.world.kiprad.KIPRADGen;//
-//import data.scripts.ai.PSE_droneCoronaDroneAI;
-import data.scripts.util.PSE_BaseUtil;
+import data.scripts.util.PSE_MiscUtils;
+import data.scripts.world.PSE.PSE_WorldGen;
 import exerelin.campaign.SectorManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,16 +29,17 @@ public class PSEModPlugin extends BaseModPlugin {
     public void onNewGame() {
         boolean haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
         boolean haveSSTC = Global.getSettings().getModManager().isModEnabled("salvage_and_solder_tc");
-        if (!haveSSTC) {
-
+        if (haveSSTC) {
+            //coming soon(tm)
         }else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
-            //do generation
+            new PSE_WorldGen().generate(Global.getSector());
         }
     }
 
     @Override
     public void onApplicationLoad() throws ClassNotFoundException {
 
+        //ty to certain mods for this excellent error message formatting
         try {
             Global.getSettings().getScriptClassLoader().loadClass("org.lazywizard.lazylib.ModUtils");
         } catch (ClassNotFoundException ex) {
@@ -65,25 +63,15 @@ public class PSEModPlugin extends BaseModPlugin {
         }*/
 
         //load some custom jsons
-        droneCoronaSpecJson = loadDroneCoronaSpecJson();
-        droneBastionSpecJson = loadDroneBastionSpecJson();
-    }
-
-    public JSONObject loadDroneBastionSpecJson() {
         try {
-            return PSE_BaseUtil.getDroneBastionSpecJson();
-        } catch (IOException | JSONException e) {
+            PSE_MiscUtils.PSE_CoronaSpecLoading.loadJSON();
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
-        throw new NullPointerException(MOD_ERROR_PREFIX + "Incorrectly loaded JSON file in: " + new Throwable().getStackTrace()[0].getMethodName());
-    }
-
-    public JSONObject loadDroneCoronaSpecJson() {
         try {
-            return PSE_BaseUtil.getDroneCoronaSpecJson();
-        } catch (IOException | JSONException e) {
+            PSE_MiscUtils.PSE_BastionSpecLoading.loadJSON();
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
-        throw new NullPointerException(MOD_ERROR_PREFIX + "Incorrectly loaded JSON file in: " + new Throwable().getStackTrace()[0].getMethodName());
     }
 }

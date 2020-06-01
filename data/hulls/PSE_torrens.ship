@@ -1,0 +1,73 @@
+{
+  "hullName": "Torrens",
+  "hullId": "PSE_torrens",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/PSE/ships/PSE_torrens.png",
+  "style": "MIDLINE",
+  "height": 67,
+  "width": 62,
+  "center": [31, 33.5],
+  "collisionRadius": 64,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 53.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "repair_gantry",
+    "surveying_equipment"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 220,
+      "angle": 90,
+      "locations": [-21.5, 20]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 220,
+      "angle": -90,
+      "locations": [-21.5, -20]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [14, -6.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-30, 9.5],
+      "length": 10,
+      "width": 18,
+      "angle": 180,
+      "contrailSize": 18,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-30, -10.5],
+      "length": 10,
+      "width": 18,
+      "angle": 180,
+      "contrailSize": 18,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": [
+    24, -25.5,
+    -28, -27,
+    -28, 27,
+    24, 25.5
+  ]
+}

@@ -37,25 +37,6 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         api.addToFleet(FleetSide.PLAYER, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
 
-
-
-        //BOOTLEG XHAN STUFF
-        api.addToFleet(FleetSide.PLAYER, "Boulo_HeavyDemo", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "Cheborog_Brawler", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "Karoba_Hauler", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "Meiche_Fueler", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "Occuklop_Decimator", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "OieHou_EliteGuard", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "XHAN_Cheborog_Carrier_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "Olkzan_Eliteguard", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "XHAN_Ketsil_CloseSupport", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "XHAN_Olkzan_Carrier_Defender", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "XHAN_Panrelka_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "XHAN_Pharrek_variant_EmperorsHammer", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "XHAN_Ubellop_Elite_Guard", FleetMemberType.SHIP, false);
-
-
-
         // Set up the enemy fleet
         api.addToFleet(FleetSide.ENEMY, "PSE_serrano_Assault", FleetMemberType.SHIP, false);
 

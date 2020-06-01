@@ -8,7 +8,7 @@ import com.fs.starfarer.api.combat.ShipEngineControllerAPI.ShipEngineAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.util.PSE_BaseUtil;
+import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
@@ -116,13 +116,14 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
 
             afterimageInterval.advance(Global.getCombatEngine().getElapsedInLastFrame());
             if (afterimageInterval.intervalElapsed()) {
+                //clamps to float colour values which must be 0f-1f
                 Color modColour = new Color(
                         MathUtils.clamp(CONTRAIL_COLOUR.getRed() * modlevel, 1f, 255f) / 255f,
                         MathUtils.clamp(CONTRAIL_COLOUR.getGreen() * modlevel, 1f, 255f) / 255f,
                         MathUtils.clamp(CONTRAIL_COLOUR.getBlue() * modlevel, 1f, 255f) / 255f
                     );
 
-                PSE_BaseUtil.addJitterAfterimage(ship, modColour, JITTER_RANGE, -0.5f, 5f, 0.1f, 0f, 0.8f, true, false, false);
+                PSE_MiscUtils.addJitterAfterimage(ship, modColour, JITTER_RANGE, -0.5f, 5f, 0.1f, 0f, 0.8f, true, false, false);
             }
             ship.setJitterUnder(this, JITTER_COLOUR, 10f * effectLevel, 8, 3f * effectLevel);
 

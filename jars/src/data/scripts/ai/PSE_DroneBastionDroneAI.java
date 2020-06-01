@@ -5,16 +5,11 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDroneAPI;
-import data.scripts.PSEModPlugin;
 import data.scripts.shipsystems.PSE_DroneBastion;
-import data.scripts.util.PSE_DroneUtil;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import data.scripts.util.PSE_DroneUtils;
+import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
-
-import java.util.Objects;
 
 public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
@@ -24,9 +19,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
     private final ShipAPI ship;
     private CombatEngineAPI engine;
 
-    static JSONObject droneSystemSpecJson;
-    static JSONArray droneBehaviorSpecJson;
-    private boolean hasLoadedJson = false;
+    private boolean loaded = false;
 
     //USED FOR MOVEMENT AND POSITIONING AI
     private float[] cardinalOrbitAngleArray;
@@ -48,14 +41,6 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         this.drone = passedDrone;
 
         this.ship = drone.getDroneSource();
-
-        droneSystemSpecJson = PSEModPlugin.droneBastionSpecJson;
-
-        try {
-            droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("droneBehavior");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         for (WeaponAPI weapon : drone.getAllWeapons()) {
             if (weapon.getId().contentEquals(WEAPON_ID)) {
@@ -89,50 +74,28 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             return;
         }
 
-        int droneIndex = shipDroneBastionSystem.getIndex(drone);
-
-        PSE_DroneBastion.BastionDroneOrders bastionDroneOrders = shipDroneBastionSystem.getDroneOrders();
-
-        //get number of different drone spots
-        int numIndexes = shipDroneBastionSystem.getNumIndexes();
-
         //JSON config checking
-        if (!hasLoadedJson) {
-            cardinalOrbitAngleArray = new float[numIndexes];
-            frontOrbitAngleArray = new float[numIndexes];
-            orbitRadiusArray = new float[numIndexes];
-            JSONObject droneConfigPerIndexJsonObject = null;
+        if (!loaded) {
+            cardinalOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getCardinalOrbitAngleArray();
+            frontOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getFrontOrbitAngleArray();
+            orbitRadiusArray = PSE_MiscUtils.PSE_BastionSpecLoading.getOrbitRadiusArray();
 
-            for (int i = 0; i < numIndexes; i++) {
-                try {
-                    droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    cardinalOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    frontOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius") + ship.getShieldRadiusEvenIfNoShield();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            //add shield radius to drone orbit values
+            for (int i = 0; i < orbitRadiusArray.length; i++) {
+                orbitRadiusArray[i] += ship.getShieldRadiusEvenIfNoShield();
             }
 
-            hasLoadedJson = true;
+            loaded = true;
         }
 
+        //assign specific values
+        int droneIndex = shipDroneBastionSystem.getIndex(drone);
         float cardinalOrbitAngle = cardinalOrbitAngleArray[droneIndex];
         float frontOrbitAngle = frontOrbitAngleArray[droneIndex];
         float orbitRadius = orbitRadiusArray[droneIndex];
+
+        //get orders
+        PSE_DroneBastion.BastionDroneOrders bastionDroneOrders = shipDroneBastionSystem.getDroneOrders();
 
 
         /////////////////////////
@@ -142,15 +105,15 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
         //needs no special targeting behaviour
         Vector2f targetedLocation;
-        targetedLocation = PSE_DroneUtil.getTargetLocation(ship, drone, weaponRange, false, false, false);
+        targetedLocation = PSE_DroneUtils.getTargetLocation(ship, drone, weaponRange, false, false, false);
 
         //ROTATION
         float facing = frontOrbitAngle + shipFacing;
 
         if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.CARDINAL)) {
-            PSE_DroneUtil.rotateToTarget(drone, facing, droneFacing, 0.1f);
+            PSE_DroneUtils.rotateToTarget(drone, facing, droneFacing, 0.1f);
         } else if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.FRONT)) {
-            PSE_DroneUtil.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
+            PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
         }
 
 
@@ -174,7 +137,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
                 break;
             case RECALL:
-                PSE_DroneUtil.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
+                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
 
                 if (landingSlot == null) {
                     landingSlot = shipDroneBastionSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -197,7 +160,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
                 movementTargetLocation = ship.getLocation();
         }
 
-        PSE_DroneUtil.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 2f);
+        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 2f);
     }
 
     //OVERRIDES

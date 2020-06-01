@@ -12,10 +12,10 @@ import org.lwjgl.util.vector.Vector2f;
 
 import static org.lazywizard.lazylib.combat.AIUtils.getEnemiesOnMap;
 
-public final class PSE_DroneUtil {
+public final class PSE_DroneUtils {
     private static CombatEngineAPI engine;
 
-    private PSE_DroneUtil() {
+    private PSE_DroneUtils() {
         engine = Global.getCombatEngine();
     }
 

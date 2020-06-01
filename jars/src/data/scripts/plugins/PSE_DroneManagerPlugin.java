@@ -11,7 +11,9 @@ import data.scripts.ai.PSE_DroneBastionDroneAI;
 import data.scripts.ai.PSE_DroneCoronaDroneAI;
 import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.shipsystems.PSE_DroneCorona;
+import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.VectorUtils;
+import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -101,11 +103,10 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 }
 
                 if (coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
-                    ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 6, 1f, 2f);
+                    ship.setJitterShields(false);
+                    ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 8, 1f, 2f);
 
-                    ship.getMutableStats().getFluxDissipation().modifyMult("DroneManagerPlugin"+this.hashCode(), 0f);
-                } else {
-                    ship.getMutableStats().getFluxDissipation().unmodify();
+                    PSE_MiscUtils.applyFluxPerSecondPerFrame(ship, coronaSystem.getFluxPerSecond(), amount);
                 }
 
                 coronaSystem.setDeployedDrones(deployedDrones);
