@@ -1,16 +1,19 @@
+the official unofficial to-do list
 todo - add hullmod packages that shift drone playstyle
+todo - add actual descriptions
+todo - campaign trade events
 
 Ships:
 
     Frigates
         -line combat frigate - COMPLETED - Cassius
-        -small combat freighter - SKETCHED - Torrens
-        -advanced combat frigate - SKETCHED - Kiruna
-        -civilian freighter - SKETCHED - Eyre
+        -small combat freighter - COMPLETED? - Torrens
+        -advanced combat frigate - COMPLETED - Kiruna
+        -civilian freighter - COMPLETED - Eyre
 
     Destroyers:
         -heavy combat destroyer - COMPLETED - Denmark
-        -line combat destroyer - SKETCHED - Richmond
+        -line combat destroyer - COMPLETED - Richmond
         -carrier destroyer - SKETCHED - Armstrong
         -super destroyer
         -civilian freighter
@@ -18,7 +21,7 @@ Ships:
     Cruisers:
         -line combat cruiser - SKETCHED - Hammond
         -line carrier cruiser - SKETCHED - Essendon
-        -heavy combat cruiser - SKETCHED - Serrano
+        -heavy combat cruiser - COMPLETED - Serrano
         -civilian freighter
         -fast combat cruiser - SKETCHED - Leyland
 
@@ -27,6 +30,8 @@ Ships:
         -fast combat capital - SKETCHED - Roland
 
 Weapons:
+    Ballistic:
+       -small - mid-range HE autocannon
 
     Energy:
        -medium - long range HE beam, for use on drones, modular

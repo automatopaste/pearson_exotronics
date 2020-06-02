@@ -80,11 +80,6 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             frontOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getFrontOrbitAngleArray();
             orbitRadiusArray = PSE_MiscUtils.PSE_BastionSpecLoading.getOrbitRadiusArray();
 
-            //add shield radius to drone orbit values
-            for (int i = 0; i < orbitRadiusArray.length; i++) {
-                orbitRadiusArray[i] += ship.getShieldRadiusEvenIfNoShield();
-            }
-
             loaded = true;
         }
 
@@ -92,7 +87,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         int droneIndex = shipDroneBastionSystem.getIndex(drone);
         float cardinalOrbitAngle = cardinalOrbitAngleArray[droneIndex];
         float frontOrbitAngle = frontOrbitAngleArray[droneIndex];
-        float orbitRadius = orbitRadiusArray[droneIndex];
+        float orbitRadius = orbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
 
         //get orders
         PSE_DroneBastion.BastionDroneOrders bastionDroneOrders = shipDroneBastionSystem.getDroneOrders();
