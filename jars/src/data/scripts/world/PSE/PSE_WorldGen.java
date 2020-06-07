@@ -17,14 +17,16 @@ public class PSE_WorldGen implements SectorGeneratorPlugin {
         FactionAPI church = sector.getFaction(Factions.LUDDIC_CHURCH);
         FactionAPI path = sector.getFaction(Factions.LUDDIC_PATH);
         FactionAPI league = sector.getFaction(Factions.PERSEAN);
+        FactionAPI diktat = sector.getFaction(Factions.DIKTAT);
         FactionAPI pearson_exotronics = sector.getFaction("pearson_exotronics");
 
         pearson_exotronics.setRelationship(path.getId(), RepLevel.HOSTILE);
-        pearson_exotronics.setRelationship(hegemony.getId(), RepLevel.FRIENDLY);
+        pearson_exotronics.setRelationship(hegemony.getId(), RepLevel.FAVORABLE);
         pearson_exotronics.setRelationship(pirates.getId(), RepLevel.HOSTILE);
         pearson_exotronics.setRelationship(tritachyon.getId(), RepLevel.SUSPICIOUS);
-        pearson_exotronics.setRelationship(league.getId(), RepLevel.FAVORABLE);
+        pearson_exotronics.setRelationship(league.getId(), RepLevel.INHOSPITABLE);
         pearson_exotronics.setRelationship(church.getId(), RepLevel.SUSPICIOUS);
+        pearson_exotronics.setRelationship(diktat.getId(), RepLevel.HOSTILE);
     }
     @Override
     public void generate(SectorAPI sector) {

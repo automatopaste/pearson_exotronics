@@ -11,6 +11,8 @@ import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.util.Arrays;
+
 public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
@@ -74,7 +76,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             return;
         }
 
-        //JSON config checking
+        //config checking
         if (!loaded) {
             cardinalOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getCardinalOrbitAngleArray();
             frontOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getFrontOrbitAngleArray();
@@ -100,7 +102,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
         //needs no special targeting behaviour
         Vector2f targetedLocation;
-        targetedLocation = PSE_DroneUtils.getTargetLocation(ship, drone, weaponRange, false, false, false);
+        targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, weaponRange, false, false, false);
 
         //ROTATION
         float facing = frontOrbitAngle + shipFacing;
@@ -118,7 +120,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
         //PERFORM LOGIC BASED ON MOTHERSHIP SHIPSYSTEM STATE - SELECT TARGET LOCATION
-        float angle;
+        float angle = 0;
         Vector2f movementTargetLocation;
         switch (bastionDroneOrders) {
             case CARDINAL:
@@ -127,7 +129,6 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
                 delayBeforeLandingTracker.setElapsed(0f);
 
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), orbitRadius, angle);
-
                 landingSlot = null;
 
                 break;
@@ -154,8 +155,9 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             default:
                 movementTargetLocation = ship.getLocation();
         }
+        engine.maintainStatusForPlayerShip("thing", "graphics/icons/hullsys/drone_pd_high.png", "ANGLE", angle + ", " + Arrays.toString(frontOrbitAngleArray), false);
 
-        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 2f);
+        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 1f);
     }
 
     //OVERRIDES

@@ -5,9 +5,9 @@
 
     "graphics":{
         "blueprint_packages":{
-            "kiprad_support_package":"graphics/PSE/icons/cargo/PSE_package.png",
-		    "kiprad_missile_package":"graphics/PSE/icons/cargo/PSE_package.png",
-		    "kiprad_gun_package":"graphics/PSE/icons/cargo/PSE_package.png",
+            	"PSE_support_package":"graphics/PSE/icons/cargo/PSE_package.png",
+		"PSE_military_package":"graphics/PSE/icons/cargo/PSE_package.png",
+		"PSE_base_package":"graphics/PSE/icons/cargo/PSE_package.png",
             },
         },
     }

@@ -1,5 +1,14 @@
 ========Beta 0.4b========
 -added spaceport to new caledonia
+-reduced denmark dp to 12 from 15
+-fixed drone bastion shipsystem drone ai bugs
+-improved drone movement ai algorithm
+-reduced over-fluxing tendencies of drone corona system ai
+-added faction flavour description
+-system status now only shows up for player ship
+-overhauled adelaide star system
+-adjusted starting faction rep
+-fixed images on blueprint packages
 ========Beta 0.4a========
 -added torrens frigate
     -has drone bastion shipsystem

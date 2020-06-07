@@ -79,8 +79,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         ArrayList<PSEDroneAPI> deployedDrones;
         switch (droneSystemType) {
             case CORONA:
-                coronaSystem.maintainStatusMessage();
-
+                if (engine.getPlayerShip().equals(ship)) {
+                    coronaSystem.maintainStatusMessage();
+                }
                 deployedDrones = coronaSystem.getDeployedDrones();
                 numDronesActive = deployedDrones.size();
 
@@ -113,7 +114,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
                 break;
             case BASTION:
-                bastionSystem.maintainStatusMessage();
+                if (engine.getPlayerShip().equals(ship)) {
+                    bastionSystem.maintainStatusMessage();
+                }
 
                 deployedDrones = bastionSystem.getDeployedDrones();
                 numDronesActive = deployedDrones.size();

@@ -12,7 +12,6 @@ import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static data.scripts.util.PSE_DroneUtils.getNearestEnemyFighter;
@@ -91,6 +90,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             loaded = true;
         }
 
+        //assign specific values
         int droneIndex = shipDroneCoronaSystem.getIndex(drone);
         float initialOrbitAngle = initialOrbitAngleArray[droneIndex];
         float focusModeOrbitAngle = focusModeOrbitAngleArray[droneIndex];
@@ -111,9 +111,9 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         //PRIORITISE TARGET, SET LOCATION
         Vector2f targetedLocation;
         if (coronaDroneOrders.equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
-            targetedLocation = getTargetLocation(true, true, false);
+            targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, focusWeaponRange,true, true, false);
         } else {
-            targetedLocation = getTargetLocation(false, false, false);
+            targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, PDWeaponRange,false, false, false);
         }
 
         //ROTATION
@@ -202,63 +202,6 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
                 drone.useSystem();
             }
         }
-    }
-
-    public Vector2f getTargetLocation(boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
-        //GET NEARBY OBJECTS TO SHOOT AT priority missiles > fighters > ships
-
-        MissileAPI droneTargetMissile = null;
-        if (!ignoreMissiles) {
-            //get missile close to mothership
-            MissileAPI nearestEnemyMissile = AIUtils.getNearestEnemyMissile(ship);
-
-            //select missile target, or null if none in range
-            if (nearestEnemyMissile != null && MathUtils.getDistance(drone, nearestEnemyMissile) < PDWeaponRange) {
-                droneTargetMissile = nearestEnemyMissile;
-            } else {
-                droneTargetMissile = null;
-            }
-        }
-
-        ShipAPI droneTargetShip = null;
-        if (!ignoreShips) {
-            //get non-fighter ship close to mothership
-            ShipAPI nearestEnemyShip = getNearestEnemyNonFighterShip(ship);
-
-            //select non-fighter ship target, or null if none in range
-            if (nearestEnemyShip != null && MathUtils.getDistance(drone, nearestEnemyShip) < focusWeaponRange) {
-                droneTargetShip = nearestEnemyShip;
-            } else {
-                droneTargetShip = null;
-            }
-        }
-
-        ShipAPI droneTargetFighter = null;
-        if (!ignoreFighters) {
-            //get fighter close to drone
-            ShipAPI nearestEnemyFighter = getNearestEnemyFighter(drone);
-
-            //select fighter target, or null if none in range
-            if (nearestEnemyFighter != null && MathUtils.getDistance(drone, nearestEnemyFighter) < PDWeaponRange) {
-                droneTargetFighter = nearestEnemyFighter;
-            } else {
-                droneTargetFighter = null;
-            }
-        }
-
-
-        //PRIORITISE TARGET, SET LOCATION
-        Vector2f targetedLocation;
-        if (droneTargetMissile != null) {
-            targetedLocation = droneTargetMissile.getLocation();
-        } else if (droneTargetFighter != null) {
-            targetedLocation = droneTargetFighter.getLocation();
-        } else if (droneTargetShip != null) {
-            targetedLocation = droneTargetShip.getLocation();
-        } else {
-            targetedLocation = null;
-        }
-        return targetedLocation;
     }
 
     /*

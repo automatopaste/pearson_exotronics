@@ -19,8 +19,8 @@
 		 "holdRoamRange":20, ###
 		 "freeRoamRange":100,
 		 "targetPriority":[MISSILE, FIGHTER, SHIP], # also SHIP_TARGET to prefer targeting the mothership's target
-		 "initialOrbitAngle":25, ###
-		 "bastionModeOrbitAngle":45, ### CUSTOM
+		 "cardinalOrbitAngle":25, ###
+		 "frontOrbitAngle":45, ### CUSTOM
 		 "orbitRadius":-35, ###				# plus ship radius
 		 "orbitDir":0, 					# -1 or 1
 		 "orbitSpeed":0, 				# pixels/second
@@ -31,8 +31,8 @@
 		 "holdRoamRange":20, ###
 		 "freeRoamRange":100,
 		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "initialOrbitAngle":75, ###
-		 "bastionModeOrbitAngle":135, ### CUSTOM
+		 "cardinalOrbitAngle":75, ###
+		 "frontOrbitAngle":135, ### CUSTOM
 		 "orbitRadius":-35, ###
 		 "orbitDir":0,
 		 "orbitSpeed":0,
@@ -43,8 +43,8 @@
 		 "holdRoamRange":20,
 		 "freeRoamRange":100,
 		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "initialOrbitAngle":-25, ###
-		 "bastionModeOrbitAngle":-45, ### CUSTOM
+		 "cardinalOrbitAngle":-25, ###
+		 "frontOrbitAngle":-45, ### CUSTOM
 		 "orbitRadius":-35, ###
 		 "orbitDir":0,
 		 "orbitSpeed":0,
@@ -55,8 +55,8 @@
 		 "holdRoamRange":20,
 		 "freeRoamRange":100,
 		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "initialOrbitAngle":-75, ###
-		 "bastionModeOrbitAngle":-135, ### CUSTOM
+		 "cardinalOrbitAngle":-75, ###
+		 "frontOrbitAngle":-135, ### CUSTOM
 		 "orbitRadius":-35, ###
 		 "orbitDir":0,
 		 "orbitSpeed":0,

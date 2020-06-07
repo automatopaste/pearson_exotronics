@@ -2,6 +2,8 @@ the official unofficial to-do list
 todo - add hullmod packages that shift drone playstyle
 todo - add actual descriptions
 todo - campaign trade events
+todo - add version checker support
+todo - sub-sentient processor cores commodity (remember to not actually be useless too)
 
 Ships:
 
@@ -31,11 +33,12 @@ Ships:
 
 Weapons:
     Ballistic:
-       -small - mid-range HE autocannon
+       -small - long-range HE autocannon
 
     Energy:
        -medium - long range HE beam, for use on drones, modular
        -small - mid range gatling beam cannon
+       -medium = mid range dual gatling beam cannon
 
     Missile:
        -medium: mid range energy damage missile, poor tracking

@@ -3,7 +3,6 @@ package data.scripts.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
-import com.fs.starfarer.util.IntervalTracker;
 import data.scripts.PSEDroneAPI;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
@@ -66,12 +65,6 @@ public final class PSE_DroneUtils {
 
         float distanceToTargetLocation = MathUtils.getDistance(drone.getLocation(), movementTargetLocation); //DISTANCE
 
-
-        //CHECK IF VELOCITY INTERSECTS WITH TARGET LOCATION
-        boolean isDronePathIntersectingTarget;
-        isDronePathIntersectingTarget = Math.round(droneVelocityAngle) == Math.round(angleFromDroneToTargetLocation);
-
-
         //FIND DISTANCE THAT CAN BE DECELERATED FROM CURRENT SPEED TO ZERO s = v^2 / 2a
         float decelerationDistance = (float) (Math.pow(drone.getVelocity().length(), 2)) / (2 * drone.getDeceleration());
         decelerationDistance *= damping;
@@ -89,28 +82,26 @@ public final class PSE_DroneUtils {
             //COURSE CORRECTION
             drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * 0.05f));
 
-            if (!isDronePathIntersectingTarget) {
-                //accelerate forwards or backwards
-                if (
-                        90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -90f
-                ) { //between 90 and -90 is an acute angle therefore in front
-                    drone.giveCommand(ShipCommand.ACCELERATE, null, 0);
-                } else if (
-                        (180f >= rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 90f) || (-90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle >= -180f)
-                ) { //falls between 90 to 180 or -90 to -180, which should be obtuse and thus relatively behind
-                    drone.giveCommand(ShipCommand.ACCELERATE_BACKWARDS, null, 0);
-                }
+            //accelerate forwards or backwards
+            if (
+                    90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -90f
+            ) { //between 90 and -90 is an acute angle therefore in front
+                drone.giveCommand(ShipCommand.ACCELERATE, null, 0);
+            } else if (
+                    (180f >= rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 90f) || (-90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle >= -180f)
+            ) { //falls between 90 to 180 or -90 to -180, which should be obtuse and thus relatively behind
+                drone.giveCommand(ShipCommand.ACCELERATE_BACKWARDS, null, 0);
+            }
 
-                //strafe left or right
-                if (
-                        180f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 0f
-                ) { //between 0 and 180 (i.e. left)
-                    drone.giveCommand(ShipCommand.STRAFE_LEFT, null, 0);
-                } else if (
-                        0f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -180f
-                ) { //between 0 and -180 (i.e. right)
-                    drone.giveCommand(ShipCommand.STRAFE_RIGHT, null, 0);
-                }
+            //strafe left or right
+            if (
+                    180f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 0f
+            ) { //between 0 and 180 (i.e. left)
+                drone.giveCommand(ShipCommand.STRAFE_LEFT, null, 0);
+            } else if (
+                    0f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -180f
+            ) { //between 0 and -180 (i.e. right)
+                drone.giveCommand(ShipCommand.STRAFE_RIGHT, null, 0);
             }
         } else {
             //COURSE CORRECTION
@@ -160,13 +151,18 @@ public final class PSE_DroneUtils {
     public static void attemptToLand(ShipAPI ship, PSEDroneAPI drone, float amount, IntervalUtil delayBeforeLandingTracker) {
         delayBeforeLandingTracker.advance(amount);
         engine = Global.getCombatEngine();
+        boolean isPlayerShip = ship.equals(engine.getPlayerShip());
 
         if (drone.isLanding()) {
             delayBeforeLandingTracker.setElapsed(0);
-            engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_DRONE_LANDING_STATE", "graphics/icons/hullsys/drone_pd_high.png", "LANDING STATUS", "LANDING... ", false);
+            if (isPlayerShip) {
+                engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_DRONE_LANDING_STATE", "graphics/icons/hullsys/drone_pd_high.png", "LANDING STATUS", "LANDING... ", false);
+            }
         } else {
             float round = Math.round((delayBeforeLandingTracker.getIntervalDuration() - delayBeforeLandingTracker.getElapsed()) * 100) / 100f;
-            engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_DRONE_LANDING_STATE", "graphics/icons/hullsys/drone_pd_high.png", "LANDING STATUS", "LANDING IN " + round, false);
+            if (isPlayerShip) {
+                engine.maintainStatusForPlayerShip("PSE_STATUS_KEY_DRONE_LANDING_STATE", "graphics/icons/hullsys/drone_pd_high.png", "LANDING STATUS", "LANDING IN " + round, false);
+            }
         }
 
         if (delayBeforeLandingTracker.intervalElapsed()) {
@@ -174,7 +170,7 @@ public final class PSE_DroneUtils {
         }
     }
 
-    public static Vector2f getTargetLocation(ShipAPI ship, PSEDroneAPI drone, float weaponRange, boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
+    public static Vector2f getEnemyTargetLocation(ShipAPI ship, PSEDroneAPI drone, float weaponRange, boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
         //GET NEARBY OBJECTS TO SHOOT AT priority missiles > fighters > ships
 
         MissileAPI droneTargetMissile = null;

@@ -99,8 +99,8 @@ public final class PSE_MiscUtils {
             for (int i = 0; i < maxDeployedDrones; i++) {
                 JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
                 
-                cardinalOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
-                frontOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
+                cardinalOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("cardinalOrbitAngle");
+                frontOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("frontOrbitAngle");
                 orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius");
             }
         }
@@ -134,5 +134,8 @@ public final class PSE_MiscUtils {
 
     public static void applyFluxPerSecondPerFrame(ShipAPI ship, float fluxPerSecond, float amount) {
         ship.getFluxTracker().setCurrFlux(ship.getCurrFlux() + (fluxPerSecond * amount));
+        if (ship.getCurrFlux() >= ship.getMaxFlux()) {
+            ship.getFluxTracker().forceOverload(0f);
+        }
     }
 }

@@ -89,6 +89,8 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
 
             boolean PANICAAAAA = isMissileThreatPresent || isBomberThreatPresent;
 
+            boolean isAboveFluxThreshold = ship.getCurrFlux() >= (ship.getMaxFlux() * 0.8f);
+
             switch (droneSystem.getDroneOrders()) {
                 case DEPLOY:
 
@@ -101,12 +103,17 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                         }
                     }
 
+                    if (isAboveFluxThreshold) {
+                        return;
+                    } else if (PANICAAAAA) {
+                        return;
+                    } else if (!isShipInFocusModeEngagementRange) {
+                        return;
+                    }
 
-                    if (isTargetVulnerable && isShipInFocusModeEngagementRange && !(ship.getFluxTracker().getFluxLevel() >= ship.getFluxTracker().getMaxFlux() * 0.8f)) {
+                    if (isTargetVulnerable)  {
                         ship.useSystem();
-                    } else if (!PANICAAAAA && isShipInFocusModeEngagementRange && !(ship.getFluxTracker().getFluxLevel() >= ship.getFluxTracker().getMaxFlux() * 0.8f)) {
-                        ship.useSystem();
-                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    } else if (!AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         ship.useSystem();
                     }
 
