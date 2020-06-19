@@ -66,6 +66,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
     @Override
     public void advance(float amount) {
+        this.engine = Global.getCombatEngine();
         if (engine.isPaused()) {
             return;
         }
@@ -119,7 +120,6 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         //ROTATION
         float droneFacing = drone.getFacing();
         PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
-
 
         ////////////////////////
         ///MOVEMENT BEHAVIOUR///

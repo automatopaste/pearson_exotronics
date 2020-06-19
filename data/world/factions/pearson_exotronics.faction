@@ -163,8 +163,8 @@
 		"carriers":2,
 		"phaseShips":1,
 		
-		"officerQuality":3,
-		"shipQuality":3,
+		"officerQuality":2,
+		"shipQuality":4,
 		"numShips":1,
 		
 		"shipSize":3,

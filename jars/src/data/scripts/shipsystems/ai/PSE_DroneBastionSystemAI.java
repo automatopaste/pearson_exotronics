@@ -36,7 +36,7 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
         this.system = system;
 
         for (WeaponAPI weapon : ship.getAllWeapons()) {
-            //gets the range of the longest range ballistic or energy weapon on init
+            //gets the longest range weapon
             if (weapon.getRange() > longestWeaponRange) {
                 longestWeaponRange = weapon.getRange();
             }

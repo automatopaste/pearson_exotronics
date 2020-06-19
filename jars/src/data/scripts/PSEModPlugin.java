@@ -7,6 +7,7 @@ import data.scripts.world.PSE.PSE_WorldGen;
 import exerelin.campaign.SectorManager;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.lazywizard.lazylib.ModUtils;
 
 import java.io.IOException;
 
@@ -29,6 +30,8 @@ public class PSEModPlugin extends BaseModPlugin {
     public void onNewGame() {
         boolean haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
         boolean haveSSTC = Global.getSettings().getModManager().isModEnabled("salvage_and_solder_tc");
+        boolean haveIndEvo = Global.getSettings().getModManager().isModEnabled("deconomics");
+
         if (haveSSTC) {
             //coming soon(tm)
         }else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {

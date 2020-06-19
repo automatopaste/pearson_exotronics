@@ -12,7 +12,7 @@
 		"PSE_denmark_CloseSupport":3,
 		"PSE_denmark_Elite":2,
 		"PSE_richmond_Assault":4,
-		"PSE_richmond_Overdriven":3,
+		#"PSE_richmond_Overdriven":3,
 	},
 
 	"combatLarge":{
@@ -22,5 +22,6 @@
 
 	"combatFreighterSmall":{
 		"PSE_torrens_Standard":3,
+		"PSE_eyre_Standard":4,
 	},
 },

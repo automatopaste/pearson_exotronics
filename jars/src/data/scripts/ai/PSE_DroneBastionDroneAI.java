@@ -57,6 +57,8 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
     @Override
     public void advance(float amount) {
+        this.engine = Global.getCombatEngine();
+
         if (engine.isPaused()) {
             return;
         }
@@ -112,7 +114,6 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         } else if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.FRONT)) {
             PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
         }
-
 
         ////////////////////////
         ///MOVEMENT BEHAVIOUR///

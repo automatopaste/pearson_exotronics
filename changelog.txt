@@ -1,4 +1,6 @@
-========Beta 0.4b========
+========Beta 0.5a========
+-fixed eyre spawning and production
+========Beta 0.4c========
 -added spaceport to new caledonia
 -reduced denmark dp to 12 from 15
 -fixed drone bastion shipsystem drone ai bugs

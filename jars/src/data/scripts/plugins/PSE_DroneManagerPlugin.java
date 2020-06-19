@@ -13,7 +13,6 @@ import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.shipsystems.PSE_DroneCorona;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.VectorUtils;
-import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -87,8 +86,6 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
                 trackSystemAmmo(numDronesActive);
 
-                getModifiedDeployedDrones(deployedDrones);
-
                 if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.RECALL) && system.getAmmo() > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
@@ -110,7 +107,11 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     PSE_MiscUtils.applyFluxPerSecondPerFrame(ship, coronaSystem.getFluxPerSecond(), amount);
                 }
 
+                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+
                 coronaSystem.setDeployedDrones(deployedDrones);
+
+                engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
 
                 break;
             case BASTION:
@@ -122,8 +123,6 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 numDronesActive = deployedDrones.size();
 
                 trackSystemAmmo(numDronesActive);
-
-                getModifiedDeployedDrones(getModifiedDeployedDrones(deployedDrones));
 
                 if (numDronesActive < maxDeployedDrones && !bastionSystem.getDroneOrders().equals(PSE_DroneBastion.BastionDroneOrders.RECALL) && system.getAmmo() > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
@@ -139,9 +138,16 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     bastionSystem.nextDroneOrder();
                 }
 
-                bastionSystem.setDeployedDrones(getModifiedDeployedDrones(deployedDrones));
+                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+
+                bastionSystem.setDeployedDrones(deployedDrones);
+
+                engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
+
                 break;
         }
+
+
 
         isActivePreviousFrame = system.isActive();
         isActivationKeyDownPreviousFrame = Keyboard.isKeyDown(Keyboard.KEY_F);
@@ -181,6 +187,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 list.remove(drone);
             }
         }
+
         return list;
     }
 
@@ -207,7 +214,6 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         spawnedDrone.setDrone();
 
         engine.getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(false);
-
         return spawnedDrone;
     }
 
