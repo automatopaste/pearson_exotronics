@@ -5,19 +5,17 @@ import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
-import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDrone;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
 import data.scripts.util.PSE_MiscUtils;
 
 import java.util.ArrayList;
 
-public class PSE_DroneCorona extends BaseShipSystemScript {
-    public static final float FLUX_PER_SECOND_MULT = 0.05f;
+public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
 
-    public enum CoronaDroneOrders {
-        DEPLOY,
-        ATTACK,
+    public enum ModularVectorAssemblyDroneOrders {
+        DEFENCE,
+        CLAMPED,
         RECALL
     }
 
@@ -25,7 +23,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
 
     private CombatEngineAPI engine;
 
-    private CoronaDroneOrders droneOrders = CoronaDroneOrders.RECALL;
+    private ModularVectorAssemblyDroneOrders droneOrders = ModularVectorAssemblyDroneOrders.RECALL;
 
     private ShipAPI ship;
 
@@ -38,11 +36,11 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
 
     private boolean canSwitchDroneOrders;
 
-    public PSE_DroneCorona() {
-        maxDeployedDrones = PSE_MiscUtils.PSE_CoronaSpecLoading.getMaxDeployedDrones();
-        launchDelay = (float) PSE_MiscUtils.PSE_CoronaSpecLoading.getLaunchDelay();
-        launchSpeed = (float) PSE_MiscUtils.PSE_CoronaSpecLoading.getLaunchSpeed();
-        droneVariant = PSE_MiscUtils.PSE_CoronaSpecLoading.getDroneVariant();
+    public PSE_DroneModularVectorAssembly() {
+        maxDeployedDrones = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getMaxDeployedDrones();
+        launchDelay = (float) PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getLaunchDelay();
+        launchSpeed = (float) PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getLaunchSpeed();
+        droneVariant = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDroneVariant();
 
         plugin = null;
         canSwitchDroneOrders = true;
@@ -57,13 +55,13 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = "PSE_MVA_" + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }
 
     @Override
-    public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
+    public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
         if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
@@ -86,7 +84,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         return -1;
     }
 
-    public CoronaDroneOrders getDroneOrders() {
+    public ModularVectorAssemblyDroneOrders getDroneOrders() {
         return droneOrders;
     }
 
@@ -102,26 +100,26 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         return plugin;
     }
 
-    public CoronaDroneOrders getNextOrder() {
-        if (droneOrders.ordinal() == CoronaDroneOrders.values().length - 1) {
-            return CoronaDroneOrders.values()[0];
+    public ModularVectorAssemblyDroneOrders getNextOrder() {
+        if (droneOrders.ordinal() == ModularVectorAssemblyDroneOrders.values().length - 1) {
+            return ModularVectorAssemblyDroneOrders.values()[0];
         }
-        return CoronaDroneOrders.values()[droneOrders.ordinal() + 1];
+        return ModularVectorAssemblyDroneOrders.values()[droneOrders.ordinal() + 1];
     }
 
     public void maintainStatusMessage() {
         switch (droneOrders) {
-            case DEPLOY:
-                engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
+            case DEFENCE:
+                engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
                 break;
-            case ATTACK:
-                engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "FOCUS FORMATION", false);
+            case CLAMPED:
+                engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "THRUSTER ASSEMBLY", false);
                 break;
             case RECALL:
                 if (deployedDrones.isEmpty()) {
-                    engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
+                    engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
                 } else {
-                    engine.maintainStatusForPlayerShip("CORONA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
+                    engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
                 }
                 break;
         }
@@ -140,9 +138,5 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
             plugin = new PSE_DroneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
             engine.addPlugin(plugin);
         }
-    }
-
-    public float getFluxPerSecond() {
-        return FLUX_PER_SECOND_MULT * ship.getMaxFlux();
     }
 }

@@ -6,11 +6,13 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.PSEDroneAPI;
+import data.scripts.PSEDrone;
 import data.scripts.ai.PSE_DroneBastionDroneAI;
 import data.scripts.ai.PSE_DroneCoronaDroneAI;
+import data.scripts.ai.PSE_DroneModularVectorAssemblyDroneAI;
 import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.shipsystems.PSE_DroneCorona;
+import data.scripts.shipsystems.PSE_DroneModularVectorAssembly;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.input.Keyboard;
@@ -24,21 +26,24 @@ import java.util.Random;
 public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
     enum PSE_DroneSystemTypes {
         CORONA,
-        BASTION
+        BASTION,
+        MVA
     }
+
+    private PSE_DroneCorona coronaSystem;
+    private PSE_DroneBastion bastionSystem;
+    private PSE_DroneModularVectorAssembly MVASystem;
 
     private CombatEngineAPI engine;
     private PSE_DroneSystemTypes droneSystemType;
     IntervalUtil tracker;
-    private PSE_DroneCorona coronaSystem;
-    private PSE_DroneBastion bastionSystem;
     private ShipAPI ship;
     private ShipSystemAPI system;
     private String droneVariant;
     private float launchSpeed;
     private float maxDeployedDrones;
 
-    private ArrayList<PSEDroneAPI> toRemove = new ArrayList<>();
+    private ArrayList<PSEDrone> toRemove = new ArrayList<>();
 
     public PSE_DroneManagerPlugin(Object object, float maxDeployedDrones, float launchDelay, float launchSpeed, ShipAPI ship, String droneVariant) {
         if (object instanceof PSE_DroneCorona) {
@@ -47,6 +52,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         } else if (object instanceof PSE_DroneBastion) {
             this.bastionSystem = (PSE_DroneBastion) object;
             this.droneSystemType = PSE_DroneSystemTypes.BASTION;
+        } else if (object instanceof PSE_DroneModularVectorAssembly) {
+            this.MVASystem = (PSE_DroneModularVectorAssembly) object;
+            this.droneSystemType = PSE_DroneSystemTypes.MVA;
         } else {
             throw new NullPointerException("Unlucky: PSE undefined system launcher");
         }
@@ -75,7 +83,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         int numDronesActive;
-        ArrayList<PSEDroneAPI> deployedDrones;
+        ArrayList<PSEDrone> deployedDrones;
         switch (droneSystemType) {
             case CORONA:
                 if (engine.getPlayerShip().equals(ship)) {
@@ -145,9 +153,36 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
 
                 break;
+            case MVA:
+                if (engine.getPlayerShip().equals(ship)) {
+                    MVASystem.maintainStatusMessage();
+                }
+
+                deployedDrones = MVASystem.getDeployedDrones();
+                numDronesActive = deployedDrones.size();
+
+                trackSystemAmmo(numDronesActive);
+
+                if (numDronesActive < maxDeployedDrones && !MVASystem.getDroneOrders().equals(PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders.RECALL) && system.getAmmo() > 0) {
+                    if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
+                        tracker.setElapsed(0);
+                        MVASystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
+
+                        //subtract from reserve drone count on launch
+                        system.setAmmo(system.getAmmo() - 1);
+                    }
+                }
+
+                if (MVASystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                    MVASystem.nextDroneOrder();
+                }
+
+                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+
+                MVASystem.setDeployedDrones(deployedDrones);
+
+                engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
         }
-
-
 
         isActivePreviousFrame = system.isActive();
         isActivationKeyDownPreviousFrame = Keyboard.isKeyDown(Keyboard.KEY_F);
@@ -165,9 +200,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
-    public ArrayList<PSEDroneAPI> getModifiedDeployedDrones(ArrayList<PSEDroneAPI> list) {
+    public ArrayList<PSEDrone> getModifiedDeployedDrones(ArrayList<PSEDrone> list) {
         //remove inactive drones from list
-        for (PSEDroneAPI drone : list) {
+        for (PSEDrone drone : list) {
             if (!drone.isAlive()) {
                 toRemove.add(drone);
                 continue;
@@ -183,7 +218,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             }
         }
         if (!toRemove.isEmpty()) {
-            for (PSEDroneAPI drone : toRemove) {
+            for (PSEDrone drone : toRemove) {
                 list.remove(drone);
             }
         }
@@ -191,9 +226,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         return list;
     }
 
-    public PSEDroneAPI spawnDroneFromShip(String specID) {
+    public PSEDrone spawnDroneFromShip(String specID) {
         engine.getFleetManager(ship.getOriginalOwner()).setSuppressDeploymentMessages(true);
-        PSEDroneAPI spawnedDrone = new PSEDroneAPI(
+        PSEDrone spawnedDrone = new PSEDrone(
                 engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing(specID, getLandingLocation(), ship.getFacing()),
                 ship
         );
@@ -208,6 +243,8 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             spawnedDrone.setShipAI(new PSE_DroneCoronaDroneAI(spawnedDrone));
         } else if (droneSystemType.equals(PSE_DroneSystemTypes.BASTION)) {
             spawnedDrone.setShipAI(new PSE_DroneBastionDroneAI(spawnedDrone));
+        } else if (droneSystemType.equals(PSE_DroneSystemTypes.MVA)) {
+            spawnedDrone.setShipAI(new PSE_DroneModularVectorAssemblyDroneAI(spawnedDrone));
         }
 
         spawnedDrone.setDroneSource(ship);

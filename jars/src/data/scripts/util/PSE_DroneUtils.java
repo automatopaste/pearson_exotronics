@@ -3,7 +3,7 @@ package data.scripts.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.PSEDroneAPI;
+import data.scripts.PSEDrone;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
@@ -52,7 +52,7 @@ public final class PSE_DroneUtils {
         return closest;
     }
 
-    public static void move(PSEDroneAPI drone, float droneFacing, Vector2f movementTargetLocation, float sanity, IntervalUtil velocityRotationIntervalTracker, float damping) {
+    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation, float sanity, IntervalUtil velocityRotationIntervalTracker, float damping) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
 
         //GET USEFUL VALUES
@@ -80,7 +80,7 @@ public final class PSE_DroneUtils {
             rotationFromFacingToLocationAngle = Math.round(rotationFromFacingToLocationAngle);
 
             //COURSE CORRECTION
-            drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * 0.05f));
+            drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * 0.5f));
 
             //accelerate forwards or backwards
             if (
@@ -111,8 +111,11 @@ public final class PSE_DroneUtils {
         }
     }
 
-    //FUNCTIONS
-    public static void rotateToTarget(ShipAPI ship, PSEDroneAPI drone, Vector2f targetedLocation, float droneFacing, float rotationMagnitude) {
+    public static void snapToLocation(PSEDrone drone, Vector2f target) {
+        drone.getLocation().set(target);
+    }
+
+    public static void rotateToTarget(ShipAPI ship, PSEDrone drone, Vector2f targetedLocation, float droneFacing, float rotationMagnitude) {
         //ROTATION
 
         //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm)
@@ -135,10 +138,10 @@ public final class PSE_DroneUtils {
         drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
     }
 
-    public static void rotateToTarget(PSEDroneAPI drone, float absoluteFacingTargetAngle, float droneFacing, float rotationMagnitude) {
+    public static void rotateToFacing(PSEDrone drone, float absoluteFacingTargetAngle, float droneFacing, float rotationMagnitude) {
         //ROTATION: THE SEQUEL
 
-        //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm)
+        //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm cause it's kind of unnecessary)
         //float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
 
         //point at target, if that doesn't exist then point in direction of mothership facing
@@ -148,7 +151,7 @@ public final class PSE_DroneUtils {
         drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
     }
 
-    public static void attemptToLand(ShipAPI ship, PSEDroneAPI drone, float amount, IntervalUtil delayBeforeLandingTracker) {
+    public static void attemptToLand(ShipAPI ship, PSEDrone drone, float amount, IntervalUtil delayBeforeLandingTracker) {
         delayBeforeLandingTracker.advance(amount);
         engine = Global.getCombatEngine();
         boolean isPlayerShip = ship.equals(engine.getPlayerShip());
@@ -170,7 +173,7 @@ public final class PSE_DroneUtils {
         }
     }
 
-    public static Vector2f getEnemyTargetLocation(ShipAPI ship, PSEDroneAPI drone, float weaponRange, boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
+    public static Vector2f getEnemyTargetLocation(ShipAPI ship, PSEDrone drone, float weaponRange, boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
         //GET NEARBY OBJECTS TO SHOOT AT priority missiles > fighters > ships
 
         MissileAPI droneTargetMissile = null;

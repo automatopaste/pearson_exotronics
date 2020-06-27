@@ -6,7 +6,7 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
-import data.scripts.PSEDroneAPI;
+import data.scripts.PSEDrone;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
 import data.scripts.util.PSE_MiscUtils;
 
@@ -21,7 +21,7 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         RECALL
     }
 
-    public ArrayList<PSEDroneAPI> deployedDrones = new ArrayList<>();
+    public ArrayList<PSEDrone> deployedDrones = new ArrayList<>();
 
     private CombatEngineAPI engine;
 
@@ -75,9 +75,9 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         }
     }
 
-    public int getIndex(PSEDroneAPI drone) {
+    public int getIndex(PSEDrone drone) {
         int index = 0;
-        for (PSEDroneAPI deployedDrone : deployedDrones) {
+        for (PSEDrone deployedDrone : deployedDrones) {
             if (deployedDrone == drone) {
                 return index;
             }
@@ -127,11 +127,11 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         }
     }
 
-    public ArrayList<PSEDroneAPI> getDeployedDrones() {
+    public ArrayList<PSEDrone> getDeployedDrones() {
         return deployedDrones;
     }
 
-    public void setDeployedDrones(ArrayList<PSEDroneAPI> list) {
+    public void setDeployedDrones(ArrayList<PSEDrone> list) {
         this.deployedDrones = list;
     }
 

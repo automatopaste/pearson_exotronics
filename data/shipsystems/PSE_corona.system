@@ -1,53 +1,30 @@
-{ ### the drone AI written for the deuces doesn't use a lot of the values here, only those marked with ###, but the game will crash on launch if the unused values are missing
+{
 	"id":"PSE_droneCorona",
 	"type":"STAT_MOD",
 	"statsScript":"data.scripts.shipsystems.PSE_DroneCorona",
 	"aiType":"CUSTOM",
 	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneCoronaSystemAI",
 	
-	"droneVariant":"PSE_drone1_Drone",
+	"PSE_droneVariant":"PSE_drone1_Drone",
 	
-	"allowFreeRoam":true,
-	
-	"launchSpeed":150,
-	"launchDelay":0.5,
-	"maxDrones":3,
-	"droneBehavior":[
+	"PSE_launchSpeed":150,
+	"PSE_launchDelay":0.5,
+	"PSE_maxDrones":3,
+	"PSE_droneBehavior":[
 		{"droneIndex":[0],
-		 "defaultFacing":"MATCH_SHIP_FACING",	# MATCH_DRONE_HEADING, MATCH_SHIP_HEADING, MATCH_SHIP_FACING, AWAY_FROM_SHIP
-		 "faceEnemy":true,
-		 "holdRoamRange":20, ###
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP], # also SHIP_TARGET to prefer targeting the mothership's target
-		 "initialOrbitAngle":0, ###
-		 "focusModeOrbitAngle":0, ### CUSTOM
-		 "orbitRadius":-35, ###				# plus ship radius
-		 "orbitDir":0, 					# -1 or 1
-		 "orbitSpeed":0, 				# pixels/second
+		 "initialOrbitAngle":0,
+		 "focusModeOrbitAngle":0,
+		 "orbitRadius":-35, # plus ship radius
 		},
 		{"droneIndex":[1],
-		 "defaultFacing":"MATCH_SHIP_FACING",
-		 "faceEnemy":true,
-		 "holdRoamRange":20, ###
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "initialOrbitAngle":50, ###
-		 "focusModeOrbitAngle":5, ### CUSTOM
-		 "orbitRadius":-35, ###
-		 "orbitDir":0,
-		 "orbitSpeed":0,
+		 "initialOrbitAngle":50,
+		 "focusModeOrbitAngle":5,
+		 "orbitRadius":-35,
 		},
 		{"droneIndex":[2],
-		 "defaultFacing":"MATCH_SHIP_FACING",
-		 "faceEnemy":true,
-		 "holdRoamRange":20,
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "initialOrbitAngle":-50, ###
-		 "focusModeOrbitAngle":-5, ### CUSTOM
-		 "orbitRadius":-35, ###
-		 "orbitDir":0,
-		 "orbitSpeed":0,
+		 "initialOrbitAngle":-50,
+		 "focusModeOrbitAngle":-5,
+		 "orbitRadius":-35,
 		},
 	],
 	

@@ -4,7 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.PSEDroneAPI;
+import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
@@ -17,7 +17,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
 
-    private final PSEDroneAPI drone;
+    private final PSEDrone drone;
     private final ShipAPI ship;
     private CombatEngineAPI engine;
 
@@ -37,7 +37,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
     private String UNIQUE_SYSTEM_ID;
 
-    public PSE_DroneBastionDroneAI(PSEDroneAPI passedDrone) {
+    public PSE_DroneBastionDroneAI(PSEDrone passedDrone) {
         this.engine = Global.getCombatEngine();
 
         this.drone = passedDrone;
@@ -110,7 +110,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         float facing = frontOrbitAngle + shipFacing;
 
         if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.CARDINAL)) {
-            PSE_DroneUtils.rotateToTarget(drone, facing, droneFacing, 0.1f);
+            PSE_DroneUtils.rotateToFacing(drone, facing, droneFacing, 0.1f);
         } else if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.FRONT)) {
             PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
         }

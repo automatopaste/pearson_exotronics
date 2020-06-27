@@ -4,22 +4,18 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.PSEDroneAPI;
+import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_DroneCorona;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
 
-import static data.scripts.util.PSE_DroneUtils.getNearestEnemyFighter;
-import static data.scripts.util.PSE_DroneUtils.getNearestEnemyNonFighterShip;
-
 public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
-    private final PSEDroneAPI drone;
+    private final PSEDrone drone;
     private final ShipAPI ship;
     private CombatEngineAPI engine;
 
@@ -41,7 +37,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
     private String UNIQUE_SYSTEM_ID;
 
-    public PSE_DroneCoronaDroneAI(PSEDroneAPI passedDrone) {
+    public PSE_DroneCoronaDroneAI(PSEDrone passedDrone) {
         this.engine = Global.getCombatEngine();
 
         this.drone = passedDrone;

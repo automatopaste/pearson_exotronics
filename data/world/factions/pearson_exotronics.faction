@@ -230,8 +230,8 @@
 		"offersCommissions":true,
 		"engagesInHostilities":true,
 		"buysAICores":true,
-		"AICoreValueMult":1.5,
-		"AICoreRepMult":0.75,
+		"AICoreValueMult":0.8,
+		"AICoreRepMult":1.5,
 		"buysSurveyData":true,
 		"hostilityImpactOnGrowth":true,
 		"caresAboutAtrocities":true,
@@ -260,11 +260,11 @@
 		
 		"patrolSmall":"Patrol",
 		"patrolMedium":"Squadron",
-		"patrolLarge":"Defence Fleet",
+		"patrolLarge":"Defence Force",
 		
 		"inspectionFleet":"Inspection Fleet",
 		"taskForce":"Expeditionary Force",
 		
-		"foodReliefFleet":"Relief Operative",
+		"foodReliefFleet":"Relief Operation",
 	},
 },

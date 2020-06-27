@@ -15,6 +15,7 @@ import java.util.Objects;
 public final class PSE_MiscUtils {
     private static final String droneCoronaSpecJsonFilename = "data/shipsystems/PSE_corona.system";
     private static final String droneBastionSpecJsonFilename = "data/shipsystems/PSE_bastion.system";
+    private static final String MVASpecJsonFilename = "data/shipsystems/PSE_MVA.system";
 
     public static class PSE_CoronaSpecLoading {
         private static float[] initialOrbitAngleArray;
@@ -29,12 +30,12 @@ public final class PSE_MiscUtils {
         public static void loadJSON() throws JSONException, IOException {
             SettingsAPI settings = Global.getSettings();
             JSONObject droneSystemSpecJson = settings.loadJSON(droneCoronaSpecJsonFilename);
-            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("droneBehavior");
+            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
 
-            launchDelay = droneSystemSpecJson.getDouble("launchDelay");
-            launchSpeed = droneSystemSpecJson.getDouble("launchSpeed");
-            droneVariant = droneSystemSpecJson.getString("droneVariant");
-            maxDeployedDrones = droneSystemSpecJson.getInt("maxDrones");
+            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
+            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
+            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
+            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
             
             initialOrbitAngleArray = new float[maxDeployedDrones];
             focusOrbitAngleArray = new float[maxDeployedDrones];
@@ -85,12 +86,12 @@ public final class PSE_MiscUtils {
         public static void loadJSON() throws JSONException, IOException {
             SettingsAPI settings = Global.getSettings();
             JSONObject droneSystemSpecJson = settings.loadJSON(droneBastionSpecJsonFilename);
-            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("droneBehavior");
+            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
 
-            launchDelay = droneSystemSpecJson.getDouble("launchDelay");
-            launchSpeed = droneSystemSpecJson.getDouble("launchSpeed");
-            droneVariant = droneSystemSpecJson.getString("droneVariant");
-            maxDeployedDrones = droneSystemSpecJson.getInt("maxDrones");
+            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
+            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
+            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
+            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
 
             cardinalOrbitAngleArray = new float[maxDeployedDrones];
             frontOrbitAngleArray = new float[maxDeployedDrones];
@@ -98,7 +99,7 @@ public final class PSE_MiscUtils {
             
             for (int i = 0; i < maxDeployedDrones; i++) {
                 JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
-                
+
                 cardinalOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("cardinalOrbitAngle");
                 frontOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("frontOrbitAngle");
                 orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius");
@@ -112,6 +113,74 @@ public final class PSE_MiscUtils {
         }
         public static float[] getOrbitRadiusArray() {
             return orbitRadiusArray;
+        }
+
+        public static int getMaxDeployedDrones() {
+            return maxDeployedDrones;
+        }
+        public static double getLaunchDelay() {
+            return launchDelay;
+        }
+        public static double getLaunchSpeed() {
+            return launchSpeed;
+        }
+        public static String getDroneVariant() {
+            return droneVariant;
+        }
+    }
+
+    public static class PSE_ModularVectorAssemblySpecLoading {
+        private static float[] defenceOrbitAngleArray;
+        private static float[] clampedOrbitAngleArray;
+        private static float[] defenceOrbitRadiusArray;
+        private static float[] clampedOrbitRadiusArray;
+        private static float[] clampedFacingOffsetArray;
+
+        private static int maxDeployedDrones;
+        private static double launchDelay;
+        private static double launchSpeed;
+        private static String droneVariant;
+
+        public static void loadJSON() throws JSONException, IOException {
+            SettingsAPI settings = Global.getSettings();
+            JSONObject droneSystemSpecJson = settings.loadJSON(MVASpecJsonFilename);
+            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
+
+            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
+            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
+            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
+            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
+
+            defenceOrbitAngleArray = new float[maxDeployedDrones];
+            clampedOrbitAngleArray = new float[maxDeployedDrones];
+            defenceOrbitRadiusArray = new float[maxDeployedDrones];
+            clampedOrbitRadiusArray = new float[maxDeployedDrones];
+            clampedFacingOffsetArray = new float[maxDeployedDrones];
+
+            for (int i = 0; i < maxDeployedDrones; i++) {
+                JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
+
+                defenceOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceAngle");
+                clampedOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("clampedAngle");
+                defenceOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceOrbitRadius");
+                clampedOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("clampedOrbitRadius");
+                clampedFacingOffsetArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("clampedFacingOffset");
+            }
+        }
+        public static float[] getDefenceOrbitAngleArray() {
+            return defenceOrbitAngleArray;
+        }
+        public static float[] getClampedOrbitAngleArray() {
+            return clampedOrbitAngleArray;
+        }
+        public static float[] getDefenceOrbitRadiusArray() {
+            return defenceOrbitRadiusArray;
+        }
+        public static float[] getClampedOrbitRadiusArray() {
+            return clampedOrbitRadiusArray;
+        }
+        public static float[] getClampedFacingOffsetArray() {
+            return clampedFacingOffsetArray;
         }
 
         public static int getMaxDeployedDrones() {

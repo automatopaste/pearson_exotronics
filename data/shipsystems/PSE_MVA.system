@@ -1,0 +1,39 @@
+{
+	"id":"PSE_MVA",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.shipsystems.PSE_DroneModularVectorAssembly",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneCoronaSystemAI",
+	
+	"PSE_droneVariant":"PSE_drone3_Drone",
+	
+	"PSE_launchSpeed":150,
+	"PSE_launchDelay":0.5,
+	"PSE_maxDrones":3,
+	"PSE_droneBehavior":[
+		{"droneIndex":[0],
+		 "defenceAngle":0,
+		 "clampedAngle":180,
+		 "defenceOrbitRadius":10, # plus ship radius
+		 "clampedOrbitRadius":-80, # plus ship radius
+		 "clampedFacingOffset":0, # rotation offset from ship facing
+		},
+		{"droneIndex":[1],
+		 "defenceAngle":100,
+		 "clampedAngle":65,
+		 "defenceOrbitRadius":10, # plus ship radius
+		 "clampedOrbitRadius":-75, # plus ship radius
+		 "clampedFacingOffset":-35,
+		},
+		{"droneIndex":[2],
+		 "defenceAngle":-100,
+		 "clampedAngle":-65,
+		 "defenceOrbitRadius":10, # plus ship radius
+		 "clampedOrbitRadius":-75, # plus ship radius
+		 "clampedFacingOffset":35,
+		},	
+	],
+	
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

@@ -1,65 +1,35 @@
-{ ### the drone AI written for the deuces doesn't use a lot of the values here, only those marked with ###, but the game will crash on launch if the unused values are missing
+{
 	"id":"PSE_droneBastion",
 	"type":"STAT_MOD",
 	"statsScript":"data.scripts.shipsystems.PSE_DroneBastion",
 	"aiType":"CUSTOM",
 	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneBastionSystemAI",
 	
-	"droneVariant":"PSE_deuces_Drone",
+	"PSE_droneVariant":"PSE_deuces_Drone",
 	
-	"allowFreeRoam":true,
-	
-	"launchSpeed":100,
-	"launchDelay":0.3,
-	"maxDrones":4,
-	"droneBehavior":[
+	"PSE_launchSpeed":100,
+	"PSE_launchDelay":0.3,
+	"PSE_maxDrones":4,
+	"PSE_droneBehavior":[
 		{"droneIndex":[0],
-		 "defaultFacing":"MATCH_SHIP_FACING",
-		 "faceEnemy":true,
-		 "holdRoamRange":20, ###
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP], # also SHIP_TARGET to prefer targeting the mothership's target
-		 "cardinalOrbitAngle":25, ###
-		 "frontOrbitAngle":45, ### CUSTOM
-		 "orbitRadius":-35, ###				# plus ship radius
-		 "orbitDir":0, 					# -1 or 1
-		 "orbitSpeed":0, 				# pixels/second
+		 "cardinalOrbitAngle":25,
+		 "frontOrbitAngle":45,
+		 "orbitRadius":-35, # plus ship radius
 		},
 		{"droneIndex":[1],
-		 "defaultFacing":"MATCH_SHIP_FACING",
-		 "faceEnemy":true,
-		 "holdRoamRange":20, ###
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "cardinalOrbitAngle":75, ###
-		 "frontOrbitAngle":135, ### CUSTOM
-		 "orbitRadius":-35, ###
-		 "orbitDir":0,
-		 "orbitSpeed":0,
+		 "cardinalOrbitAngle":75,
+		 "frontOrbitAngle":135,
+		 "orbitRadius":-35,
 		},
 		{"droneIndex":[2],
-		 "defaultFacing":"MATCH_SHIP_FACING",
-		 "faceEnemy":true,
-		 "holdRoamRange":20,
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "cardinalOrbitAngle":-25, ###
-		 "frontOrbitAngle":-45, ### CUSTOM
-		 "orbitRadius":-35, ###
-		 "orbitDir":0,
-		 "orbitSpeed":0,
+		 "cardinalOrbitAngle":-25,
+		 "frontOrbitAngle":-45,
+		 "orbitRadius":-35,
 		},
 		{"droneIndex":[3],
-		 "defaultFacing":"MATCH_SHIP_FACING",
-		 "faceEnemy":true,
-		 "holdRoamRange":20,
-		 "freeRoamRange":100,
-		 "targetPriority":[MISSILE, FIGHTER, SHIP],
-		 "cardinalOrbitAngle":-75, ###
-		 "frontOrbitAngle":-135, ### CUSTOM
-		 "orbitRadius":-35, ###
-		 "orbitDir":0,
-		 "orbitSpeed":0,
+		 "cardinalOrbitAngle":-75,
+		 "frontOrbitAngle":-135,
+		 "orbitRadius":-35,
 		},
 	],
 	

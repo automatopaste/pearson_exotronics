@@ -76,5 +76,10 @@ public class PSEModPlugin extends BaseModPlugin {
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
+        try {
+            PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.loadJSON();
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
