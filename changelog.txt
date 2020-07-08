@@ -1,5 +1,9 @@
 ========Beta 0.5a========
 -fixed eyre spawning and production
+-corona shipsystem no longer reduces flux dissipation, instead deactivates zero flux boost
+-added modular vector assembly (MVA) thruster drone system
+-added new kingston battleship
+    -
 ========Beta 0.4c========
 -added spaceport to new caledonia
 -reduced denmark dp to 12 from 15
