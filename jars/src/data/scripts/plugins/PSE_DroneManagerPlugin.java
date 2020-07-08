@@ -112,7 +112,8 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     ship.setJitterShields(false);
                     ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 8, 1f, 2f);
 
-                    PSE_MiscUtils.applyFluxPerSecondPerFrame(ship, coronaSystem.getFluxPerSecond(), amount);
+                    ship.getMutableStats().getZeroFluxSpeedBoost().modifyMult(this.toString(), 0f);
+                    engine.maintainStatusForPlayerShip(this, "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
                 }
 
                 deployedDrones = getModifiedDeployedDrones(deployedDrones);
