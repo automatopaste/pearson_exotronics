@@ -20,6 +20,12 @@
 		"PSE_serrano_Overdriven":2,
 	},
 
+	"combatCapital":{
+		"PSE_kingston_Assault":5,
+		"PSE_kingston_Elite":4,
+		"PSE_kingston_Strike":3,
+	},
+
 	"combatFreighterSmall":{
 		"PSE_torrens_Standard":3,
 		"PSE_eyre_Standard":4,

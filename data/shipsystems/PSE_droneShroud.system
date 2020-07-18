@@ -1,0 +1,10 @@
+{
+	"id":"PSE_droneShroud",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.shipsystems.PSE_DroneShroud",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneShroudSystemAI",
+	
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

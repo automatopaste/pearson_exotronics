@@ -3,7 +3,7 @@
   "hullId": "PSE_richmond",
   "hullSize": "DESTROYER",
   "spriteName": "graphics/PSE/ships/PSE_richmond.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 125,
   "width": 150,
   "center": [75, 62.5],

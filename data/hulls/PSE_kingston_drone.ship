@@ -1,0 +1,44 @@
+{
+  "hullName": "Kingston Shield Drone",
+  "hullId": "PSE_kingston_drone",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_kingston_drone.png",
+  "style": "PEARSON_EXOTRONICS_SHIELD_DRONE_HULL",
+  "height": 36,
+  "width": 56,
+  "center": [28, -13],
+  "collisionRadius": 190,
+  "shieldCenter": [-122.5, 0],
+  "shieldRadius": 221.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "fluxshunt"
+  ],
+  "weaponSlots": [],
+  "engineSlots": [
+    {
+      "location": [21.5, 19.5],
+      "length": 8,
+      "width": 10,
+      "angle": 150,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    },
+    {
+      "location": [21.5, -19.5],
+      "length": 8,
+      "width": 10,
+      "angle": -150,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    20.5, -24,
+    44, -22.5,
+    44, 22.5,
+    20.5, 24
+  ]
+}

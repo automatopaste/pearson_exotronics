@@ -94,6 +94,10 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         droneOrders = getNextOrder();
     }
 
+    public void setDroneOrders(BastionDroneOrders droneOrders) {
+        this.droneOrders = droneOrders;
+    }
+
     public ShipAPI getShip() {
         return this.ship;
     }

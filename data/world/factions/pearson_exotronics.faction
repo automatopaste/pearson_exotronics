@@ -36,6 +36,7 @@
 			"PSE_denmark":2,
 			"PSE_richmond":4,
 			"PSE_serrano":4,
+			"PSE_kingston":2,
 		},
 	},
 	# ships the faction gets access to when importing S&W out-of-faction
@@ -52,7 +53,9 @@
 			"PSE_kiruna",
 			"PSE_denmark",
 			"PSE_richmond",
-			"PSE_serrano",		],
+			"PSE_serrano",
+			"PSE_kingston",
+			],
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available
 	"priorityShips":{
@@ -64,6 +67,7 @@
 			"PSE_denmark",
 			"PSE_richmond",
 			"PSE_serrano",
+			"PSE_kingston",
 		],
 	},
 	"knownFighters":{

@@ -3,7 +3,7 @@
   "hullId": "PSE_eyre",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_eyre.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 80,
   "width": 80,
   "center": [40, 36.5],
@@ -11,6 +11,9 @@
   "shieldCenter": [0, -0],
   "shieldRadius": 55.5,
   "viewOffset": 0,
+  "builtInMods": [
+    "civgrade"
+  ],
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -43,22 +46,29 @@
   "engineSlots": [
     {
       "location": [-33, 13.5],
-      "length": 6,
-      "width": 16,
+      "length": 12,
+      "width": 17,
       "angle": 180,
-      "contrailSize": 16,
+      "contrailSize": 17,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-33, -13.5],
-      "length": 6,
-      "width": 16,
+      "length": 12,
+      "width": 17,
       "angle": -180,
-      "contrailSize": 16,
+      "contrailSize": 17,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }
   ],
-  "bounds": []
+  "bounds": [
+    33.5, -15,
+    18.5, -31,
+    -27.5, -34.5,
+    -27.5, 34.5,
+    18.5, 31,
+    33.5, 15
+  ]
 }

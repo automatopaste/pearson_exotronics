@@ -3,7 +3,7 @@
   "hullId": "PSE_drone1",
   "hullSize": "FIGHTER",
   "spriteName": "graphics/PSE/ships/PSE_drone1.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 34,
   "width": 26,
   "center": [13, 17],

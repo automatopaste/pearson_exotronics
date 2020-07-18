@@ -45,6 +45,10 @@ public class PSEDrone implements ShipAPI {
         Global.getCombatEngine().removeEntity(drone);
     }
 
+    public ShipAPI getShipAPI() {
+        return drone;
+    }
+
     @Override
     public String getFleetMemberId() {
         return drone.getFleetMemberId();

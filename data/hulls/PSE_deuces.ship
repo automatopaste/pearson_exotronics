@@ -3,7 +3,7 @@
   "hullId": "PSE_deuces",
   "hullSize": "FIGHTER",
   "spriteName": "graphics/PSE/ships/PSE_deuces.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 21,
   "width": 18,
   "center": [9, 9],

@@ -5,25 +5,26 @@ import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDrone;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
-import data.scripts.util.PSE_MiscUtils;
 
 import java.util.ArrayList;
 
-public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
-
-    public enum ModularVectorAssemblyDroneOrders {
-        DEFENCE,
-        CLAMPED,
+public class PSE_DroneShroud extends BaseShipSystemScript {
+    public enum ShroudDroneOrders {
+        CIRCLE,
+        BROADSIDE_MOVEMENT,
         RECALL
     }
+
+    private final static float ORBIT_BASE_ROTATION_SPEED = 15f;
 
     public ArrayList<PSEDrone> deployedDrones = new ArrayList<>();
 
     private CombatEngineAPI engine;
 
-    private ModularVectorAssemblyDroneOrders droneOrders = ModularVectorAssemblyDroneOrders.RECALL;
+    private ShroudDroneOrders droneOrders = ShroudDroneOrders.RECALL;
 
     private ShipAPI ship;
 
@@ -32,18 +33,19 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
     private float launchSpeed;
     private String droneVariant;
 
+    private float orbitAngleMovementBase = 0f;
+
     private PSE_DroneManagerPlugin plugin;
 
-    private boolean canSwitchDroneOrders;
+    private boolean canSwitchDroneOrders = true;
 
-    public PSE_DroneModularVectorAssembly() {
-        maxDeployedDrones = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getMaxDeployedDrones();
-        launchDelay = (float) PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getLaunchDelay();
-        launchSpeed = (float) PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getLaunchSpeed();
-        droneVariant = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDroneVariant();
+    public PSE_DroneShroud() {
+        maxDeployedDrones = 5;
+        launchDelay = 0.1f;
+        launchSpeed = 10f;
+        droneVariant = "PSE_kingston_drone_Standard";
 
         plugin = null;
-        canSwitchDroneOrders = true;
     }
 
     @Override
@@ -55,13 +57,13 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_MVA_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = "PSE_DroneShroud_" + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }
 
     @Override
-    public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+    public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
         if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
@@ -84,7 +86,7 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
         return -1;
     }
 
-    public ModularVectorAssemblyDroneOrders getDroneOrders() {
+    public ShroudDroneOrders getDroneOrders() {
         return droneOrders;
     }
 
@@ -92,7 +94,7 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
         droneOrders = getNextOrder();
     }
 
-    public void setDroneOrders(ModularVectorAssemblyDroneOrders droneOrders) {
+    public void setDroneOrders(ShroudDroneOrders droneOrders) {
         this.droneOrders = droneOrders;
     }
 
@@ -104,26 +106,27 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
         return plugin;
     }
 
-    public ModularVectorAssemblyDroneOrders getNextOrder() {
-        if (droneOrders.ordinal() == ModularVectorAssemblyDroneOrders.values().length - 1) {
-            return ModularVectorAssemblyDroneOrders.values()[0];
+    public ShroudDroneOrders getNextOrder() {
+        if (droneOrders.ordinal() == ShroudDroneOrders.values().length - 1) {
+            return ShroudDroneOrders.values()[0];
         }
-        return ModularVectorAssemblyDroneOrders.values()[droneOrders.ordinal() + 1];
+        return ShroudDroneOrders.values()[droneOrders.ordinal() + 1];
     }
 
     public void maintainStatusMessage() {
         switch (droneOrders) {
-            case DEFENCE:
-                engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
+            case CIRCLE:
+                engine.maintainStatusForPlayerShip("SHROUD_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
                 break;
-            case CLAMPED:
-                engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "THRUSTER ASSEMBLY", false);
+            case BROADSIDE_MOVEMENT:
+                engine.maintainStatusForPlayerShip("SHROUD_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "BROADSIDE MOVEMENT FORMATION", false);
+                engine.maintainStatusForPlayerShip("SHROUD_STAT_KEY_2", "graphics/icons/hullsys/drone_pd_high.png", "DRONE-ASSISTED MANEUVERS", "DRIVE FIELD BOOSTED", false);
                 break;
             case RECALL:
                 if (deployedDrones.isEmpty()) {
-                    engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
+                    engine.maintainStatusForPlayerShip("SHROUD_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DRONES RECALLED", true);
                 } else {
-                    engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
+                    engine.maintainStatusForPlayerShip("SHROUD_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
                 }
                 break;
         }
@@ -142,5 +145,20 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
             plugin = new PSE_DroneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
             engine.addPlugin(plugin);
         }
+    }
+
+    public void advanceOrbitAngleBase(float amount) {
+        orbitAngleMovementBase += (ORBIT_BASE_ROTATION_SPEED * amount);
+        if (orbitAngleMovementBase >= 360f) {
+            orbitAngleMovementBase -= 360f;
+        }
+    }
+
+    public void resetOrbitAngleBase() {
+        orbitAngleMovementBase = 0f;
+    }
+
+    public float getOrbitAngleBase() {
+        return orbitAngleMovementBase;
     }
 }

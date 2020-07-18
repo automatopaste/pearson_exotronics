@@ -94,6 +94,10 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         droneOrders = getNextOrder();
     }
 
+    public void setDroneOrders(CoronaDroneOrders droneOrders) {
+        this.droneOrders = droneOrders;
+    }
+
     public ShipAPI getShip() {
         return this.ship;
     }

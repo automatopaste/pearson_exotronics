@@ -3,7 +3,7 @@
   "hullId": "PSE_serrano",
   "hullSize": "CRUISER",
   "spriteName": "graphics/PSE/ships/PSE_serrano.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 187,
   "width": 198,
   "center": [99, 81],

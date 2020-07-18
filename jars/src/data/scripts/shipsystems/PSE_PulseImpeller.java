@@ -15,7 +15,9 @@ import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
 this was a bad idea
@@ -25,9 +27,17 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
     public static final float FLAME_LENGTH_FRACTION = 2f;
     public static final float FLAME_GLOW_FRACTION = 2f;
     public static final float JITTER_RANGE = 2f;
-    public static final Color CONTRAIL_COLOUR = new Color (0xFFFFFC32, true);
+    public static final Color CONTRAIL_COLOUR = new Color (0xFF65631D, true);
     public static final Color JITTER_COLOUR = new Color (0xFF00FFB9, true);
 
+    public static final Map<ShipAPI.HullSize, Float> FORCE_PER_HULL_SIZE = new HashMap<>(4);
+
+    static {
+        FORCE_PER_HULL_SIZE.put(ShipAPI.HullSize.CAPITAL_SHIP, 3000f);
+        FORCE_PER_HULL_SIZE.put(ShipAPI.HullSize.CRUISER, 2000f);
+        FORCE_PER_HULL_SIZE.put(ShipAPI.HullSize.DESTROYER, 1000f);
+        FORCE_PER_HULL_SIZE.put(ShipAPI.HullSize.FRIGATE, 500f);
+    }
 
     boolean started = false;
     boolean ended = false;
@@ -36,7 +46,7 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
     float boostLimit = 0f;
     float initial = 0f;
 
-    IntervalUtil afterimageInterval = new IntervalUtil(0.1f, 0.15f);
+    IntervalUtil afterimageInterval = new IntervalUtil(0.4f, 0.4f);
     @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
         float modlevel = effectLevel * 100f;
@@ -108,7 +118,7 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
                 velocity.scale(0.5f);
                 Vector2f.add(velocity, boostDir, composite);
 
-                CombatUtils.applyForce(ship, composite, ship.getMass() * BOOST_SPEED_MULT);
+                CombatUtils.applyForce(ship, composite, FORCE_PER_HULL_SIZE.get(ship.getHullSize()));
                 VectorUtils.clampLength(ship.getVelocity(), boostLimit);
 
                 ended = true;

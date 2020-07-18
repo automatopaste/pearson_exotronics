@@ -84,20 +84,20 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
             switch (droneSystem.getDroneOrders()) {
                 case CARDINAL:
                     if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle < 60 || missileThreatAngle < 90)) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     }
                     break;
                 case FRONT:
                     //switch to defensive mode if pilot is not a gigachad HIL user
                     if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle >= 60 || missileThreatAngle >= 90)) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     } else if (AIUtils.getNearbyEnemies(ship, longestWeaponRange * 2f).isEmpty()) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     }
                     break;
                 case RECALL:
                     if (!AIUtils.getNearbyEnemies(ship, longestWeaponRange * 2f).isEmpty()) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     }
                     break;
                 default:

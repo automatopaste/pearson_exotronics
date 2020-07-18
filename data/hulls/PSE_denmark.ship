@@ -3,7 +3,7 @@
   "hullId": "PSE_denmark",
   "hullSize": "DESTROYER",
   "spriteName": "graphics/PSE/ships/PSE_denmark.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 200,
   "width": 160,
   "center": [80, 100],

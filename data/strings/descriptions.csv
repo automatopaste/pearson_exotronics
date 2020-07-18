@@ -1,51 +1,39 @@
 id,type,text1,text2,text3,notes
-PSE_denmark,SHIP,Description here,,,
+PSE_torrens,SHIP,"A quintessential logistics vessel, Torrens-class frigates find use in salvage expeditions and small trade convoys, providing easy operation in examining and detecting bodies of various sizes and compositions. Despite an anemic weapon loadout, compact drone tech can give it an edge in combat, but is not much use against anything bigger than itself.",,,
+PSE_eyre,SHIP,"A steady and efficient cargo hauler providing cheap mass storage transit, and a favourite of commanders of smaller expeditions. Following convention with true cargo ships, the Eyre wields no special defensive armament, and is rarely seen outside of small trade convoys, being generally favoured less than larger and more economical vessels.",,,
+PSE_cassius,SHIP,"Aggressively oriented and with attitude to match, a Cassius-class frigate can achieve fame on the battlefield with surgical strike capability enamoured by a quickly-recharging and effective movement subsystem.
+
+A Cassius captain must be cool and collected while under fire, capable of waiting until opportune moments to slip between enemy firing arcs to provide critical strike or support, where a ship with greater tonnage would have been ensnared, unable to match the sudden bursts of speed at the disposal of the frigate. This lends the Cassius to be common at all levels of fleet size, especially shining in grand engagements, being both viable in close support roles to heavy cruisers and destroyers, or using a specialised strike package to deliver a Reaper-class torpedo into an overloaded enemy.",,,
+PSE_kiruna,SHIP,"An advanced frigate hull with an unusually heavy armament, the Kiruna finds use in elite PEC navy fleets, valued for its swarm of PD defence drones and strike capability.
+
+Inspired, in part, by designs from the late Expansion Epoch, advances in proprietary Delta-level sub-sentient AI technology in PEC naval integration allows for the deployment of a greater number of independent PD laser wielding drones, without sacrificing critical combat properties such as sub-light drive capability or shield performance.
+
+When the effectiveness of the Kiruna-class frigate was demonstrated in an annual war game event, the design team was subsequently poached by a rival corporation, resulting in the successful development of the Tempest-class attack frigate, installing variable combat-rated capacitors in the place of PEC-owned drone technologies.",,,
+,,,,,
+PSE_denmark,SHIP,"The Denmark is a rugged heavy destroyer, trading more conventional armament for a suite of multirole defence drones. A strong ship in capable hands, the innate suppressive power of the Deuces-class defence drone is useful in both the line of battle and as a valuable member of faster task forces.
+
+The inner engine voids are placed to allow easy reactor switching when power is redirected towards the energy beam generated in attack formation mode. This has the dual side effect of making engines more resilient towards EMP-based strike weapons such as the popular Salamander-class missile, but led to the Denmark's development of a reputation amongst Navy personnel as ""a bit of a barge-ass"", with the rear superstructures that house drone manufactories and energy transmission links ballooning outwards into the distinctive shape.
+
+Despite the on-paper disadvantage of lacking raw firepower in weapon mounting opportunities, the Denmark finds constant use in PEC Navy doctrine, with an efficient logistics  operation schema and using mostly common drone parts and sub-sentient AI tech, easily manufactured from conventional supply components.",,,
+PSE_richmond,SHIP,"The Richmond-class destroyer is found in most system defence fleets and task forces, featuring a strong all-round weaponry package and no significant drawbacks. 
+
+Designed by the same maverick team as the Cassius-class frigate, using an up-scaled version of its boson-duplication velocity booster, a Richmond can quickly exit an engagement as fast as it can enter one, providing an astute captain the potential to provide mobile firepower on the battlefield, with the capability to disengage from an unfavourable situation.
+
+All hulls come equipped with dual Burrows-class drones wielding short range EMP emitters, but in a conventional hull-specific LPC format, due to the difficulty of manufacturing the rare components necessary for EMP arc generation, requiring a carrier-derived miniforge to convert supply feedstocks to the necessary components.",,,
+,,,,,
+PSE_serrano,SHIP,"Tough, immovable, and armed to the teeth, the Serrano is a constant dominating force on the battlefield, providing a key anchor point from which more strike-oriented hulls can stage temporary engagements.
+
+Utilising the same multirole autonomous suite as the Denmark, but with a lesser reliance on engine performance, many experienced officers are more inclined to find use of the long-range high intensity laser derivative, as an unrelenting source of high-explosive damage, riveted through with a barrage of heavy kinetics. Despite weaker armour than similar cruisers of its weight class, the Serrano shines in its ability to combine the innately strong PD performance of its Deuces-class drone package with onboard PD solutions, providing a volume of missile denial firepower comparable to some battlecruisers.",,,
+,,,,,
+PSE_kingston,SHIP,"A testament to the scale of the wars of a bygone era, the Kingston is aptly named as the most supreme of Pearson Exotronics Corporation Navy vessels, matching heavy firepower and variable weapon mounting with extremely advanced drone-based shield technology.
+
+Developed as an answer to the Paragon-class fielded by rival corporation Tri-Tachyon, it was decided that the costs of acquiring the necessary permissions and licenses from high authorities of the Old Domain to design and manufacture a truly gigantic battleship were outweighed by the advantages of having capital fleet anchors  capable of enduring volleys of long-range plasma fire. This was achieved through espionage and illegal acquisition of rival corporate assets such that the most advanced shield technologies available to Domain militaries were compacted such that the shield drones created to carry these wide ranging shields could only be manufactured in combat by unique patterned nanoforges integral to the Kingston.",,,
 ,,,,,
 PSE_droneCorona,SHIP_SYSTEM,Launches drones programmed to cycle through two holding patterns; a PD defence formation and a focused attack formation.,,,
+PSE_droneBastion,SHIP_SYSTEM,"Launches four PD drones programmed to cycle through two holding patterns; a cardinal angle facing formation, and a focused front facing formation.",,,
+PSE_droneShroud,SHIP_SYSTEM,"Continually launches up to five unique shield drones in two holding patterns; a slowly orbiting circle cluster, and an unstable broadside oriented drive-boosting formation providing increased battleship maneuverability.",,,
+PSE_pulseImpeller,SHIP_SYSTEM,"Stores up to four quickly-regenerating charges of an instant force-applying mass acceleration system, providing quick burst maneuverability in combat.",,,
 ,,,,,
 pearson_exotronics,FACTION,"A lesser known megacorporation hailing from the late domain era, Pearson Exotronics were generally thought to have been founded as a conglomerate representing the interests of a number of formerly colonial worlds that had the infrastructure and good luck to develop original and inspired designs in the field of spaceborne engineering and robotics. Although finding competition in larger organisations such as the Tri-Tachyon Corporation and Eridani-Utopia, Pearson Exotronics was able to expand its influence into a number of sectors throughout its local region of colonised space, offering cheap transportation, habitation and defence contracting thanks to a number of significant breakthroughs in sub-sentient automation.
 
 Pre-collapse, the PEC invested in building and entrenching a promising, postcolonial world formerly administrated by Domain authorities, in the hope of gaining a foothold in the Persean sector through offering competing technologies to otherwise monopolised services. When the gates fell, local leadership was quick to implement protocols assuming total disconnection from higher corporate command, taking steps to ensure self-sustainability and security. In the years post-collapse, Pearson Exotronics has survived wars and famine through tough civil doctrine and compulsary military service, building the foundation for a tough naval core with domestically-trained officers and personnel. The geographical location of the Corporation's home system as a buffer to the Hegemony worlds led to the two factions acting as mutual allies during the AI wars, but have subsequently soured from predatory trade practices. The Independent worlds of the sector are the Corporation's biggest customers, trading convoy protection and men for advanced technologies from  ancient military catacombs.",,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,
-,,,,,

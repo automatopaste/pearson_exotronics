@@ -3,7 +3,7 @@
   "hullId": "PSE_torrens",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_torrens.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 67,
   "width": 62,
   "center": [31, 33.5],

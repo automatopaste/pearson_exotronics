@@ -3,7 +3,7 @@
   "hullId": "PSE_cassius",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_cassius.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 73,
   "width": 104,
   "center": [52, 36.5],

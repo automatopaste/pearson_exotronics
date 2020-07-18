@@ -1,9 +1,29 @@
 ========Beta 0.5a========
--fixed eyre spawning and production
+-added ship and shipsystem descriptions with nerd tidbits included (no weapons to describe currently)
 -corona shipsystem no longer reduces flux dissipation, instead deactivates zero flux boost
 -added modular vector assembly (MVA) thruster drone system
--added new kingston battleship
-    -
+-added new kingston-class battleship
+    -has shield drone launcher system, cycle between a rotating circular shield matrix and an
+    unstable broadside-oriented shielded drive field boost
+    -60dp, defines the role of anchor brick
+    -yes it has a mobility system god help us
+    -versatile broadside/front focused loadouts possible with AI tested to be competent at both, including asymmetry
+        -live out your depraved converging cyclone reaper fantasies
+    -actually spawns in campaign (faction updated to know ship variants)
+-tweaks and improvements to drone system AI
+    -drone corona ships are now less inclined to play drone roulette with endless cycling
+    -AI controlled ships will now be able to cycle through system when remaining drone count is zero
+-updated pulse impeller shipsystem, available on cassius-class frigates and richmond-class destroyers
+    -now applies force relating to hullsize, you won't be able to launch across the map in a frigate just because i
+    forgot that it wasn't unique to the destroyer
+-updated mission logo, variants
+-added unused modular drone clamping and maneuvering thruster shipsystem, going to be equipped on a cruiser coming to a
+beta near you sometime soon
+-updated some ship variants
+-added custom hull styles under the hood, ships now have custom shield colours, but are still midline in other respects
+-ships will no longer summon hyper-angry drones after death (although it was kinda funny)
+-fixed eyre spawning and production
+-added torrens and eyre to tester mission
 ========Beta 0.4c========
 -added spaceport to new caledonia
 -reduced denmark dp to 12 from 15

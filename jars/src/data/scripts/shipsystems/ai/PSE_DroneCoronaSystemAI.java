@@ -112,22 +112,22 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                     }
 
                     if (isTargetVulnerable)  {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     } else if (!AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     }
 
                     break;
                 case ATTACK:
                     if (PANICAAAAA) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     }
                     break;
                 case RECALL:
                     if (!AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
-                        ship.useSystem();
+                        droneSystem.nextDroneOrder();
                     }
                     break;
                 default:

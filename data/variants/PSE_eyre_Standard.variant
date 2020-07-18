@@ -1,7 +1,7 @@
 {
   "variantId": "PSE_eyre_Standard",
   "hullId": "PSE_eyre",
-  "displayName": "Stanard",
+  "displayName": "Standard",
   "goalVariant": true,
   "fluxCapacitors": 10,
   "fluxVents": 10,

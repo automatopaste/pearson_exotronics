@@ -9,6 +9,7 @@ import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.Arrays;

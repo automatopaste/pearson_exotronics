@@ -1,0 +1,70 @@
+{
+  "variantId": "PSE_kingston_Strike",
+  "hullId": "PSE_kingston",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 40,
+  "fluxVents": 37,
+  "quality": 0.8,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks",
+    "unstable_injector"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0007": "cyclone",
+        "WS0008": "cyclone"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "heavyneedler",
+        "WS0014": "heavyneedler",
+        "WS0017": "heavymauler",
+        "WS0018": "heavymauler"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0005": "harpoonpod",
+        "WS0006": "harpoonpod",
+        "WS0009": "harpoonpod",
+        "WS0010": "harpoonpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightneedler",
+        "WS0002": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "lrpdlaser",
+        "WS0004": "lrpdlaser",
+        "WS0011": "lrpdlaser",
+        "WS0012": "lrpdlaser",
+        "WS0015": "lrpdlaser",
+        "WS0016": "lrpdlaser",
+        "WS0019": "lrpdlaser",
+        "WS0020": "lrpdlaser",
+        "WS0021": "pdburst",
+        "WS0022": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,71 @@
+{
+  "variantId": "PSE_kingston_Elite",
+  "hullId": "PSE_kingston",
+  "displayName": "Elite",
+  "goalVariant": true,
+  "fluxCapacitors": 35,
+  "fluxVents": 50,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "auxiliarythrusters",
+    "fluxdistributor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "tachyonlance"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0006": "sabotpod",
+        "WS0008": "squall",
+        "WS0010": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "hveldriver",
+        "WS0009": "hveldriver",
+        "WS0013": "heavymauler",
+        "WS0017": "heavymauler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "taclaser",
+        "WS0002": "taclaser",
+        "WS0011": "taclaser",
+        "WS0012": "taclaser",
+        "WS0015": "taclaser",
+        "WS0016": "taclaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "pdburst",
+        "WS0004": "pdburst",
+        "WS0014": "heavymg",
+        "WS0018": "heavymg",
+        "WS0019": "pdburst",
+        "WS0020": "pdburst",
+        "WS0021": "vulcan",
+        "WS0022": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

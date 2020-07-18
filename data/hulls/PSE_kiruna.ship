@@ -3,7 +3,7 @@
   "hullId": "PSE_kiruna",
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_kiruna.png",
-  "style": "MIDLINE",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
   "height": 93,
   "width": 134,
   "center": [67, 46.5],
