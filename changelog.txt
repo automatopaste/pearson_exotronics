@@ -1,5 +1,6 @@
 ========Beta 0.5a========
 -added ship and shipsystem descriptions with nerd tidbits included (no weapons to describe currently)
+-added commissioned crew bonus - improves ship and PEC-brand drone armour by a small amount
 -corona shipsystem no longer reduces flux dissipation, instead deactivates zero flux boost
 -added modular vector assembly (MVA) thruster drone system
 -added new kingston-class battleship
@@ -24,6 +25,7 @@ beta near you sometime soon
 -ships will no longer summon hyper-angry drones after death (although it was kinda funny)
 -fixed eyre spawning and production
 -added torrens and eyre to tester mission
+-Adelaide solar shades are now geostationary
 ========Beta 0.4c========
 -added spaceport to new caledonia
 -reduced denmark dp to 12 from 15

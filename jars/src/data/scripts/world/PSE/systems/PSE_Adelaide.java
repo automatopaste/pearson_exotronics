@@ -80,8 +80,8 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         //new caledonia shades
         SectorEntityToken newCaledoniaShade1 = system.addCustomEntity("PSE_newCaledoniaShade1", "New Caledonian Solar Shade Alpha", "stellar_shade", "pearson_exotronics");
         SectorEntityToken newCaledoniaShade2 = system.addCustomEntity("PSE_newCaledoniaShade2", "New Caledonian Solar Shade Beta", "stellar_shade", "pearson_exotronics");
-        newCaledoniaShade1.setCircularOrbitPointingDown(newCaledonia, 270f - 20f, 390, 200);
-        newCaledoniaShade2.setCircularOrbitPointingDown(newCaledonia, 270f + 20f, 390, 200);
+        newCaledoniaShade1.setCircularOrbitPointingDown(newCaledonia, 210f - 20f, 390, 365);
+        newCaledoniaShade2.setCircularOrbitPointingDown(newCaledonia, 210f + 20f, 390, 365);
         newCaledoniaShade1.setCustomDescriptionId("stellar_shade");
         newCaledoniaShade2.setCustomDescriptionId("stellar_shade");
 
