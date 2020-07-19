@@ -17,6 +17,7 @@
 -updated pulse impeller shipsystem, available on cassius-class frigates and richmond-class destroyers
     -now applies force relating to hullsize, you won't be able to launch across the map in a frigate just because i
     forgot that it wasn't unique to the destroyer
+-added version checker support
 -updated mission logo, variants
 -added unused modular drone clamping and maneuvering thruster shipsystem, going to be equipped on a cruiser coming to a
 beta near you sometime soon
