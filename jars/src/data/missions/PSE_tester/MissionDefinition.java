@@ -24,45 +24,29 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addBriefingItem("Dick around with these ships for science.");
 
         // Set up the player's fleet
+        //capitals
         api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Assault", FleetMemberType.SHIP, true);
-
+        api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Elite", FleetMemberType.SHIP, true);
+        api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Strike", FleetMemberType.SHIP, true);
+        //cruisers
         api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Assault", FleetMemberType.SHIP, false);
-
+        api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Overdriven", FleetMemberType.SHIP, false);
+        //destroyers
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
-
+        //frigates
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
-
         api.addToFleet(FleetSide.PLAYER, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
-
+        //civilian
         api.addToFleet(FleetSide.PLAYER, "PSE_eyre_Standard", FleetMemberType.SHIP, false);
-
         api.addToFleet(FleetSide.PLAYER, "PSE_torrens_Standard", FleetMemberType.SHIP, false);
 
         // Set up the enemy fleet
         api.addToFleet(FleetSide.ENEMY, "PSE_kingston_Elite", FleetMemberType.SHIP, false);
-
-        api.addToFleet(FleetSide.ENEMY, "PSE_serrano_Assault", FleetMemberType.SHIP, false);
-
-        api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.ENEMY, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.ENEMY, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.ENEMY, "PSE_richmond_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.ENEMY, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
-
-        api.addToFleet(FleetSide.ENEMY, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.ENEMY, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
-
-        api.addToFleet(FleetSide.ENEMY, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
-
-        api.addToFleet(FleetSide.ENEMY, "PSE_eyre_Standard", FleetMemberType.SHIP, false);
-
-        api.addToFleet(FleetSide.ENEMY, "PSE_torrens_Standard", FleetMemberType.SHIP, false);
-
 
         // Set up the map.
         float width = 10000f;

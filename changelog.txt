@@ -1,4 +1,16 @@
-========Beta 0.5a========
+========v0.5.2========
+-tweaked drone shroud shipsystem AI
+-reduced kingston shield drone flux capacity 7500 -> 6000
+-added two new missions with randomly generated fleets for fun and testing
+    -Random vs. Pearson
+    -Pearson vs. Random
+-added new console command "SpawnPearsonContent" that will run the campaign generation scripts normally run on starting
+a new game, used to add the faction to an existing save. will still be incompatible with saves with previous versions if
+an update is not save compatible.
+-variant tweaks
+-updated license to be CC-BY-NC-ND (see license.txt for details)
+-added readme
+========v0.5.1========
 -added ship and shipsystem descriptions with nerd tidbits included (no weapons to describe currently)
 -added commissioned crew bonus - improves ship and PEC-brand drone armour by a small amount
 -corona shipsystem no longer reduces flux dissipation, instead deactivates zero flux boost

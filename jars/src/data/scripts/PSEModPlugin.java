@@ -34,7 +34,7 @@ public class PSEModPlugin extends BaseModPlugin {
 
         if (haveSSTC) {
             //coming soon(tm)
-        }else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
+        } else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
             new PSE_WorldGen().generate(Global.getSector());
         }
     }

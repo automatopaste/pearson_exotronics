@@ -1,0 +1,3 @@
+Location: SPExotech Tacti-Spec Simulator V-138/5
+
+Play as a randomly generated Pearson Exotronics fleet, against a random fleet of ships generated from various factions.

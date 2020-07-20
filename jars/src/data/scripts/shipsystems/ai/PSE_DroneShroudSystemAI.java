@@ -20,15 +20,6 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
     private CombatEngineAPI engine;
     private ShipSystemAPI system;
 
-    private static final Map<ShipAPI.HullSize, Float> concernWeight = new HashMap<>(5);
-    static {
-        concernWeight.put(ShipAPI.HullSize.FIGHTER, 0f);
-        concernWeight.put(ShipAPI.HullSize.FRIGATE, 2f);
-        concernWeight.put(ShipAPI.HullSize.DESTROYER, 5f);
-        concernWeight.put(ShipAPI.HullSize.CRUISER, 15f);
-        concernWeight.put(ShipAPI.HullSize.CAPITAL_SHIP, 35f);
-    }
-
     private static final float CONCERN_WEIGHT_THRESHOLD = 30f;
 
     @Override
@@ -56,7 +47,7 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
         float concernWeightTotal = 0f;
         for (ShipAPI enemy : AIUtils.getNearbyEnemies(ship, 10000f)) {
             float mult = 1f - (MathUtils.getDistance(ship, enemy) / 10000f);
-            concernWeightTotal += concernWeight.get(enemy.getHullSize()) * mult;
+            concernWeightTotal += ship.getDeployCost() * mult;
         }
 
         engine.maintainStatusForPlayerShip("SHROUD_STASDT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", concernWeightTotal + "", true);
