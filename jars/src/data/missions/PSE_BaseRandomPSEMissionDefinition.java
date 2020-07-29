@@ -241,6 +241,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
     {
         // More factions hotkey combo
         // Checked when mission is clicked
+        /*
         if (isCtrlKeyPressed(Keyboard.KEY_F))
         {
             testMode = !testMode;
@@ -258,7 +259,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
 
         // Random variant mode hotkey combo (does nothing if variant tester is on)
         // Doesn't work in Starsector 0.9.1, disabled for now
-        /*
+        /comment/
         if (isCtrlKeyPressed(Keyboard.KEY_R) && testMode && !variantTester)
         {
             randomMode = !randomMode;
@@ -271,8 +272,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
             {
                 Global.getSoundPlayer().playUISound("tiandong_ui_test_mode_off", 1f, 1f);
             }
-        }
-         */
+        }/uncomment/
         // Variant tester hotkey combo (does nothing if test mode is not currently on)
         if (isCtrlKeyPressed(Keyboard.KEY_V) && testMode)
         {
@@ -333,6 +333,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
                 Global.getSoundPlayer().playUISound("tiandong_ui_fast_time_off", 1f, 1f);
             }
         }
+        */
 
         // Amber nebulae
         api.setNebulaTex("graphics/terrain/nebula_amber.png");
