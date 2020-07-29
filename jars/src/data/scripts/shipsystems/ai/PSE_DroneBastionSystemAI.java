@@ -1,7 +1,6 @@
 package data.scripts.shipsystems.ai;
 
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.shipsystems.PSE_DroneBastion;
 import org.lazywizard.lazylib.MathUtils;
@@ -82,14 +81,15 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
             }
 
             switch (droneSystem.getDroneOrders()) {
-                case CARDINAL:
-                    if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle < 60 || missileThreatAngle < 90)) {
+                case FRONT:
+                    if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle >= 60 || missileThreatAngle >= 90)) {
+                        droneSystem.nextDroneOrder();
+                    } else if (AIUtils.getNearbyEnemies(ship, longestWeaponRange * 2f).isEmpty()) {
                         droneSystem.nextDroneOrder();
                     }
                     break;
-                case FRONT:
-                    //switch to defensive mode if pilot is not a gigachad HIL user
-                    if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle >= 60 || missileThreatAngle >= 90)) {
+                case CARDINAL:
+                    if ((isShipThreatPresent || isMissileThreatPresent) && (shipThreatAngle < 60 || missileThreatAngle < 90)) {
                         droneSystem.nextDroneOrder();
                     } else if (AIUtils.getNearbyEnemies(ship, longestWeaponRange * 2f).isEmpty()) {
                         droneSystem.nextDroneOrder();

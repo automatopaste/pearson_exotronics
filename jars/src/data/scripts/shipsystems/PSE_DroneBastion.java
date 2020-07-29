@@ -16,8 +16,8 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
     static final float FLUX_PER_SECOND = 100f;
 
     public enum BastionDroneOrders {
-        CARDINAL,
         FRONT,
+        CARDINAL,
         RECALL
     }
 
@@ -115,11 +115,11 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
 
     public void maintainStatusMessage() {
         switch (droneOrders) {
-            case CARDINAL:
-                engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
-                break;
             case FRONT:
                 engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "FRONT FORMATION", false);
+                break;
+            case CARDINAL:
+                engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "CARDINAL FORMATION", false);
                 break;
             case RECALL:
                 if (deployedDrones.isEmpty()) {

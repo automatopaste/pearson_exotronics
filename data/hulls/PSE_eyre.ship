@@ -30,7 +30,7 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": -0,
+      "angle": -180,
       "locations": [-19, -11.5]
     },
     {
@@ -39,7 +39,7 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": 0,
+      "angle": 180,
       "locations": [-19, 11.5]
     }
   ],

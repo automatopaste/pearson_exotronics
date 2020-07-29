@@ -9,6 +9,7 @@ import data.scripts.shipsystems.PSE_DroneCorona;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
@@ -104,18 +105,45 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         ///TARGETING BEHAVIOUR///
         /////////////////////////
 
+        //drone.giveCommand(ShipCommand.FIRE, null, 0);
 
         //PRIORITISE TARGET, SET LOCATION
-        Vector2f targetedLocation;
+        float droneFacing = drone.getFacing();
+        CombatEntityAPI target;
+        float targetingArcDeviation = 120f;
         if (coronaDroneOrders.equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
-            targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, focusWeaponRange,true, true, false);
+            if (engine.getPlayerShip().equals(ship) && ship.getShipTarget() != null) {
+                target = ship.getShipTarget();
+            } else {
+                target = PSE_DroneUtils.getEnemyTarget(ship, drone, focusWeaponRange, true, true, false, targetingArcDeviation);
+            }
         } else {
-            targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, PDWeaponRange,false, false, false);
+            target = PSE_DroneUtils.getEnemyTarget(ship, drone, PDWeaponRange,false, false, false, targetingArcDeviation);
         }
 
         //ROTATION
-        float droneFacing = drone.getFacing();
-        PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
+        float relativeAngleFromShip = VectorUtils.getFacing(PSE_MiscUtils.getVectorFromAToB(ship, drone.getShipAPI()));
+        //arc logic
+        if (target != null) {
+            if (PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), relativeAngleFromShip, 60f)) {
+                PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+            } else {
+                PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), droneFacing, 0.2f);
+            }
+
+            //check for friendlies
+            boolean areFriendliesInFiringArc = PSE_DroneUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange, droneFacing, 20f);
+            drone.setHoldFireOneFrame(areFriendliesInFiringArc);
+
+            /* debug stuff
+            if (ship.getShipTarget() != null) {
+                engine.maintainStatusForPlayerShip("thingiepse", "graphics/icons/hullsys/drone_pd_high.png", "TARGET", ship.getShipTarget().toString(), false);
+                engine.maintainStatusForPlayerShip("thingiepse2", "graphics/icons/hullsys/drone_pd_high.png", "FRIENDLIES", areFriendliesInFiringArc + "", false);
+            }*/
+        } else {
+            PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), droneFacing, 0.2f);
+        }
+
 
         ////////////////////////
         ///MOVEMENT BEHAVIOUR///

@@ -6,9 +6,9 @@
   "style": "PEARSON_EXOTRONICS_SHIELD_DRONE_HULL",
   "height": 36,
   "width": 56,
-  "center": [28, -13],
-  "collisionRadius": 190,
-  "shieldCenter": [-122.5, 0],
+  "center": [28, 20],
+  "collisionRadius": 229.5,
+  "shieldCenter": [-155.5, 0],
   "shieldRadius": 221.5,
   "viewOffset": 0,
   "builtInMods": [
@@ -17,7 +17,7 @@
   "weaponSlots": [],
   "engineSlots": [
     {
-      "location": [21.5, 19.5],
+      "location": [-11.5, 19.5],
       "length": 8,
       "width": 10,
       "angle": 150,
@@ -26,7 +26,7 @@
       "styleId": "PSE_specOpsFlare"
     },
     {
-      "location": [21.5, -19.5],
+      "location": [-11.5, -19.5],
       "length": 8,
       "width": 10,
       "angle": -150,
@@ -36,9 +36,9 @@
     }
   ],
   "bounds": [
-    20.5, -24,
-    44, -22.5,
-    44, 22.5,
-    20.5, 24
+    -12.5, -24,
+    11, -22.5,
+    11, 22.5,
+    -12.5, 24
   ]
 }

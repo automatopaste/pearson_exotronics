@@ -8,10 +8,19 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import data.scripts.PSEDrone;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PSE_CommissionedCrewBonus extends BaseHullMod {
     public static final float DRONE_ARMOUR_RATING_FLAT_BONUS = 10f;
-    public static final float SHIP_ARMOUR_RATING_BONUS = 5f;
+
+    public static final Map<ShipAPI.HullSize, Float> ARMOUR_PER_HULLSIZE_FLAT = new HashMap<>();
+    static {
+        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.CAPITAL_SHIP, 50f);
+        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.CRUISER, 25f);
+        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.DESTROYER, 10f);
+        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.FRIGATE, 5f);
+    }
 
     @Override
     public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
@@ -19,7 +28,7 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
             return "" + (int) DRONE_ARMOUR_RATING_FLAT_BONUS;
         }
         if (index == 1) {
-            return "" + (int) SHIP_ARMOUR_RATING_BONUS + "%";
+            return "" + ARMOUR_PER_HULLSIZE_FLAT.get(hullSize);
         }
         return null;
     }
@@ -33,7 +42,7 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
 
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-        stats.getArmorBonus().modifyMult(id, 1f + (SHIP_ARMOUR_RATING_BONUS / 100f));
+        stats.getArmorBonus().modifyFlat(id, ARMOUR_PER_HULLSIZE_FLAT.get(hullSize));
     }
 
 

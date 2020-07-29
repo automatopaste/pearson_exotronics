@@ -12,8 +12,6 @@ import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.util.Arrays;
-
 public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
@@ -63,6 +61,9 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         if (engine.isPaused()) {
             return;
         }
+        if (drone == null || ship == null) {
+            return;
+        }
 
         ////////////////////
         ///INITIALISATION///
@@ -104,17 +105,31 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
         //needs no special targeting behaviour
-        Vector2f targetedLocation;
-        targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, weaponRange, false, false, false);
+        CombatEntityAPI target;
+        target = PSE_DroneUtils.getEnemyTarget(ship, drone, weaponRange, false, false, false, 360f);
 
         //ROTATION
         float facing = frontOrbitAngle + shipFacing;
-
-        if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.CARDINAL)) {
-            PSE_DroneUtils.rotateToFacing(drone, facing, droneFacing, 0.1f);
-        } else if (bastionDroneOrders.equals(PSE_DroneBastion.BastionDroneOrders.FRONT)) {
-            PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
+        float droneAngleRelativeToShip = VectorUtils.getFacing(PSE_MiscUtils.getVectorFromAToB(ship, drone.getShipAPI()));
+        switch (bastionDroneOrders) {
+            case FRONT:
+                if (target != null && PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), droneAngleRelativeToShip, 120f)) {
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                } else {
+                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, droneFacing, 0.1f);
+                }
+                break;
+            case CARDINAL:
+            case RECALL:
+                if (target != null && PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), droneAngleRelativeToShip, 120f)) {
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                } else {
+                    PSE_DroneUtils.rotateToFacing(drone, facing, droneFacing, 0.1f);
+                }
+                break;
         }
+
+
 
         ////////////////////////
         ///MOVEMENT BEHAVIOUR///
@@ -125,7 +140,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         float angle = 0;
         Vector2f movementTargetLocation;
         switch (bastionDroneOrders) {
-            case CARDINAL:
+            case FRONT:
                 angle = cardinalOrbitAngle + shipFacing;
 
                 delayBeforeLandingTracker.setElapsed(0f);
@@ -144,7 +159,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
                 movementTargetLocation = landingSlot.computePosition(ship);
 
                 break;
-            case FRONT:
+            case CARDINAL:
                 angle = frontOrbitAngle + shipFacing;
 
                 delayBeforeLandingTracker.setElapsed(0f);
@@ -157,7 +172,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             default:
                 movementTargetLocation = ship.getLocation();
         }
-        engine.maintainStatusForPlayerShip("thing", "graphics/icons/hullsys/drone_pd_high.png", "ANGLE", angle + ", " + Arrays.toString(frontOrbitAngleArray), false);
+        //engine.maintainStatusForPlayerShip("thing", "graphics/icons/hullsys/drone_pd_high.png", "ANGLE", angle + ", " + Arrays.toString(frontOrbitAngleArray), false);
 
         PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 1f);
     }

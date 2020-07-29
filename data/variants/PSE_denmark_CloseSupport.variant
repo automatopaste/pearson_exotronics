@@ -3,7 +3,7 @@
   "hullId": "PSE_denmark",
   "displayName": "Close Support",
   "goalVariant": true,
-  "fluxCapacitors": 13,
+  "fluxCapacitors": 14,
   "fluxVents": 20,
   "quality": 0.8,
   "permaMods": [],
@@ -31,7 +31,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "lightdualmg"
+        "WS0003": "vulcan"
       }
     },
     {
@@ -41,6 +41,11 @@
         "WS0001": "taclaser",
         "WS0002": "taclaser"
       }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
     }
   ],
   "modules": [],

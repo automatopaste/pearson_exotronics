@@ -1,3 +1,25 @@
+========v0.5.3========
+-fixed Iuchar planet name mismatch
+-balanced fleet point values
+-fixed commissioned crews hullmod being available in refit
+-commission bonus hullmod now provides flat armour bonus to ships
+-fixed shroud shipsystem AI
+-fixed Adelaide not having farmland
+-changed drone targeting AI scripts, now will not attempt to shoot over the ship when prioritising enemy ships, but can
+track missiles and fighters if they move behind
+-corona shipsystem AI tweaked to be less afraid of keeping the beam active in the presence of certain missiles, should
+ignore dumb-fire missiles that will not collide
+-fixed zero flux speed boost on corona ships permanently disabling
+-buffed kiruna, is now a viable frigate for its cost, comparable to tempest
+    -max speed 135 -> 160
+    -removed delicate machinery hullmod
+-fleet point values adjusted to align with vanilla
+-hammond inbuilt burrows drone wing now uses interceptor AI instead of support, is much more aggressive and useful
+-general drone AI will now prioritise selecting targeted ship when searching for enemy ships to target
+-variant tweaks
+-added compatibility for "industrial evolution" ship reverse-engineering and duplication features
+-fixed pressing F in combat cycling drone systems of all ai ships (oops)
+-friendly fire detection prevents drones from firing longer ranged weapons over friendly ships for cheese avoidance
 ========v0.5.2========
 -tweaked drone shroud shipsystem AI
 -reduced kingston shield drone flux capacity 7500 -> 6000

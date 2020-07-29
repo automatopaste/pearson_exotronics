@@ -9,6 +9,8 @@ import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.util.List;
+
 import static org.lazywizard.lazylib.combat.AIUtils.getEnemiesOnMap;
 
 public final class PSE_DroneUtils {
@@ -173,60 +175,114 @@ public final class PSE_DroneUtils {
         }
     }
 
-    public static Vector2f getEnemyTargetLocation(ShipAPI ship, PSEDrone drone, float weaponRange, boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips) {
+    public static CombatEntityAPI getEnemyTarget(ShipAPI ship, PSEDrone drone, float weaponRange, boolean ignoreMissiles, boolean ignoreFighters, boolean ignoreShips, float targetingArcDeviation) {
         //GET NEARBY OBJECTS TO SHOOT AT priority missiles > fighters > ships
+        float facing = VectorUtils.getFacing(PSE_MiscUtils.getVectorFromAToB(ship, drone.getShipAPI()));
 
         MissileAPI droneTargetMissile = null;
         if (!ignoreMissiles) {
             //get missile close to mothership
-            MissileAPI nearestEnemyMissile = AIUtils.getNearestEnemyMissile(ship);
+            List<MissileAPI> enemyMissiles = AIUtils.getNearbyEnemyMissiles(ship, weaponRange);
+            float tracker = Float.MAX_VALUE;
+            for (MissileAPI missile : enemyMissiles) {
+                if (!PSE_MiscUtils.isEntityInArc(missile, drone.getLocation(), facing, targetingArcDeviation)) {
+                    continue;
+                }
 
-            //select missile target, or null if none in range
-            if (nearestEnemyMissile != null && MathUtils.getDistance(drone, nearestEnemyMissile) < weaponRange) {
-                droneTargetMissile = nearestEnemyMissile;
-            } else {
-                droneTargetMissile = null;
+                float distance = MathUtils.getDistance(missile, drone);
+                if (distance < tracker) {
+                    tracker = distance;
+                    droneTargetMissile = missile;
+                }
             }
         }
 
         ShipAPI droneTargetShip = null;
         if (!ignoreShips) {
-            //get non-fighter ship close to mothership
-            ShipAPI nearestEnemyShip = getNearestEnemyNonFighterShip(ship);
-
-            //select non-fighter ship target, or null if none in range
-            if (nearestEnemyShip != null && MathUtils.getDistance(drone, nearestEnemyShip) < weaponRange) {
-                droneTargetShip = nearestEnemyShip;
+            if (ship.getShipTarget() != null) {
+                droneTargetShip = ship.getShipTarget();
             } else {
-                droneTargetShip = null;
+                //get non-fighter ship close to mothership
+                List<ShipAPI> enemyShips = AIUtils.getNearbyEnemies(drone, weaponRange);
+                float tracker = Float.MAX_VALUE;
+                for (ShipAPI enemyShip : enemyShips) {
+                    if (enemyShip.isFighter()) {
+                        continue;
+                    }
+
+                    //check if there is a friendly ship in the way
+                    boolean areFriendliesInFiringArc = false;
+                    float relAngle = VectorUtils.getFacing(PSE_MiscUtils.getVectorFromAToB(drone, enemyShip));
+                    for (ShipAPI ally : AIUtils.getNearbyAllies(drone, weaponRange)) {
+                        if (PSE_MiscUtils.isEntityInArc(ally, drone.getLocation(), relAngle, 20f)) {
+                            if (MathUtils.getDistance(enemyShip, drone) > MathUtils.getDistance(ally, drone)) {
+                                areFriendliesInFiringArc = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (areFriendliesInFiringArc) {
+                        continue;
+                    }
+
+                    //can only match similar facing to host ship for balancing
+                    if (!PSE_MiscUtils.isEntityInArc(enemyShip, drone.getLocation(), facing, targetingArcDeviation)) {
+                        continue;
+                    }
+
+                    float distance = MathUtils.getDistance(enemyShip, drone);
+                    if (distance < tracker) {
+                        tracker = distance;
+                        droneTargetShip = enemyShip;
+                    }
+                }
             }
         }
 
         ShipAPI droneTargetFighter = null;
         if (!ignoreFighters) {
             //get fighter close to drone
-            ShipAPI nearestEnemyFighter = getNearestEnemyFighter(drone);
+            List<ShipAPI> enemyShips = AIUtils.getNearbyEnemies(drone, weaponRange);
+            float tracker = Float.MAX_VALUE;
+            for (ShipAPI enemyShip : enemyShips) {
+                if (!enemyShip.isFighter()) {
+                    continue;
+                }
 
-            //select fighter target, or null if none in range
-            if (nearestEnemyFighter != null && MathUtils.getDistance(drone, nearestEnemyFighter) < weaponRange) {
-                droneTargetFighter = nearestEnemyFighter;
-            } else {
-                droneTargetFighter = null;
+                if (!PSE_MiscUtils.isEntityInArc(enemyShip, drone.getLocation(), facing, targetingArcDeviation)) {
+                    continue;
+                }
+
+                float distance = MathUtils.getDistance(enemyShip, drone);
+                if (distance < tracker) {
+                    tracker = distance;
+                    droneTargetFighter = enemyShip;
+                }
             }
         }
 
-
         //PRIORITISE TARGET, SET LOCATION
-        Vector2f targetedLocation;
+        CombatEntityAPI target;
         if (droneTargetMissile != null) {
-            targetedLocation = droneTargetMissile.getLocation();
+            target = droneTargetMissile;
         } else if (droneTargetFighter != null) {
-            targetedLocation = droneTargetFighter.getLocation();
-        } else if (droneTargetShip != null) {
-            targetedLocation = droneTargetShip.getLocation();
-        } else {
-            targetedLocation = null;
+            target = droneTargetFighter;
+        } else target = droneTargetShip;
+        return target;
+    }
+
+    public static boolean areFriendliesBlockingArc(CombatEntityAPI drone, CombatEntityAPI target, float focusWeaponRange, float arcFacing, float arcDeviation) {
+        boolean areFriendliesInFiringArc = false;
+        for (ShipAPI ally : AIUtils.getNearbyAllies(drone, focusWeaponRange)) {
+            if (!PSE_MiscUtils.isEntityInArc(ally, drone.getLocation(), arcFacing, arcDeviation)) {
+                continue;
+            }
+            if (MathUtils.getDistance(target, drone) < MathUtils.getDistance(ally, drone)) {
+                continue;
+            }
+            areFriendliesInFiringArc = true;
+            break;
         }
-        return targetedLocation;
+        return areFriendliesInFiringArc;
     }
 }

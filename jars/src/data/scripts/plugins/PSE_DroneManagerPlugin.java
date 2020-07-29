@@ -114,16 +114,20 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     }
                 }
 
-                if (coronaSystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (coronaSystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
                     coronaSystem.nextDroneOrder();
                 }
 
+                ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(this.toString());
                 if (coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
                     ship.setJitterShields(false);
                     ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 8, 1f, 2f);
 
                     ship.getMutableStats().getZeroFluxSpeedBoost().modifyMult(this.toString(), 0f);
-                    engine.maintainStatusForPlayerShip(this, "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
+
+                    if (ship.equals(engine.getPlayerShip())) {
+                        engine.maintainStatusForPlayerShip(this, "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
+                    }
                 }
 
                 deployedDrones = getModifiedDeployedDrones(deployedDrones);
@@ -144,7 +148,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 trackSystemAmmo(numDronesActive);
 
                 if (ship.getFluxTracker().isOverloadedOrVenting()) {
-                    bastionSystem.setDroneOrders(PSE_DroneBastion.BastionDroneOrders.CARDINAL);
+                    bastionSystem.setDroneOrders(PSE_DroneBastion.BastionDroneOrders.FRONT);
                 }
 
                 if (numDronesActive < maxDeployedDrones && !bastionSystem.getDroneOrders().equals(PSE_DroneBastion.BastionDroneOrders.RECALL) && system.getAmmo() > 0) {
@@ -157,7 +161,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     }
                 }
 
-                if (bastionSystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (bastionSystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
                     bastionSystem.nextDroneOrder();
                 }
 
@@ -188,7 +192,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     }
                 }
 
-                if (MVASystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (MVASystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
                     MVASystem.nextDroneOrder();
                 }
 
@@ -218,7 +222,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     }
                 }
 
-                if (shroudSystem.getShip().getSystem().getAmmo() == 0 && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (shroudSystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
                     shroudSystem.nextDroneOrder();
                 }
 

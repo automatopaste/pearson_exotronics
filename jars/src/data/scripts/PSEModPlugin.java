@@ -21,11 +21,6 @@ public class PSEModPlugin extends BaseModPlugin {
                     + "This wasn't supposed to happen..."
                     + System.lineSeparator();
 
-    public static final String DEUCES_DRONE_CORONA_ID = "PSE_deuces";
-
-    public static JSONObject droneCoronaSpecJson;
-    public static JSONObject droneBastionSpecJson;
-
     @Override
     public void onNewGame() {
         boolean haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");

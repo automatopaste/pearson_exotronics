@@ -53,7 +53,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                         Conditions.HOT,
                         Conditions.RUINS_SCATTERED,
                         Conditions.URBANIZED_POLITY,
-                        Conditions.REGIONAL_CAPITAL
+                        Conditions.FARMLAND_RICH
                 )),
                 new ArrayList<String>(Arrays.asList(
                         Submarkets.SUBMARKET_OPEN,
@@ -101,7 +101,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 Factions.INDEPENDENT,
                 iuchar,
                 null,
-                "Iucharba",
+                "Iuchar",
                 4,
                 new ArrayList<String>(Arrays.asList(
                         Conditions.LOW_GRAVITY,

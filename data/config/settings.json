@@ -9,6 +9,9 @@
 		"PSE_military_package":"graphics/PSE/icons/cargo/PSE_package.png",
 		"PSE_base_package":"graphics/PSE/icons/cargo/PSE_package.png",
             },
+	"industry":{
+		"PSE_malfunctioning_shield_texture":"graphics/PSE/planets/PSE_NewCaledonia_planetary_shield.png",
+	    },
         },
     }
 }

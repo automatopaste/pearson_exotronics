@@ -4,15 +4,13 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.ui.impl.P;
 import data.scripts.PSEDrone;
-import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.shipsystems.PSE_DroneModularVectorAssembly;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
-
-import java.util.Arrays;
 
 public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
@@ -108,8 +106,7 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
 
         //needs no special targeting behaviour
-        Vector2f targetedLocation;
-        targetedLocation = PSE_DroneUtils.getEnemyTargetLocation(ship, drone, weaponRange, false, false, false);
+        CombatEntityAPI target = PSE_DroneUtils.getEnemyTarget(ship, drone, weaponRange, false, false, false, 120f);
 
 
         ////////////////////////
@@ -131,7 +128,11 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
                 landingSlot = null;
 
                 //ROTATION
-                PSE_DroneUtils.rotateToTarget(ship, drone, targetedLocation, droneFacing, 0.1f);
+                if (target != null) {
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                } else {
+                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, droneFacing, 0.1f);
+                }
 
                 break;
             case RECALL:

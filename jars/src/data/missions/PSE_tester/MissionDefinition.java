@@ -1,10 +1,15 @@
 package data.missions.PSE_tester;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
+
+import java.util.Collections;
+import java.util.List;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
 
@@ -25,6 +30,18 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         // Set up the player's fleet
         //capitals
+        boolean first = true;
+        List<String> variants = Global.getSettings().getAllVariantIds();
+        Collections.sort(variants);
+        for (String variant : variants) {
+            if (!variant.startsWith("PSE_") || variant.endsWith("_Hull") || variant.contains("drone")) {
+                continue;
+            }
+
+            api.addToFleet(FleetSide.PLAYER, variant, FleetMemberType.SHIP, first);
+            first = false;
+        }
+        /*
         api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Assault", FleetMemberType.SHIP, true);
         api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Elite", FleetMemberType.SHIP, true);
         api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Strike", FleetMemberType.SHIP, true);
@@ -44,6 +61,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         //civilian
         api.addToFleet(FleetSide.PLAYER, "PSE_eyre_Standard", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_torrens_Standard", FleetMemberType.SHIP, false);
+         */
 
         // Set up the enemy fleet
         api.addToFleet(FleetSide.ENEMY, "PSE_kingston_Elite", FleetMemberType.SHIP, false);

@@ -13,25 +13,26 @@
   ],
   "weaponGroups": [
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "pulselaser",
-        "WS0006": "sabot",
-        "WS0007": "sabot"
+        "WS0002": "pulselaser"
       }
     },
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
         "WS0001": "pulselaser"
       }
     },
     {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {}
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0006": "sabot",
+        "WS0007": "sabot"
+      }
     },
     {
       "autofire": true,

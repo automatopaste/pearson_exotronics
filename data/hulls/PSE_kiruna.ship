@@ -9,10 +9,9 @@
   "center": [67, 46.5],
   "collisionRadius": 132,
   "shieldCenter": [-15.5, -0],
-  "shieldRadius": 108,
+  "shieldRadius": 90,
   "viewOffset": 0,
   "builtInMods": [
-    "delicate",
     "eccm"
   ],
   "weaponSlots": [

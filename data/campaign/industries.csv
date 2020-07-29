@@ -1,0 +1,3 @@
+id,name,cost mult,build time,income,upkeep,downgrade,upgrade,tags,data,image,plugin,desc,order
+PSE_malfunctioning_planetary_shield,Planetary Shield,150,90,,3,,,"grounddefenses, structure",,graphics/icons/industry/planetary_shield.png,com.fs.starfarer.api.impl.campaign.econ.impl.PlanetaryShield,An envelope of charged plasma seeded with exotic virtual particles producing effects which disrupt the combat effectiveness of long-range bombardment and even incursion by small vessels. The planetary shield can be continually charged and controlled by a central source and presents a formidable obstacle to any form of ground assault.,2700
+

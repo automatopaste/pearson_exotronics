@@ -2,11 +2,15 @@ package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
+import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import data.scripts.PSEDrone;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
+import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
 import java.io.IOException;
@@ -206,5 +210,16 @@ public final class PSE_MiscUtils {
         if (ship.getCurrFlux() >= ship.getMaxFlux()) {
             ship.getFluxTracker().forceOverload(0f);
         }
+    }
+
+    public static boolean isEntityInArc(CombatEntityAPI entity, Vector2f center, float centerAngle, float arcDeviation) {
+        Vector2f entityRelativeLocation = Vector2f.sub(entity.getLocation(), center, new Vector2f());
+        float entityAngle = VectorUtils.getFacing(entityRelativeLocation);
+        float rel = MathUtils.getShortestRotation(entityAngle, centerAngle);
+        return rel < arcDeviation && rel > -arcDeviation;
+    }
+
+    public static Vector2f getVectorFromAToB(CombatEntityAPI a, CombatEntityAPI b) {
+        return Vector2f.sub(b.getLocation(), a.getLocation(), new Vector2f());
     }
 }
