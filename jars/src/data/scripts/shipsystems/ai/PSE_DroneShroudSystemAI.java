@@ -52,6 +52,9 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
 
         float concernWeightTotal = 0f;
         for (ShipAPI enemy : AIUtils.getNearbyEnemies(ship, 4000f)) {
+            if (enemy == null || enemy.getFleetMember() == null) {
+                continue;
+            }
             concernWeightTotal += (enemy.getFleetMember().getDeploymentCostSupplies() * (1f - (MathUtils.getDistance(ship, enemy) / 4000f)));
         }
 

@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.PlanetAPI;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
 import org.lazywizard.lazylib.campaign.CampaignUtils;
 
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.awt.*;
 public class PSE_MalfunctioningPlanetaryShieldPlugin extends BaseIndustry {
     public static final float ACTIVE_DEFENCE_BONUS = 2f;
     private IntervalUtil deactivationTracker = new IntervalUtil(300f, 900f); //30 days to 90 days
+    //private IntervalUtil deactivationTracker = new IntervalUtil(10f, 10f); //30 days to 90 days
+    private boolean isMalfunctioned = false;
 
     @Override
     public void apply() {
@@ -22,14 +25,39 @@ public class PSE_MalfunctioningPlanetaryShieldPlugin extends BaseIndustry {
         applyIncomeAndUpkeep(size);
 
         float defenceBonus;
-        if (!isDisrupted()) {
+        if (!isDisrupted() && !isMalfunctioned) {
             defenceBonus = ACTIVE_DEFENCE_BONUS;
         } else {
-            defenceBonus = 0f;
+            defenceBonus = 1f;
         }
         market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyMult(
                 getModId(), defenceBonus, getNameForModifier()
         );
+
+        if (isFunctional() && !isMalfunctioned) {
+            applyVisuals(market.getPlanetEntity());
+        } else {
+            unapply();
+        }
+    }
+
+    @Override
+    public void unapply() {
+        super.unapply();
+
+        unapplyVisuals(market.getPlanetEntity());
+
+        market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyMult(getModId());
+    }
+
+    @Override
+    public boolean isAvailableToBuild() {
+        return false;
+    }
+
+    @Override
+    public boolean showWhenUnavailable() {
+        return false;
     }
 
     @Override
@@ -41,10 +69,30 @@ public class PSE_MalfunctioningPlanetaryShieldPlugin extends BaseIndustry {
         deactivationTracker.advance(amount);
 
         if (deactivationTracker.intervalElapsed()) {
-            if (isDisrupted()) {
-                super.disruptionFinished();
-            } else {
-                super.setDisrupted(deactivationTracker.getIntervalDuration() / 10f);
+            isMalfunctioned = !isMalfunctioned;
+
+            String message = "";
+            int time = (int) deactivationTracker.getIntervalDuration() / 10;
+            if (isMalfunctioned) {
+                unapplyVisuals(market.getPlanetEntity());
+                market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyMult(getModId());
+
+                message = "The planetary shield at New Caledonia has malfunctioned! " + time + " days of repair time estimated.";
+            } else if (!isDisrupted()) {
+                applyVisuals(market.getPlanetEntity());
+                market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyMult(
+                        getModId(), ACTIVE_DEFENCE_BONUS, getNameForModifier()
+                );
+
+                message = "The planetary shield at New Caledonia has been repaired.";
+            }
+
+            if ((Global.getSector().getPlayerFleet().getStarSystem() != null &&
+                    Global.getSector().getPlayerFleet().getStarSystem().equals(market.getStarSystem())
+                    ) || Global.getSector().getPlayerFaction().getRelationship("pearson_exotronics") >= 0.5f ||
+                    (Misc.getCommissionFactionId() != null && Misc.getCommissionFactionId().equals("pearson_exotronics"))
+            ) {
+                Global.getSector().getCampaignUI().addMessage(message);
             }
         }
     }

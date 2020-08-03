@@ -3,19 +3,24 @@ package data.scripts.world.PSE.systems;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarAge;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.PSEModPlugin;
 import data.scripts.util.PSE_CampaignUtils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PSE_Adelaide implements SectorGeneratorPlugin {
+    List<MarketAPI> markets = new ArrayList<MarketAPI>();
+
     @Override
     public void generate(SectorAPI sector) {
         //initialise system
@@ -25,7 +30,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         system.setBackgroundTextureFilename("graphics/backgrounds/background1.jpg");
 
         //set up star
-        PlanetAPI star = system.initStar("PSE_adelaide_star", "star_orange", 900, 1550, -15000, 250);
+        PlanetAPI star = system.initStar("PSE_adelaide_star", "star_orange", 900, 1550, -15000, 900);
         //todo - set custom description
 
         //generate up to three entities in the centre of the system and returns the orbit radius of the furthest entity
@@ -53,7 +58,8 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                         Conditions.HOT,
                         Conditions.RUINS_SCATTERED,
                         Conditions.URBANIZED_POLITY,
-                        Conditions.FARMLAND_RICH
+                        Conditions.FARMLAND_RICH,
+                        Conditions.HABITABLE
                 )),
                 new ArrayList<String>(Arrays.asList(
                         Submarkets.SUBMARKET_OPEN,
@@ -66,16 +72,18 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                         Industries.SPACEPORT,
                         Industries.STARFORTRESS_MID,
                         Industries.MINING,
-                        Industries.PLANETARYSHIELD,
+                        //Industries.PLANETARYSHIELD,
+                        "PSE_malfunctioning_planetary_shield",
                         Industries.ORBITALWORKS,
                         Industries.HIGHCOMMAND,
                         Industries.WAYSTATION,
-                        Industries.GROUNDDEFENSES,
+                        Industries.HEAVYBATTERIES,
                         Industries.FARMING
                 )),
                 true,
                 false
         );
+        markets.add(newCaledoniaMarketplace);
 
         //new caledonia shades
         SectorEntityToken newCaledoniaShade1 = system.addCustomEntity("PSE_newCaledoniaShade1", "New Caledonian Solar Shade Alpha", "stellar_shade", "pearson_exotronics");
@@ -125,6 +133,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 false,
                 false
         );
+        markets.add(iucharMarketplace);
 
         PlanetAPI iucharba = system.addPlanet("PSE_iucharba", danu, "Iucharba", "cryovolcanic", 0f, 70f, 1000f, 100f);
         MarketAPI iucharbaMarketplace = PSE_CampaignUtils.addMarketplace(
@@ -159,7 +168,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 false,
                 false
         );
-
+        markets.add(iucharbaMarketplace);
 
         //nebula
         SectorEntityToken nebula = Misc.addNebulaFromPNG("data/campaign/terrain/eos_nebula.png", 0, 0, system, "terrain", "nebula_amber", 4, 4, StarAge.AVERAGE);
@@ -208,5 +217,12 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
 
         //hyperstorm-b-gone (around system in hyperspace)
         nebulaEditor.clearArc(system.getLocation().x, system.getLocation().y, 0, minHyperspaceRadius + maxHyperspaceRadius, 0f, 360f, 0.25f);
+    }
+
+    public void cleanUp() {
+        for (MarketAPI market : markets) {
+            PersonAPI admin = PSEModPlugin.createAdmin(market);
+            market.setAdmin(admin);
+        }
     }
 }

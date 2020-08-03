@@ -36,4 +36,14 @@ public class PSE_WorldGen implements SectorGeneratorPlugin {
 
         new PSE_Adelaide().generate(sector);
     }
+
+    public void generateToExistingSave(SectorAPI sector) { //used when generating with console commands
+        SharedData.getData().getPersonBountyEventData().addParticipatingFaction("pearson_exotronics");
+
+        initFactionRelationships(sector);
+
+        PSE_Adelaide adelaide = new PSE_Adelaide();
+        adelaide.generate(sector);
+        adelaide.cleanUp();
+    }
 }

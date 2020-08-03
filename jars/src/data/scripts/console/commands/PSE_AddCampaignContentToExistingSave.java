@@ -1,6 +1,7 @@
 package data.scripts.console.commands;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.StarSystemAPI;
 import data.scripts.world.PSE.PSE_WorldGen;
 import exerelin.campaign.SectorManager;
 import org.lazywizard.console.BaseCommand;
@@ -25,9 +26,16 @@ public class PSE_AddCampaignContentToExistingSave implements BaseCommand {
         }
         if (haveNexerelin && !SectorManager.getManager().isCorvusMode()) {
             Console.showMessage("Error: This command cannot be run if \"Nexerelin\" random core mode is in use!");
+            return CommandResult.ERROR;
+        }
+        for (StarSystemAPI system : Global.getSector().getStarSystems()) {
+            if (system.getStar().getName().contains("Adelaide")) {
+                Console.showMessage("Error: This command cannot be used more than once!");
+                return CommandResult.ERROR;
+            }
         }
 
-        new PSE_WorldGen().generate(Global.getSector());
+        new PSE_WorldGen().generateToExistingSave(Global.getSector());
         Console.showMessage("Successfully ran \"Pearson Exotronics\" campaign generation scripts.");
         return CommandResult.SUCCESS;
     }

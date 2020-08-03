@@ -11,8 +11,8 @@ Serrano,PSE_serrano,Cruiser,PSExotech,PSE_droneCorona,15,10000,1000,10000,5,500,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Kingston,PSE_kingston,Battleship,PSExotech,PSE_droneShroud,30,16000,1500,21000,5,1050,350,,30,20,10,5,5,3200,OMNI,,220,0.7,0.9,,,400,800,300,300,10,30,7,450000,4,20,720,0.25,60,60,,rare_bp,,0.6,2,4,47611
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Deuces,PSE_deuces,PD Drone,PSExotech,PSE_droneLaser,,150,5,100,,200,0,,350,500,500,250,600,15,NONE,,,,,,,0,0,,,,,,,,,,,,,,,,0,,,47609
-Rosscliff,PSE_drone1,Multirole Drone,PSExotech,PSE_droneLaser,,200,5,100,,200,0,,350,500,500,250,600,20,NONE,,,,,,,0,0,,,,,,,,,,,,,,,,0,,,47602
-Burrows,PSE_drone2,EMP Drone,PSExotech,PSE_droneEMP,,100,10,100,,200,0,,350,500,500,250,600,15,OMNI,,90,0,0.4,,,0,0,,,,,,,,,,,,,,,,0,,,47607
-Rapley,PSE_drone3,PD Drone,PSExotech,,,80,15,100,,200,0,,400,550,550,250,600,12,OMNI,,270,0,0.3,,,0,0,,,,,,,,,,,,,,,,0,,,47610
-Kingston Shield Drone,PSE_kingston_drone,Shield Drone,PSExotech,,,500,100,6000,,200,0,,200,100,100,200,200,100,FRONT,,60,0,0.75,,,0,0,,,,,,,,,,,,,,,,0,,,47611
+Deuces,PSE_deuces,PD Drone,PSExotech,PSE_droneLaser,0,150,5,100,,200,0,,350,500,500,250,600,15,NONE,,,,,,,0,0,,,,,,,,,,,0,0,,,,0,,,47609
+Rosscliff,PSE_drone1,Multirole Drone,PSExotech,PSE_droneLaser,0,200,5,100,,200,0,,350,500,500,250,600,20,NONE,,,,,,,0,0,,,,,,,,,,,0,0,,,,0,,,47602
+Burrows,PSE_drone2,EMP Drone,PSExotech,PSE_droneEMP,3,100,10,100,,200,0,,350,500,500,250,600,15,OMNI,,90,0,0.4,,,0,0,,,,,,,,,,,0,0,,,,0,,,47607
+Rapley,PSE_drone3,PD Drone,PSExotech,,0,80,15,100,,200,0,,400,550,550,250,600,12,OMNI,,270,0,0.3,,,0,0,,,,,,,,,,,0,0,,,,0,,,47610
+Kingston Shield Drone,PSE_kingston_drone,Shield Drone,PSExotech,,0,500,100,6000,,200,0,,200,100,100,200,200,100,FRONT,,60,0,0.75,,,0,0,,,,,,,,,,,0,0,,,,0,,,47611

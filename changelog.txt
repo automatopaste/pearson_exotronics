@@ -1,3 +1,23 @@
+========v0.5.4========
+-tweaks to Adelaide star system
+    -added habitable condition to New Caledonia
+    -replaced ground defences with heavy batteries
+    -increased corona size of star
+    -replaced vanilla planetary shield on New Caledonia with new planetary shield industry
+        -is an unstable, old piece of tech, that will malfunction occasionally
+        -takes 30 to 90 days to repair, during which time there will be no defensive bonus
+        -the player will receive notifications about the shield if there is a malfunction if they are commissioned, are
+        above friendly rep, or are in system.
+-console command SpawnPearsonContent now adds administrators to markets
+-summoned drones from Pearson-brand drone systems now have 0 deployment points
+-hopefully fixed nullpointer crash relating to Kingston system AI
+-deployment point tweaks
+-increased time between being able to cycle through drone systems
+-changes to the Denmark
+    -increased shield radius
+    -front small hardpoints are now universal for more strike capability
+    -variant tweaks
+-fixed indevo printing csvs
 ========v0.5.3========
 -fixed Iuchar planet name mismatch
 -balanced fleet point values
