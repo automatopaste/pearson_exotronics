@@ -1,3 +1,8 @@
+========v0.6.1========
+-migrated repository to github, fixed version files along the way
+-complete paintjob rework
+-adjusted pulse impeller gfx
+
 ========v0.5.4========
 -tweaks to Adelaide star system
     -added habitable condition to New Caledonia

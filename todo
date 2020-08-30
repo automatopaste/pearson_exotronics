@@ -36,7 +36,22 @@ Weapons:
     Energy:
        -medium - long range HE beam, for use on drones, modular
        -small - mid range gatling beam cannon
-       -medium = mid range dual gatling beam cannon
+       -medium - mid range dual gatling beam cannon
 
     Missile:
-       -medium: mid range energy damage missile, poor tracking
+       -medium - mid range energy damage missile, poor tracking
+
+sfx list to order:
+-drones
+    -launch/recall
+    -corona
+        -laser linking
+    -MVA
+        -clamp
+        -detach
+    -bastion
+        -formation switch (generic maybe?)
+    -shroud
+        -shield
+
+-engine suite

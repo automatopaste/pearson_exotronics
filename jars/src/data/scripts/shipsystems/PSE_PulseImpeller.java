@@ -133,7 +133,7 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
                         MathUtils.clamp(CONTRAIL_COLOUR.getBlue() * modlevel, 1f, 255f) / 255f
                     );
 
-                PSE_MiscUtils.addJitterAfterimage(ship, modColour, JITTER_RANGE, -0.5f, 5f, 0.1f, 0f, 0.8f, true, false, false);
+                PSE_MiscUtils.addJitterAfterimage(ship, modColour, JITTER_RANGE, 0.5f, 5f, 0.1f, 0f, 0.8f, false, false, false);
             }
             ship.setJitterUnder(this, JITTER_COLOUR, 10f * effectLevel, 8, 3f * effectLevel);
 
