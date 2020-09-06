@@ -174,7 +174,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         }
         //engine.maintainStatusForPlayerShip("thing", "graphics/icons/hullsys/drone_pd_high.png", "ANGLE", angle + ", " + Arrays.toString(frontOrbitAngleArray), false);
 
-        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 1f);
+        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
     }
 
     //OVERRIDES

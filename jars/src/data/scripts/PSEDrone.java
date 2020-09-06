@@ -41,6 +41,10 @@ public class PSEDrone implements ShipAPI {
         ship.setLaunchingShip((Ship) launchingShip);
     }
 
+    public ShipAPI getLaunchingShip() {
+        return this.mothership;
+    }
+
     public void remove() {
         Global.getCombatEngine().removeEntity(drone);
     }

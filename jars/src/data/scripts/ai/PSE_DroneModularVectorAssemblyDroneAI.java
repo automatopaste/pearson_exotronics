@@ -186,7 +186,7 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
             drone.getEngineController().extendFlame(this, 8f, 1.5f, 15f);
         } else {
-            PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 1f);
+            PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
             ship.getMutableStats().getAcceleration().unmodify();
             ship.getMutableStats().getTurnAcceleration().unmodify();
             ship.getMutableStats().getDeceleration().unmodify();

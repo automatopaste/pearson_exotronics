@@ -54,7 +54,7 @@ public final class PSE_DroneUtils {
         return closest;
     }
 
-    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation, float sanity, IntervalUtil velocityRotationIntervalTracker, float damping) {
+    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation, float sanity, IntervalUtil velocityRotationIntervalTracker) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
 
         //GET USEFUL VALUES
@@ -67,15 +67,12 @@ public final class PSE_DroneUtils {
 
         float distanceToTargetLocation = MathUtils.getDistance(drone.getLocation(), movementTargetLocation); //DISTANCE
 
+        //damping scaling based on ship speed (function y = -x + 2 where x is 0->1)
+        float damping = (-drone.getLaunchingShip().getVelocity().length() / drone.getLaunchingShip().getMaxSpeedWithoutBoost()) + 2f;
+
         //FIND DISTANCE THAT CAN BE DECELERATED FROM CURRENT SPEED TO ZERO s = v^2 / 2a
         float decelerationDistance = (float) (Math.pow(drone.getVelocity().length(), 2)) / (2 * drone.getDeceleration());
-        decelerationDistance *= damping;
-
-
-        //DECELERATE IF IN THRESHOLD DISTANCE OF TARGET
-        if (distanceToTargetLocation <= decelerationDistance) {
-            drone.giveCommand(ShipCommand.DECELERATE, null, 0);
-        }
+        //decelerationDistance *= 0.5f;
 
         //DO LARGE MOVEMENT IF OVER DISTANCE THRESHOLD
         if (distanceToTargetLocation >= decelerationDistance) {
@@ -111,6 +108,21 @@ public final class PSE_DroneUtils {
                 drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * sanity));
             }
         }
+
+        //DECELERATE IF IN THRESHOLD DISTANCE OF TARGET
+        if (distanceToTargetLocation <= decelerationDistance) {
+            drone.giveCommand(ShipCommand.DECELERATE, null, 0);
+
+            float frac = distanceToTargetLocation / decelerationDistance;
+            frac = (float) Math.sqrt(frac);
+            //drone.getVelocity().set((Vector2f) drone.getVelocity().scale(frac));
+
+            if (frac <= 0.25f) {
+                drone.getVelocity().set(drone.getLaunchingShip().getVelocity());
+            } else {
+                drone.getVelocity().set((Vector2f) drone.getVelocity().scale(frac));
+            }
+        }
     }
 
     public static void snapToLocation(PSEDrone drone, Vector2f target) {
@@ -118,10 +130,10 @@ public final class PSE_DroneUtils {
     }
 
     public static void rotateToTarget(ShipAPI ship, PSEDrone drone, Vector2f targetedLocation, float droneFacing, float rotationMagnitude) {
-        //ROTATION
+        engine = Global.getCombatEngine();
 
         //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm)
-        //float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
+        float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
 
 
         //point at target, if that doesn't exist then point in direction of mothership facing
@@ -137,7 +149,17 @@ public final class PSE_DroneUtils {
         }
 
         //ROTATE TOWARDS TARGET would prefer to use shipcommands but this is more reliable
-        drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
+        //drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
+
+        float angvel = drone.getAngularVelocity();
+        if (rotationAngleDelta > 0f) {
+            angvel += drone.getTurnAcceleration() * engine.getElapsedInLastFrame();
+        } else if (rotationAngleDelta < 0f) {
+            angvel -= drone.getTurnAcceleration() * engine.getElapsedInLastFrame();
+        }
+        MathUtils.clamp(angvel, -drone.getMaxTurnRate(), drone.getMaxTurnRate());
+
+        drone.setAngularVelocity(angvel);
     }
 
     public static void rotateToFacing(PSEDrone drone, float absoluteFacingTargetAngle, float droneFacing, float rotationMagnitude) {

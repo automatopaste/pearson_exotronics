@@ -14,21 +14,21 @@
 		{"droneIndex":[0],
 		 "defenceAngle":0,
 		 "clampedAngle":180,
-		 "defenceOrbitRadius":10, # plus ship radius
+		 "defenceOrbitRadius":-50, # plus ship radius
 		 "clampedOrbitRadius":-80, # plus ship radius
 		 "clampedFacingOffset":0, # rotation offset from ship facing
 		},
 		{"droneIndex":[1],
-		 "defenceAngle":100,
+		 "defenceAngle":0,
 		 "clampedAngle":65,
-		 "defenceOrbitRadius":10, # plus ship radius
+		 "defenceOrbitRadius":-40, # plus ship radius
 		 "clampedOrbitRadius":-75, # plus ship radius
 		 "clampedFacingOffset":-35,
 		},
 		{"droneIndex":[2],
-		 "defenceAngle":-100,
+		 "defenceAngle":0,
 		 "clampedAngle":-65,
-		 "defenceOrbitRadius":10, # plus ship radius
+		 "defenceOrbitRadius":-30, # plus ship radius
 		 "clampedOrbitRadius":-75, # plus ship radius
 		 "clampedFacingOffset":35,
 		},	

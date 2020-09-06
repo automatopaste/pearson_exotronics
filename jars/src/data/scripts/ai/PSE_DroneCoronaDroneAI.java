@@ -197,7 +197,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
                 movementTargetLocation = ship.getLocation();
         }
 
-        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 2f);
+        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
 
 
         ///////////////////////////////////

@@ -217,7 +217,7 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
         //ROTATION moved here for streamlined switching
         PSE_DroneUtils.rotateToFacing(drone, targetFacing, droneFacing, 0.05f);
 
-        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker, 1.1f);
+        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
     }
 
     //OVERRIDES

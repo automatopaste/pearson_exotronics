@@ -292,8 +292,20 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
     public PSEDrone spawnDroneFromShip(String specID) {
         engine.getFleetManager(ship.getOriginalOwner()).setSuppressDeploymentMessages(true);
+
+        Vector2f location;
+        float facing;
+        if (getLandingBayWeaponSlotAPI() != null) {
+            WeaponSlotAPI slot = getLandingBayWeaponSlotAPI();
+            location = slot.computePosition(ship);
+            facing = slot.getAngle();
+        } else {
+            location = ship.getLocation();
+            facing = ship.getFacing();
+        }
+
         PSEDrone spawnedDrone = new PSEDrone(
-                engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing(specID, getLandingLocation(), ship.getFacing()),
+                engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing(specID, location, facing),
                 ship
         );
         spawnedDrone.setAnimatedLaunch();
