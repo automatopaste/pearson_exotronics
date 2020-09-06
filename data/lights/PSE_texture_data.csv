@@ -1,0 +1,9 @@
+id,type,frame,magnitude,map,path
+PSE_denmark,ship,,,normal,graphics/PSE/shaders/ships/denmark/denmark_normal.png
+PSE_leyland,ship,,,normal,graphics/PSE/shaders/ships/leyland/leyland_normal.png
+PSE_kingston,ship,,,normal,graphics/PSE/shaders/ships/kingston/kingston_normal.png
+PSE_serrano,ship,,,normal,graphics/PSE/shaders/ships/serrano/serrano_normal.png
+,,,,,
+PSE_denmark,ship,,,material,graphics/PSE/shaders/ships/denmark/denmark_material.png
+,,,,,
+PSE_denmark,ship,,,surface,graphics/PSE/shaders/ships/denmark/denmark_surface.png

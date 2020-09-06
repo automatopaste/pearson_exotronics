@@ -1,0 +1,63 @@
+{
+  "variantId": "PSE_leyland_Assault",
+  "hullId": "PSE_leyland",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 23,
+  "fluxVents": 23,
+  "quality": 0.9,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "fluxbreakers"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0014": "reaper",
+        "WS0015": "reaper"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0012": "pulselaser",
+        "WS0013": "pulselaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "heavyac",
+        "WS0004": "heavyac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightag",
+        "WS0002": "lightag"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser",
+        "WS0007": "flak",
+        "WS0008": "flak",
+        "WS0009": "vulcan",
+        "WS0010": "vulcan",
+        "WS0011": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

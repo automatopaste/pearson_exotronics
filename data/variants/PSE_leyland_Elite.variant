@@ -1,0 +1,60 @@
+{
+  "variantId": "PSE_leyland_Elite",
+  "hullId": "PSE_leyland",
+  "displayName": "Elite",
+  "goalVariant": true,
+  "fluxCapacitors": 9,
+  "fluxVents": 30,
+  "quality": 1.2,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0013": "typhoon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0014": "sabot",
+        "WS0015": "sabot"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "hveldriver",
+        "WS0004": "hveldriver",
+        "WS0007": "heavymauler",
+        "WS0008": "heavymauler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "railgun",
+        "WS0002": "railgun",
+        "WS0012": "ionbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser",
+        "WS0011": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

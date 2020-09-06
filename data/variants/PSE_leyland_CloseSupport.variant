@@ -1,0 +1,62 @@
+{
+  "variantId": "PSE_leyland_CloseSupport",
+  "hullId": "PSE_leyland",
+  "displayName": "Close Support",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 25,
+  "quality": 0.8,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0012": "harpoonpod",
+        "WS0013": "harpoonpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0014": "heatseeker",
+        "WS0015": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "hveldriver",
+        "WS0008": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "taclaser",
+        "WS0002": "taclaser",
+        "WS0003": "gravitonbeam",
+        "WS0004": "gravitonbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "lrpdlaser",
+        "WS0006": "lrpdlaser",
+        "WS0009": "vulcan",
+        "WS0010": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
