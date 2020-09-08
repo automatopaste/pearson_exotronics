@@ -12,7 +12,7 @@
 	"crest":"graphics/PSE/factions/PSE_logo.png",
 	"shipNamePrefix":"PCS",
 	"shipNameSources":{
-		"GREEK":1,
+		"PSE_CLASSIC":5,
 		"GENERAL":1,
 		"MERCANTILE":1,
 		"SPACE":1,
