@@ -85,6 +85,8 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         );
         markets.add(newCaledoniaMarketplace);
 
+        newCaledonia.getMarket().addSubmarket("custom_market");
+
         //new caledonia shades
         SectorEntityToken newCaledoniaShade1 = system.addCustomEntity("PSE_newCaledoniaShade1", "New Caledonian Solar Shade Alpha", "stellar_shade", "pearson_exotronics");
         SectorEntityToken newCaledoniaShade2 = system.addCustomEntity("PSE_newCaledoniaShade2", "New Caledonian Solar Shade Beta", "stellar_shade", "pearson_exotronics");
