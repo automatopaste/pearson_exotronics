@@ -1,0 +1,2 @@
+id,name,faction,desc,script,icon,order
+custom_market,Custom Market,,A description for a custom market.,data.scripts.campaign.submarkets.PSE_CustomSubmarketPlugin,,1
