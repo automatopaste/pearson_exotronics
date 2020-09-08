@@ -88,7 +88,7 @@
   "engineSlots": [
     {
       "location": [-23.5, 26],
-      "length": 18,
+      "length": 14,
       "width": 15,
       "angle": 180,
       "contrailSize": 15,
@@ -97,7 +97,7 @@
     },
     {
       "location": [-23.5, -26],
-      "length": 18,
+      "length": 14,
       "width": 15,
       "angle": -180,
       "contrailSize": 15,
@@ -107,24 +107,24 @@
     {
       "location": [-19, 19],
       "length": 13,
-      "width": 10,
+      "width": 19,
       "angle": 180,
-      "contrailSize": 10,
+      "contrailSize": 19,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-19, -19],
       "length": 13,
-      "width": 10,
+      "width": 19,
       "angle": -180,
-      "contrailSize": 10,
+      "contrailSize": 19,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-83, -58.5],
-      "length": 7,
+      "length": 22.5,
       "width": 15,
       "angle": -180,
       "contrailSize": 15,
@@ -133,7 +133,7 @@
     },
     {
       "location": [-83, 58.5],
-      "length": 7,
+      "length": 22.5,
       "width": 15,
       "angle": 180,
       "contrailSize": 15,
@@ -142,91 +142,91 @@
     },
     {
       "location": [-80.5, -45.5],
-      "length": 7,
-      "width": 15,
+      "length": 22,
+      "width": 13,
       "angle": -180,
-      "contrailSize": 15,
+      "contrailSize": 13,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-80.5, 45.5],
-      "length": 7,
-      "width": 15,
+      "length": 22,
+      "width": 13,
       "angle": 180,
-      "contrailSize": 15,
+      "contrailSize": 13,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-74.5, 29],
-      "length": 4,
-      "width": 6,
+      "length": 11.5,
+      "width": 10,
       "angle": 180,
-      "contrailSize": 6,
+      "contrailSize": 10,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-74.5, -29],
-      "length": 4,
-      "width": 6,
+      "length": 11.5,
+      "width": 10,
       "angle": -180,
-      "contrailSize": 6,
+      "contrailSize": 10,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-77.5, 37],
-      "length": 4,
-      "width": 6,
+      "length": 11.5,
+      "width": 12,
       "angle": 180,
-      "contrailSize": 6,
+      "contrailSize": 12,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-77.5, -37],
-      "length": 4,
-      "width": 6,
+      "length": 11.5,
+      "width": 12,
       "angle": -180,
-      "contrailSize": 6,
+      "contrailSize": 12,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-76, 32.5],
-      "length": 4,
-      "width": 6,
+      "length": 11,
+      "width": 8,
       "angle": 180,
-      "contrailSize": 6,
+      "contrailSize": 8,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-76, -32.5],
-      "length": 4,
-      "width": 6,
+      "length": 11,
+      "width": 8,
       "angle": -180,
-      "contrailSize": 6,
+      "contrailSize": 8,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-74.5, 25.5],
-      "length": 4,
-      "width": 6,
+      "length": 10,
+      "width": 5,
       "angle": 180,
-      "contrailSize": 6,
+      "contrailSize": 5,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-74.5, -25.5],
-      "length": 4,
-      "width": 6,
+      "length": 10,
+      "width": 5,
       "angle": -180,
-      "contrailSize": 6,
+      "contrailSize": 5,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }

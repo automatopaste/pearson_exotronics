@@ -11,6 +11,9 @@
   "shieldCenter": [0, 0],
   "shieldRadius": 153.5,
   "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0018": "PSE_parity_gun"
+  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -164,6 +167,15 @@
       "arc": 0,
       "angle": -90,
       "locations": [-38, -33]
+    },
+    {
+      "id": "WS0018",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [55, -0]
     }
   ],
   "engineSlots": [

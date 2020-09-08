@@ -118,19 +118,19 @@
     },
     {
       "location": [-40, -24],
-      "length": 10,
-      "width": 12,
-      "angle": -180,
-      "contrailSize": 12,
+      "length": 17.967468,
+      "width": 12.715356,
+      "angle": -156,
+      "contrailSize": 12.715356,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-40, 24],
-      "length": 10,
-      "width": 12,
-      "angle": 180,
-      "contrailSize": 12,
+      "length": 17.967468,
+      "width": 12.715356,
+      "angle": 156,
+      "contrailSize": 12.715356,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }
