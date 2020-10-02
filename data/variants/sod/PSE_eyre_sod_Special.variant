@@ -1,0 +1,40 @@
+{
+  "variantId": "PSE_eyre_sod_Special",
+  "hullId": "PSE_eyre_sod",
+  "displayName": "Special",
+  "goalVariant": false,
+  "fluxCapacitors": 7,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "pointdefenseai",
+    "militarized_subsystems",
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "PSE_corsair_mk1"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "lightag"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "PSE_spectrumpd"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

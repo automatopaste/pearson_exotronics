@@ -1,0 +1,16 @@
+{
+  "baseHullId": "PSE_serrano",
+  "baseValueMult": 1.5,
+  "descriptionId": "PSE_serrano",
+  "descriptionPrefix": "This ship has been reconfigured by the Pearson Navy Special Operations Division with advanced electronic warfare packages and sensor equipment.",
+  "fleetPoints": 17,
+  "tags":["PSE_sod_bp"],
+  "tech":"PSExotech",
+  "hullDesignation": "Heavy Cruiser",
+  "hullName": "Serrano (SOD)",
+  "ordnancePoints": 190,
+  "restoreToBaseHull": false,
+  "skinHullId": "PSE_serrano_sod",
+  "spriteName": "graphics/PSE/ships/PSE_serrano_dark.png",
+  "builtInMods":["PSE_SpecialOperationsDivision"],
+}

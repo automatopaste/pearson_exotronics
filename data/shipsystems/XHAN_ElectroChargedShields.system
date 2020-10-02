@@ -1,0 +1,15 @@
+{
+	"id":"XHAN_ElectroChargedShields",
+	"type":"STAT_MOD",
+	"aiType":"DAMPER_FIELD",
+	
+	"statsScript":"data.scripts.shipsystems.XHAN_ElectroChargedShields",
+	
+	"fadeActivationSoundOnChargedown":true,
+	"useSound":"system_quantumdisruptor",
+	"outOfUsesSound":"gun_out_of_ammo",
+}
+
+
+
+

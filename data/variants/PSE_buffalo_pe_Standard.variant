@@ -1,0 +1,14 @@
+{
+    "displayName": "Standard",
+    "fluxCapacitors": 6,
+    "fluxVents": 5,
+    "hullId": "PSE_buffalo_pe",
+    "hullMods": ["auxiliarythrusters"],
+    "permaMods": [],
+    "variantId": "PSE_buffalo_pe_Standard",
+    "weaponGroups": [{
+        "autofire": true,
+        "mode": "LINKED",
+        "weapons": {"WS 001": "PSE_spectrumpd"}
+    }]
+}

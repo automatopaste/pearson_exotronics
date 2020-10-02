@@ -1,0 +1,16 @@
+{
+	"id":"PSE_douglas_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":65.0,
+	"hitGlowRadius":60,
+	"width":9.0,
+	"fadeTime":0.2,
+	"fringeColor":[255,100,50,205],
+	"coreColor":[255,100,50,180],	
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/shell_large_yellow.png"
+}

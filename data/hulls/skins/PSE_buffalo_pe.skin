@@ -1,0 +1,18 @@
+{
+	"baseHullId":"buffalo",
+	"skinHullId":"PSE_buffalo_pe",
+	"hullName":"Buffalo",
+	"descriptionId":"buffalo",  # optional
+	"descriptionPrefix":"This ship has been given Pearson Exotronics markings. Systems modifications are otherwise superficial.",
+	"tags":["PSE_base_bp"],
+	"tech":"PSExotech",
+	"fleetPoints":5,
+	"spriteName":"graphics/PSE/ships/PSE_buffalo_pe.png",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":[],
+	"builtInWeapons":{
+    },
+}

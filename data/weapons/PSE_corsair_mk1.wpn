@@ -1,0 +1,50 @@
+{
+  "id": "PSE_corsair_mk1",
+  "specClass": "projectile",
+  "projectileSpecId": "PSE_corsair_shot",
+  "type": "BALLISTIC",
+  "size": "SMALL",
+  "turretSprite": "graphics/PSE/weapons/PSE_corsair_t_main.png",
+  "turretGunSprite": "graphics/PSE/weapons/PSE_corsair_t_recoil.png",
+  "hardpointSprite": "graphics/PSE/weapons/PSE_corsair_h_main.png",
+  "hardpointGunSprite": "graphics/PSE/weapons/PSE_corsair_h_recoil.png",
+  "renderAboveAllWeapons": 0,
+  "visualRecoil": 3,
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "turretOffsets": [
+    16,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    16.5,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "MUZZLE_FLASH",
+  "interruptibleBurst": false,
+  "autocharge": true,
+  "muzzleFlashSpec": {
+    "length": 10,
+    "spread": 10,
+    "particleSizeMin": 5,
+    "particleSizeRange": 7,
+    "particleDuration": 0.4,
+    "particleCount": 6,
+    "particleColor": [
+      255,
+      255,
+      255,
+      255
+    ]
+  },
+  "textureType": ROUGH,
+  "fireSoundTwo": "PSE_corsair_mk1_fire"
+}

@@ -1,0 +1,57 @@
+{
+  "hullName": "Musovic",
+  "hullId": "PSE_drone_civilian",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_drone_civilian.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 20,
+  "width": 20,
+  "center": [10, 10],
+  "collisionRadius": 31.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 20,
+  "viewOffset": 0,
+  "builtInMods": [
+    "no_weapon_flux"
+  ],
+  "builtInWeapons": {
+    "WS0001": "PSE_starburst_mini",
+    "WS0002": "irpulse_fighter"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 60,
+      "angle": 0,
+      "locations": [4.5, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 30,
+      "angle": 0,
+      "locations": [2, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-6, -0],
+      "length": 14,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    -4.5, 8,
+    9.5, 0,
+    -4.5, -8
+  ]
+}

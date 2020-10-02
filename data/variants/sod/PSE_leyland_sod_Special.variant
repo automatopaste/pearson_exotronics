@@ -1,0 +1,64 @@
+{
+  "variantId": "PSE_leyland_sod_Special",
+  "hullId": "PSE_leyland_sod",
+  "displayName": "Special",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "pointdefenseai"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0018": "PSE_parity_gun"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0012": "salamanderpod",
+        "WS0013": "salamanderpod",
+        "WS0014": "hammer",
+        "WS0015": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "heavyneedler",
+        "WS0008": "heavyneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "PSE_douglas",
+        "WS0004": "PSE_douglas"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "PSE_starburst_mini",
+        "WS0002": "PSE_starburst_mini",
+        "WS0005": "PSE_spectrumpd",
+        "WS0006": "PSE_spectrumpd",
+        "WS0009": "PSE_starburst_mini",
+        "WS0010": "PSE_starburst_mini",
+        "WS0011": "PSE_spectrumpd"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
