@@ -4,6 +4,15 @@
     -spinal inbuilt energy gun
     -targeting mode increases projectile speed and damage by 1.35x
     -added system AI
+-added new unique faction weapons
+    -Douglas autocannon
+        -medium ballistic, fires HE shells at medium range
+    -Corsair mk1 railgun
+        -small ballistic, fires triple burst kinetic slugs at average range
+    -Spectrum PD
+        -small energy, fires fragmentation damage burst beam at average range, EMPs fighters consistently
+    -Mini-starburst Flak
+        -small ballistic, fires small fragmenting proximity shells at short range, useful against massed missile attacks
 -migrated repository to github, fixed version files along the way
 -complete paintjob rework
     -added white, standard military skins as the common ship type
