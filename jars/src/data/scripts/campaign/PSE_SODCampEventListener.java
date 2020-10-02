@@ -87,6 +87,11 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
     @Override
     public void reportPlayerOpenedMarket(MarketAPI market) {
         List<PSE_SODCamp> camps = (List<PSE_SODCamp>) Global.getSector().getPersistentData().get(SOD_CAMPS_DATA_KEY);
+        if (camps == null) {
+            Global.getSector().getPersistentData().put(SOD_CAMPS_DATA_KEY, new ArrayList<PSE_SODCamp>());
+            return;
+        }
+
         for (PSE_SODCamp camp : camps) {
             if (camp.getAssociatedMarket().equals(market)) {
                 camp.setDiscovered(true);

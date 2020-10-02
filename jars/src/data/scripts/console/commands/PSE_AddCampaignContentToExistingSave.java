@@ -2,6 +2,7 @@ package data.scripts.console.commands;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
+import data.scripts.campaign.PSE_SODCampEventListener;
 import data.scripts.world.PSE.PSE_WorldGen;
 import exerelin.campaign.SectorManager;
 import org.lazywizard.console.BaseCommand;
@@ -36,6 +37,9 @@ public class PSE_AddCampaignContentToExistingSave implements BaseCommand {
         }
 
         new PSE_WorldGen().generateToExistingSave(Global.getSector());
+        PSE_SODCampEventListener SODListener = new PSE_SODCampEventListener(false);
+        Global.getSector().addTransientListener(SODListener);
+        Global.getSector().getListenerManager().addListener(SODListener, true);
         Console.showMessage("Successfully ran \"Pearson Exotronics\" campaign generation scripts.");
         return CommandResult.SUCCESS;
     }

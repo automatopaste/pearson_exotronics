@@ -2,7 +2,7 @@
 	"id":"pearson_exotronics",
 	"name":"Pearson Exotronics",
 	"author":"tomatopaste",
-	"version":"0.5.4",
+	"version":"0.6.1",
 	"description":"A domain-era corporation specialising in advanced automated defence systems and military technologies. Currently a functional work in progress, please contact the author via discord or on the mod forum thread about queries, bugs and suggestions! :)",
 	"gameVersion":"0.9.1a-RC8",
 	"jars":["jars/PearsonExotronics.jar"],
