@@ -7,41 +7,29 @@ Ships:
 
     Frigates
         -line combat frigate - COMPLETED - Cassius
-        -small combat freighter - COMPLETED - Torrens
+        -small combat freighter - COMPLETED - Eyre
         -advanced combat frigate - COMPLETED - Kiruna
-        -civilian freighter - COMPLETED - Eyre
+        -civilian drone tender - COMPLETED - Torrens
 
     Destroyers:
         -heavy combat destroyer - COMPLETED - Denmark
         -line combat destroyer - COMPLETED - Richmond
         -carrier destroyer - SKETCHED - Armstrong
-        -super destroyer
-        -civilian freighter
+        -super destroyer - ???
+        -civilian freighter - ???
 
     Cruisers:
-        -line combat cruiser - SKETCHED - Hammond
+        -heavy combat cruiser - SKETCHED - Hammond
         -line carrier cruiser - SKETCHED - Essendon
-        -heavy combat cruiser - COMPLETED - Serrano
-        -civilian freighter
-        -fast combat cruiser - SKETCHED - Leyland
+        -line combat cruiser - COMPLETED - Serrano
+        -civilian freighter - ???
+        -fast combat cruiser - COMPLETED - Leyland
 
     Capitals
         -line combat capital - COMPLETED - Kingston
         -fast combat capital - SKETCHED - Roland
 
-Weapons:
-    Ballistic:
-       -small - long-range HE autocannon
-
-    Energy:
-       -medium - long range HE beam, for use on drones, modular
-       -small - mid range gatling beam cannon
-       -medium - mid range dual gatling beam cannon
-
-    Missile:
-       -medium - mid range energy damage missile, poor tracking
-
-sfx list to order:
+sfx list:
 -drones
     -launch/recall
     -corona
@@ -54,4 +42,3 @@ sfx list to order:
     -shroud
         -shield
 
--engine suite

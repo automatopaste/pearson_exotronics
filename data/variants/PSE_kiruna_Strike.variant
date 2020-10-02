@@ -4,7 +4,7 @@
   "displayName": "Strike",
   "goalVariant": true,
   "fluxCapacitors": 10,
-  "fluxVents": 3,
+  "fluxVents": 2,
   "quality": 0.8,
   "permaMods": [],
   "hullMods": [
@@ -18,7 +18,7 @@
       "mode": "ALTERNATING",
       "weapons": {
         "WS0001": "amblaster",
-        "WS0002": "amblaster"
+        "WS0002": "phasebeam"
       }
     },
     {

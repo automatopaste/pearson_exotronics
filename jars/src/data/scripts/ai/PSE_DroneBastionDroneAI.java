@@ -49,7 +49,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             }
         }
 
-        this.UNIQUE_SYSTEM_ID = "PSE_droneBastion_" + ship.hashCode();
+        this.UNIQUE_SYSTEM_ID = "PSE_DroneBastion_" + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -137,7 +137,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
         //PERFORM LOGIC BASED ON MOTHERSHIP SHIPSYSTEM STATE - SELECT TARGET LOCATION
-        float angle = 0;
+        float angle;
         Vector2f movementTargetLocation;
         switch (bastionDroneOrders) {
             case FRONT:

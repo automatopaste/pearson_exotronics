@@ -19,7 +19,7 @@
     "maxRelationships":{},
     "diplomacyPositiveChance":{},
     "diplomacyNegativeChance":{},
-    "morality":"good",
+    "morality":"neutral",
     
     "alignments":{
         "corporate":1,

@@ -1,10 +1,14 @@
 {
 	"combatSmall":{
 		"PSE_cassius_Assault":4,
+		"PSE_cassius_Balanced":4,
 		"PSE_cassius_CloseSupport":4,
 		"PSE_kiruna_Assault":2,
 		"PSE_kiruna_CloseSupport":2,
 		"PSE_kiruna_Strike":2,
+
+		"PSE_cassius_sod_Special":5,
+		"PSE_kiruna_sod_Special":5,
 	},
 
 	"combatMedium":{
@@ -13,11 +17,21 @@
 		"PSE_denmark_Elite":2,
 		"PSE_richmond_Assault":4,
 		"PSE_richmond_Overdriven":3,
+
+		"PSE_denmark_sod_Special":5,
+		"PSE_richmond_sod_Special":5,
 	},
 
 	"combatLarge":{
-		"PSE_serrano_Assault":4,
-		"PSE_serrano_Support":2,
+		"PSE_serrano_Assault":5,
+		"PSE_serrano_Support":4,
+		"PSE_serrano_Balanced":5,
+		"PSE_leyland_Assault":3,
+		"PSE_leyland_CloseSupport":3,
+		"PSE_leyland_Elite":4,
+
+		"PSE_serrano_sod_Special":5,
+		"PSE_leyland_sod_Special":5,
 	},
 
 	"combatCapital":{
@@ -25,10 +39,23 @@
 		"PSE_kingston_Balanced":6,
 		"PSE_kingston_Elite":4,
 		"PSE_kingston_Strike":3,
+
+		"PSE_kingston_sod_Special":5,
 	},
 
 	"combatFreighterSmall":{
-		"PSE_torrens_Standard":3,
+		"PSE_torrens_Standard":2,
 		"PSE_eyre_Standard":4,
+		"PSE_eyre_Elite":3,
+
+		"PSE_eyre_sod_Special":5
 	},
+
+	"carrierSmall":{
+		"PSE_torrens_Standard":0
+	},
+
+	"civilianRandom":{
+		"PSE_buffalo_pe_Standard":1,
+	}
 },

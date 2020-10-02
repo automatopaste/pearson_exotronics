@@ -57,7 +57,7 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_droneBastion_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = "PSE_DroneBastion_" + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }

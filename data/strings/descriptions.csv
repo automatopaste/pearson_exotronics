@@ -1,4 +1,16 @@
 id,type,text1,text2,text3,notes
+PSE_corsair_mk1,WEAPON,"A derivative of the conventional Railgun, the Corsair mechanism delivers three bolts with moderate kinetic energy at medium range. The slug explosively deforms on hitting armour or hull, causing additional fragmentation damage.
+
+The loading mechanism for this weapon is a simple but effective modification of the Railgun's, separating magazine and firing chamber with a unique three-pattern mini-zine. When the firing sequence is started, the primary magnetic field is quickly charged, while the slugs in ""limbo"", as nicknamed by gunnery technicians familiar with the design, are quickly elevated into the chamber, and ejected at speed.",Close Support,,
+PSE_starburst_mini,WEAPON,"A minituarized defensive flak system that fires unique Starburst-pattern shrapnel shells equipped with a proximity fuse for effectiveness against fighters and missiles.
+
+The difficulty of scaling down of the conventional flak cannon required significant compromise of the standard warhead design. The unique Starburst type flak shell creates a surprising amount of fragmentation debris within its area of effect, while having a narrower calibre that this weapons system can fire with minimal wear and loss of accuracy.",Point Defense,,
+PSE_spectrumpd,WEAPON,"A semi-modification of the venerable Burst PD system that installs additional disruptive beam components capable of stunning fighters, but losing effective armor penetration.
+
+The disruption of the beam using dual secondary peaking oscillators, allows for the projection of exotic p-space particles, passively collected through natural ship movement, which cause unintended electrical behaviour in the flux management systems of unprotected targets. This results in effectively EMP-ing fighter craft a significant fraction of the time that contact is achieved.",Point Defense,,
+,,,,,
+PSE_douglas,WEAPON,"Designed to be a counterpart to mid-range kinetic weapons, this autocannon can provide consistent anti-armor punch at a moderate flux cost.",Assault,,
+,,,,,
 PSE_torrens,SHIP,"A quintessential logistics vessel, Torrens-class frigates find use in salvage expeditions and small trade convoys, providing easy operation in examining and detecting bodies of various sizes and compositions. Despite an anemic weapon loadout, compact drone tech can give it an edge in combat, but is not much use against anything bigger than itself.",,,
 PSE_eyre,SHIP,"A steady and efficient cargo hauler providing cheap mass storage transit, and a favourite of commanders of smaller expeditions. Following convention with true cargo ships, the Eyre wields no special defensive armament, and is rarely seen outside of small trade convoys, being generally favoured less than larger and more economical vessels.",,,
 PSE_cassius,SHIP,"Aggressively oriented and with attitude to match, a Cassius-class frigate can achieve fame on the battlefield with surgical strike capability enamoured by a quickly-recharging and effective movement subsystem.
@@ -24,6 +36,9 @@ All hulls come equipped with dual Burrows-class drones wielding short range EMP 
 PSE_serrano,SHIP,"Tough, immovable, and armed to the teeth, the Serrano is a constant dominating force on the battlefield, providing a key anchor point from which more strike-oriented hulls can stage temporary engagements.
 
 Utilising the same multirole autonomous suite as the Denmark, but with a lesser reliance on engine performance, many experienced officers are more inclined to find use of the long-range high intensity laser derivative, as an unrelenting source of high-explosive damage, riveted through with a barrage of heavy kinetics. Despite weaker armour than similar cruisers of its weight class, the Serrano shines in its ability to combine the innately strong PD performance of its Deuces-class drone package with onboard PD solutions, providing a volume of missile denial firepower comparable to some battlecruisers.",,,
+PSE_leyland,SHIP,"Swift and versatile, the Leyland is a dream to command, equipped with an efficient shield generator, an advanced multirole drone system, and the weapon suite of a hull at the apex of its class. This is especially complemented by the bulky Parity Destabiliser gun, exploiting sub-quantum particle effects poorly understood by the engineers of this age, to provide an effective, long-range artillery role to pressure retreating ships.
+
+The Leyland was among the most recent of Pearson Exotronics R&D designs, and underwent discreet testing at the Cydonian military facilities, and was instrumental in fending off a Tri-Tachyon bombardment force, as the designated captain was able to utilise the highly flux-efficient ballistic weaponry options to gain an advantage against the energy weapons fielded by the malignant adversaries",,,
 ,,,,,
 PSE_kingston,SHIP,"A testament to the scale of the wars of a bygone era, the Kingston is aptly named as the most supreme of Pearson Exotronics Corporation Navy vessels, matching heavy firepower and variable weapon mounting with extremely advanced drone-based shield technology.
 

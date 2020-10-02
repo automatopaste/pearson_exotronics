@@ -28,6 +28,7 @@
 	# multiplier for how often hulls show up in the faction's fleets
 	"hullFrequency":{
 		"tags":{
+		    "PSE_sod_bp":0.25,
 		},
 		"hulls":{
 			"PSE_cassius":4,
@@ -37,37 +38,52 @@
 			"PSE_richmond":4,
 			"PSE_serrano":4,
 			"PSE_kingston":2,
+			"PSE_leyland":3,
+			"PSE_buffalo_pe":5,
 		},
 	},
 	# ships the faction gets access to when importing S&W out-of-faction
 	"shipsWhenImporting":{
 		"tags":["base_bp", "midline_bp"],
 		"hulls":[
+		    "enforcer",
+		    #"dominator",
+		    "eagle",
 		],
 	},
 	"knownShips":{
-		"tags":["base_bp", "midline_bp", "PSE_base_bp", "PSE_support_bp", "PSE_military_bp"],
+		"tags":["base_bp", "PSE_base_bp", "PSE_support_bp", "PSE_military_bp", "PSE_sod_bp"],
 		"hulls":[
+			"atlas",
+			"monitor",
+			"prometheus",
+			"heron",
+			"shade",
+
 			"PSE_cassius",
 			"PSE_torrens",
 			"PSE_kiruna",
 			"PSE_denmark",
 			"PSE_richmond",
 			"PSE_serrano",
+			"PSE_leyland",
 			"PSE_kingston",
+			"PSE_buffalo_pe"
 			],
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available
 	"priorityShips":{
-		"tags":["PSE_base_bp", "PSE_support_bp", "PSE_military_bp"],
+		"tags":["PSE_base_bp", "PSE_military_bp"],
 		"hulls":[
 			"PSE_cassius",
-			"PSE_torrens",
+			#"PSE_torrens",
 			"PSE_kiruna",
 			"PSE_denmark",
 			"PSE_richmond",
 			"PSE_serrano",
+			"PSE_leyland",
 			"PSE_kingston",
+			"PSE_kingston_sod",
 		],
 	},
 	"knownFighters":{
@@ -85,15 +101,27 @@
 		],
 	},
 	"knownWeapons":{
-		"tags":["base_bp", "midline_bp", "missile_bp"],
+		"tags":["base_bp", "midline_bp", "missile_bp", "PSE_weapon_bp"],
 		"weapons":[
 			"railgun",  #ballistics
 			"vulcan",
+			"lightneedler",
+
+			"PSE_corsair_mk1",
+			"PSE_starburst_mini",
 
 			"flak",
 			"dualflak",
 			"heavymauler",
 			"heavymortar",
+			"heavyneedler",
+			"hveldriver",
+
+			"PSE_douglas",
+
+			"hephag",
+			"gauss",
+			"hellbore",
 
             "reaper", #missiles
             "sabot",
@@ -117,17 +145,26 @@
 			"ioncannon",
 			"lrpdlaser",
 
+			"PSE_spectrumpd",
+
 			"heavyburst",
 			"ionpulser",
 			"ionbeam",
 			"gravitonbeam",
 
 			"plasma",
+			"tachyonlance",
 		],
 	},
 	"priorityWeapons":{
-		"tags":[],
+		"tags":["PSE_weapon_bp"],
 		"weapons":[
+			"PSE_corsair_mk1",
+			"PSE_starburst_mini",
+
+			"PSE_douglas",
+
+			"PSE_spectrumpd",
 		],
 	},
 	"knownHullMods":{
@@ -257,18 +294,18 @@
 		},
 	},
 	"fleetTypeNames":{
-		"trade":"Trade Fleet",
-		"tradeLiner":"Liner Fleet",
+		"trade":"Merchant Fleet",
+		"tradeLiner":"Liner",
 		"tradeSmuggler":"Smuggler",
 		"smallTrader":"Trader",
 		
-		"patrolSmall":"Patrol",
-		"patrolMedium":"Squadron",
-		"patrolLarge":"Defence Force",
+		"patrolSmall":"Light Patrol",
+		"patrolMedium":"Patrol",
+		"patrolLarge":"Detachment",
 		
 		"inspectionFleet":"Inspection Fleet",
 		"taskForce":"Expeditionary Force",
 		
-		"foodReliefFleet":"Relief Operation",
+		"foodReliefFleet":"Relief Envoy",
 	},
 },

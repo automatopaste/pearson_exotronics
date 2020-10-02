@@ -3,7 +3,7 @@
   "hullId": "PSE_serrano",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 25,
+  "fluxCapacitors": 19,
   "fluxVents": 30,
   "quality": 0.8,
   "permaMods": [],
@@ -46,12 +46,12 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "vulcan",
-        "WS0003": "vulcan",
-        "WS0008": "vulcan",
-        "WS0009": "vulcan",
-        "WS0010": "vulcan",
-        "WS0011": "vulcan"
+        "WS0002": "PSE_starburst_mini",
+        "WS0003": "PSE_starburst_mini",
+        "WS0008": "PSE_spectrumpd",
+        "WS0009": "PSE_spectrumpd",
+        "WS0010": "PSE_starburst_mini",
+        "WS0011": "PSE_starburst_mini"
       }
     }
   ],

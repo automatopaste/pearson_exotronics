@@ -87,38 +87,33 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
     protected static final Map<String, Float> QUALITY_FACTORS = new HashMap<>(13);
 
     // This is to force specific (Domain Drones and Remnants are handled elsewhere) hidden from intel factions to be available in Test Mode
-    protected static final Set<String> FORCE_AVAILABLE_IN_TEST = new HashSet<>(Arrays.asList(new String[]
-            {
-                    "OCI",
-                    "blade_breakers",
-                    "draco",
-                    "fang",
-                    "mess",
-                    "junk_pirates_technicians",
-            }));
+    protected static final Set<String> FORCE_AVAILABLE_IN_TEST = new HashSet<>(Arrays.asList("OCI",
+            "blade_breakers",
+            "draco",
+            "fang",
+            "mess",
+            "junk_pirates_technicians"));
 
     // Variant Test Mode hulls will be listed in exactly this order
-    protected static final List<String> TEST_HULLS = new ArrayList<>(Arrays.asList(new String[]
-            {
-                    "tiandong_boss_wuzhang",
-                    "tiandong_chengdu",
-                    "tiandong_dingjun",
-                    "tiandong_guan_du",
-                    "tiandong_hanzhong",
-                    "tiandong_hujing",
-                    "tiandong_lao_hu",
-                    "tiandong_luo_yang",
-                    "tiandong_nanzhong",
-                    "tiandong_qianzi",
-                    "tiandong_shouren",
-                    "tiandong_tianshui",
-                    "tiandong_tuolu",
-                    "tiandong_wujun",
-                    "tiandong_wuzhang",
-                    "tiandong_xiakou",
-                    "tiandong_xu"
-                    //"fake_hull_lol" // You know, to test if the error message works
-            }));
+    protected static final List<String> TEST_HULLS = new ArrayList<>(Arrays.asList("tiandong_boss_wuzhang",
+            "tiandong_chengdu",
+            "tiandong_dingjun",
+            "tiandong_guan_du",
+            "tiandong_hanzhong",
+            "tiandong_hujing",
+            "tiandong_lao_hu",
+            "tiandong_luo_yang",
+            "tiandong_nanzhong",
+            "tiandong_qianzi",
+            "tiandong_shouren",
+            "tiandong_tianshui",
+            "tiandong_tuolu",
+            "tiandong_wujun",
+            "tiandong_wuzhang",
+            "tiandong_xiakou",
+            "tiandong_xu"
+            //"fake_hull_lol" // You know, to test if the error message works
+    ));
     protected static final List<String> TEST_VARIANTS = new ArrayList<>();
     protected static final List<String> MISSING_HULLS = new ArrayList<>();
 
@@ -163,6 +158,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
         QUALITY_FACTORS.put("mess", 0.9f);                  // Gray goo enhanced ships and weapons
         QUALITY_FACTORS.put("sylphon", 0.75f);              // AI collaborators with advanced tech
         QUALITY_FACTORS.put("fob", 0.8f);                   // Aliens with... Alien tech
+        QUALITY_FACTORS.put("pearson_exotronics", 0.7f);    // hi mum
     }
 
     // This complicated code lets us add variants in a specified sequence of hull IDs, in an optimized manner
@@ -710,8 +706,8 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
         }
          */
 
-        if (testMode)    // Test mode: All factions that appear in intel tab (+ some others) and also allows THI to infight
-        {
+        //if (testMode)    // Test mode: All factions that appear in intel tab (+ some others) and also allows THI to infight
+        //{
             for (FactionAPI faction : Global.getSector().getAllFactions())
             {
                 // Don't add duplicate entries
@@ -726,7 +722,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
                 }
                 acceptableFactions.add(Global.getSettings().createBaseFaction(faction.getId()));
             }
-        }
+        //}
 
         // If the player faction is not null, and is not specified a parameter in the input, choose from one of the acceptable factions
         // Could be a WeightedRandomPicker instead but bah
@@ -828,7 +824,7 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
             dfip.quality = quality;
 
             boolean isTiandongFaction = factionId.equals("tiandong");
-            boolean useCustomAutofitPlugin = false;/*(isTiandongFaction && TiandongModPlugin.useCustomTiandongAutofit) /*|| (!isTiandongFaction && TiandongModPlugin.useCustomNonTiandongAutofit && TiandongAutofitDefs.doesFactionHaveDef(factionId))*/;
+            boolean useCustomAutofitPlugin = false;/*(isTiandongFaction && TiandongModPlugin.useCustomTiandongAutofit) /*|| (!isTiandongFaction && TiandongModPlugin.useCustomNonTiandongAutofit && TiandongAutofitDefs.doesFactionHaveDef(factionId))*/
 
             if (useCustomAutofitPlugin)
             {

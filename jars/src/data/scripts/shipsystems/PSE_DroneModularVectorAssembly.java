@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
 
     public enum ModularVectorAssemblyDroneOrders {
-        DEFENCE,
+        TARGETING,
         CLAMPED,
         RECALL
     }
@@ -113,7 +113,7 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
 
     public void maintainStatusMessage() {
         switch (droneOrders) {
-            case DEFENCE:
+            case TARGETING:
                 engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "DEFENCE FORMATION", false);
                 break;
             case CLAMPED:

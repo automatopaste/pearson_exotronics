@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PSE_CommissionedCrewBonus extends BaseHullMod {
-    public static final float DRONE_ARMOUR_RATING_FLAT_BONUS = 10f;
+    private static final float DRONE_ARMOUR_RATING_FLAT_BONUS = 10f;
 
-    public static final Map<ShipAPI.HullSize, Float> ARMOUR_PER_HULLSIZE_FLAT = new HashMap<>();
+    private static final Map<ShipAPI.HullSize, Float> ARMOUR_PER_HULLSIZE_FLAT = new HashMap<>();
     static {
         ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.CAPITAL_SHIP, 50f);
         ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.CRUISER, 25f);

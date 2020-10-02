@@ -222,4 +222,20 @@ public final class PSE_MiscUtils {
     public static Vector2f getVectorFromAToB(CombatEntityAPI a, CombatEntityAPI b) {
         return Vector2f.sub(b.getLocation(), a.getLocation(), new Vector2f());
     }
+
+    public static Vector2f getRandomVectorInCircleRange(float maxRange, float minRange, Vector2f center) {
+        float dist = (minRange + ((float) Math.random() * (maxRange - minRange)));
+        Vector2f loc = new Vector2f(0f, dist);
+        VectorUtils.rotate(loc, (float) Math.random() * 360f);
+        Vector2f.add(loc, center, loc);
+        return loc;
+    }
+
+    public static Vector2f getRandomVectorInCircleRangeWithDistanceMult(float maxRange, float minRange, Vector2f center, float mult) {
+        float dist = (minRange + (mult * (maxRange - minRange)));
+        Vector2f loc = new Vector2f(0f, dist);
+        VectorUtils.rotate(loc, (float) Math.random() * 360f);
+        Vector2f.add(loc, center, loc);
+        return loc;
+    }
 }

@@ -3,7 +3,7 @@
   "hullId": "PSE_denmark",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 17,
+  "fluxCapacitors": 12,
   "fluxVents": 20,
   "quality": 0.9,
   "permaMods": [],
@@ -13,33 +13,39 @@
   ],
   "weaponGroups": [
     {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0005": "railgun",
-        "WS0006": "railgun"
-      }
-    },
-    {
       "autofire": false,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
-        "WS0004": "typhoon"
+        "WS0004": "harpoonpod"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "lightag"
+        "WS0005": "heavyac"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "pdlaser",
-        "WS0002": "pdlaser"
+        "WS0006": "PSE_douglas"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "ioncannon",
+        "WS0002": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "PSE_starburst_mini"
       }
     }
   ],

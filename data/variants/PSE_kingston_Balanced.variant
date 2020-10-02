@@ -49,8 +49,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "vulcan",
-        "WS0002": "vulcan",
+        "WS0001": "PSE_starburst_mini",
+        "WS0002": "PSE_starburst_mini",
         "WS0003": "pdlaser",
         "WS0004": "pdlaser",
         "WS0011": "pdlaser",
@@ -61,8 +61,8 @@
         "WS0018": "flak",
         "WS0019": "pdlaser",
         "WS0020": "pdlaser",
-        "WS0021": "vulcan",
-        "WS0022": "vulcan"
+        "WS0021": "PSE_starburst_mini",
+        "WS0022": "PSE_starburst_mini"
       }
     }
   ],

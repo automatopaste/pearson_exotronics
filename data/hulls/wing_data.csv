@@ -1,4 +1,7 @@
 id,variant,tags,tier,rarity,fleet pts,op cost,formation,range,attackRunRange,attackPositionOffset,num,role,role desc,refit,base value,,,,,,,,,,,,,number
-PSE_deuces_wing,PSE_deuces_drone_Drone,"no_drop, no_sell, PSE_drone",,0,0,,V,4000,2000,0,1,INTERCEPTOR,PD Drone,0,100,,,,,,,,,,,,,
-PSE_drone1_wing,PSE_drone1_Drone,"no_drop, no_sell, PSE_drone",,0,0,,V,4000,2000,0,1,INTERCEPTOR,Multirole Drone,0,100,,,,,,,,,,,,,
-PSE_drone2_wing,PSE_drone2_Drone,"no_drop, no_sell, PSE_drone",,0,0,,BOX,0,0,,2,INTERCEPTOR,EMP Drone,0,100,,,,,,,,,,,,,
+PSE_deuces_wing,PSE_deuces_wing,"no_drop, no_sell, PSE_drone",,0,0,,V,4000,2000,0,1,INTERCEPTOR,PD Drone,0,100,,,,,,,,,,,,,
+PSE_drone1_wing,PSE_drone1_wing,"no_drop, no_sell, PSE_drone",,0,0,,V,4000,2000,0,1,INTERCEPTOR,Multirole Drone,0,100,,,,,,,,,,,,,
+PSE_drone2_wing,PSE_drone2_wing,"no_drop, no_sell, PSE_drone",,0,0,,BOX,0,0,,2,INTERCEPTOR,EMP Drone,10,100,,,,,,,,,,,,,
+PSE_drone3_wing,PSE_drone3_wing,"no_drop, no_sell, PSE_drone",,0,0,,BOX,0,0,,1,INTERCEPTOR,Multirole Drone,0,100,,,,,,,,,,,,,
+PSE_kingston_wing,PSE_kingston_wing,"no_drop, no_sell, PSE_drone",,0,0,,BOX,0,0,,1,INTERCEPTOR,Defence,0,100,,,,,,,,,,,,,
+PSE_drone_civilian,PSE_drone_civilian_wing,"no_drop, no_sell, PSE_drone",,0,0,,V,0,0,0,3,INTERCEPTOR,Defence,10,100,,,,,,,,,,,,,

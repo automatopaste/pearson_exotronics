@@ -14,20 +14,7 @@
   "builtInMods": [
     "pointdefenseai"
   ],
-  "builtInWeapons": {
-    "WS0001": "pdlaser"
-  },
-  "weaponSlots": [
-    {
-      "id": "WS0001",
-      "size": "SMALL",
-      "type": "BUILT_IN",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 0,
-      "locations": [0, -0]
-    }
-  ],
+  "weaponSlots": [],
   "engineSlots": [
     {
       "location": [-6, -0],

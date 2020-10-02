@@ -3,22 +3,28 @@
   "hullId": "PSE_eyre",
   "displayName": "Standard",
   "goalVariant": true,
-  "fluxCapacitors": 10,
+  "fluxCapacitors": 8,
   "fluxVents": 10,
-  "quality": 1,
+  "quality": 0.8,
   "permaMods": [],
   "hullMods": [
-    "armoredweapons",
-    "ecm",
-    "pointdefenseai",
-    "fluxbreakers"
+    "unstable_injector",
+    "reinforcedhull"
   ],
   "weaponGroups": [
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "lrpdlaser"
+        "WS0001": "lightdualmg",
+        "WS0002": "lightdualmg"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "PSE_spectrumpd"
       }
     }
   ],

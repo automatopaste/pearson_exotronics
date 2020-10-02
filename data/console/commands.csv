@@ -1,4 +1,2 @@
 command,class,tags,syntax,help
 SpawnPearsonContent,data.scripts.console.commands.PSE_AddCampaignContentToExistingSave,"campaign,pearson_exotronics",spawnPearsonContent,Generate Pearson Exotronics campaign content as if generating in a new game. WARNING: Running more than once will brick your save!
-,,,,
-,,,,

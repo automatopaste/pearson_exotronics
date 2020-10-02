@@ -9,6 +9,8 @@ import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
     private IntervalUtil tracker = new IntervalUtil(0.5f, 1.5f);
@@ -17,6 +19,14 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
     private CombatEngineAPI engine;
 
     private static final float CONCERN_WEIGHT_THRESHOLD = 30f;
+    private static final Map<ShipAPI.HullSize, Float> mults = new HashMap<>();
+    static {
+        mults.put(ShipAPI.HullSize.FIGHTER, 0.1f);
+        mults.put(ShipAPI.HullSize.CAPITAL_SHIP, 1f);
+        mults.put(ShipAPI.HullSize.CRUISER, 0.8f);
+        mults.put(ShipAPI.HullSize.DESTROYER, 0.4f);
+        mults.put(ShipAPI.HullSize.FRIGATE, 0.2f);
+    }
 
 
     @Override
@@ -55,7 +65,14 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
             if (enemy == null || enemy.getFleetMember() == null) {
                 continue;
             }
-            concernWeightTotal += (enemy.getFleetMember().getDeploymentCostSupplies() * (1f - (MathUtils.getDistance(ship, enemy) / 4000f)));
+
+            float weight = enemy.getFleetMember().getDeploymentCostSupplies();
+            weight *= mults.get(enemy.getHullSize());
+            if (enemy.getFluxTracker().isOverloadedOrVenting()) {
+                weight *= 0.75f;
+            }
+
+            concernWeightTotal += (weight * (1f - (MathUtils.getDistance(ship, enemy) / 4000f)));
         }
 
         //useful debug display

@@ -4,7 +4,6 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
-import com.fs.starfarer.ui.impl.P;
 import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_DroneModularVectorAssembly;
 import data.scripts.util.PSE_DroneUtils;
@@ -116,10 +115,10 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
         //PERFORM LOGIC BASED ON MOTHERSHIP SHIPSYSTEM STATE - SELECT TARGET LOCATION
         boolean isClamped = false;
-        float angle = 0;
+        float angle;
         Vector2f movementTargetLocation;
         switch (droneOrders) {
-            case DEFENCE:
+            case TARGETING:
                 angle = defenceOrbitAngle + shipFacing;
 
                 delayBeforeLandingTracker.setElapsed(0f);

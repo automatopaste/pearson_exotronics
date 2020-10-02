@@ -4,7 +4,7 @@
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_torrens.png",
   "style": "PEARSON_EXOTRONICS_BASE_HULL",
-  "height": 67,
+  "height": 66,
   "width": 62,
   "center": [31, 33.5],
   "collisionRadius": 64,
@@ -13,13 +13,17 @@
   "viewOffset": 0,
   "builtInMods": [
     "repair_gantry",
-    "surveying_equipment"
+    "surveying_equipment",
+    "civgrade"
+  ],
+  "builtInWings": [
+    "PSE_drone_civilian"
   ],
   "weaponSlots": [
     {
       "id": "WS0001",
       "size": "SMALL",
-      "type": "SYNERGY",
+      "type": "BALLISTIC",
       "mount": "TURRET",
       "arc": 220,
       "angle": 90,
@@ -28,11 +32,23 @@
     {
       "id": "WS0002",
       "size": "SMALL",
-      "type": "SYNERGY",
+      "type": "BALLISTIC",
       "mount": "TURRET",
       "arc": 220,
       "angle": -90,
       "locations": [-21.5, -20]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        17, -7,
+        10, -7
+      ]
     },
     {
       "id": "WS0003",
@@ -40,23 +56,41 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": 0,
-      "locations": [14, -6.5]
+      "angle": 120,
+      "locations": [-22.5, 28.5]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -120,
+      "locations": [-22.5, -28.5]
     }
   ],
   "engineSlots": [
     {
-      "location": [-30, 9.5],
-      "length": 10,
-      "width": 18,
+      "location": [-29, 10],
+      "length": 24,
+      "width": 8,
       "angle": 180,
-      "contrailSize": 18,
+      "contrailSize": 8,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-30, -10.5],
-      "length": 10,
+      "location": [-29, -10],
+      "length": 24,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-28.5, -0],
+      "length": 36,
       "width": 18,
       "angle": 180,
       "contrailSize": 18,

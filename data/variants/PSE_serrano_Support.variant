@@ -4,7 +4,7 @@
   "displayName": "Support",
   "goalVariant": true,
   "fluxCapacitors": 30,
-  "fluxVents": 23,
+  "fluxVents": 25,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -24,8 +24,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0004": "heavymauler",
-        "WS0005": "heavymauler"
+        "WS0004": "PSE_douglas",
+        "WS0005": "PSE_douglas"
       }
     },
     {
@@ -49,10 +49,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "vulcan",
-        "WS0003": "vulcan",
-        "WS0010": "vulcan",
-        "WS0011": "vulcan"
+        "WS0002": "PSE_starburst_mini",
+        "WS0003": "PSE_starburst_mini",
+        "WS0010": "PSE_starburst_mini",
+        "WS0011": "PSE_starburst_mini"
       }
     }
   ],

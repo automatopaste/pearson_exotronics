@@ -3,8 +3,8 @@
   "hullId": "PSE_kingston",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 40,
-  "fluxVents": 37,
+  "fluxCapacitors": 50,
+  "fluxVents": 29,
   "quality": 0.8,
   "permaMods": [],
   "hullMods": [
@@ -24,10 +24,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0001": "lightneedler",
+        "WS0002": "lightneedler",
         "WS0013": "heavyneedler",
-        "WS0014": "heavyneedler",
-        "WS0017": "heavymauler",
-        "WS0018": "heavymauler"
+        "WS0014": "heavyneedler"
       }
     },
     {
@@ -44,8 +44,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "lightneedler",
-        "WS0002": "lightneedler"
+        "WS0017": "PSE_douglas",
+        "WS0018": "PSE_douglas"
       }
     },
     {
@@ -60,8 +60,8 @@
         "WS0016": "lrpdlaser",
         "WS0019": "lrpdlaser",
         "WS0020": "lrpdlaser",
-        "WS0021": "pdburst",
-        "WS0022": "pdburst"
+        "WS0021": "PSE_spectrumpd",
+        "WS0022": "PSE_spectrumpd"
       }
     }
   ],

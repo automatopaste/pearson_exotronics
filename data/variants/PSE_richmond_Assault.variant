@@ -3,7 +3,7 @@
   "hullId": "PSE_richmond",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 11,
+  "fluxCapacitors": 12,
   "fluxVents": 20,
   "quality": 0.8,
   "permaMods": [],
@@ -16,7 +16,7 @@
       "mode": "LINKED",
       "weapons": {
         "WS0001": "heavyac",
-        "WS0002": "heavyac"
+        "WS0002": "PSE_douglas"
       }
     },
     {
@@ -30,17 +30,16 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {
-        "WS0005": "lrpdlaser",
-        "WS0006": "lrpdlaser"
-      }
+      "weapons": {}
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
         "WS0003": "pdlaser",
-        "WS0004": "pdlaser"
+        "WS0004": "pdlaser",
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser"
       }
     },
     {

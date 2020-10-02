@@ -1,7 +1,10 @@
 package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
+import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.mission.FleetSide;
@@ -231,7 +234,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 shroudSystem.setDeployedDrones(deployedDrones);
 
                 if (ship.getFluxTracker().isOverloadedOrVenting()) {
-                    shroudSystem.setDroneOrders(PSE_DroneShroud.ShroudDroneOrders.CIRCLE);
+                    if (shroudSystem.getDroneOrders().equals(PSE_DroneShroud.ShroudDroneOrders.BROADSIDE_MOVEMENT)) {
+                        shroudSystem.setDroneOrders(PSE_DroneShroud.ShroudDroneOrders.CIRCLE);
+                    }
                 }
 
                 switch (shroudSystem.getDroneOrders()) {
@@ -303,6 +308,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             location = ship.getLocation();
             facing = ship.getFacing();
         }
+
+        //CombatFleetManager m = (CombatFleetManager) engine.getFleetManager(FleetSide.PLAYER);
+        //m.spawnShipOrWing();
 
         PSEDrone spawnedDrone = new PSEDrone(
                 engine.getFleetManager(ship.getOriginalOwner()).spawnShipOrWing(specID, location, facing),

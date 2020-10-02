@@ -3,9 +3,9 @@
 	"type":"STAT_MOD",
 	"statsScript":"data.scripts.shipsystems.PSE_DroneModularVectorAssembly",
 	"aiType":"CUSTOM",
-	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneCoronaSystemAI",
+	"aiScript":"data.scripts.shipsystems.ai.PSE_MVASystemAI",
 	
-	"PSE_droneVariant":"PSE_drone3_Drone",
+	"PSE_droneVariant":"PSE_drone3_wing",
 	
 	"PSE_launchSpeed":150,
 	"PSE_launchDelay":0.5,
@@ -22,14 +22,14 @@
 		 "defenceAngle":0,
 		 "clampedAngle":65,
 		 "defenceOrbitRadius":-40, # plus ship radius
-		 "clampedOrbitRadius":-75, # plus ship radius
+		 "clampedOrbitRadius":-45, # plus ship radius
 		 "clampedFacingOffset":-35,
 		},
 		{"droneIndex":[2],
 		 "defenceAngle":0,
 		 "clampedAngle":-65,
 		 "defenceOrbitRadius":-30, # plus ship radius
-		 "clampedOrbitRadius":-75, # plus ship radius
+		 "clampedOrbitRadius":-45, # plus ship radius
 		 "clampedFacingOffset":35,
 		},	
 	],

@@ -5,7 +5,7 @@
 	
 	"range":250,
 	
-	"empDamage":300,
+	"empDamage":150,
 	"damage":80,
 	"damageType":ENERGY,
 

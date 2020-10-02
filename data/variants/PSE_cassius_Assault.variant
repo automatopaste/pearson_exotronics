@@ -3,27 +3,35 @@
   "hullId": "PSE_cassius",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 9,
+  "fluxCapacitors": 10,
   "fluxVents": 10,
   "quality": 0.9,
   "permaMods": [],
   "hullMods": [
-    "missleracks"
+    "insulatedengine"
   ],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0001": "sabot",
-        "WS0002": "sabot"
+        "WS0005": "harpoon",
+        "WS0006": "harpoon"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "lightag"
+        "WS0003": "PSE_corsair_mk1"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pdlaser",
+        "WS0002": "pdlaser"
       }
     }
   ],

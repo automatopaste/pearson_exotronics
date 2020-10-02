@@ -57,7 +57,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = "PSE_DroneCorona_" + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }

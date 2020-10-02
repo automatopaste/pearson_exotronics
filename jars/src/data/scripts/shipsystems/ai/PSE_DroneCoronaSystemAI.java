@@ -42,7 +42,7 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
         tracker.advance(amount);
 
         //unique identifier so that individual system can be gotten from combat engine custom data
-        UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+        UNIQUE_SYSTEM_ID = "PSE_DroneCorona_" + ship.hashCode();
 
         PSE_DroneCorona droneSystem = (PSE_DroneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (droneSystem == null) {

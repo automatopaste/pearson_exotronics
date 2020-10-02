@@ -16,13 +16,20 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
+        "WS0018": "PSE_parity_gun"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
         "WS0012": "harpoonpod",
         "WS0013": "harpoonpod"
       }
     },
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS0014": "heatseeker",
         "WS0015": "heatseeker"
@@ -32,6 +39,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0001": "taclaser",
+        "WS0002": "taclaser",
+        "WS0003": "gravitonbeam",
+        "WS0004": "gravitonbeam",
         "WS0007": "hveldriver",
         "WS0008": "hveldriver"
       }
@@ -40,20 +51,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "taclaser",
-        "WS0002": "taclaser",
-        "WS0003": "gravitonbeam",
-        "WS0004": "gravitonbeam"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
         "WS0005": "lrpdlaser",
         "WS0006": "lrpdlaser",
-        "WS0009": "vulcan",
-        "WS0010": "vulcan"
+        "WS0009": "PSE_starburst_mini",
+        "WS0010": "PSE_starburst_mini"
       }
     }
   ],

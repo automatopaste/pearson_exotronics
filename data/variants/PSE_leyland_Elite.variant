@@ -3,7 +3,7 @@
   "hullId": "PSE_leyland",
   "displayName": "Elite",
   "goalVariant": true,
-  "fluxCapacitors": 9,
+  "fluxCapacitors": 10,
   "fluxVents": 30,
   "quality": 1.2,
   "permaMods": [],
@@ -15,13 +15,16 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0013": "typhoon"
+        "WS0003": "heavyac",
+        "WS0004": "heavyac",
+        "WS0018": "PSE_parity_gun"
       }
     },
     {
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
+        "WS0013": "typhoon",
         "WS0014": "sabot",
         "WS0015": "sabot"
       }
@@ -30,18 +33,16 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "hveldriver",
-        "WS0004": "hveldriver",
-        "WS0007": "heavymauler",
-        "WS0008": "heavymauler"
+        "WS0001": "PSE_corsair_mk1",
+        "WS0002": "PSE_corsair_mk1",
+        "WS0007": "PSE_douglas",
+        "WS0008": "PSE_douglas"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "railgun",
-        "WS0002": "railgun",
         "WS0012": "ionbeam"
       }
     },
@@ -49,9 +50,9 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0005": "pdlaser",
-        "WS0006": "pdlaser",
-        "WS0011": "pdlaser"
+        "WS0005": "PSE_spectrumpd",
+        "WS0006": "PSE_spectrumpd",
+        "WS0011": "PSE_spectrumpd"
       }
     }
   ],

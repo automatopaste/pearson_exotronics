@@ -5,7 +5,7 @@
 	"aiType":"CUSTOM",
 	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneCoronaSystemAI",
 	
-	"PSE_droneVariant":"PSE_drone1_Drone",
+	"PSE_droneVariant":"PSE_drone1_wing",
 	
 	"PSE_launchSpeed":150,
 	"PSE_launchDelay":0.5,

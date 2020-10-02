@@ -24,5 +24,6 @@
 					   "particleColor":[255,166,0,255]},		
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"projectileSpecId":"PSE_parity_gun_shot",  # projectile that will be fired
+	"fireSoundOne":"PSE_parity_charge",
 	"fireSoundTwo":"thermal_pulse_cannon_fire",
 }

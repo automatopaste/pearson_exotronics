@@ -18,7 +18,7 @@ public class PSE_DroneShroud extends BaseShipSystemScript {
         RECALL
     }
 
-    private final static float ORBIT_BASE_ROTATION_SPEED = 15f;
+    private final static float ORBIT_BASE_ROTATION_SPEED = 25f;
 
     public ArrayList<PSEDrone> deployedDrones = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class PSE_DroneShroud extends BaseShipSystemScript {
         maxDeployedDrones = 5;
         launchDelay = 0.1f;
         launchSpeed = 10f;
-        droneVariant = "PSE_kingston_drone_Standard";
+        droneVariant = "PSE_kingston_wing";
 
         plugin = null;
     }

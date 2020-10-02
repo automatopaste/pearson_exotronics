@@ -16,13 +16,20 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
+        "WS0018": "PSE_parity_gun"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
         "WS0014": "reaper",
         "WS0015": "reaper"
       }
     },
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS0012": "pulselaser",
         "WS0013": "pulselaser"
@@ -32,16 +39,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0001": "lightag",
+        "WS0002": "lightag",
         "WS0003": "heavyac",
         "WS0004": "heavyac"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0001": "lightag",
-        "WS0002": "lightag"
       }
     },
     {
@@ -52,8 +53,8 @@
         "WS0006": "pdlaser",
         "WS0007": "flak",
         "WS0008": "flak",
-        "WS0009": "vulcan",
-        "WS0010": "vulcan",
+        "WS0009": "PSE_starburst_mini",
+        "WS0010": "PSE_starburst_mini",
         "WS0011": "pdlaser"
       }
     }

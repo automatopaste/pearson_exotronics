@@ -13,10 +13,17 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PSE_CustomSubmarketPlugin extends BaseSubmarketPlugin {
-    private static List<String> SHIP_HULL_ID_LIST = new ArrayList<>();
+public class PSE_SODCampSubmarketPlugin extends BaseSubmarketPlugin {
+    private static List<String> SHIP_VARIANT_ID_LIST = new ArrayList<>();
     static {
-        SHIP_HULL_ID_LIST.add("paragon");
+        SHIP_VARIANT_ID_LIST.add("PSE_leyland_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_kingston_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_serrano_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_denmark_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_richmond_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_kiruna_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_eyre_sod_Hull");
+        SHIP_VARIANT_ID_LIST.add("PSE_cassius_sod_Hull");
     }
 
     public void init(SubmarketAPI submarket) {
@@ -30,11 +37,12 @@ public class PSE_CustomSubmarketPlugin extends BaseSubmarketPlugin {
             //used for the interval checker
             sinceSWUpdate = 0f;
 
+            //clears commodities if they got there somehow
             getCargo().clear();
+            //clears ships
+            getCargo().getMothballedShips().clear();
 
-            for (String id : SHIP_HULL_ID_LIST) {
-                //creates empty hull variant
-                String variant = id + "_Hull";
+            for (String variant : SHIP_VARIANT_ID_LIST) {
                 addShip(variant, false, 1f);
             }
         }
@@ -53,11 +61,11 @@ public class PSE_CustomSubmarketPlugin extends BaseSubmarketPlugin {
 
     @Override
     public int getStockpileLimit(CommodityOnMarketAPI com) {
-        return SHIP_HULL_ID_LIST.size();
+        return SHIP_VARIANT_ID_LIST.size();
     }
 
     public static int getApproximateStockpileLimit(CommodityOnMarketAPI com) {
-        return SHIP_HULL_ID_LIST.size();
+        return SHIP_VARIANT_ID_LIST.size();
     }
 
     @Override

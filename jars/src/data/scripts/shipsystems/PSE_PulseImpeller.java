@@ -46,7 +46,7 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
     float boostLimit = 0f;
     float initial = 0f;
 
-    IntervalUtil afterimageInterval = new IntervalUtil(0.4f, 0.4f);
+    //IntervalUtil afterimageInterval = new IntervalUtil(0.4f, 0.4f);
     @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
         float modlevel = effectLevel * 100f;
@@ -124,17 +124,17 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
                 ended = true;
             }
 
-            afterimageInterval.advance(Global.getCombatEngine().getElapsedInLastFrame());
-            if (afterimageInterval.intervalElapsed()) {
-                //clamps to float colour values which must be 0f-1f
-                Color modColour = new Color(
-                        MathUtils.clamp(CONTRAIL_COLOUR.getRed() * modlevel, 1f, 255f) / 255f,
-                        MathUtils.clamp(CONTRAIL_COLOUR.getGreen() * modlevel, 1f, 255f) / 255f,
-                        MathUtils.clamp(CONTRAIL_COLOUR.getBlue() * modlevel, 1f, 255f) / 255f
-                    );
+            //afterimageInterval.advance(Global.getCombatEngine().getElapsedInLastFrame());
+            //if (afterimageInterval.intervalElapsed()) {
+            //    //clamps to float colour values which must be 0f-1f
+            //    Color modColour = new Color(
+            //            MathUtils.clamp(CONTRAIL_COLOUR.getRed() * modlevel, 1f, 255f) / 255f,
+            //            MathUtils.clamp(CONTRAIL_COLOUR.getGreen() * modlevel, 1f, 255f) / 255f,
+            //            MathUtils.clamp(CONTRAIL_COLOUR.getBlue() * modlevel, 1f, 255f) / 255f
+            //        );
 
-                PSE_MiscUtils.addJitterAfterimage(ship, modColour, JITTER_RANGE, 0.5f, 5f, 0.1f, 0f, 0.8f, false, false, false);
-            }
+            //    PSE_MiscUtils.addJitterAfterimage(ship, modColour, JITTER_RANGE, 0.5f, 5f, 0.1f, 0f, 0.8f, false, false, false);
+            //}
             ship.setJitterUnder(this, JITTER_COLOUR, 10f * effectLevel, 8, 3f * effectLevel);
 
             if (effectLevel <= 0.5f) {

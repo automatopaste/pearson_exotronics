@@ -46,7 +46,7 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
         tracker.advance(amount);
 
         //unique identifier so that individual system can be gotten from combat engine custom data
-        UNIQUE_SYSTEM_ID = "PSE_droneBastion_" + ship.hashCode();
+        UNIQUE_SYSTEM_ID = "PSE_DroneBastion_" + ship.hashCode();
 
         this.droneSystem = (PSE_DroneBastion) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (droneSystem == null) {

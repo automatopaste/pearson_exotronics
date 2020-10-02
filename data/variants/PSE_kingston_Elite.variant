@@ -3,7 +3,7 @@
   "hullId": "PSE_kingston",
   "displayName": "Elite",
   "goalVariant": true,
-  "fluxCapacitors": 35,
+  "fluxCapacitors": 29,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
@@ -45,8 +45,6 @@
       "weapons": {
         "WS0001": "taclaser",
         "WS0002": "taclaser",
-        "WS0011": "taclaser",
-        "WS0012": "taclaser",
         "WS0015": "taclaser",
         "WS0016": "taclaser"
       }
@@ -55,14 +53,16 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "pdburst",
-        "WS0004": "pdburst",
+        "WS0003": "PSE_spectrumpd",
+        "WS0004": "PSE_spectrumpd",
+        "WS0011": "PSE_spectrumpd",
+        "WS0012": "PSE_spectrumpd",
         "WS0014": "heavymg",
         "WS0018": "heavymg",
-        "WS0019": "pdburst",
-        "WS0020": "pdburst",
-        "WS0021": "vulcan",
-        "WS0022": "vulcan"
+        "WS0019": "PSE_spectrumpd",
+        "WS0020": "PSE_spectrumpd",
+        "WS0021": "PSE_starburst_mini",
+        "WS0022": "PSE_starburst_mini"
       }
     }
   ],

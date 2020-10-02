@@ -2,7 +2,9 @@ name,id,flux/second,f/s (base rate),f/s (base cap),flux/use,f/u (base rate),f/u 
 Corona,PSE_droneCorona,,,,,,0.01,,6,0.05,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
 Laser,PSE_droneLaser,,,,,,,,,,,,,,TRUE,,,,,,,,,,
 Bastion,PSE_droneBastion,,,,,,0.02,,8,0.05,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
-EM Pulse,PSE_droneEMP,,,,,,,,3,0.4,0.3,3,0.2,0.3,,,,,,,,,,,
+EM Pulse,PSE_droneEMP,,,,,,,,3,1.2,0.3,3,0.2,0.3,,,,,,,,,,,
 Pulse Impeller,PSE_pulseImpeller,,,,,,0.05,,4,0.2,0.2,0.05,1,0.8,,,,,,,,,,,
 MVA,PSE_MVA,,,,,,0.02,,4,0.05,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
 Shroud,PSE_droneShroud,,,,,,0.02,,5,0.02,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+LOL,XHAN_TemporalLock,,,,,,0,,3,0.3,0.5,,0.2,0.2,,,,,,,,,,,
+LOL,XHAN_ElectroChargedShields,,,,,,0,,3,0.3,0.5,4,0.2,0.2,,,,,,,,,,,

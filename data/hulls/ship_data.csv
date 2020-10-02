@@ -1,19 +1,21 @@
 name,id,designation,tech/manufacturer,system id,fleet pts,hitpoints,armor rating,max flux,8/6/5/4%,flux dissipation,ordnance points,fighter bays,max speed,acceleration,deceleration,max turn rate,turn acceleration,mass,shield type,defense id,shield arc,shield upkeep,shield efficiency,phase cost,phase upkeep,min crew,max crew,cargo,fuel,fuel/ly,range,max burn,base value,cr %/day,CR to deploy,peak CR sec,CR loss/sec,supplies/rec,supplies/mo,hints,tags,rarity,breakProb,minPieces,maxPieces,number
-Eyre,PSE_eyre,Combat Freighter,PSExotech,flarelauncher,2,2250,250,1600,6,96,45,,110,50,40,40,45,250,FRONT,,180,0.4,0.9,,,15,35,100,40,1,40,10,14000,8,10,240,0.25,3,3,,PSE_support_bp,,0.5,2,2,47605
-Torrens,PSE_torrens,Drone Tender,PSExotech,PSE_droneBastion,3,1000,200,1800,5,90,20,,140,80,55,50,90,130,OMNI,,120,0.6,0.9,,,15,30,40,30,1,30,11,18000,8,12,180,0.25,5,5,,PSE_support_bp,,0.5,2,2,47605
-Cassius,PSE_cassius,Frigate,PSExotech,PSE_pulseImpeller,4,1200,250,2300,6,138,40,,150,80,60,80,100,150,FRONT,,150,0.3,0.9,,,12,24,15,20,1,30,11,25000,8,12,180,0.25,6,6,,PSE_base_bp,,0.5,2,3,47603
-Kiruna,PSE_kiruna,Frigate,PSExotech,PSE_droneBastion,8,1500,300,3000,8,240,55,,160,90,55,80,120,200,FRONT,,110,0.6,1,,,20,30,12,25,1,30,12,35000,6,15,240,0.25,8,8,,PSE_military_bp,,0.5,2,3,47604
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Richmond,PSE_richmond,Destroyer,PSExotech,PSE_pulseImpeller,8,5000,500,4300,6,258,85,1,95,65,55,40,60,400,FRONT,,150,0.3,0.8,,,50,100,100,60,2,30,9,40000,5,12,360,0.25,10,10,,PSE_base_bp,,0.5,2,3,47608
-Denmark,PSE_denmark,Destroyer,PSExotech,PSE_droneCorona,9,5800,750,6000,5,300,90,,90,55,35,25,30,600,OMNI,,120,0.5,0.9,,,70,140,75,90,2,60,9,60000,5,12,480,0.25,12,12,,PSE_base_bp,,0.5,2,3,47601
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Serrano,PSE_serrano,Cruiser,PSExotech,PSE_droneCorona,15,10000,1000,10000,5,500,180,,35,25,15,15,15,2200,FRONT,,180,0.5,0.9,,,180,300,150,150,4,30,8,110000,4,12,540,0.25,25,25,,PSE_military_bp,,0.5,3,5,47606
-Leyland,PSE_leyland,Cruiser,PSExotech,PSE_MVA,17,8000,900,11000,6,660,160,,65,35,20,25,20,1800,FRONT,,280,0.6,0.9,,,200,350,150,90,4,30,8,150000,5,16,420,0.25,32,32,,rare_bp,,0.5,3,4,47612
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Kingston,PSE_kingston,Battleship,PSExotech,PSE_droneShroud,30,16000,1500,21000,5,1050,350,,30,20,10,5,5,3200,OMNI,,220,0.7,0.9,,,400,800,300,300,10,30,7,450000,4,20,720,0.25,60,60,,rare_bp,,0.6,2,4,47611
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Deuces,PSE_deuces,PD Drone,PSExotech,PSE_droneLaser,0,150,5,100,,200,0,,350,500,500,250,600,15,NONE,,,,,,,0,0,,,,,,,,,,,0,0,,,,0,,,47609
-Rosscliff,PSE_drone1,Multirole Drone,PSExotech,PSE_droneLaser,0,200,5,100,,200,0,,350,500,500,250,600,20,NONE,,,,,,,0,0,,,,,,,,,,,0,0,,,,0,,,47602
-Burrows,PSE_drone2,EMP Drone,PSExotech,PSE_droneEMP,3,100,10,100,,200,0,,350,500,500,250,600,15,OMNI,,90,0,0.4,,,0,0,,,,,,,,,,,0,0,,,,0,,,47607
-Rapley,PSE_drone3,PD Drone,PSExotech,,0,80,15,100,,200,0,,400,550,550,250,600,12,OMNI,,270,0,0.3,,,0,0,,,,,,,,,,,0,0,,,,0,,,47610
-Kingston Shield Drone,PSE_kingston_drone,Shield Drone,PSExotech,,0,500,100,6000,,200,0,,200,100,100,200,200,100,FRONT,,60,0,0.75,,,0,0,,,,,,,,,,,0,0,,,,0,,,47611
+#frigates,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Eyre,PSE_eyre,Combat Freighter,PSExotech,flarelauncher,4,2250,250,1600,6,96,45,1,110,50,40,40,45,250,FRONT,,180,0.4,0.9,,,15,35,100,40,1,40,10,14000,8,10,240,0.25,4,4,,PSE_base_bp,,0.5,2,2,47605
+Torrens,PSE_torrens,Drone Tender,PSExotech,flarelauncher,3,1000,200,1800,5,90,20,1,140,80,55,50,90,130,OMNI,,120,0.6,0.9,,,15,30,40,30,1,30,11,18000,8,12,180,0.25,3,3,,PSE_base_bp,,0.5,2,2,47605
+Cassius,PSE_cassius,Frigate,PSExotech,PSE_pulseImpeller,4,1200,250,2300,6,138,45,,150,80,60,80,100,150,FRONT,,150,0.3,0.9,,,12,24,15,20,1,30,11,25000,8,12,180,0.25,6,6,,PSE_base_bp,,0.5,2,3,47603
+Kiruna,PSE_kiruna,Frigate,PSExotech,PSE_droneBastion,8,1500,300,3000,8,240,55,,160,140,100,80,160,220,FRONT,,110,0.5,0.8,,,20,35,40,25,1,30,11,35000,6,15,240,0.25,8,8,,PSE_military_bp,,0.5,2,3,47604
+#destroyers,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Richmond,PSE_richmond,Destroyer,PSExotech,PSE_pulseImpeller,8,5000,500,4300,6,258,85,1,95,65,55,40,60,400,FRONT,,150,0.3,0.8,,,50,100,100,60,2,30,9,40000,5,12,360,0.25,10,10,,PSE_military_bp,,0.5,2,3,47608
+Denmark,PSE_denmark,Destroyer,PSExotech,PSE_droneCorona,9,5800,750,6000,5,300,95,,90,55,35,25,30,600,OMNI,,120,0.5,0.9,,,70,140,75,90,2,60,9,60000,5,12,480,0.25,12,12,,PSE_military_bp,,0.5,2,3,47601
+#cruisers,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Serrano,PSE_serrano,Heavy Cruiser,PSExotech,PSE_droneCorona,15,10000,1000,10500,5,525,180,,40,25,15,18,18,2200,FRONT,,180,0.5,0.9,,,180,300,150,150,4,30,8,120000,4,12,540,0.25,24,24,,PSE_military_bp,,0.5,3,5,47606
+Leyland,PSE_leyland,Cruiser,PSExotech,PSE_MVA,17,8000,900,12000,6,720,160,,65,35,20,25,20,1800,FRONT,,280,0.6,0.9,,,200,350,150,90,4,30,8,150000,5,16,420,0.25,32,32,,rare_bp,,0.5,3,4,47612
+#capitals,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Kingston,PSE_kingston,Battleship,PSExotech,PSE_droneShroud,35,16000,1500,21000,5,1050,350,,30,20,10,5,5,3200,OMNI,,220,0.7,0.9,,,400,800,300,300,10,30,7,450000,4,20,720,0.25,60,60,,rare_bp,,0.6,2,4,47611
+#fighters,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deuces,PSE_deuces,PD Drone,PSExotech,PSE_droneLaser,,150,5,100,,200,,,350,500,500,250,600,5,NONE,,,,,,,0,0,,,,,,,,,,,,,,,,0,,,47609
+Rosscliff,PSE_drone1,Multirole Drone,PSExotech,PSE_droneLaser,,200,5,100,,200,,,350,500,500,250,600,10,NONE,,,,,,,0,0,,,,,,,,,,,,,,,,0,,,47602
+Burrows,PSE_drone2,EMP Drone,PSExotech,PSE_droneEMP,,100,10,100,,200,,,350,500,500,250,600,5,OMNI,,90,0,0.4,,,0,0,,,,,,,,,,,,,,,,0,,,47607
+Rapley,PSE_drone3,PD Drone,PSExotech,,,80,15,100,,200,,,400,550,550,250,600,5,OMNI,,270,0,0.3,,,0,0,,,,,,,,,,,,,,,,0,,,47610
+Kingston Shield Drone,PSE_kingston_drone,Shield Drone,PSExotech,fortressshield,,500,100,4000,,200,,,200,100,100,200,200,60,FRONT,,60,0,0.75,,,0,0,,,,,,,,,,,,,,,,0,,,47611
+Musovic,PSE_drone_civilian,Drone,PSExotech,,,200,30,200,,100,,,125,200,200,180,360,5,NONE,,,,,,,0,0,,,,,,,,,,,,,,,,0,,,47613

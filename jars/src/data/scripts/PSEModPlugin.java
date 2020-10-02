@@ -11,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Industries;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import data.scripts.campaign.PSE_SODCampEventListener;
 import data.scripts.util.PSE_MiscUtils;
 import data.scripts.world.PSE.PSE_WorldGen;
 import exerelin.campaign.SectorManager;
@@ -43,6 +44,13 @@ public class PSEModPlugin extends BaseModPlugin {
     }
 
     @Override
+    public void onGameLoad(boolean newGame) {
+        PSE_SODCampEventListener SODListener = new PSE_SODCampEventListener(newGame);
+        Global.getSector().addTransientListener(SODListener);
+        Global.getSector().getListenerManager().addListener(SODListener, true);
+    }
+
+    @Override
     public void onApplicationLoad() throws ClassNotFoundException {
 
         //ty to certain mods for this excellent error message formatting
@@ -56,7 +64,6 @@ public class PSEModPlugin extends BaseModPlugin {
                     + System.lineSeparator();
             throw new ClassNotFoundException(message);
         }
-
         /*try {
             Global.getSettings().getScriptClassLoader().loadClass("data.scripts.util.MagicAnim");
         } catch (ClassNotFoundException ex) {

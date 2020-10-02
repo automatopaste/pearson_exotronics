@@ -172,7 +172,7 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
 
                 //LIGHTNING SPAWNING
                 float EMPChance = drone.getHardFluxLevel() - 0.5f;
-                EMPChance *= 0.15f;
+                EMPChance *= 0.125f;
                 EMPChance *= ship.getMutableStats().getDynamic().getValue(Stats.SHIELD_PIERCED_MULT);
 
                 if (Math.random() < EMPChance) {
@@ -216,8 +216,10 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
 
         //ROTATION moved here for streamlined switching
         PSE_DroneUtils.rotateToFacing(drone, targetFacing, droneFacing, 0.05f);
+        //drone.setFacing(targetFacing);
 
         PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
+        //PSE_DroneUtils.snapToLocation(drone, movementTargetLocation);
     }
 
     //OVERRIDES

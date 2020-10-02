@@ -1,17 +1,23 @@
 {
-    "designTypeColors":{
-            "Pearson Exotronics":[58,197,150,255],
-    },
+	"plugins":{
+		"PSE_CombatEffectsPlugin":"data.scripts.plugins.PSE_CombatEffectsPlugin",
+	},
+	"designTypeColors":{
+		"PSExotech":[58,197,150,255],
+	},
+	"graphics":{
+		"blueprint_packages":{
+			"PSE_weapon_package":"graphics/PSE/icons/cargo/PSE_package.png",
+			"PSE_military_package":"graphics/PSE/icons/cargo/PSE_package.png",
+			"PSE_base_package":"graphics/PSE/icons/cargo/PSE_package.png",
+		},
+		"fx":{
+			"PSE_trail_charge":"graphics/PSE/fx/PSE_trail_charge.png",		
+		},
+		"industry":{
+			"PSE_malfunctioning_shield_texture":"graphics/PSE/planets/PSE_NewCaledonia_planetary_shield.png",
+		},
+	},
 
-    "graphics":{
-        "blueprint_packages":{
-            	"PSE_support_package":"graphics/PSE/icons/cargo/PSE_package.png",
-		"PSE_military_package":"graphics/PSE/icons/cargo/PSE_package.png",
-		"PSE_base_package":"graphics/PSE/icons/cargo/PSE_package.png",
-            },
-	"industry":{
-		"PSE_malfunctioning_shield_texture":"graphics/PSE/planets/PSE_NewCaledonia_planetary_shield.png",
-	    },
-        },
-    }
+	"PSE_maxNumSODMarkets":3,
 }

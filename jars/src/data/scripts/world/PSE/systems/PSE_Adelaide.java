@@ -50,7 +50,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 null,
                 "New Caledonia",
                 7,
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Conditions.POPULATION_7,
                         Conditions.ORGANICS_COMMON,
                         Conditions.ORE_SPARSE,
@@ -61,13 +61,13 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                         Conditions.FARMLAND_RICH,
                         Conditions.HABITABLE
                 )),
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Submarkets.SUBMARKET_OPEN,
                         Submarkets.SUBMARKET_STORAGE,
                         Submarkets.SUBMARKET_BLACK,
                         Submarkets.GENERIC_MILITARY
                 )),
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Industries.POPULATION,
                         Industries.SPACEPORT,
                         Industries.STARFORTRESS_MID,
@@ -85,7 +85,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         );
         markets.add(newCaledoniaMarketplace);
 
-        newCaledonia.getMarket().addSubmarket("custom_market");
+        //newCaledonia.getMarket().addSubmarket("custom_market");
 
         //new caledonia shades
         SectorEntityToken newCaledoniaShade1 = system.addCustomEntity("PSE_newCaledoniaShade1", "New Caledonian Solar Shade Alpha", "stellar_shade", "pearson_exotronics");
@@ -113,19 +113,19 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 null,
                 "Iuchar",
                 4,
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Conditions.LOW_GRAVITY,
                         Conditions.POPULATION_4,
                         Conditions.RARE_ORE_ABUNDANT,
                         Conditions.NO_ATMOSPHERE,
                         Conditions.COLD
                 )),
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Submarkets.SUBMARKET_OPEN,
                         Submarkets.SUBMARKET_STORAGE,
                         Submarkets.SUBMARKET_BLACK
                 )),
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Industries.POPULATION,
                         Industries.SPACEPORT,
                         Industries.MINING,
@@ -144,7 +144,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 null,
                 "Iucharba",
                 4,
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Conditions.LOW_GRAVITY,
                         Conditions.POPULATION_4,
                         Conditions.ORE_MODERATE,
@@ -153,13 +153,13 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                         Conditions.COLD,
                         Conditions.RUINS_SCATTERED
                 )),
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Submarkets.SUBMARKET_OPEN,
                         Submarkets.SUBMARKET_STORAGE,
                         Submarkets.SUBMARKET_BLACK,
                         Submarkets.GENERIC_MILITARY
                 )),
-                new ArrayList<String>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(
                         Industries.POPULATION,
                         Industries.SPACEPORT,
                         Industries.ORBITALSTATION_MID,

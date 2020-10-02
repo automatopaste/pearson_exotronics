@@ -56,7 +56,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             }
         }
 
-        this.UNIQUE_SYSTEM_ID = "PSE_droneCorona_" + ship.hashCode();
+        this.UNIQUE_SYSTEM_ID = "PSE_DroneCorona_" + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
