@@ -29,7 +29,16 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
             return "" + (int) DRONE_ARMOUR_RATING_FLAT_BONUS;
         }
         if (index == 1) {
-            return "" + -ECM_REDUCTION_PERCENT.get(hullSize);
+            return "" + (int) -ECM_REDUCTION_PERCENT.get(ShipAPI.HullSize.FRIGATE) + "%";
+        }
+        if (index == 2) {
+            return "" + (int) -ECM_REDUCTION_PERCENT.get(ShipAPI.HullSize.DESTROYER) + "%";
+        }
+        if (index == 3) {
+            return "" + (int) -ECM_REDUCTION_PERCENT.get(ShipAPI.HullSize.CRUISER) + "%";
+        }
+        if (index == 4) {
+            return "" + (int) -ECM_REDUCTION_PERCENT.get(ShipAPI.HullSize.CAPITAL_SHIP) + "%";
         }
         return null;
     }
