@@ -11,16 +11,21 @@ import com.fs.starfarer.api.impl.campaign.ids.Industries;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
 import data.scripts.campaign.PSE_SODCampEventListener;
+import data.scripts.campaign.intel.bar.events.PSE_SpecialAgentBarEventCreator;
 import data.scripts.util.PSE_MiscUtils;
 import data.scripts.world.PSE.PSE_WorldGen;
 import exerelin.campaign.SectorManager;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.List;
 
 public class PSEModPlugin extends BaseModPlugin {
+    Logger log = Global.getLogger(PSEModPlugin.class);
+
     public static final String MOD_ID = "pearson_exotronics";
     public static final String MOD_AUTHOR = "tomatopaste";
     public static final String MOD_ERROR_PREFIX =
@@ -30,9 +35,14 @@ public class PSEModPlugin extends BaseModPlugin {
                     + "This wasn't supposed to happen..."
                     + System.lineSeparator();
 
+    public static boolean haveNexerelin = false;
+    public static boolean isNexerelinRandomSector = false;
+
+    public static boolean memes = Global.getSettings().getBoolean("PSE_memes");
+
     @Override
     public void onNewGame() {
-        boolean haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
+        haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
         boolean haveSSTC = Global.getSettings().getModManager().isModEnabled("salvage_and_solder_tc");
         boolean haveIndEvo = Global.getSettings().getModManager().isModEnabled("deconomics");
 
@@ -41,6 +51,8 @@ public class PSEModPlugin extends BaseModPlugin {
         } else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
             new PSE_WorldGen().generate(Global.getSector());
         }
+
+        isNexerelinRandomSector = haveNexerelin && SectorManager.getManager().isCorvusMode();
     }
 
     @Override
@@ -91,6 +103,12 @@ public class PSEModPlugin extends BaseModPlugin {
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onNewGameAfterEconomyLoad() {
+        log.info("Added bar event to manager " + PSE_SpecialAgentBarEventCreator.class.toString());
+        BarEventManager.getInstance().addEventCreator(new PSE_SpecialAgentBarEventCreator());
     }
 
     public static PersonAPI createAdmin(MarketAPI market)

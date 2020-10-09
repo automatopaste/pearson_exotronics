@@ -6,9 +6,11 @@ import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
+import data.scripts.plugins.PSE_DroneManagerPlugin;
 import data.scripts.shipsystems.PSE_DroneShroud;
 import data.scripts.util.PSE_DroneUtils;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -20,7 +22,7 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
     private static final Color JITTER_COLOUR = new Color(0, 255, 120, 255);
 
     private final PSEDrone drone;
-    private final ShipAPI ship;
+    private ShipAPI ship;
     private CombatEngineAPI engine;
 
     //USED FOR MOVEMENT AND POSITIONING AI
@@ -28,20 +30,12 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
     private IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
     private WeaponSlotAPI landingSlot;
 
-    private String UNIQUE_SYSTEM_ID;
-
-    private static Random random;
-
     public PSE_DroneShroudDroneAI(PSEDrone passedDrone) {
-        random = new Random();
-
         this.engine = Global.getCombatEngine();
 
         this.drone = passedDrone;
 
         this.ship = drone.getDroneSource();
-
-        this.UNIQUE_SYSTEM_ID = "PSE_DroneShroud_" + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -57,15 +51,53 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
         ///INITIALISATION///
         ///////////////////
 
+        if (ship == null) {
+            return;
+        }
+        if (!ship.isAlive()) {
+            landingSlot = null;
+
+            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX, engine);
+
+            if (ship == null) {
+                PSE_DroneUtils.deleteDrone(drone, engine);
+                return;
+            }
+        }
+
+        String uniqueSystemId = PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
         //get ship system object
-        PSE_DroneShroud shipDroneShroudSystem = (PSE_DroneShroud) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        PSE_DroneShroud shipDroneShroudSystem = (PSE_DroneShroud) engine.getCustomData().get(uniqueSystemId);
         if (shipDroneShroudSystem == null) {
             return;
+        }
+        if (!shipDroneShroudSystem.getDeployedDrones().contains(drone)) {
+            shipDroneShroudSystem.getDeployedDrones().add(drone);
         }
 
         //assign specific values
         int droneIndex = shipDroneShroudSystem.getIndex(drone);
+        if (droneIndex == -1) {
+            if (landingSlot == null) {
+                landingSlot = shipDroneShroudSystem.getPlugin().getLandingBayWeaponSlotAPI();
+            }
+
+            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
+
+            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
+
+            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
+            float angle = VectorUtils.getFacing(to);
+            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
+
+            if (drone.getShield().isOn()) {
+                drone.giveCommand(ShipCommand.TOGGLE_SHIELD_OR_PHASE_CLOAK, null, 0);
+            }
+
+            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
+            return;
+        }
 
         List<PSEDrone> deployedDrones = shipDroneShroudSystem.deployedDrones;
 
@@ -195,7 +227,7 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
+                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = shipDroneShroudSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -215,7 +247,7 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
         }
 
         //ROTATION moved here for streamlined switching
-        PSE_DroneUtils.rotateToFacing(drone, targetFacing, droneFacing, 0.05f);
+        PSE_DroneUtils.rotateToFacing(drone, targetFacing, engine);
         //drone.setFacing(targetFacing);
 
         PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);

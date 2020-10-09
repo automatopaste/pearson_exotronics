@@ -1,10 +1,14 @@
 {
 	"plugins":{
 		"PSE_CombatEffectsPlugin":"data.scripts.plugins.PSE_CombatEffectsPlugin",
+		"PSE_CombatWeaponsPlugin":"data.scripts.plugins.PSE_CombatWeaponsPlugin",
 	},
 	"designTypeColors":{
 		"PSExotech":[58,197,150,255],
 	},
+	"ruleCommandPackages":[
+		"data.scripts.campaign.PSE_rulecmd.missions",
+	],
 	"graphics":{
 		"blueprint_packages":{
 			"PSE_weapon_package":"graphics/PSE/icons/cargo/PSE_package.png",
@@ -17,7 +21,12 @@
 		"industry":{
 			"PSE_malfunctioning_shield_texture":"graphics/PSE/planets/PSE_NewCaledonia_planetary_shield.png",
 		},
+		"portraits":{
+			"PSE_RobertPool":"graphics/PSE/portraits/PSE_RobertPool.png",
+		}
 	},
 
 	"PSE_maxNumSODMarkets":3,
+
+	"PSE_memes":true,
 }

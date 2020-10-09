@@ -7,8 +7,8 @@
 		"PSE_kiruna_CloseSupport":2,
 		"PSE_kiruna_Strike":2,
 
-		"PSE_cassius_sod_Special":5,
-		"PSE_kiruna_sod_Special":5,
+		"PSE_cassius_sod_Special":10,
+		"PSE_kiruna_sod_Special":10,
 	},
 
 	"combatMedium":{
@@ -18,8 +18,8 @@
 		"PSE_richmond_Assault":4,
 		"PSE_richmond_Overdriven":3,
 
-		"PSE_denmark_sod_Special":5,
-		"PSE_richmond_sod_Special":5,
+		"PSE_denmark_sod_Special":10,
+		"PSE_richmond_sod_Special":10,
 	},
 
 	"combatLarge":{
@@ -30,8 +30,8 @@
 		"PSE_leyland_CloseSupport":3,
 		"PSE_leyland_Elite":4,
 
-		"PSE_serrano_sod_Special":5,
-		"PSE_leyland_sod_Special":5,
+		"PSE_serrano_sod_Special":10,
+		"PSE_leyland_sod_Special":10,
 	},
 
 	"combatCapital":{
@@ -40,7 +40,7 @@
 		"PSE_kingston_Elite":4,
 		"PSE_kingston_Strike":3,
 
-		"PSE_kingston_sod_Special":5,
+		"PSE_kingston_sod_Special":10,
 	},
 
 	"combatFreighterSmall":{
@@ -48,7 +48,7 @@
 		"PSE_eyre_Standard":4,
 		"PSE_eyre_Elite":3,
 
-		"PSE_eyre_sod_Special":5
+		"PSE_eyre_sod_Special":10
 	},
 
 	"carrierSmall":{

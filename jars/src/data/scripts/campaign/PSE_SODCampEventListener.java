@@ -5,7 +5,11 @@ import com.fs.starfarer.api.campaign.BaseCampaignEventListener;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.util.Misc;
+import data.scripts.campaign.intel.PSE_SODCampLocationBreadcrumbIntel;
+import data.scripts.util.PSE_CampaignUtils;
 import org.apache.log4j.Logger;
+import org.lazywizard.lazylib.campaign.CampaignUtils;
 
 import java.util.*;
 
@@ -41,7 +45,7 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
     @SuppressWarnings("unchecked")
     @Override
     public void reportEconomyMonthEnd() {
-        log.info("Starting SOD Economy Listener...");
+        //log.info("Starting SOD Economy Listener...");
 
         Map<String, Object> data = Global.getSector().getPersistentData();
         if (!data.containsKey(SOD_CAMPS_DATA_KEY)) {
@@ -52,7 +56,7 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
         List<PSE_SODCamp> temp = new ArrayList<>();
         for (PSE_SODCamp camp : camps) {
             camp.setCurrentLifetime(camp.getCurrentLifetime() - 1);
-            if (camp.getCurrentLifetime() <= 0) {
+            if (camp.getCurrentLifetime() <= 0 || camp.getAssociatedMarket() == null) {
                 removeSODCampEffects(camp);
                 temp.add(camp);
             }
@@ -64,6 +68,11 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
                 log.info("Removed SOD camp at market " + camp.getAssociatedMarket().getName());
             }
             camps.remove(camp);
+
+            PSE_SODCampLocationBreadcrumbIntel intel = camp.getIntel();
+            if (intel != null) {
+                Global.getSector().getIntelManager().removeIntel(intel);
+            }
         }
 
         boolean createNewCampThisTick = camps.size() < MAX_NUM_SOD_MARKETS && new Random(this.hashCode()).nextFloat() < NEW_CAMP_PER_TICK_CHANCE;
@@ -96,6 +105,10 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
             if (camp.getAssociatedMarket().equals(market)) {
                 camp.setDiscovered(true);
 
+                if (!Global.getSector().getIntelManager().hasIntel(camp.getIntel())) {
+                    Global.getSector().getIntelManager().addIntel(camp.getIntel(), true);
+                }
+
                 log.info("Discovered SOD camp at market " + market.getName());
             }
         }
@@ -108,13 +121,25 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
 
             return null;
         }
-        int lifetime = 16;
+        int lifetime = 12;
 
-        log.info("Created SOD camp at market " + market.getName() + ", with lifetime " + lifetime);
+        MarketAPI factionSourceMarket = PSE_CampaignUtils.getLargestMarketForFaction("pearson_exotronics", false);
+        if (factionSourceMarket == null) {
+            log.info("Failed to create SOD camp because no largest faction source market was found");
+            return null;
+        }
 
         market.addSubmarket(SOD_SUBMARKET_ID);
 
-        return new PSE_SODCamp(market, lifetime);
+        log.info("Created SOD camp at market " + market.getName() + " with lifetime " + lifetime);
+
+        PSE_SODCamp camp = new PSE_SODCamp(market, lifetime);
+
+        PSE_SODCampLocationBreadcrumbIntel intel = new PSE_SODCampLocationBreadcrumbIntel(factionSourceMarket.getPrimaryEntity(), camp.getAssociatedMarket().getPrimaryEntity());
+        camp.setIntel(intel);
+        intel.setCamp(camp);
+
+        return camp;
     }
 
     private void removeSODCampEffects(PSE_SODCamp camp) {
@@ -128,7 +153,7 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
     private MarketAPI pickSuitableMarketForSOD() {
         FactionAPI pearson = Global.getSector().getFaction("pearson_exotronics");
         for (FactionAPI faction : Global.getSector().getAllFactions()) {
-            if (!suitableSODFactions.contains(faction.getId()) && pearson.getRelationship(faction.getId()) >= 0.1f) {
+            if (!suitableSODFactions.contains(faction.getId()) && pearson.getRelationship(faction.getId()) <= 0.1f) {
                 suitableSODFactions.add(faction.getId());
             }
         }
@@ -148,7 +173,8 @@ public class PSE_SODCampEventListener extends BaseCampaignEventListener {
         }
 
         if (!candidates.isEmpty()) {
-            Random r = new Random(pearson.hashCode());
+            //Random r = new Random(pearson.hashCode());
+            Random r = new Random();
             return candidates.get(r.nextInt(candidates.size()));
         }
         return null;

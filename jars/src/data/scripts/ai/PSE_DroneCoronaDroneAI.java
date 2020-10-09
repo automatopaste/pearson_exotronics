@@ -17,7 +17,7 @@ import java.util.List;
 public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
     private final PSEDrone drone;
-    private final ShipAPI ship;
+    private ShipAPI ship;
     private CombatEngineAPI engine;
 
     private boolean loaded = false;
@@ -56,7 +56,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             }
         }
 
-        this.UNIQUE_SYSTEM_ID = "PSE_DroneCorona_" + ship.hashCode();
+        this.UNIQUE_SYSTEM_ID = PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -73,10 +73,24 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         ///////////////////
 
 
+        if (!ship.isAlive()) {
+            landingSlot = null;
+
+            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX, engine);
+
+            if (ship == null) {
+                PSE_DroneUtils.deleteDrone(drone, engine);
+                return;
+            }
+        }
+
         //get ship system object
         PSE_DroneCorona shipDroneCoronaSystem = (PSE_DroneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (shipDroneCoronaSystem == null) {
             return;
+        }
+        if (!shipDroneCoronaSystem.getDeployedDrones().contains(drone)) {
+            shipDroneCoronaSystem.getDeployedDrones().add(drone);
         }
 
         //config checking
@@ -90,6 +104,23 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
         //assign specific values
         int droneIndex = shipDroneCoronaSystem.getIndex(drone);
+        if (droneIndex == -1) {
+            if (landingSlot == null) {
+                landingSlot = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponSlotAPI();
+            }
+
+            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
+
+            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
+
+            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
+            float angle = VectorUtils.getFacing(to);
+            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
+
+            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
+            return;
+        }
+
         float initialOrbitAngle = initialOrbitAngleArray[droneIndex];
         float focusModeOrbitAngle = focusModeOrbitAngleArray[droneIndex];
         float orbitRadius = orbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
@@ -105,13 +136,12 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         ///TARGETING BEHAVIOUR///
         /////////////////////////
 
-        //drone.giveCommand(ShipCommand.FIRE, null, 0);
 
         //PRIORITISE TARGET, SET LOCATION
         float droneFacing = drone.getFacing();
         CombatEntityAPI target;
         float targetingArcDeviation = 120f;
-        if (coronaDroneOrders.equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
+        if (isInFocusMode) {
             if (engine.getPlayerShip().equals(ship) && ship.getShipTarget() != null) {
                 target = ship.getShipTarget();
             } else {
@@ -126,22 +156,27 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         //arc logic
         if (target != null) {
             if (PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), relativeAngleFromShip, 60f)) {
-                PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                if (isInFocusMode) {
+                    Vector2f to = Vector2f.sub(target.getLocation(), drone.getLocation(),new Vector2f());
+                    PSE_DroneUtils.rotateToFacingJerky(drone, VectorUtils.getFacing(to));
+                } else {
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
+                }
             } else {
-                PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), droneFacing, 0.2f);
+                PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), engine);
             }
 
             //check for friendlies
-            boolean areFriendliesInFiringArc = PSE_DroneUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange, droneFacing, 20f);
+            boolean areFriendliesInFiringArc = PSE_DroneUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange, droneFacing, 10f);
             drone.setHoldFireOneFrame(areFriendliesInFiringArc);
 
             /* debug stuff
             if (ship.getShipTarget() != null) {
                 engine.maintainStatusForPlayerShip("thingiepse", "graphics/icons/hullsys/drone_pd_high.png", "TARGET", ship.getShipTarget().toString(), false);
                 engine.maintainStatusForPlayerShip("thingiepse2", "graphics/icons/hullsys/drone_pd_high.png", "FRIENDLIES", areFriendliesInFiringArc + "", false);
-            }*/
+            }//*/
         } else {
-            PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), droneFacing, 0.2f);
+            PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), engine);
         }
 
 
@@ -169,7 +204,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
+                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponSlotAPI();

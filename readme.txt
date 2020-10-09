@@ -1,5 +1,3 @@
-Attention: This mod assumes that the shipsystem activation key is bound to "F".
-
 "Pearson Exotronics" by tomatopaste. First started development in March 2020.
 Art, sounds and programming are done by me, additional help is documented below. This isn't a locked vault, I'm
 happy to share programming assets if asked and it's a reasonable request. The drone framework is somewhat modular so hit

@@ -4,7 +4,6 @@
   "projectileSpecId": "PSE_starburst_shot",
   "type": "BALLISTIC",
   "size": "SMALL",
-  "everyFrameEffect": "data.scripts.weapons.PSE_MiniStarburstEveryFrame",
   "turretSprite": "graphics/PSE/weapons/PSE_mini_starburst_t_main.png",
   "turretGunSprite": "graphics/PSE/weapons/PSE_mini_starburst_t_recoil.png",
   "hardpointSprite": "graphics/PSE/weapons/PSE_mini_starburst_h_main.png",

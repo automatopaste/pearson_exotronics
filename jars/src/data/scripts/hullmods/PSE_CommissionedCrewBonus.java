@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import data.scripts.PSEDrone;
 
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PSE_CommissionedCrewBonus extends BaseHullMod {
-    private static final float DRONE_ARMOUR_RATING_FLAT_BONUS = 10f;
+    private static final float DRONE_ARMOUR_RATING_FLAT_BONUS = 50f;
 
-    private static final Map<ShipAPI.HullSize, Float> ARMOUR_PER_HULLSIZE_FLAT = new HashMap<>();
+    private static final Map<ShipAPI.HullSize, Float> ECM_REDUCTION_PERCENT = new HashMap<>();
     static {
-        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.CAPITAL_SHIP, 50f);
-        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.CRUISER, 25f);
-        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.DESTROYER, 10f);
-        ARMOUR_PER_HULLSIZE_FLAT.put(ShipAPI.HullSize.FRIGATE, 5f);
+        ECM_REDUCTION_PERCENT.put(ShipAPI.HullSize.CAPITAL_SHIP, -25f);
+        ECM_REDUCTION_PERCENT.put(ShipAPI.HullSize.CRUISER, -30f);
+        ECM_REDUCTION_PERCENT.put(ShipAPI.HullSize.DESTROYER, -40f);
+        ECM_REDUCTION_PERCENT.put(ShipAPI.HullSize.FRIGATE, -50f);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
             return "" + (int) DRONE_ARMOUR_RATING_FLAT_BONUS;
         }
         if (index == 1) {
-            return "" + ARMOUR_PER_HULLSIZE_FLAT.get(hullSize);
+            return "" + -ECM_REDUCTION_PERCENT.get(hullSize);
         }
         return null;
     }
@@ -42,7 +43,7 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
 
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-        stats.getArmorBonus().modifyFlat(id, ARMOUR_PER_HULLSIZE_FLAT.get(hullSize));
+        stats.getDynamic().getStat(Stats.ELECTRONIC_WARFARE_PENALTY_MULT).modifyPercent(id, ECM_REDUCTION_PERCENT.get(hullSize));
     }
 
 

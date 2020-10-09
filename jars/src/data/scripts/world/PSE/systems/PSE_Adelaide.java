@@ -3,23 +3,23 @@ package data.scripts.world.PSE.systems;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarAge;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
 import com.fs.starfarer.api.util.Misc;
-import data.scripts.PSEModPlugin;
 import data.scripts.util.PSE_CampaignUtils;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class PSE_Adelaide implements SectorGeneratorPlugin {
-    List<MarketAPI> markets = new ArrayList<MarketAPI>();
+    private List<MarketAPI> markets = new ArrayList<>();
+
+    private static MarketAPI iucharMarket;
 
     @Override
     public void generate(SectorAPI sector) {
@@ -136,6 +136,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 false
         );
         markets.add(iucharMarketplace);
+        iucharMarket = iucharMarketplace;
 
         PlanetAPI iucharba = system.addPlanet("PSE_iucharba", danu, "Iucharba", "cryovolcanic", 0f, 70f, 1000f, 100f);
         MarketAPI iucharbaMarketplace = PSE_CampaignUtils.addMarketplace(
@@ -221,10 +222,11 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         nebulaEditor.clearArc(system.getLocation().x, system.getLocation().y, 0, minHyperspaceRadius + maxHyperspaceRadius, 0f, 360f, 0.25f);
     }
 
-    public void cleanUp() {
-        for (MarketAPI market : markets) {
-            PersonAPI admin = PSEModPlugin.createAdmin(market);
-            market.setAdmin(admin);
-        }
+    public List<MarketAPI> getMarkets() {
+        return markets;
+    }
+
+    public static MarketAPI getIucharMarket() {
+        return iucharMarket;
     }
 }

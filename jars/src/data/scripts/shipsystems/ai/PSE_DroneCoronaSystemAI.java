@@ -24,8 +24,6 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
 
     private float longestWeaponRange = 0f;
 
-    String UNIQUE_SYSTEM_ID;
-
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
         this.ship = ship;
         this.engine = engine;
@@ -42,10 +40,10 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
         tracker.advance(amount);
 
         //unique identifier so that individual system can be gotten from combat engine custom data
-        UNIQUE_SYSTEM_ID = "PSE_DroneCorona_" + ship.hashCode();
+        String uniqueSystemId = PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
-        PSE_DroneCorona droneSystem = (PSE_DroneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
-        if (droneSystem == null) {
+        PSE_DroneCorona droneSystem = (PSE_DroneCorona) engine.getCustomData().get(uniqueSystemId);
+        if (droneSystem == null || ship == null || !ship.isAlive()) {
             return;
         }
 

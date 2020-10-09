@@ -1,12 +1,15 @@
 package data.scripts.campaign;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import data.scripts.campaign.intel.PSE_SODCampLocationBreadcrumbIntel;
 
 public class PSE_SODCamp {
     private boolean isDiscovered = false;
     private int maxLifetime;
     private int currentLifetime;
     private MarketAPI associatedMarket;
+    private PSE_SODCampLocationBreadcrumbIntel intel;
+
     PSE_SODCamp(MarketAPI market, int lifetimeTicks) {
         associatedMarket = market;
         maxLifetime = lifetimeTicks;
@@ -25,7 +28,7 @@ public class PSE_SODCamp {
         this.currentLifetime = currentLifetime;
     }
 
-    int getCurrentLifetime() {
+    public int getCurrentLifetime() {
         return currentLifetime;
     }
 
@@ -33,7 +36,15 @@ public class PSE_SODCamp {
         return maxLifetime;
     }
 
-    MarketAPI getAssociatedMarket() {
+    public MarketAPI getAssociatedMarket() {
         return associatedMarket;
+    }
+
+    public PSE_SODCampLocationBreadcrumbIntel getIntel() {
+        return intel;
+    }
+
+    public void setIntel(PSE_SODCampLocationBreadcrumbIntel intel) {
+        this.intel = intel;
     }
 }

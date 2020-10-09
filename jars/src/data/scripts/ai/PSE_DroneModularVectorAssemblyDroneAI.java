@@ -9,12 +9,13 @@ import data.scripts.shipsystems.PSE_DroneModularVectorAssembly;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
     private final PSEDrone drone;
-    private final ShipAPI ship;
+    private ShipAPI ship;
     private CombatEngineAPI engine;
 
     private boolean loaded = false;
@@ -48,7 +49,7 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
             }
         }
 
-        this.UNIQUE_SYSTEM_ID = "PSE_MVA_" + ship.hashCode();
+        this.UNIQUE_SYSTEM_ID = PSE_DroneModularVectorAssembly.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -67,6 +68,20 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
         float sanity = 1f;
 
+        if (ship == null) {
+            return;
+        }
+        if (!ship.isAlive()) {
+            landingSlot = null;
+
+            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneModularVectorAssembly.UNIQUE_SYSTEM_PREFIX, engine);
+
+            if (ship == null) {
+                PSE_DroneUtils.deleteDrone(drone, engine);
+                return;
+            }
+        }
+
         float droneFacing = drone.getFacing();
         float shipFacing = ship.getFacing();
 
@@ -74,6 +89,9 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
         PSE_DroneModularVectorAssembly shipDroneMVASystem = (PSE_DroneModularVectorAssembly) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (shipDroneMVASystem == null) {
             return;
+        }
+        if (!shipDroneMVASystem.getDeployedDrones().contains(drone)) {
+            shipDroneMVASystem.getDeployedDrones().add(drone);
         }
 
         //config
@@ -89,6 +107,22 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
         //assign specific values
         int droneIndex = shipDroneMVASystem.getIndex(drone);
+        if (droneIndex == -1) {
+            if (landingSlot == null) {
+                landingSlot = shipDroneMVASystem.getPlugin().getLandingBayWeaponSlotAPI();
+            }
+
+            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
+
+            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
+
+            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
+            float angle = VectorUtils.getFacing(to);
+            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
+
+            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
+            return;
+        }
         float defenceOrbitAngle = defenceOrbitAngleArray[droneIndex];
         float clampedOrbitAngle = clampedOrbitAngleArray[droneIndex];
         float defenceOrbitRadius = defenceOrbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
@@ -128,21 +162,21 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
                 //ROTATION
                 if (target != null) {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
                 } else {
-                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, droneFacing, 0.1f);
+                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
                 }
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
+                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = shipDroneMVASystem.getPlugin().getLandingBayWeaponSlotAPI();
                 }
 
                 //ROTATION
-                PSE_DroneUtils.rotateToFacing(drone, shipFacing, droneFacing, 0.1f);
+                PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
 
                 movementTargetLocation = landingSlot.computePosition(ship);
 
@@ -167,7 +201,7 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
                     targetRotationAngle += 35f;
                 }
 
-                PSE_DroneUtils.rotateToFacing(drone, targetRotationAngle, droneFacing, 0.1f);
+                PSE_DroneUtils.rotateToFacing(drone, targetRotationAngle, engine);
 
                 break;
             default:
@@ -186,10 +220,10 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
             drone.getEngineController().extendFlame(this, 8f, 1.5f, 15f);
         } else {
             PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
-            ship.getMutableStats().getAcceleration().unmodify();
-            ship.getMutableStats().getTurnAcceleration().unmodify();
-            ship.getMutableStats().getDeceleration().unmodify();
-            ship.getMutableStats().getMaxSpeed().unmodify();
+            ship.getMutableStats().getAcceleration().unmodify(this.toString());
+            ship.getMutableStats().getTurnAcceleration().unmodify(this.toString());
+            ship.getMutableStats().getDeceleration().unmodify(this.toString());
+            ship.getMutableStats().getMaxSpeed().unmodify(this.toString());
         }
 
     }

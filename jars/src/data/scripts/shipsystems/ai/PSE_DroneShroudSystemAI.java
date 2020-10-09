@@ -40,14 +40,14 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
         tracker.advance(amount);
 
-        if (!tracker.intervalElapsed() || ship == null) {
+        if (!tracker.intervalElapsed()) {
             return;
         }
 
         //unique identifier so that individual system can be gotten from combat engine custom data
         String UNIQUE_SYSTEM_ID = "PSE_DroneShroud_" + ship.hashCode();
         PSE_DroneShroud droneSystem = (PSE_DroneShroud) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
-        if (droneSystem == null) {
+        if (droneSystem == null || ship == null || !ship.isAlive()) {
             return;
         }
 

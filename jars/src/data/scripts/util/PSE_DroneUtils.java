@@ -3,56 +3,19 @@ package data.scripts.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.combat.CombatEngine;
 import data.scripts.PSEDrone;
+import data.scripts.plugins.PSE_DroneManagerPlugin;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
 import java.util.List;
 
-import static org.lazywizard.lazylib.combat.AIUtils.getEnemiesOnMap;
-
 public final class PSE_DroneUtils {
-    private static CombatEngineAPI engine;
-
-    private PSE_DroneUtils() {
-        engine = Global.getCombatEngine();
-    }
-
-    //directly modified from lazywizard's lazylib getNearestEnemy
-    public static ShipAPI getNearestEnemyNonFighterShip(final CombatEntityAPI entity) {
-        ShipAPI closest = null;
-        float closestDistance = Float.MAX_VALUE;
-        for (ShipAPI tmp : getEnemiesOnMap(entity)) {
-            if (tmp.isFighter()) {
-                continue;
-            }
-            float distance = MathUtils.getDistance(tmp, entity.getLocation());
-            if (distance < closestDistance) {
-                closest = tmp;
-                closestDistance = distance;
-            }
-        }
-        return closest;
-    }
-
-    //directly modified from lazywizard's lazylib getNearestEnemy
-    public static ShipAPI getNearestEnemyFighter(final CombatEntityAPI entity) {
-        ShipAPI closest = null;
-        float closestDistance = Float.MAX_VALUE;
-        for (ShipAPI tmp : getEnemiesOnMap(entity)) {
-            if (!tmp.isFighter()) {
-                continue;
-            }
-            float distance = MathUtils.getDistance(tmp, entity.getLocation());
-            if (distance < closestDistance) {
-                closest = tmp;
-                closestDistance = distance;
-            }
-        }
-        return closest;
-    }
+    private static final Color DRONE_EXPLOSION_COLOUR = new Color(183, 255, 153, 255);
 
     public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation, float sanity, IntervalUtil velocityRotationIntervalTracker) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
@@ -129,8 +92,9 @@ public final class PSE_DroneUtils {
         drone.getLocation().set(target);
     }
 
-    public static void rotateToTarget(ShipAPI ship, PSEDrone drone, Vector2f targetedLocation, float droneFacing, float rotationMagnitude) {
+    public static void rotateToTarget(ShipAPI ship, PSEDrone drone, Vector2f targetedLocation, CombatEngineAPI engine) {
         engine = Global.getCombatEngine();
+        float droneFacing = drone.getFacing();
 
         //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm)
         float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
@@ -143,41 +107,50 @@ public final class PSE_DroneUtils {
             Vector2f droneToTargetedLocDir = VectorUtils.getDirectionalVector(drone.getLocation(), targetedLocation);
             float droneAngleToTargetedLoc = VectorUtils.getFacing(droneToTargetedLocDir); //ABSOLUTE 360 ANGLE
 
-            rotationAngleDelta = MathUtils.getShortestRotation(droneFacing, droneAngleToTargetedLoc);
+            rotateToFacing(drone, droneAngleToTargetedLoc, engine);
         } else {
-            rotationAngleDelta = MathUtils.getShortestRotation(droneFacing, ship.getFacing());
+            rotateToFacing(drone, ship.getFacing(), engine);
         }
+    }
 
-        //ROTATE TOWARDS TARGET would prefer to use shipcommands but this is more reliable
-        //drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
-
+    public static void rotateToFacing(PSEDrone drone, float absoluteFacingTargetAngle, CombatEngineAPI engine) {
+        float droneFacing = drone.getFacing();
         float angvel = drone.getAngularVelocity();
-        if (rotationAngleDelta > 0f) {
-            angvel += drone.getTurnAcceleration() * engine.getElapsedInLastFrame();
-        } else if (rotationAngleDelta < 0f) {
-            angvel -= drone.getTurnAcceleration() * engine.getElapsedInLastFrame();
+        float rotationAngleDelta = MathUtils.getShortestRotation(droneFacing, absoluteFacingTargetAngle);
+
+        //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2
+        float decelerationAngleAbs = (angvel * angvel) / (2 * drone.getTurnDeceleration());
+
+        float accel = 0f;
+        if (rotationAngleDelta < 0f) {
+            if (-decelerationAngleAbs < rotationAngleDelta) {
+                accel += drone.getTurnDeceleration() * engine.getElapsedInLastFrame();
+            } else {
+                accel -= drone.getTurnAcceleration() * engine.getElapsedInLastFrame();
+            }
+        } else if (rotationAngleDelta > 0f) {
+            if (decelerationAngleAbs > rotationAngleDelta) {
+                accel -= drone.getTurnDeceleration() * engine.getElapsedInLastFrame();
+            } else {
+                accel += drone.getTurnAcceleration() * engine.getElapsedInLastFrame();
+            }
         }
+
+        angvel += accel;
+        //engine.maintainStatusForPlayerShip(drone, null, "lol", accel + ", " + angvel + ", " + rotationAngleDelta + ", " + decelerationAngleAbs, false);
+
         MathUtils.clamp(angvel, -drone.getMaxTurnRate(), drone.getMaxTurnRate());
 
         drone.setAngularVelocity(angvel);
     }
 
-    public static void rotateToFacing(PSEDrone drone, float absoluteFacingTargetAngle, float droneFacing, float rotationMagnitude) {
-        //ROTATION: THE SEQUEL
-
-        //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm cause it's kind of unnecessary)
-        //float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
-
-        //point at target, if that doesn't exist then point in direction of mothership facing
-        float rotationAngleDelta = MathUtils.getShortestRotation(droneFacing, absoluteFacingTargetAngle);
-
-        //ROTATE TOWARDS TARGET would prefer to use shipcommands but this is more reliable
-        drone.setFacing(drone.getFacing() + rotationAngleDelta * rotationMagnitude);
+    public static void rotateToFacingJerky(PSEDrone drone, float targetAngle) {
+        float delta = MathUtils.getShortestRotation(drone.getFacing(), targetAngle);
+        drone.setFacing(drone.getFacing() + delta * 0.1f);
     }
 
-    public static void attemptToLand(ShipAPI ship, PSEDrone drone, float amount, IntervalUtil delayBeforeLandingTracker) {
+    public static void attemptToLand(ShipAPI ship, PSEDrone drone, float amount, IntervalUtil delayBeforeLandingTracker, CombatEngineAPI engine) {
         delayBeforeLandingTracker.advance(amount);
-        engine = Global.getCombatEngine();
         boolean isPlayerShip = ship.equals(engine.getPlayerShip());
 
         if (drone.isLanding()) {
@@ -193,6 +166,12 @@ public final class PSE_DroneUtils {
         }
 
         if (delayBeforeLandingTracker.intervalElapsed()) {
+            drone.beginLandingAnimation(ship);
+        }
+    }
+
+    public static void attemptToLandAsExtra(ShipAPI ship, PSEDrone drone) {
+        if (!drone.isLanding()) {
             drone.beginLandingAnimation(ship);
         }
     }
@@ -306,5 +285,32 @@ public final class PSE_DroneUtils {
             break;
         }
         return areFriendliesInFiringArc;
+    }
+
+    public static ShipAPI getAlternateHost(PSEDrone drone, String prefix, CombatEngineAPI engine) {
+        engine = Global.getCombatEngine();
+        List<ShipAPI> allies = AIUtils.getNearbyAllies(drone, 4000f);
+        if (allies.isEmpty()) {
+            return null;
+        }
+        float dist = Float.MAX_VALUE;
+        ShipAPI host = null;
+        for (ShipAPI ship : allies) {
+            for (String key : engine.getCustomData().keySet()) {
+                if (key.contentEquals(prefix + ship.hashCode())) {
+                    float temp = MathUtils.getDistance(drone, ship);
+                    if (temp < dist) {
+                        dist = temp;
+                        host = ship;
+                    }
+                }
+            }
+        }
+        return host;
+    }
+
+    public static void deleteDrone (PSEDrone drone, CombatEngineAPI engine) {
+        engine.removeEntity(drone);
+        engine.spawnExplosion(drone.getLocation(), drone.getVelocity(), DRONE_EXPLOSION_COLOUR, drone.getMass(), 1.5f);
     }
 }

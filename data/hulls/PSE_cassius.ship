@@ -4,13 +4,16 @@
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_cassius.png",
   "style": "PEARSON_EXOTRONICS_BASE_HULL",
-  "height": 75,
+  "height": 76,
   "width": 106,
-  "center": [52, 36.5],
-  "collisionRadius": 92,
+  "center": [53, 38],
+  "collisionRadius": 102.5,
   "shieldCenter": [0, -0],
-  "shieldRadius": 80,
+  "shieldRadius": 86.5,
   "viewOffset": 0,
+  "builtInWings": [
+    "PSE_drone_civilian_2"
+  ],
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -19,7 +22,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": 90,
-      "locations": [-14.5, 24]
+      "locations": [-16, 25]
     },
     {
       "id": "WS0002",
@@ -28,7 +31,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": -90,
-      "locations": [-14.5, -26]
+      "locations": [-16, -25]
     },
     {
       "id": "WS0003",
@@ -37,7 +40,7 @@
       "mount": "TURRET",
       "arc": 280,
       "angle": 0,
-      "locations": [22.5, -1]
+      "locations": [21, -0]
     },
     {
       "id": "WS0004",
@@ -46,7 +49,7 @@
       "mount": "HIDDEN",
       "arc": 0,
       "angle": 180,
-      "locations": [-24, -1]
+      "locations": [-24, -0]
     },
     {
       "id": "WS0005",
@@ -55,7 +58,7 @@
       "mount": "HARDPOINT",
       "arc": 5,
       "angle": 0,
-      "locations": [25.5, 27.5]
+      "locations": [23.5, 28.5]
     },
     {
       "id": "WS0006",
@@ -106,15 +109,15 @@
     }
   ],
   "bounds": [
-    31.5, -10,
-    19, -35,
+    30.5, -6,
+    17, -35.5,
     -4, -35.5,
     -11.5, -51.5,
     -29, -31.5,
     -29, 31.5,
     -11.5, 51.5,
     -4, 35.5,
-    19, 35,
-    31.5, 10
+    17, 35.5,
+    30.5, 6
   ]
 }

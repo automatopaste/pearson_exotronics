@@ -4,12 +4,12 @@
   "hullSize": "DESTROYER",
   "spriteName": "graphics/PSE/ships/PSE_richmond.png",
   "style": "PEARSON_EXOTRONICS_BASE_HULL",
-  "height": 125,
+  "height": 128,
   "width": 150,
-  "center": [75, 62.5],
-  "collisionRadius": 119,
+  "center": [75, 64],
+  "collisionRadius": 132,
   "shieldCenter": [0, 0],
-  "shieldRadius": 94.5,
+  "shieldRadius": 110.5,
   "viewOffset": 0,
   "builtInWings": [
     "PSE_drone2_wing"
@@ -22,7 +22,7 @@
       "mount": "TURRET",
       "arc": 210,
       "angle": 35,
-      "locations": [1.5, 44]
+      "locations": [1, 44]
     },
     {
       "id": "WS0002",
@@ -31,7 +31,7 @@
       "mount": "TURRET",
       "arc": 210,
       "angle": -35,
-      "locations": [1.5, -44]
+      "locations": [1, -44]
     },
     {
       "id": "WS0003",
@@ -40,7 +40,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": 120,
-      "locations": [-28.5, 53]
+      "locations": [-29, 53]
     },
     {
       "id": "WS0004",
@@ -49,7 +49,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": -120,
-      "locations": [-28.5, -53]
+      "locations": [-29, -53]
     },
     {
       "id": "WS0005",
@@ -58,7 +58,7 @@
       "mount": "TURRET",
       "arc": 160,
       "angle": 20,
-      "locations": [28.5, 48]
+      "locations": [28, 48]
     },
     {
       "id": "WS0006",
@@ -67,7 +67,7 @@
       "mount": "TURRET",
       "arc": 160,
       "angle": -20,
-      "locations": [28.5, -48]
+      "locations": [28, -48]
     },
     {
       "id": "WS0007",
@@ -76,7 +76,7 @@
       "mount": "HARDPOINT",
       "arc": 0,
       "angle": -0,
-      "locations": [27.5, -18]
+      "locations": [27, -18]
     },
     {
       "id": "WS0008",
@@ -85,7 +85,7 @@
       "mount": "HARDPOINT",
       "arc": 0,
       "angle": 0,
-      "locations": [27.5, 18]
+      "locations": [27, 18]
     },
     {
       "id": "LB 1",
@@ -132,7 +132,7 @@
   ],
   "engineSlots": [
     {
-      "location": [-51.5, 19],
+      "location": [-52, 19],
       "length": 14,
       "width": 16,
       "angle": 180,
@@ -141,7 +141,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-51.5, -19],
+      "location": [-52, -19],
       "length": 14,
       "width": 16,
       "angle": -180,
@@ -150,7 +150,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-44, 29],
+      "location": [-45, 29],
       "length": 12,
       "width": 15,
       "angle": 180,
@@ -159,7 +159,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-44, -29],
+      "location": [-45, -29],
       "length": 12,
       "width": 15,
       "angle": -180,
@@ -168,7 +168,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-43, 41],
+      "location": [-44, 40.5],
       "length": 11,
       "width": 20,
       "angle": 180,
@@ -177,7 +177,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-43, -41],
+      "location": [-44, -40.5],
       "length": 11,
       "width": 20,
       "angle": -180,
@@ -186,7 +186,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-53, 8.5],
+      "location": [-55, 8.5],
       "length": 11,
       "width": 14,
       "angle": 180,
@@ -195,7 +195,7 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-53, -8.5],
+      "location": [-55, -8.5],
       "length": 11,
       "width": 14,
       "angle": -180,

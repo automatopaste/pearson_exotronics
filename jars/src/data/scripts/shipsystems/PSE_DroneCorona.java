@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class PSE_DroneCorona extends BaseShipSystemScript {
     public static final float FLUX_PER_SECOND_MULT = 0.05f;
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneCorona_";
 
     public enum CoronaDroneOrders {
         DEPLOY,
@@ -57,7 +58,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_DroneCorona_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = UNIQUE_SYSTEM_PREFIX + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }
@@ -78,6 +79,9 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
     public int getIndex(PSEDrone drone) {
         int index = 0;
         for (PSEDrone deployedDrone : deployedDrones) {
+            if (index >= maxDeployedDrones) {
+                break;
+            }
             if (deployedDrone == drone) {
                 return index;
             }
@@ -144,9 +148,5 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
             plugin = new PSE_DroneManagerPlugin(this, maxDeployedDrones, launchDelay, launchSpeed, ship, droneVariant);
             engine.addPlugin(plugin);
         }
-    }
-
-    public float getFluxPerSecond() {
-        return FLUX_PER_SECOND_MULT * ship.getMaxFlux();
     }
 }

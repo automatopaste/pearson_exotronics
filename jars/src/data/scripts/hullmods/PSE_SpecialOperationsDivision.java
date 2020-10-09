@@ -27,7 +27,7 @@ public class PSE_SpecialOperationsDivision extends BaseHullMod {
         stats.getMissileGuidance().modifyFlat(id, GUIDANCE_IMPROVEMENT);
         stats.getMissileGuidance().modifyFlat(id, ECCM_CHANCE);
 
-        stats.getSensorProfile().modifyPercent(id, SENSOR_BONUS_PERCENT);
+        stats.getSensorProfile().modifyPercent(id, -SENSOR_BONUS_PERCENT);
         stats.getSensorStrength().modifyPercent(id, SENSOR_BONUS_PERCENT);
 
         stats.getDynamic().getStat(Stats.ELECTRONIC_WARFARE_FLAT).modifyFlat(id, mag.get(hullSize));

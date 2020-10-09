@@ -2,8 +2,10 @@ package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
+import com.fs.starfarer.api.combat.BoundsAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.util.Misc;
 import data.scripts.PSEDrone;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -201,22 +203,13 @@ public final class PSE_MiscUtils {
         }
     }
 
-    public static void addJitterAfterimage(ShipAPI ship, Color color, float range, float velocityMult, float maxJitter, float in, float dur, float out, boolean additive, boolean combineWithSpriteColour, boolean aboveShip) {
-        ship.addAfterimage(color, MathUtils.getRandomNumberInRange(-1f * range, range), MathUtils.getRandomNumberInRange(-1f * range, range), ship.getVelocity().getX() * velocityMult, ship.getVelocity().getY() * velocityMult, maxJitter, in, dur, out, additive, combineWithSpriteColour, aboveShip);
-    }
-
-    public static void applyFluxPerSecondPerFrame(ShipAPI ship, float fluxPerSecond, float amount) {
-        ship.getFluxTracker().setCurrFlux(ship.getCurrFlux() + (fluxPerSecond * amount));
-        if (ship.getCurrFlux() >= ship.getMaxFlux()) {
-            ship.getFluxTracker().forceOverload(0f);
-        }
-    }
-
     public static boolean isEntityInArc(CombatEntityAPI entity, Vector2f center, float centerAngle, float arcDeviation) {
-        Vector2f entityRelativeLocation = Vector2f.sub(entity.getLocation(), center, new Vector2f());
-        float entityAngle = VectorUtils.getFacing(entityRelativeLocation);
-        float rel = MathUtils.getShortestRotation(entityAngle, centerAngle);
-        return rel < arcDeviation && rel > -arcDeviation;
+        //Vector2f entityRelativeLocation = Vector2f.sub(entity.getLocation(), center, new Vector2f());
+        //float entityAngle = VectorUtils.getFacing(entityRelativeLocation);
+        //float rel = MathUtils.getShortestRotation(entityAngle, centerAngle);
+
+        return  Misc.isInArc(centerAngle, arcDeviation * 2f, center, entity.getLocation());
+        //return rel < arcDeviation && rel > -arcDeviation;
     }
 
     public static Vector2f getVectorFromAToB(CombatEntityAPI a, CombatEntityAPI b) {
@@ -237,5 +230,40 @@ public final class PSE_MiscUtils {
         VectorUtils.rotate(loc, (float) Math.random() * 360f);
         Vector2f.add(loc, center, loc);
         return loc;
+    }
+
+    public static Vector2f getNearestPointOnCollisionRadius(CombatEntityAPI entity, Vector2f point) {
+        return MathUtils.getPointOnCircumference(
+                entity.getLocation(),
+                entity.getCollisionRadius(),
+                VectorUtils.getAngle(entity.getLocation(), point)
+        );
+    }
+
+    public static Vector2f getNearestPointOnRadius(Vector2f center, float radius, Vector2f point) {
+        return MathUtils.getPointOnCircumference(
+                center,
+                radius,
+                VectorUtils.getAngle(center, point)
+        );
+    }
+
+    public static Vector2f getNearestPointOnShipBounds(ShipAPI ship, Vector2f point) {
+        BoundsAPI bounds = ship.getExactBounds();
+        if (bounds == null) {
+            return getNearestPointOnCollisionRadius(ship, point);
+        } else {
+            Vector2f closest = ship.getLocation();
+            float distSquared = 0f;
+            for (BoundsAPI.SegmentAPI segment : bounds.getSegments()) {
+                Vector2f tmpcp = MathUtils.getNearestPointOnLine(point, segment.getP1(), segment.getP2());
+                float distSquaredTemp = MathUtils.getDistanceSquared(tmpcp, point);
+                if (distSquaredTemp < distSquared) {
+                    distSquared = distSquaredTemp;
+                    closest = tmpcp;
+                }
+            }
+            return closest;
+        }
     }
 }

@@ -14,11 +14,11 @@ import java.util.*;
 import java.util.List;
 
 public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
-    private static final String ENGINE_DATA_KEY = "PSE_EngineData";
+    public static final String ENGINE_DATA_KEY = "PSE_EngineData";
 
-    private static final float MINI_FLAK_TIME = 0.5f;
+    private static final float MINI_FLAK_TIME = 0.4f;
     private static final float MINI_FLAK_MIN_RADIUS = 10f;
-    private static final float MINI_FLAK_MAX_RADIUS = 20f;
+    private static final float MINI_FLAK_MAX_RADIUS = 30f;
     private static final float MINI_FLAK_ANGLE_RANGE = 180f;
     private static final Color MINI_FLAK_EXPLOSION_COLOUR = new Color(194, 97, 60, 180);
     private static final Color MINI_FLAK_PARTICLE_COLOUR = new Color(167, 167, 73, 255);
@@ -41,8 +41,9 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         if (data == null) {
             return;
         }
+        data.effectsPlugin = this;
 
-        ListIterator<PSE_Explosion> iterator = data.explosionsWithParticles.listIterator();
+        ListIterator<PSE_Explosion> iterator = data.explosions.listIterator();
         while (iterator.hasNext()) {
             PSE_Explosion explosion = iterator.next();
 
@@ -86,10 +87,6 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         public void advance(float amount, CombatEngineAPI engine) {
-            if (currTime >= maxTime) {
-                engine.spawnExplosion(location, new Vector2f(), explosionColour, maxRadius * 1.2f, maxTime);
-            }
-
             particleTracker.advance(amount);
             if (!particleTracker.intervalElapsed()) {
                 return;
@@ -99,7 +96,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
             Vector2f velAngle = Vector2f.sub(loc, location, new Vector2f());
             VectorUtils.rotate(velAngle, (2 * maxRadius * (float) Math.random()) - maxRadius);
             velAngle.normalise();
-            velAngle.scale(100f);
+            velAngle.scale(150f);
             float size = 15f * (currTime / maxTime);
             float lifetime = MINI_FLAK_TIME + 0.2f;
 
@@ -123,8 +120,9 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         public void advance(float amount, CombatEngineAPI engine) {
-            for (int i = 0; i < 360; i++) {
-                Vector2f loc = MathUtils.getPointOnCircumference(location, minRadius, i);
+            int num = 60;
+            for (int i = 0; i < num; i++) {
+                Vector2f loc = MathUtils.getPointOnCircumference(location, minRadius, i * (360f / num));
                 Vector2f vel = Vector2f.sub(loc, location, new Vector2f());
                 vel.normalise();
                 vel.scale((maxRadius - minRadius) / maxTime);
@@ -136,16 +134,25 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
 
     public static final class PSE_EngineData {
         //final List<PSEDrone> drones = new ArrayList<>();
-        List<PSE_Explosion> explosionsWithParticles = new LinkedList<>();
+        List<PSE_Explosion> explosions = new LinkedList<>();
+        PSE_CombatEffectsPlugin effectsPlugin;
     }
 
-    public static void spawnMiniStarburstFlakExplosion(Vector2f loc) {
+    public void spawnMiniStarburstFlakExplosion(Vector2f loc) {
         PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
         if (data == null) {
             return;
         }
 
-        data.explosionsWithParticles.add(new PSE_ExplosionWithParticles(
+        Global.getCombatEngine().spawnExplosion(
+                loc,
+                new Vector2f(0f, 0f),
+                MINI_FLAK_EXPLOSION_COLOUR,
+                MINI_FLAK_MAX_RADIUS,
+                MINI_FLAK_TIME
+        );
+
+        data.explosions.add(new PSE_ExplosionWithParticles(
                 MINI_FLAK_TIME,
                 loc,
                 MINI_FLAK_MIN_RADIUS,
@@ -154,14 +161,22 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
                 MINI_FLAK_EXPLOSION_COLOUR,
                 MINI_FLAK_PARTICLE_COLOUR
         ));
+        data.explosions.add(new PSE_ParticleRing(
+                MINI_FLAK_TIME * 0.3f,
+                loc,
+                MINI_FLAK_MIN_RADIUS,
+                MINI_FLAK_MAX_RADIUS,
+                MINI_FLAK_EXPLOSION_COLOUR,
+                10f
+        ));
     }
 
-    public static void spawnParticleRing(PSE_ParticleRing ring) {
+    public void spawnParticleRing(PSE_ParticleRing ring) {
         PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
         if (data == null) {
             return;
         }
 
-        data.explosionsWithParticles.add(ring);
+        data.explosions.add(ring);
     }
 }

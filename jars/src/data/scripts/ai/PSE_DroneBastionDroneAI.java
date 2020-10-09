@@ -17,7 +17,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
 
     private final PSEDrone drone;
-    private final ShipAPI ship;
+    private ShipAPI ship;
     private CombatEngineAPI engine;
 
     private boolean loaded = false;
@@ -49,7 +49,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
             }
         }
 
-        this.UNIQUE_SYSTEM_ID = "PSE_DroneBastion_" + ship.hashCode();
+        this.UNIQUE_SYSTEM_ID = PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -71,6 +71,20 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
         float sanity = 1f;
 
+        if (ship == null) {
+            return;
+        }
+        if (!ship.isAlive()) {
+            landingSlot = null;
+
+            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX, engine);
+
+            if (ship == null) {
+                PSE_DroneUtils.deleteDrone(drone, engine);
+                return;
+            }
+        }
+
         float droneFacing = drone.getFacing();
         float shipFacing = ship.getFacing();
 
@@ -78,6 +92,9 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         PSE_DroneBastion shipDroneBastionSystem = (PSE_DroneBastion) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (shipDroneBastionSystem == null) {
             return;
+        }
+        if (!shipDroneBastionSystem.getDeployedDrones().contains(drone)) {
+            shipDroneBastionSystem.getDeployedDrones().add(drone);
         }
 
         //config checking
@@ -91,6 +108,23 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
         //assign specific values
         int droneIndex = shipDroneBastionSystem.getIndex(drone);
+        if (droneIndex == -1) {
+            if (landingSlot == null) {
+                landingSlot = shipDroneBastionSystem.getPlugin().getLandingBayWeaponSlotAPI();
+            }
+
+            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
+
+            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
+
+            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
+            float angle = VectorUtils.getFacing(to);
+            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
+
+            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
+            return;
+        }
+
         float cardinalOrbitAngle = cardinalOrbitAngleArray[droneIndex];
         float frontOrbitAngle = frontOrbitAngleArray[droneIndex];
         float orbitRadius = orbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
@@ -114,17 +148,17 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         switch (bastionDroneOrders) {
             case FRONT:
                 if (target != null && PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), droneAngleRelativeToShip, 120f)) {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
                 } else {
-                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, droneFacing, 0.1f);
+                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
                 }
                 break;
             case CARDINAL:
             case RECALL:
                 if (target != null && PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), droneAngleRelativeToShip, 120f)) {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), droneFacing, 0.1f);
+                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
                 } else {
-                    PSE_DroneUtils.rotateToFacing(drone, facing, droneFacing, 0.1f);
+                    PSE_DroneUtils.rotateToFacing(drone, facing, engine);
                 }
                 break;
         }
@@ -150,7 +184,7 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker);
+                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = shipDroneBastionSystem.getPlugin().getLandingBayWeaponSlotAPI();

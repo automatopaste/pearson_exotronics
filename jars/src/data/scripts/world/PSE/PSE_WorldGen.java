@@ -4,12 +4,17 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.SectorAPI;
 import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
+import data.scripts.PSEModPlugin;
 import data.scripts.world.PSE.systems.PSE_Adelaide;
 
-public class PSE_WorldGen implements SectorGeneratorPlugin {
+import java.util.ArrayList;
+import java.util.List;
 
+public class PSE_WorldGen implements SectorGeneratorPlugin {
     public static void initFactionRelationships(SectorAPI sector) {
         FactionAPI hegemony = sector.getFaction(Factions.HEGEMONY);
         FactionAPI tritachyon = sector.getFaction(Factions.TRITACHYON);
@@ -37,13 +42,24 @@ public class PSE_WorldGen implements SectorGeneratorPlugin {
         new PSE_Adelaide().generate(sector);
     }
 
-    public void generateToExistingSave(SectorAPI sector) { //used when generating with console commands
+    public void generateToExistingSave(SectorAPI sector, boolean useNexerelinTariffs) { //used when generating with console commands
         SharedData.getData().getPersonBountyEventData().addParticipatingFaction("pearson_exotronics");
 
         initFactionRelationships(sector);
 
         PSE_Adelaide adelaide = new PSE_Adelaide();
         adelaide.generate(sector);
-        adelaide.cleanUp();
+        cleanUp(useNexerelinTariffs, adelaide.getMarkets());
+    }
+
+    private void cleanUp(boolean useNexerelinTariffs, List<MarketAPI> markets) {
+        for (MarketAPI market : markets) {
+            PersonAPI admin = PSEModPlugin.createAdmin(market);
+            market.setAdmin(admin);
+
+            if (useNexerelinTariffs && market.getTariff() != null) {
+                market.getTariff().modifyFlat("console_spawned_nexerelin_enabled_cleanup", -0.12f);
+            }
+        }
     }
 }

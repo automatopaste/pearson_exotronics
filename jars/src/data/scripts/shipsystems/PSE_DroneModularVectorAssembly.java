@@ -12,6 +12,7 @@ import data.scripts.util.PSE_MiscUtils;
 import java.util.ArrayList;
 
 public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_MVA_";
 
     public enum ModularVectorAssemblyDroneOrders {
         TARGETING,
@@ -55,8 +56,12 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_MVA_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = UNIQUE_SYSTEM_PREFIX + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
+        }
+
+        if (ship.getFluxTracker().isEngineBoostActive()) {
+
         }
     }
 
@@ -76,6 +81,9 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
     public int getIndex(PSEDrone drone) {
         int index = 0;
         for (PSEDrone deployedDrone : deployedDrones) {
+            if (index >= maxDeployedDrones) {
+                break;
+            }
             if (deployedDrone == drone) {
                 return index;
             }

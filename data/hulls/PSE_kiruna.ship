@@ -118,30 +118,31 @@
     },
     {
       "location": [-40, -24],
-      "length": 17.967468,
-      "width": 12.715356,
-      "angle": -156,
-      "contrailSize": 12.715356,
+      "length": 23,
+      "width": 21,
+      "angle": 180,
+      "contrailSize": 21,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-40, 24],
-      "length": 17.967468,
-      "width": 12.715356,
-      "angle": 156,
-      "contrailSize": 12.715356,
+      "length": 23,
+      "width": 21,
+      "angle": -180,
+      "contrailSize": 21,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }
   ],
   "bounds": [
-    35.5, -17,
-    -17, -61,
-    -36.5, -24.5,
-    -36.5, 24.5,
-    -17, 61,
-    35.5, 17,
-    8, -0
+    6, -10,
+    34, -13.5,
+    -21, -60.5,
+    -38, -26,
+    -38, 26,
+    -21, 60.5,
+    34, 13.5,
+    6, 10
   ]
 }

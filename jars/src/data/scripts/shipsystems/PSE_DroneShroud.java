@@ -7,11 +7,13 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDrone;
+import data.scripts.PSEModPlugin;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
 
 import java.util.ArrayList;
 
 public class PSE_DroneShroud extends BaseShipSystemScript {
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneShroud_";
     public enum ShroudDroneOrders {
         CIRCLE,
         BROADSIDE_MOVEMENT,
@@ -57,7 +59,7 @@ public class PSE_DroneShroud extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_DroneShroud_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = UNIQUE_SYSTEM_PREFIX + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }
@@ -78,6 +80,9 @@ public class PSE_DroneShroud extends BaseShipSystemScript {
     public int getIndex(PSEDrone drone) {
         int index = 0;
         for (PSEDrone deployedDrone : deployedDrones) {
+            if (index >= maxDeployedDrones && !PSEModPlugin.memes) {
+                break;
+            }
             if (deployedDrone == drone) {
                 return index;
             }

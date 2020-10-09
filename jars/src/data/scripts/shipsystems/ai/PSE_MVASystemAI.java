@@ -33,7 +33,7 @@ public class PSE_MVASystemAI implements ShipSystemAIScript {
     @Override
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
         //unique identifier so that individual system can be gotten from combat engine custom data
-        String UNIQUE_SYSTEM_ID = "PSE_MVA_" + ship.hashCode();
+        String UNIQUE_SYSTEM_ID = PSE_DroneModularVectorAssembly.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
         PSE_DroneModularVectorAssembly droneSystem = (PSE_DroneModularVectorAssembly) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
         if (droneSystem == null || ship == null || !ship.isAlive()) {
             return;

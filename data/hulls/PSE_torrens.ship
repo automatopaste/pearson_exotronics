@@ -7,9 +7,9 @@
   "height": 66,
   "width": 62,
   "center": [31, 33.5],
-  "collisionRadius": 64,
+  "collisionRadius": 87,
   "shieldCenter": [0, 0],
-  "shieldRadius": 53.5,
+  "shieldRadius": 66.5,
   "viewOffset": 0,
   "builtInMods": [
     "repair_gantry",

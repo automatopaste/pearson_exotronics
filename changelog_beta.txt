@@ -1,0 +1,41 @@
+beta.4
+-todo - added planet descriptions for Adelaide system
+-todo - added missing shipsystem descriptions
+-todo - added missing wing descriptions
+-todo - added missing market interaction descriptions and images
+-todo - fix bugs from beta.3
+
+beta.3:
+-added bar event, quest and intel system (check a certain market in Adelaide star system ;))
+-when a drone mothership is destroyed, surviving drones will bolster reserve drone count of applicable nearby ships
+-drone manager plugin updated to support drone transfer, now accurately tracks reserve drone stockpiles and can store
+an unlimited number when more drones flock over from destroyed friendly sources
+-kingston can exclusively field an unlimited number of friendly shield drones around it
+-fixed zero flux disabled on leyland after using system
+-fixed denmark HIL drones not firing at certain angle
+-adjusted max burn of frigates
+-changed commissioned crew bonus to 50/40/30/25 reduction of ECM effect, and armour bonus to drones increased 10 -> 50 flat units
+-additional overhaul of paintjobs
+-reduced mini starburst flak fire rate 0.4 -> 0.6 cooldown
+-increased corsair mk1 railgun damage/shot 60 -> 130
+-reduced size of civilian wing to 2
+-cassius shield arc increased to 280, added 'militarised' civilian drone wing
+-kiruna now uses omni shield
+-overhauled flak proximity fuse plugin, vastly reduced unnecessary iteration
+-flak uses new proximity fuse explosion visual
+-leyland builtin parity destabiliser gun damage increased 800 -> 1200
+-configured indevo and nexerelin whitelists
+-fixed misaligned serrano mounts
+-increased shield radius on many ships
+-tweaked ancient planetary shield industry descriptions
+-drone manager no longer assumes shipsystem activation key is bound to F
+-add tooltip to malfunctioning shield at Adelaide
+-rewrote drone AI rotation functions for improved angular acceleration/deceleration
+-removed jerkiness of laser attack mode for corona drone system, uses a precise rotation AI
+
+beta.2:
+-fixed missing title screen variant
+-SpawnPearsonContent console command should not cause crashing when entering market afterwards
+-removed reference to extraneous scripts
+
+beta.1:

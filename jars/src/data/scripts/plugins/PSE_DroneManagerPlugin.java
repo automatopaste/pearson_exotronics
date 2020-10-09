@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
-    enum PSE_DroneSystemTypes {
+    public enum DroneSystemTypes {
         CORONA,
         BASTION,
         MVA,
@@ -41,29 +41,30 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
     private PSE_DroneShroud shroudSystem;
 
     private CombatEngineAPI engine;
-    private PSE_DroneSystemTypes droneSystemType;
-    IntervalUtil tracker;
+    private DroneSystemTypes droneSystemType;
+    private IntervalUtil tracker;
     private ShipAPI ship;
     private ShipSystemAPI system;
     private String droneVariant;
     private float launchSpeed;
     private float maxDeployedDrones;
+    private int reserveDroneCount;
 
     private ArrayList<PSEDrone> toRemove = new ArrayList<>();
 
     public PSE_DroneManagerPlugin(Object object, float maxDeployedDrones, float launchDelay, float launchSpeed, ShipAPI ship, String droneVariant) {
         if (object instanceof PSE_DroneCorona) {
             this.coronaSystem = (PSE_DroneCorona) object;
-            this.droneSystemType = PSE_DroneSystemTypes.CORONA;
+            this.droneSystemType = DroneSystemTypes.CORONA;
         } else if (object instanceof PSE_DroneBastion) {
             this.bastionSystem = (PSE_DroneBastion) object;
-            this.droneSystemType = PSE_DroneSystemTypes.BASTION;
+            this.droneSystemType = DroneSystemTypes.BASTION;
         } else if (object instanceof PSE_DroneModularVectorAssembly) {
             this.MVASystem = (PSE_DroneModularVectorAssembly) object;
-            this.droneSystemType = PSE_DroneSystemTypes.MVA;
+            this.droneSystemType = DroneSystemTypes.MVA;
         } else  if (object instanceof PSE_DroneShroud) {
             this.shroudSystem = (PSE_DroneShroud) object;
-            this.droneSystemType = PSE_DroneSystemTypes.SHROUD;
+            this.droneSystemType = DroneSystemTypes.SHROUD;
         } else {
             throw new NullPointerException("Unlucky: PSE undefined system launcher");
         }
@@ -75,11 +76,12 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         this.system = ship.getSystem();
         this.droneVariant = droneVariant;
         this.maxDeployedDrones = maxDeployedDrones;
+        this.reserveDroneCount = (int) maxDeployedDrones;
         this.engine = Global.getCombatEngine();
     }
 
-    boolean isActivePreviousFrame = false;
-    boolean isActivationKeyDownPreviousFrame = false;
+    private boolean isActivePreviousFrame = false;
+    private boolean isActivationKeyDownPreviousFrame = false;
 
     public void advance(float amount, List<InputEventAPI> events) {
         tracker.advance(amount);
@@ -91,6 +93,8 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             return;
         }
 
+        boolean isFKeyDown = Keyboard.isKeyDown(Keyboard.getKeyIndex(Global.getSettings().getControlStringForEnumName("SHIP_USE_SYSTEM")));
+
         int numDronesActive;
         ArrayList<PSEDrone> deployedDrones;
         switch (droneSystemType) {
@@ -101,23 +105,23 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 deployedDrones = coronaSystem.getDeployedDrones();
                 numDronesActive = deployedDrones.size();
 
-                trackSystemAmmo(numDronesActive);
+                trackSystemAmmo();
 
                 if (ship.getFluxTracker().isOverloadedOrVenting()) {
                     coronaSystem.setDroneOrders(PSE_DroneCorona.CoronaDroneOrders.DEPLOY);
                 }
 
-                if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.RECALL) && system.getAmmo() > 0) {
+                if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.RECALL) && reserveDroneCount > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
                         coronaSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
-                        system.setAmmo(system.getAmmo() - 1);
+                        reserveDroneCount -= 1;
                     }
                 }
 
-                if (coronaSystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
                     coronaSystem.nextDroneOrder();
                 }
 
@@ -133,9 +137,11 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     }
                 }
 
-                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+                updateDeployedDrones(deployedDrones);
 
                 coronaSystem.setDeployedDrones(deployedDrones);
+
+                system.setAmmo(reserveDroneCount);
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
 
@@ -148,29 +154,31 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 deployedDrones = bastionSystem.getDeployedDrones();
                 numDronesActive = deployedDrones.size();
 
-                trackSystemAmmo(numDronesActive);
+                trackSystemAmmo();
 
                 if (ship.getFluxTracker().isOverloadedOrVenting()) {
                     bastionSystem.setDroneOrders(PSE_DroneBastion.BastionDroneOrders.FRONT);
                 }
 
-                if (numDronesActive < maxDeployedDrones && !bastionSystem.getDroneOrders().equals(PSE_DroneBastion.BastionDroneOrders.RECALL) && system.getAmmo() > 0) {
+                if (numDronesActive < maxDeployedDrones && !bastionSystem.getDroneOrders().equals(PSE_DroneBastion.BastionDroneOrders.RECALL) && reserveDroneCount > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
                         bastionSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
-                        system.setAmmo(system.getAmmo() - 1);
+                        reserveDroneCount -= 1;
                     }
                 }
 
-                if (bastionSystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
                     bastionSystem.nextDroneOrder();
                 }
 
-                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+                updateDeployedDrones(deployedDrones);
 
                 bastionSystem.setDeployedDrones(deployedDrones);
+
+                system.setAmmo(reserveDroneCount);
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
 
@@ -183,25 +191,27 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 deployedDrones = MVASystem.getDeployedDrones();
                 numDronesActive = deployedDrones.size();
 
-                trackSystemAmmo(numDronesActive);
+                trackSystemAmmo();
 
-                if (numDronesActive < maxDeployedDrones && !MVASystem.getDroneOrders().equals(PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders.RECALL) && system.getAmmo() > 0) {
+                if (numDronesActive < maxDeployedDrones && !MVASystem.getDroneOrders().equals(PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders.RECALL) && reserveDroneCount > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
                         MVASystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
-                        system.setAmmo(system.getAmmo() - 1);
+                        reserveDroneCount -= 1;
                     }
                 }
 
-                if (MVASystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
                     MVASystem.nextDroneOrder();
                 }
 
-                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+                updateDeployedDrones(deployedDrones);
 
                 MVASystem.setDeployedDrones(deployedDrones);
+
+                system.setAmmo(reserveDroneCount);
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
                 break;
@@ -213,23 +223,24 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 deployedDrones = shroudSystem.getDeployedDrones();
                 numDronesActive = deployedDrones.size();
 
-                trackSystemAmmo(numDronesActive);
+                trackSystemAmmo();
 
-                if (numDronesActive < maxDeployedDrones && !shroudSystem.getDroneOrders().equals(PSE_DroneShroud.ShroudDroneOrders.RECALL) && system.getAmmo() > 0) {
+                //check if can spawn new drone
+                if (numDronesActive < maxDeployedDrones && !shroudSystem.getDroneOrders().equals(PSE_DroneShroud.ShroudDroneOrders.RECALL) && reserveDroneCount > 0) {
                     if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
                         tracker.setElapsed(0);
                         shroudSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
-                        system.setAmmo(system.getAmmo() - 1);
+                        reserveDroneCount -= 1;
                     }
                 }
 
-                if (shroudSystem.getShip().getSystem().getAmmo() == 0 && ship.equals(engine.getPlayerShip()) && Keyboard.isKeyDown(Keyboard.KEY_F) && isActivationKeyDownPreviousFrame != Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
                     shroudSystem.nextDroneOrder();
                 }
 
-                deployedDrones = getModifiedDeployedDrones(deployedDrones);
+                updateDeployedDrones(deployedDrones);
 
                 shroudSystem.setDeployedDrones(deployedDrones);
 
@@ -250,26 +261,28 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                         break;
                 }
 
+                system.setAmmo(reserveDroneCount);
+
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
         }
 
         isActivePreviousFrame = system.isActive();
-        isActivationKeyDownPreviousFrame = Keyboard.isKeyDown(Keyboard.KEY_F);
+        isActivationKeyDownPreviousFrame = isFKeyDown;
     }
 
-    public void trackSystemAmmo(int numDronesActive) {
+    private void trackSystemAmmo() {
         //ammo tracking
         // offset the silly automatic subtraction when system activated
         if (system.isActive() && !isActivePreviousFrame) {
             system.setAmmo(system.getAmmo() + 1);
         }
-        //make sure total drone count can not go above maximum ammo
-        if (system.getAmmo() > system.getMaxAmmo() - numDronesActive) {
+        /*//make sure total drone count can not go above maximum ammo
+        if (reserveDroneCount > system.getMaxAmmo() - numDronesActive) {
             system.setAmmo(system.getMaxAmmo() - numDronesActive);
-        }
+        }*/
     }
 
-    public ArrayList<PSEDrone> getModifiedDeployedDrones(ArrayList<PSEDrone> list) {
+    private void updateDeployedDrones(ArrayList<PSEDrone> list) {
         //remove inactive drones from list
         for (PSEDrone drone : list) {
             if (!drone.isAlive()) {
@@ -279,7 +292,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             //when drone has finished landing/shrinking animation
             if (drone.isFinishedLanding()) {
                 //add to system ammo count / reserve
-                system.setAmmo(system.getAmmo() + 1);
+                reserveDroneCount += 1;
 
                 drone.remove();
 
@@ -291,11 +304,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 list.remove(drone);
             }
         }
-
-        return list;
     }
 
-    public PSEDrone spawnDroneFromShip(String specID) {
+    private PSEDrone spawnDroneFromShip(String specID) {
         engine.getFleetManager(ship.getOriginalOwner()).setSuppressDeploymentMessages(true);
 
         Vector2f location;

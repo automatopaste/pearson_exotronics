@@ -34,11 +34,13 @@
         -added inbuilt civilian escort drone wing equipped with mini starburst flak and fighter ir pulse cannon
         -reworked variants
         -DP 3 -> 4
+        -Max burn 11 -> 9
     -cassius
         -sprite overhaul
         -added two synergy hardpoints
         -OP 40 -> 45 to compensate
         -reworked variants
+        -Max burn 11 -> 10
     -serrano
         -sprite overhaul
         -flux capacity 10000 -> 10500
@@ -55,6 +57,7 @@
         -shipsystem drone bastion replaced with flares
         -added inbuilt civilian escort drone wing equipped with mini starburst flak and fighter ir pulse cannon
         -DP 5 -> 3
+        -Max burn 11 -> 9
     -kiruna
         -sprite overhaul
         -acceleration increased
@@ -74,6 +77,8 @@
     -improved damping algorithm, much less jitter at low speeds, with higher maximum speeds
 -fixed drones piling up in deployed and destroyed ships with zero deployment points
 -fixed default colour for manufacturer
+-adjusted nex start options
+-tweaked malfunctioning shield generator text
 
 ========v0.5.4========
 -tweaks to Adelaide star system

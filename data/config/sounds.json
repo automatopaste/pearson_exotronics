@@ -29,15 +29,22 @@
     #DOUGLAS
     "PSE_douglas_fire":
     [
-        {"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.10,"volume":0.75},
-	{"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.15,"volume":0.75},
+        {"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.40,"volume":0.65},
+	{"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.45,"volume":0.65},
     ],
 
     #STARBURST
     "PSE_starburst_mini_fire":
     [
-        {"file":"sounds/sfx_wpn_guns/flak_fire_01.ogg","pitch":1.20,"volume":0.75},
-	{"file":"sounds/sfx_wpn_guns/flak_fire_01.ogg","pitch":1.25,"volume":0.75},
+        {"file":"sounds/sfx_wpn_guns/flak_fire_01.ogg","pitch":1.40,"volume":0.65},
+	{"file":"sounds/sfx_wpn_guns/flak_fire_01.ogg","pitch":1.45,"volume":0.65},
+    ],
+    "PSE_starburst_mini_explode":
+    [
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_01.ogg","pitch":1.60,"volume":0.50},
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_02.ogg","pitch":1.60,"volume":0.50},
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_03.ogg","pitch":1.60,"volume":0.50},
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_04.ogg","pitch":1.60,"volume":0.50},
     ],
 
     #EMP IMPACTS

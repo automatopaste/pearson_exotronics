@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.BaseCampaignEventListener;
 import com.fs.starfarer.api.campaign.PlanetAPI;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import org.lazywizard.lazylib.campaign.CampaignUtils;
@@ -77,7 +78,7 @@ public class PSE_MalfunctioningPlanetaryShieldPlugin extends BaseIndustry {
                 unapplyVisuals(market.getPlanetEntity());
                 market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).unmodifyMult(getModId());
 
-                message = "The planetary shield at New Caledonia has malfunctioned! " + time + " days of repair time estimated.";
+                message = "The planetary shield at New Caledonia has malfunctioned, estimated repair time of " + time + " days.";
             } else if (!isDisrupted()) {
                 applyVisuals(market.getPlanetEntity());
                 market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD).modifyMult(
@@ -94,6 +95,18 @@ public class PSE_MalfunctioningPlanetaryShieldPlugin extends BaseIndustry {
             ) {
                 Global.getSector().getCampaignUI().addMessage(message);
             }
+        }
+    }
+
+    protected boolean hasPostDemandSection(boolean hasDemand, IndustryTooltipMode mode) {
+        return mode != IndustryTooltipMode.NORMAL || isFunctional();
+    }
+
+    @Override
+    protected void addPostDemandSection(TooltipMakerAPI tooltip, boolean hasDemand, IndustryTooltipMode mode) {
+        if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
+
+            addGroundDefensesImpactSection(tooltip, ACTIVE_DEFENCE_BONUS, (String[])null);
         }
     }
 

@@ -19,7 +19,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": 105,
-      "locations": [-8, 34]
+      "locations": [-9, 34]
     },
     {
       "id": "WS0002",
@@ -28,7 +28,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": -105,
-      "locations": [-8, -34]
+      "locations": [-9, -34]
     },
     {
       "id": "WS0003",
@@ -37,7 +37,7 @@
       "mount": "TURRET",
       "arc": 270,
       "angle": 0,
-      "locations": [59, -0]
+      "locations": [58, -0]
     },
     {
       "id": "WS0004",
@@ -46,7 +46,7 @@
       "mount": "TURRET",
       "arc": 135,
       "angle": 0,
-      "locations": [31, -0]
+      "locations": [30, -0]
     },
     {
       "id": "WS0005",
@@ -55,7 +55,7 @@
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,
-      "locations": [73.5, 24]
+      "locations": [73, 24]
     },
     {
       "id": "WS0006",
@@ -64,7 +64,7 @@
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": -0,
-      "locations": [73.5, -24]
+      "locations": [73, -24]
     },
     {
       "id": "WS0007",
@@ -72,7 +72,7 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": 0,
+      "angle": -40,
       "locations": [-50.5, 34.5]
     },
     {
@@ -81,26 +81,26 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": -0,
+      "angle": 40,
       "locations": [-50.5, -34.5]
     }
   ],
   "engineSlots": [
     {
       "location": [-23.5, 27.5],
-      "length": 8.5,
-      "width": 20,
+      "length": 9.5,
+      "width": 14,
       "angle": 180,
-      "contrailSize": 20,
+      "contrailSize": 14,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-23.5, -27.5],
-      "length": 8.5,
-      "width": 20,
+      "length": 9.5,
+      "width": 14,
       "angle": -180,
-      "contrailSize": 20,
+      "contrailSize": 14,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
@@ -160,19 +160,37 @@
     },
     {
       "location": [-77.5, -16],
-      "length": 10.5,
-      "width": 23,
-      "angle": 168,
-      "contrailSize": 23,
+      "length": 9.813594,
+      "width": 9.98867,
+      "angle": 167.5,
+      "contrailSize": 9.98867,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
       "location": [-77.5, 16],
-      "length": 10.5,
-      "width": 23,
-      "angle": -168,
-      "contrailSize": 23,
+      "length": 9.813594,
+      "width": 9.98867,
+      "angle": -167.5,
+      "contrailSize": 9.98867,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-80.5, -24],
+      "length": 9.813594,
+      "width": 9.98867,
+      "angle": 167.5,
+      "contrailSize": 9.98867,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-80.5, 24],
+      "length": 9.813594,
+      "width": 9.98867,
+      "angle": -167.5,
+      "contrailSize": 9.98867,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }

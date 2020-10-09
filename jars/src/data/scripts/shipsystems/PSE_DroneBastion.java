@@ -13,7 +13,8 @@ import data.scripts.util.PSE_MiscUtils;
 import java.util.ArrayList;
 
 public class PSE_DroneBastion extends BaseShipSystemScript {
-    static final float FLUX_PER_SECOND = 100f;
+    //static final float FLUX_PER_SECOND = 100f;
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneBastion_";
 
     public enum BastionDroneOrders {
         FRONT,
@@ -57,7 +58,7 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
         if (engine != null) {
             ensurePluginExistence();
 
-            String UNIQUE_SYSTEM_ID = "PSE_DroneBastion_" + ship.hashCode();
+            String UNIQUE_SYSTEM_ID = UNIQUE_SYSTEM_PREFIX + ship.hashCode();
             engine.getCustomData().put(UNIQUE_SYSTEM_ID, this);
         }
     }
@@ -78,6 +79,9 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
     public int getIndex(PSEDrone drone) {
         int index = 0;
         for (PSEDrone deployedDrone : deployedDrones) {
+            if (index >= maxDeployedDrones) {
+                break;
+            }
             if (deployedDrone == drone) {
                 return index;
             }

@@ -26,8 +26,6 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
     private float longestWeaponRange = 0f;
     private float droneLongestWeaponRange = 0;
 
-    String UNIQUE_SYSTEM_ID;
-
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
         this.ship = ship;
         this.flags = flags;
@@ -46,10 +44,10 @@ public class PSE_DroneBastionSystemAI implements ShipSystemAIScript {
         tracker.advance(amount);
 
         //unique identifier so that individual system can be gotten from combat engine custom data
-        UNIQUE_SYSTEM_ID = "PSE_DroneBastion_" + ship.hashCode();
+        String uniqueSystemId = PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
-        this.droneSystem = (PSE_DroneBastion) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
-        if (droneSystem == null) {
+        this.droneSystem = (PSE_DroneBastion) engine.getCustomData().get(uniqueSystemId);
+        if (droneSystem == null || ship == null || !ship.isAlive()) {
             return;
         }
 

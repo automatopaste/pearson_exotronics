@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.impl.campaign.intel.deciv.DecivTracker;
+import com.fs.starfarer.api.util.Misc;
 
 import java.util.ArrayList;
 
@@ -83,5 +84,20 @@ public final class PSE_CampaignUtils {
 
         newMarket.reapplyIndustries();
         return newMarket;
+    }
+
+    public static MarketAPI getLargestMarketForFaction(final String id, boolean canHaveNullPrimary) {
+        int size = 0;
+        MarketAPI largest = null;
+        for (MarketAPI market : Misc.getFactionMarkets(Global.getSector().getFaction(id))) {
+            if (!canHaveNullPrimary && market.getPrimaryEntity() == null) {
+                continue;
+            }
+            if (market.getSize() > size) {
+                size = market.getSize();
+                largest = market;
+            }
+        }
+        return largest;
     }
 }
