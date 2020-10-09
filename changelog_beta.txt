@@ -6,6 +6,7 @@ beta.4
 -todo - fix bugs from beta.3
 
 beta.3:
+-version checker fix
 -added bar event, quest and intel system (check a certain market in Adelaide star system ;))
 -when a drone mothership is destroyed, surviving drones will bolster reserve drone count of applicable nearby ships
 -drone manager plugin updated to support drone transfer, now accurately tracks reserve drone stockpiles and can store

@@ -116,6 +116,10 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
             String spec = projectile.getProjectileSpecId();
             Vector2f location = projectile.getLocation();
 
+            if (spec == null) {
+                return;
+            }
+
             switch (spec) {
                 case MINI_FLAK_PROJECTILE_ID:
                     if (projectile.didDamage()) break;
