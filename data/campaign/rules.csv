@@ -1,0 +1,7 @@
+id,trigger,conditions,script,text,options,notes
+PSE_SODCampDeliveryCheckCompletion,MarketPostDock,"$tradeMode != NONE
+PSE_SODCampDeliveryMission PSE_checkCompletion score:100",PSE_SODCampDeliveryMission PSE_completeMissions,,,
+PSE_SODCampDeliveryCompletedButNoDocking,MarketPostDock,"!$PSE_SODCampDeliveryNoCompleteShown
+$tradeMode == NONE
+PSE_SODCampDeliveryMission PSE_checkCompletion score:100","$PSE_SODCampDeliveryNoCompleteShown = true 0
+FireBest MarketPostDock",You're unable to complete your delivery contract at this time.,,

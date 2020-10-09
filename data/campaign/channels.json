@@ -1,0 +1,12 @@
+{
+	"PSE_secure":{
+		"name":"Pearson Secure Communication",
+		"logo":"graphics/PSE/icons/intel/PSE_intel_secure.png",
+		"icon":"graphics/PSE/icons/intel/PSE_intel_secure.png",
+		"image":"graphics/PSE/factions/PSE_banner.png",
+		"sound":"ui_channel_comm_secure",
+		"faction":"pearson_exotronics",
+		"type":"Intelligence Report",
+		"shortType":"Intel",
+	},
+}
