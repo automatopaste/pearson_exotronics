@@ -12,6 +12,9 @@ beta.4:
 -pearson buffalo now actually spawns
 -console command SpawnPearsonContent properly adds bar event
 -Corsair Mk.1 railgun nerfed, damage/shot 130 -> 90, flux/shot 55 -> 70
+-improved corona focus mode drone targeting detection for firing over friendlies, now based on bounds collisions
+-fixed drones not recovering and relaunching in combat
+-reserve drones will now build up to twice max deployed size
 
 beta.3:
 -version checker fix

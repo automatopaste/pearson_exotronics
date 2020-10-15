@@ -167,7 +167,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             }
 
             //check for friendlies
-            boolean areFriendliesInFiringArc = PSE_DroneUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange, droneFacing, 10f);
+            boolean areFriendliesInFiringArc = PSE_DroneUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange, droneFacing, 40f);
             drone.setHoldFireOneFrame(areFriendliesInFiringArc);
 
             /* debug stuff

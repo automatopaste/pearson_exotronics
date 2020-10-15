@@ -3,9 +3,8 @@ package data.scripts.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
-import com.fs.starfarer.combat.CombatEngine;
 import data.scripts.PSEDrone;
-import data.scripts.plugins.PSE_DroneManagerPlugin;
+import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
@@ -273,18 +272,36 @@ public final class PSE_DroneUtils {
     }
 
     public static boolean areFriendliesBlockingArc(CombatEntityAPI drone, CombatEntityAPI target, float focusWeaponRange, float arcFacing, float arcDeviation) {
-        boolean areFriendliesInFiringArc = false;
         for (ShipAPI ally : AIUtils.getNearbyAllies(drone, focusWeaponRange)) {
-            if (!PSE_MiscUtils.isEntityInArc(ally, drone.getLocation(), arcFacing, arcDeviation)) {
+            if (ally.getCollisionClass() == CollisionClass.FIGHTER || ally.getCollisionClass() == CollisionClass.NONE) {
                 continue;
             }
-            if (MathUtils.getDistance(target, drone) < MathUtils.getDistance(ally, drone)) {
+
+            float distance = MathUtils.getDistance(ally, drone);
+            if (MathUtils.getDistance(target, drone) < distance) {
                 continue;
             }
-            areFriendliesInFiringArc = true;
-            break;
+
+            if (CollisionUtils.getCollisionPoint(drone.getLocation(), target.getLocation(), ally) != null) {
+                return true;
+            }
+
+            /*float frac = (focusWeaponRange - distance) / focusWeaponRange;
+            float arc = (frac * 20f);// + arcDeviation;
+            if (arc <= 0f) arc = 1f;
+
+            float num = distance - focusWeaponRange;
+            num *= num * num * num;
+            float div = focusWeaponRange * focusWeaponRange * focusWeaponRange * focusWeaponRange;
+            float arc = (num / div) * arcDeviation;
+
+            if (!PSE_MiscUtils.isEntityInArc(ally, drone.getLocation(), arcFacing, arc)) {
+                continue;
+            }
+
+            areFriendliesInFiringArc = true;*/
         }
-        return areFriendliesInFiringArc;
+        return false;
     }
 
     public static ShipAPI getAlternateHost(PSEDrone drone, String prefix, CombatEngineAPI engine) {

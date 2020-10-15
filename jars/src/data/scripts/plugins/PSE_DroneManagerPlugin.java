@@ -82,6 +82,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
     private boolean isActivePreviousFrame = false;
     private boolean isActivationKeyDownPreviousFrame = false;
+    private int ammoLastFrame = 0;
 
     public void advance(float amount, List<InputEventAPI> events) {
         tracker.advance(amount);
@@ -268,6 +269,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
         isActivePreviousFrame = system.isActive();
         isActivationKeyDownPreviousFrame = isFKeyDown;
+        ammoLastFrame = system.getAmmo();
     }
 
     private void trackSystemAmmo() {
@@ -280,6 +282,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         if (reserveDroneCount > system.getMaxAmmo() - numDronesActive) {
             system.setAmmo(system.getMaxAmmo() - numDronesActive);
         }*/
+        if (system.getCooldownRemaining() <= 0f && ammoLastFrame != system.getAmmo() && reserveDroneCount < maxDeployedDrones) {
+            reserveDroneCount++;
+        }
     }
 
     private void updateDeployedDrones(ArrayList<PSEDrone> list) {

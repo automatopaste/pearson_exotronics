@@ -207,8 +207,12 @@ public final class PSE_MiscUtils {
         //Vector2f entityRelativeLocation = Vector2f.sub(entity.getLocation(), center, new Vector2f());
         //float entityAngle = VectorUtils.getFacing(entityRelativeLocation);
         //float rel = MathUtils.getShortestRotation(entityAngle, centerAngle);
-
-        return  Misc.isInArc(centerAngle, arcDeviation * 2f, center, entity.getLocation());
+        if (entity instanceof ShipAPI) {
+            Vector2f point = getNearestPointOnShipBounds((ShipAPI) entity, center);
+            return Misc.isInArc(centerAngle, arcDeviation * 2f, center, point);
+        } else {
+            return Misc.isInArc(centerAngle, arcDeviation * 2f, center, getNearestPointOnCollisionRadius(entity,  center));
+        }
         //return rel < arcDeviation && rel > -arcDeviation;
     }
 
