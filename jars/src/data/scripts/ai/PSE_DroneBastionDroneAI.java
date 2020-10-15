@@ -61,20 +61,19 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         if (engine.isPaused()) {
             return;
         }
-        if (drone == null || ship == null) {
+        if (drone == null) {
             return;
         }
+
 
         ////////////////////
         ///INITIALISATION///
         ///////////////////
 
+
         float sanity = 1f;
 
-        if (ship == null) {
-            return;
-        }
-        if (!ship.isAlive()) {
+        if (ship == null || !ship.isAlive()) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX, engine);

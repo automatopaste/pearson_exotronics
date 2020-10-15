@@ -46,15 +46,17 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
         if (engine.isPaused()) {
             return;
         }
+        if (drone == null) {
+            return;
+        }
+
 
         ////////////////////
         ///INITIALISATION///
         ///////////////////
 
-        if (ship == null) {
-            return;
-        }
-        if (!ship.isAlive()) {
+
+        if (ship == null || !ship.isAlive()) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX, engine);

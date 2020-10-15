@@ -11,9 +11,6 @@
   "shieldCenter": [0, 0],
   "shieldRadius": 21.5,
   "viewOffset": 0,
-  "builtInMods": [
-    "pointdefenseai"
-  ],
   "weaponSlots": [],
   "engineSlots": [
     {

@@ -67,13 +67,17 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         if (engine.isPaused()) {
             return;
         }
+        if (drone == null) {
+            return;
+        }
+
 
         ////////////////////
         ///INITIALISATION///
         ///////////////////
 
 
-        if (!ship.isAlive()) {
+        if (ship == null || !ship.isAlive()) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX, engine);

@@ -1,9 +1,14 @@
-beta.5
+beta.6
 -todo - added planet descriptions for Adelaide system
 -todo - added missing shipsystem descriptions
 -todo - added missing wing descriptions
 -todo - added missing market interaction descriptions and images
 -todo - fix bugs from beta.4
+
+beta.5:
+-hotfix for drone ai crash
+-adjusted leyland parity destabiliser gun - cooldown 2 -> 2.5, proj speed 1600 -> 1400, damage/shot 1200 -> 1350
+-removed terminator core hullmod from corona and bastion drones for being unnecessary and too powerful
 
 beta.4:
 -fixed crash in weapon effect plugin
