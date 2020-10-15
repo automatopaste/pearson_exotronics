@@ -48,14 +48,10 @@
 		"PSE_eyre_Standard":4,
 		"PSE_eyre_Elite":3,
 
-		"PSE_eyre_sod_Special":10
+		"PSE_eyre_sod_Special":10,
 	},
 
-	"carrierSmall":{
-		"PSE_torrens_Standard":0
-	},
-
-	"civilianRandom":{
-		"PSE_buffalo_pe_Standard":1,
+	"freighterMedium":{
+		"PSE_buffalo_pe_Standard":5,
 	}
 },

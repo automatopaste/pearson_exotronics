@@ -47,7 +47,7 @@ public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFra
     private int payment;
     private PersonAPI bountyGiver;
 
-    public PSE_SODBountyFleetIntel(int payment, PersonAPI bountyGiver) { //todo - add detailed intel descriptions
+    public PSE_SODBountyFleetIntel(int payment, PersonAPI bountyGiver) { //todo.txt - add detailed intel descriptions
         this.payment = payment;
         this.bountyGiver = bountyGiver;
 

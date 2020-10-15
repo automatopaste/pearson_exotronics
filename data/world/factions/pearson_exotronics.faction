@@ -39,7 +39,7 @@
 			"PSE_serrano":4,
 			"PSE_kingston":2,
 			"PSE_leyland":3,
-			"PSE_buffalo_pe":5,
+			"PSE_buffalo_pe":2,
 		},
 	},
 	# ships the faction gets access to when importing S&W out-of-faction
@@ -73,7 +73,7 @@
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available
 	"priorityShips":{
-		"tags":["PSE_base_bp", "PSE_military_bp"],
+		"tags":["PSE_base_bp", "PSE_military_bp", "PSE_sod_bp"],
 		"hulls":[
 			"PSE_cassius",
 			#"PSE_torrens",
@@ -84,6 +84,7 @@
 			"PSE_leyland",
 			"PSE_kingston",
 			"PSE_kingston_sod",
+			"PSE_buffalo_pe",
 		],
 	},
 	"knownFighters":{

@@ -29,7 +29,7 @@
 	    "diplomatic":0
     },
 
-    "diplomacyTraits":["pacifist", "neutralist"],
+    "diplomacyTraits":["helps_allies", "irredentist", "neutralist"],
     
     "freeMarket":false,
     
@@ -50,13 +50,13 @@
       ["apogee_Balanced", "PSE_richmond_Assault", "PSE_kiruna_CloseSupport"]
     ],
     "startShipsTradeLarge":[
-      ["PSE_eyre_Standard", "buffalo_hegemony_Standard", "buffalo_Standard", "PSE_denmark_Assault"],
+      ["PSE_eyre_Standard", "buffalo_hegemony_Standard", "PSE_buffalo_pe_Standard", "PSE_denmark_Assault"],
       ["colossus_Standard", "PSE_cassius_Assault", "PSE_richmond_Assault"]
     ],
-    "startShipsCarrierSmall":[["PSE_torrens_Standard", "tempest_Attack", "PSE_richmond_Assault"]],
-    "startShipsCarrierLarge":[["PSE_serrano_Assault", "PSE_cassius_CloseSupport", "PSE_richmond_Assault"]],
+    "startShipsCarrierSmall":[["PSE_torrens_Standard", "PSE_eyre_Elite", "PSE_richmond_Assault"]],
+    "startShipsCarrierLarge":[["heron_Attack", "PSE_cassius_CloseSupport", "PSE_denmark_Assault"]],
     "startShipsSuper":[
-        ["PSE_kiruna_Strike"]
+        ["PSE_leyland_sod_Special"]
     ],
 
     "startSpecialItems":[

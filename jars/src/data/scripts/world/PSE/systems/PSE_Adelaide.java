@@ -31,7 +31,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
 
         //set up star
         PlanetAPI star = system.initStar("PSE_adelaide_star", "star_orange", 900, 1550, -15000, 900);
-        //todo - set custom description
+        //todo.txt - set custom description
 
         //generate up to three entities in the centre of the system and returns the orbit radius of the furthest entity
         float innerOrbitDistance = StarSystemGenerator.addOrbitingEntities(system, star, StarAge.AVERAGE, 1, 3, 4000, 1, true);
@@ -101,7 +101,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         danu.getSpec().setCloudColor(new Color(156, 230, 250,150));
         danu.getSpec().setAtmosphereColor(new Color(181,180, 255,150));
         danu.applySpecChanges();
-        //todo - custom description
+        //todo.txt - custom description
 
         system.addRingBand(danu, "misc", "rings_ice0", 256f, 3, Color.white, 256f, 1500, 30f, Terrain.RING, null);
         system.addRingBand(danu, "misc", "rings_dust0", 256f, 2, Color.white, 256f, 1850, 33f, Terrain.RING, null);

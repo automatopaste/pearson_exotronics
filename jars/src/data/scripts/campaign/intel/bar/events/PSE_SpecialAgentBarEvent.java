@@ -77,11 +77,11 @@ public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
         STARTING_STAGES.add(AgentEventStages.GIVE_FLEET_BOUNTY);
         STARTING_STAGES.add(AgentEventStages.GIVE_SUBMARKET_QUEST);
     }
-    private AgentEventStages stage = AgentEventStages.GIVE_SUBMARKET_QUEST;
+    private AgentEventStages stage = AgentEventStages.INTRODUCTION;
 
     private static final float FLEET_BOUNTY_REWARD_BASE = 150000f;
     private float bountyReward = 0f;
-    private static boolean hasDefeatedInitialFleet = true;
+    private static boolean hasDefeatedInitialFleet = false;
     private static boolean hasFoundInitialSubmarket = false;
     private static final String QUEST_TIME_TRACKER_KEY = "$PSE_questTimeTracker";
     private static final float QUEST_INTERVAL_DAYS = 10f;

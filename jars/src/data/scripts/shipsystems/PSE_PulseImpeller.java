@@ -62,7 +62,7 @@ public class PSE_PulseImpeller extends BaseShipSystemScript {
         if (state.equals(State.IN)) {
             List<ShipEngineControllerAPI.ShipEngineAPI> engineList = ship.getEngineController().getShipEngines();
             if (!started) {
-                //todo - play sound
+                //todo.txt - play sound
 
                 boostFraction = 1 - (ship.getNumFlameouts() / (float) engineList.size());
 

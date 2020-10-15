@@ -1,9 +1,17 @@
-beta.4
+beta.5
 -todo - added planet descriptions for Adelaide system
 -todo - added missing shipsystem descriptions
 -todo - added missing wing descriptions
 -todo - added missing market interaction descriptions and images
--todo - fix bugs from beta.3
+-todo - fix bugs from beta.4
+
+beta.4:
+-fixed crash in weapon effect plugin
+-fixed bar event starting halfway through
+-adjusted Nexerelin start options
+-pearson buffalo now actually spawns
+-console command SpawnPearsonContent properly adds bar event
+-Corsair Mk.1 railgun nerfed, damage/shot 130 -> 90, flux/shot 55 -> 70
 
 beta.3:
 -version checker fix
