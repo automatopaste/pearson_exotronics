@@ -1,8 +1,17 @@
-beta.7
+beta.8
 -todo - added planet descriptions for Adelaide system
 -todo - added missing wing descriptions
 -todo - added missing market interaction descriptions and images
--todo - fix bugs from beta.6
+-todo - fix bugs from beta.7
+
+beta.7
+-fixed crash related to using shield bypass
+-fixed corona system AI script accelerating nearby missiles to infinity
+-corona system AI now avoid missiles based on bounds if shield is disabled
+-added some Pearson variants to sim
+-fixed system info text displaying wrong action text when at certain capacities
+-fixed corona shield debuff text displaying when shield disabled
+-fixed drone system universal shield debuff text displaying when shield disabled
 
 beta.6
 -nerfs to drone corona shipsystem, -35% shield efficiency debuff in focus mod, system ai tweaked to compensate

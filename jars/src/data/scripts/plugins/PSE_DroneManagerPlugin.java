@@ -89,7 +89,11 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         this.reserveDroneCount = (int) maxDeployedDrones;
         this.engine = Global.getCombatEngine();
 
-        defaultShieldColour = ship.getShield().getInnerColor();
+        if (ship.getShield() != null) {
+            defaultShieldColour = ship.getShield().getInnerColor();
+        } else {
+            defaultShieldColour = new Color(255, 255, 255, 255);
+        }
     }
 
     private boolean isActivePreviousFrame = false; //prevents triggering twice on first activation
@@ -150,7 +154,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 if (coronaSystem.getDroneOrders() != PSE_DroneCorona.CoronaDroneOrders.RECALL) {
                     ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(this.toString(),-25f);
                     ship.getMutableStats().getShieldTurnRateMult().modifyPercent(this.toString(), -25f);
-                    if (ship.equals(engine.getPlayerShip())) {
+                    if (ship.getShield() != null && ship.equals(engine.getPlayerShip())) {
                         engine.maintainStatusForPlayerShip(
                                 "PSE_shieldDebuffStat",
                                 "graphics/icons/hullsys/fortress_shield.png",
@@ -167,20 +171,20 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 if (coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
                     ship.setJitterShields(false);
                     ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 8, 1f, 2f);
-                    ship.getShield().setInnerColor(new Color(74, 236, 213, 193));
+                    if (ship.getShield() != null) ship.getShield().setInnerColor(new Color(74, 236, 213, 193));
 
                     ship.getMutableStats().getZeroFluxSpeedBoost().modifyMult(this.toString(), 0f);
                     ship.getMutableStats().getShieldDamageTakenMult().modifyMult(this.toString(), 1.35f);
 
                     if (ship.equals(engine.getPlayerShip())) {
                         engine.maintainStatusForPlayerShip("PSE_coronaBoost1", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
-                        engine.maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
+                        if (ship.getShield() != null) engine.maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
                     }
                 } else {
                     ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(this.toString());
                     ship.getMutableStats().getShieldDamageTakenMult().unmodify(this.toString());
 
-                    ship.getShield().setInnerColor(defaultShieldColour);
+                    if (ship.getShield() != null) ship.getShield().setInnerColor(defaultShieldColour);
                 }
 
                 updateDeployedDrones(deployedDrones);

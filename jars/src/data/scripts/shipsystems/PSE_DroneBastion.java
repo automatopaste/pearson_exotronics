@@ -140,11 +140,12 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
     public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
         if (plugin == null) return "NULL";
 
-        String volume = plugin.getReserveDroneCount() + " / " + (maxDeployedDrones - 1);
+        int reserve = plugin.getReserveDroneCount();
+        String volume = reserve + " / " + (maxDeployedDrones - 1);
 
-        if (system.getAmmo() < maxDeployedDrones - 1) {
+        if (reserve < maxDeployedDrones - 1) {
             return volume + ": FORGING";
-        } else if (system.getAmmo() > maxDeployedDrones - 1) {
+        } else if (reserve > maxDeployedDrones - 1) {
             return volume + ": OVER FORGE CAPACITY";
         } else {
             return volume + ": AT CAPACITY";

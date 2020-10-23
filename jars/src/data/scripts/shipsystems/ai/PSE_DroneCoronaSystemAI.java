@@ -78,9 +78,16 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                     //if (PSE_MiscUtils.isEntityInArc(missile, ship.getLocation(), VectorUtils.getFacing(relativeVelocity), 30f)) {
                     //    missileConcernTracker += missile.getDamageAmount();
                     //}
-                    if (CollisionUtils.getCollisionPoint(missile.getLocation(),(Vector2f)missile.getVelocity().scale(2000f), ship) != null) {
-                        missileConcernTracker += missile.getDamageAmount();
+                    if (ship.getShield() == null || ship.getShield().isOff()) {
+                        if (CollisionUtils.getCollisionPoint(missile.getLocation(), (Vector2f) relativeVelocity.scale(10f), ship) != null) {
+                            missileConcernTracker += missile.getDamageAmount();
+                        }
+                    } else {
+                        if (CollisionUtils.getCollides(missile.getLocation(), (Vector2f) relativeVelocity.scale(10f), ship.getLocation(), ship.getShieldRadiusEvenIfNoShield())) {
+                            missileConcernTracker += missile.getDamageAmount();
+                        }
                     }
+
                 }
             }
             isMissileThreatPresent = missileConcernTracker >= MISSILE_DAMAGE_CONCERN_THRESHOLD;
