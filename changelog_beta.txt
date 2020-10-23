@@ -1,9 +1,23 @@
-beta.6
+beta.7
 -todo - added planet descriptions for Adelaide system
--todo - added missing shipsystem descriptions
 -todo - added missing wing descriptions
 -todo - added missing market interaction descriptions and images
--todo - fix bugs from beta.4
+-todo - fix bugs from beta.6
+
+beta.6
+-nerfs to drone corona shipsystem, -35% shield efficiency debuff in focus mod, system ai tweaked to compensate
+-constant -25% shield raise and rotate speed debuff with any active drone system
+-added new hullmod: Converted Drone Hangars, is a modularisation of drone hangars for very viable carrier builds
+-added description for MVA shipsystem
+-fixed drones not landing straight into hangars when transitioning to new ship in some situations
+-transitioning drones now wait until in collision radius of new host before beginning landing animation
+-fixed crash in shroud system AI
+-adjusted the way in which systems visually regain charges/drones
+-added text to system bar indicating reserve drone count and maximum drone reserve capacity
+-fixed bug with save loading related to special bounty intel
+-changed Commissioned Crews hullmod icon
+-added new hullmod: Overclocked Forge Vats, increases drone regen speed at cost of some missile health and damage
+-adjusted/fixed some variants
 
 beta.5:
 -hotfix for drone ai crash

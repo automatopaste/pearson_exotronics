@@ -3,36 +3,26 @@
   "hullId": "PSE_kingston",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 50,
-  "fluxVents": 29,
+  "fluxCapacitors": 40,
+  "fluxVents": 18,
   "quality": 0.8,
   "permaMods": [],
   "hullMods": [
-    "missleracks",
-    "unstable_injector"
+    "unstable_injector",
+    "PSE_ConvertedDroneHangars"
   ],
   "weaponGroups": [
     {
       "autofire": false,
-      "mode": "ALTERNATING",
-      "weapons": {
-        "WS0007": "cyclone",
-        "WS0008": "cyclone"
-      }
-    },
-    {
-      "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "lightneedler",
-        "WS0002": "lightneedler",
-        "WS0013": "heavyneedler",
-        "WS0014": "heavyneedler"
+        "WS0007": "hurricane",
+        "WS0008": "hurricane"
       }
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS0005": "harpoonpod",
         "WS0006": "harpoonpod",
@@ -44,27 +34,29 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0017": "PSE_douglas",
-        "WS0018": "PSE_douglas"
+        "WS0013": "hveldriver",
+        "WS0014": "hveldriver"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "lrpdlaser",
-        "WS0004": "lrpdlaser",
-        "WS0011": "lrpdlaser",
-        "WS0012": "lrpdlaser",
-        "WS0015": "lrpdlaser",
-        "WS0016": "lrpdlaser",
-        "WS0019": "lrpdlaser",
-        "WS0020": "lrpdlaser",
-        "WS0021": "PSE_spectrumpd",
-        "WS0022": "PSE_spectrumpd"
+        "WS0001": "PSE_spectrumpd",
+        "WS0002": "PSE_spectrumpd",
+        "WS0011": "PSE_spectrumpd",
+        "WS0012": "PSE_spectrumpd"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "flak",
+        "WS0018": "flak"
       }
     }
   ],
   "modules": [],
-  "wings": []
+  "wings": ["PSE_hale_wing", "PSE_hale_wing", "PSE_rhys_wing"]
 }

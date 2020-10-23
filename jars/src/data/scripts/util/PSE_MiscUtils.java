@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 public final class PSE_MiscUtils {
-    private static final String droneCoronaSpecJsonFilename = "data/shipsystems/PSE_corona.system";
-    private static final String droneBastionSpecJsonFilename = "data/shipsystems/PSE_bastion.system";
-    private static final String MVASpecJsonFilename = "data/shipsystems/PSE_MVA.system";
+    private static final String droneCoronaSpecJsonFilename = "data/shipsystems/PSE_droneCorona.system";
+    private static final String droneBastionSpecJsonFilename = "data/shipsystems/PSE_droneBastion.system";
+    private static final String MVASpecJsonFilename = "data/shipsystems/PSE_droneMVA.system";
 
     public static class PSE_CoronaSpecLoading {
         private static float[] initialOrbitAngleArray;

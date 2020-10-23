@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import data.scripts.PSEDrone;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
@@ -87,7 +88,7 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
             if (deployedDrone == drone) {
                 return index;
             }
-            ++index;
+            index++;
         }
         return -1;
     }
@@ -98,10 +99,6 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
 
     public void nextDroneOrder() {
         droneOrders = getNextOrder();
-    }
-
-    public void setDroneOrders(ModularVectorAssemblyDroneOrders droneOrders) {
-        this.droneOrders = droneOrders;
     }
 
     public ShipAPI getShip() {
@@ -134,6 +131,21 @@ public class PSE_DroneModularVectorAssembly extends BaseShipSystemScript {
                     engine.maintainStatusForPlayerShip("MVA_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+        if (plugin == null) return "NULL";
+
+        String volume = plugin.getReserveDroneCount() + " / " + (maxDeployedDrones - 1);
+
+        if (system.getAmmo() < maxDeployedDrones - 1) {
+            return volume + ": FORGING";
+        } else if (system.getAmmo() > maxDeployedDrones - 1) {
+            return volume + ": OVER FORGE CAPACITY";
+        } else {
+            return volume + ": AT CAPACITY";
         }
     }
 

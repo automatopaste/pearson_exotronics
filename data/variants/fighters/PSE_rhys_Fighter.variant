@@ -1,0 +1,36 @@
+{
+  "variantId": "PSE_rhys_Fighter",
+  "hullId": "PSE_rhys",
+  "displayName": "Heavy Fighter",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "PSE_corsair_mk1"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "ioncannon_fighter"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "taclaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

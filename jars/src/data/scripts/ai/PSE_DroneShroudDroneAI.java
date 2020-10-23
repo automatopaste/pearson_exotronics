@@ -56,20 +56,19 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
         ///////////////////
 
 
-        if (ship == null || !ship.isAlive()) {
+        if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX, engine);
 
-            if (ship == null) {
+            if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
                 PSE_DroneUtils.deleteDrone(drone, engine);
                 return;
             }
         }
 
-        String uniqueSystemId = PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
-
         //get ship system object
+        String uniqueSystemId = PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
         PSE_DroneShroud shipDroneShroudSystem = (PSE_DroneShroud) engine.getCustomData().get(uniqueSystemId);
         if (shipDroneShroudSystem == null) {
             return;

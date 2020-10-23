@@ -36,8 +36,6 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
     private float focusWeaponRange;
     private boolean isInFocusMode;
 
-    private String UNIQUE_SYSTEM_ID;
-
     public PSE_DroneCoronaDroneAI(PSEDrone passedDrone) {
         this.engine = Global.getCombatEngine();
 
@@ -55,8 +53,6 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
                 focusWeaponRange = weapon.getRange();
             }
         }
-
-        this.UNIQUE_SYSTEM_ID = PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -77,19 +73,20 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         ///////////////////
 
 
-        if (ship == null || !ship.isAlive()) {
+        if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX, engine);
 
-            if (ship == null) {
+            if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
                 PSE_DroneUtils.deleteDrone(drone, engine);
                 return;
             }
         }
 
         //get ship system object
-        PSE_DroneCorona shipDroneCoronaSystem = (PSE_DroneCorona) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        String uniqueSystemId = PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
+        PSE_DroneCorona shipDroneCoronaSystem = (PSE_DroneCorona) engine.getCustomData().get(uniqueSystemId);
         if (shipDroneCoronaSystem == null) {
             return;
         }
@@ -266,10 +263,6 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             }
         }
     }
-
-    /*
-    public void doIndependentBehaviour(float facing, float sanity) {
-    }*/
 
     //OVERRIDES
 

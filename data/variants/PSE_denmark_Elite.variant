@@ -14,23 +14,25 @@
   "weaponGroups": [
     {
       "autofire": true,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
-        "WS0003": "lightag",
-        "WS0004": "typhoon",
         "WS0005": "hveldriver",
         "WS0006": "hveldriver"
       }
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
-      "weapons": {}
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "typhoon"
+      }
     },
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS0003": "lightag"
+      }
     },
     {
       "autofire": true,

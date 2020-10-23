@@ -1,0 +1,62 @@
+{
+  "hullName": "Hale",
+  "hullId": "PSE_hale",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_hale.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 32,
+  "width": 32,
+  "center": [16, 16],
+  "collisionRadius": 46,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 33,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0001": "hammer_single",
+    "WS0002": "hammer_single"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [4.5, 11.5]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [4.5, -11.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-13.5, 11.5],
+      "length": 16,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "COBRA_BOMBER"
+    },
+    {
+      "location": [-13.5, -11.5],
+      "length": 16,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "COBRA_BOMBER"
+    }
+  ],
+  "bounds": [
+    -10, -15,
+    10, -5.5,
+    10, 5.5,
+    -10, 15
+  ]
+}

@@ -1,5 +1,5 @@
 {
-	"id":"PSE_MVA",
+	"id":"PSE_droneMVA",
 	"type":"STAT_MOD",
 	"statsScript":"data.scripts.shipsystems.PSE_DroneModularVectorAssembly",
 	"aiType":"CUSTOM",

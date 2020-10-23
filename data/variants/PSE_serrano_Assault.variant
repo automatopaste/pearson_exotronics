@@ -3,13 +3,13 @@
   "hullId": "PSE_serrano",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 19,
+  "fluxCapacitors": 11,
   "fluxVents": 30,
   "quality": 0.8,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "fluxdistributor"
+    "PSE_OverclockedForgeVats"
   ],
   "weaponGroups": [
     {

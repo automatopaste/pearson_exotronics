@@ -35,6 +35,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         SHROUD
     }
 
+    public static final String LAUNCH_DELAY_STAT_KEY = "PSE_launchDelayStatKey";
+    public static final String REGEN_DELAY_STAT_KEY = "PSE_regenDelayStatKey";
+
     private PSE_DroneCorona coronaSystem;
     private PSE_DroneBastion bastionSystem;
     private PSE_DroneModularVectorAssembly MVASystem;
@@ -42,15 +45,17 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
     private CombatEngineAPI engine;
     private DroneSystemTypes droneSystemType;
-    private IntervalUtil tracker;
+    private IntervalUtil launchTracker;
     private ShipAPI ship;
     private ShipSystemAPI system;
     private String droneVariant;
     private float launchSpeed;
     private float maxDeployedDrones;
     private int reserveDroneCount;
+    private float baseCooldown;
 
     private ArrayList<PSEDrone> toRemove = new ArrayList<>();
+    private Color defaultShieldColour;
 
     public PSE_DroneManagerPlugin(Object object, float maxDeployedDrones, float launchDelay, float launchSpeed, ShipAPI ship, String droneVariant) {
         if (object instanceof PSE_DroneCorona) {
@@ -62,31 +67,36 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         } else if (object instanceof PSE_DroneModularVectorAssembly) {
             this.MVASystem = (PSE_DroneModularVectorAssembly) object;
             this.droneSystemType = DroneSystemTypes.MVA;
-        } else  if (object instanceof PSE_DroneShroud) {
+        } else if (object instanceof PSE_DroneShroud) {
             this.shroudSystem = (PSE_DroneShroud) object;
             this.droneSystemType = DroneSystemTypes.SHROUD;
         } else {
             throw new NullPointerException("Unlucky: PSE undefined system launcher");
         }
 
-        this.tracker = new IntervalUtil(launchDelay, launchDelay);
-
         this.launchSpeed = launchSpeed;
+
+        this.launchTracker = new IntervalUtil(launchDelay, launchDelay);
+        launchTracker.forceIntervalElapsed();
+
         this.ship = ship;
+
         this.system = ship.getSystem();
+        baseCooldown = system.getCooldown();
+
         this.droneVariant = droneVariant;
         this.maxDeployedDrones = maxDeployedDrones;
         this.reserveDroneCount = (int) maxDeployedDrones;
         this.engine = Global.getCombatEngine();
+
+        defaultShieldColour = ship.getShield().getInnerColor();
     }
 
-    private boolean isActivePreviousFrame = false;
+    private boolean isActivePreviousFrame = false; //prevents triggering twice on first activation
     private boolean isActivationKeyDownPreviousFrame = false;
-    private int ammoLastFrame = 0;
+    private float cooldownLastFrame = 0f;
 
     public void advance(float amount, List<InputEventAPI> events) {
-        tracker.advance(amount);
-
         if (engine.isPaused()) {
             return;
         }
@@ -94,7 +104,15 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             return;
         }
 
-        boolean isFKeyDown = Keyboard.isKeyDown(Keyboard.getKeyIndex(Global.getSettings().getControlStringForEnumName("SHIP_USE_SYSTEM")));
+        //stat modifications
+        float regenDelayStatMod = ship.getMutableStats().getDynamic().getMod(REGEN_DELAY_STAT_KEY).computeEffective(1f);
+        float launchDelayStatMod = ship.getMutableStats().getDynamic().getMod(LAUNCH_DELAY_STAT_KEY).computeEffective(1f);
+        system = ship.getSystem();
+        system.setCooldown(baseCooldown * regenDelayStatMod);
+
+        //engine.maintainStatusForPlayerShip("lololol", null, launchDelayStatMod + ", " + launchTracker.getElapsed() + ", " + launchTracker.getMaxInterval(), regenDelayStatMod + ", " + system.isCoolingDown() + ", " + system.getCooldown() + ", " + system.getCooldownRemaining(), false);
+
+        boolean isActivationKeyDown = Keyboard.isKeyDown(Keyboard.getKeyIndex(Global.getSettings().getControlStringForEnumName("SHIP_USE_SYSTEM")));
 
         int numDronesActive;
         ArrayList<PSEDrone> deployedDrones;
@@ -113,36 +131,63 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 }
 
                 if (numDronesActive < maxDeployedDrones && !coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.RECALL) && reserveDroneCount > 0) {
-                    if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
-                        tracker.setElapsed(0);
+                    if (launchTracker.getElapsed() >= launchTracker.getIntervalDuration()) {
+                        launchTracker.setElapsed(0);
                         coronaSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
                         reserveDroneCount -= 1;
+                        if (reserveDroneCount < maxDeployedDrones - 1 && system.getCooldownRemaining() <= 0f) system.setCooldownRemaining(system.getCooldown());
                     }
+
+                    launchTracker.advance(amount / launchDelayStatMod);
                 }
 
-                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
+                if (ship.equals(engine.getPlayerShip()) && isActivationKeyDown && !isActivationKeyDownPreviousFrame) {
                     coronaSystem.nextDroneOrder();
                 }
 
-                ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(this.toString());
+                if (coronaSystem.getDroneOrders() != PSE_DroneCorona.CoronaDroneOrders.RECALL) {
+                    ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(this.toString(),-25f);
+                    ship.getMutableStats().getShieldTurnRateMult().modifyPercent(this.toString(), -25f);
+                    if (ship.equals(engine.getPlayerShip())) {
+                        engine.maintainStatusForPlayerShip(
+                                "PSE_shieldDebuffStat",
+                                "graphics/icons/hullsys/fortress_shield.png",
+                                "SHIELD POWER DIVERTED",
+                                "-25% TURN RATE",
+                                true
+                        );
+                    }
+                } else {
+                    ship.getMutableStats().getShieldUnfoldRateMult().unmodify(this.toString());
+                    ship.getMutableStats().getShieldTurnRateMult().unmodify(this.toString());
+                }
+
                 if (coronaSystem.getDroneOrders().equals(PSE_DroneCorona.CoronaDroneOrders.ATTACK)) {
                     ship.setJitterShields(false);
                     ship.setJitterUnder(ship, new Color(0x00D99D), 1f, 8, 1f, 2f);
+                    ship.getShield().setInnerColor(new Color(74, 236, 213, 193));
 
                     ship.getMutableStats().getZeroFluxSpeedBoost().modifyMult(this.toString(), 0f);
+                    ship.getMutableStats().getShieldDamageTakenMult().modifyMult(this.toString(), 1.35f);
 
                     if (ship.equals(engine.getPlayerShip())) {
-                        engine.maintainStatusForPlayerShip(this, "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
+                        engine.maintainStatusForPlayerShip("PSE_coronaBoost1", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
+                        engine.maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
                     }
+                } else {
+                    ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(this.toString());
+                    ship.getMutableStats().getShieldDamageTakenMult().unmodify(this.toString());
+
+                    ship.getShield().setInnerColor(defaultShieldColour);
                 }
 
                 updateDeployedDrones(deployedDrones);
 
                 coronaSystem.setDeployedDrones(deployedDrones);
 
-                system.setAmmo(reserveDroneCount);
+                system.setAmmo(deployedDrones.size());
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
 
@@ -162,24 +207,44 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 }
 
                 if (numDronesActive < maxDeployedDrones && !bastionSystem.getDroneOrders().equals(PSE_DroneBastion.BastionDroneOrders.RECALL) && reserveDroneCount > 0) {
-                    if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
-                        tracker.setElapsed(0);
+                    if (launchTracker.getElapsed() >= launchTracker.getIntervalDuration()) {
+                        launchTracker.setElapsed(0);
                         bastionSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
                         reserveDroneCount -= 1;
+                        if (reserveDroneCount < maxDeployedDrones - 1 && system.getCooldownRemaining() <= 0f) system.setCooldownRemaining(system.getCooldown());
                     }
+
+                    launchTracker.advance(amount / launchDelayStatMod);
                 }
 
-                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
+                if (ship.equals(engine.getPlayerShip()) && isActivationKeyDown && !isActivationKeyDownPreviousFrame) {
                     bastionSystem.nextDroneOrder();
+                }
+
+                if (bastionSystem.getDroneOrders() != PSE_DroneBastion.BastionDroneOrders.RECALL) {
+                    ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(this.toString(),-25f);
+                    ship.getMutableStats().getShieldTurnRateMult().modifyPercent(this.toString(), -25f);
+                    if (ship.equals(engine.getPlayerShip())) {
+                        engine.maintainStatusForPlayerShip(
+                                "PSE_shieldDebuffStat",
+                                "graphics/icons/hullsys/fortress_shield.png",
+                                "SHIELD POWER DIVERTED",
+                                "-25% TURN RATE",
+                                true
+                        );
+                    }
+                } else {
+                    ship.getMutableStats().getShieldUnfoldRateMult().unmodify(this.toString());
+                    ship.getMutableStats().getShieldTurnRateMult().unmodify(this.toString());
                 }
 
                 updateDeployedDrones(deployedDrones);
 
                 bastionSystem.setDeployedDrones(deployedDrones);
 
-                system.setAmmo(reserveDroneCount);
+                system.setAmmo(deployedDrones.size());
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
 
@@ -195,24 +260,44 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 trackSystemAmmo();
 
                 if (numDronesActive < maxDeployedDrones && !MVASystem.getDroneOrders().equals(PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders.RECALL) && reserveDroneCount > 0) {
-                    if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
-                        tracker.setElapsed(0);
+                    if (launchTracker.getElapsed() >= launchTracker.getIntervalDuration()) {
+                        launchTracker.setElapsed(0);
                         MVASystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
                         reserveDroneCount -= 1;
+                        if (reserveDroneCount < maxDeployedDrones - 1 && system.getCooldownRemaining() <= 0f) system.setCooldownRemaining(system.getCooldown());
                     }
+
+                    launchTracker.advance(amount / launchDelayStatMod);
                 }
 
-                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
+                if (ship.equals(engine.getPlayerShip()) && isActivationKeyDown && !isActivationKeyDownPreviousFrame) {
                     MVASystem.nextDroneOrder();
+                }
+
+                if (MVASystem.getDroneOrders() != PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders.RECALL) {
+                    ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(this.toString(),-25f);
+                    ship.getMutableStats().getShieldTurnRateMult().modifyPercent(this.toString(), -25f);
+                    if (ship.equals(engine.getPlayerShip())) {
+                        engine.maintainStatusForPlayerShip(
+                                "PSE_shieldDebuffStat",
+                                "graphics/icons/hullsys/fortress_shield.png",
+                                "SHIELD POWER DIVERTED",
+                                "-25% TURN RATE",
+                                true
+                        );
+                    }
+                } else {
+                    ship.getMutableStats().getShieldUnfoldRateMult().unmodify(this.toString());
+                    ship.getMutableStats().getShieldTurnRateMult().unmodify(this.toString());
                 }
 
                 updateDeployedDrones(deployedDrones);
 
                 MVASystem.setDeployedDrones(deployedDrones);
 
-                system.setAmmo(reserveDroneCount);
+                system.setAmmo(deployedDrones.size());
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
                 break;
@@ -228,17 +313,37 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
                 //check if can spawn new drone
                 if (numDronesActive < maxDeployedDrones && !shroudSystem.getDroneOrders().equals(PSE_DroneShroud.ShroudDroneOrders.RECALL) && reserveDroneCount > 0) {
-                    if (tracker.getElapsed() >= tracker.getIntervalDuration()) {
-                        tracker.setElapsed(0);
+                    if (launchTracker.getElapsed() >= launchTracker.getIntervalDuration()) {
+                        launchTracker.setElapsed(0);
                         shroudSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
 
                         //subtract from reserve drone count on launch
                         reserveDroneCount -= 1;
+                        if (reserveDroneCount < maxDeployedDrones - 1 && system.getCooldownRemaining() <= 0f) system.setCooldownRemaining(system.getCooldown());
                     }
+
+                    launchTracker.advance(amount / launchDelayStatMod);
                 }
 
-                if (reserveDroneCount <= 0 && ship.equals(engine.getPlayerShip()) && isFKeyDown && !isActivationKeyDownPreviousFrame) {
+                if (ship.equals(engine.getPlayerShip()) && isActivationKeyDown && !isActivationKeyDownPreviousFrame) {
                     shroudSystem.nextDroneOrder();
+                }
+
+                if (shroudSystem.getDroneOrders() != PSE_DroneShroud.ShroudDroneOrders.RECALL) {
+                    ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(this.toString(),-25f);
+                    ship.getMutableStats().getShieldTurnRateMult().modifyPercent(this.toString(), -25f);
+                    if (ship.equals(engine.getPlayerShip())) {
+                        engine.maintainStatusForPlayerShip(
+                                "PSE_shieldDebuffStat",
+                                "graphics/icons/hullsys/fortress_shield.png",
+                                "SHIELD POWER DIVERTED",
+                                "-25% TURN RATE",
+                                true
+                        );
+                    }
+                } else {
+                    ship.getMutableStats().getShieldUnfoldRateMult().unmodify(this.toString());
+                    ship.getMutableStats().getShieldTurnRateMult().unmodify(this.toString());
                 }
 
                 updateDeployedDrones(deployedDrones);
@@ -262,15 +367,19 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                         break;
                 }
 
-                system.setAmmo(reserveDroneCount);
+                system.setAmmo(deployedDrones.size());
 
                 engine.getCustomData().put("PSE_DroneList_" + ship.hashCode(), deployedDrones);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + droneSystemType);
         }
 
         isActivePreviousFrame = system.isActive();
-        isActivationKeyDownPreviousFrame = isFKeyDown;
-        ammoLastFrame = system.getAmmo();
+        isActivationKeyDownPreviousFrame = isActivationKeyDown;
     }
+
+    //private float cooldownTracker = baseCooldown;
 
     private void trackSystemAmmo() {
         //ammo tracking
@@ -278,13 +387,36 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         if (system.isActive() && !isActivePreviousFrame) {
             system.setAmmo(system.getAmmo() + 1);
         }
-        /*//make sure total drone count can not go above maximum ammo
-        if (reserveDroneCount > system.getMaxAmmo() - numDronesActive) {
-            system.setAmmo(system.getMaxAmmo() - numDronesActive);
+
+        //cooldownTracker -= engine.getElapsedInLastFrame();
+        /*if (reserveDroneCount <= 0) {
+            cooldownTracker -= engine.getElapsedInLastFrame();
+            system.setCooldownRemaining(cooldownTracker);
         }*/
-        if (system.getCooldownRemaining() <= 0f && ammoLastFrame != system.getAmmo() && reserveDroneCount < maxDeployedDrones) {
+
+        //if (system.getCooldownRemaining() < 0f) system.setCooldownRemaining(0f);
+        //if (cooldownLastFrame < 0f) cooldownLastFrame = 0f;
+
+        if (system.getCooldownRemaining() <= 0f && system.getCooldownRemaining() < cooldownLastFrame && reserveDroneCount < (maxDeployedDrones - 1)) {
             reserveDroneCount++;
+
+            //cooldownTracker = system.getCooldown();
+            system.setCooldownRemaining(system.getCooldown());
         }
+
+        /*if (reserveDroneCount < maxDeployedDrones) {
+            system.setCooldownRemaining(cooldownTracker);
+        } else {
+            cooldownTracker = system.getCooldown();
+        }*/
+
+        //if (cooldownTracker < 0f) cooldownTracker = system.getCooldown();
+
+        if (reserveDroneCount >= (maxDeployedDrones - 1)) {
+            system.setCooldownRemaining(cooldownLastFrame);
+        }
+
+        cooldownLastFrame = system.getCooldownRemaining();
     }
 
     private void updateDeployedDrones(ArrayList<PSEDrone> list) {
@@ -386,5 +518,9 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             return getLandingBayWeaponSlotAPI().computePosition(ship);
         }
         return ship.getLocation();
+    }
+
+    public int getReserveDroneCount() {
+        return reserveDroneCount;
     }
 }

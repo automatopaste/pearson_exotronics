@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDrone;
@@ -13,7 +14,6 @@ import data.scripts.util.PSE_MiscUtils;
 import java.util.ArrayList;
 
 public class PSE_DroneCorona extends BaseShipSystemScript {
-    public static final float FLUX_PER_SECOND_MULT = 0.05f;
     public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneCorona_";
 
     public enum CoronaDroneOrders {
@@ -65,7 +65,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
-        if (ship.getSystem().isOn()) {
+        /*if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
                 nextDroneOrder();
@@ -73,6 +73,21 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
             }
         } else {
             canSwitchDroneOrders = true;
+        }*/
+    }
+
+    @Override
+    public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+        if (plugin == null) return "NULL";
+
+        String volume = plugin.getReserveDroneCount() + " / " + (maxDeployedDrones - 1);
+
+        if (system.getAmmo() < maxDeployedDrones - 1) {
+            return volume + ": FORGING";
+        } else if (system.getAmmo() > maxDeployedDrones - 1) {
+            return volume + ": OVER FORGE CAPACITY";
+        } else {
+            return volume + ": AT CAPACITY";
         }
     }
 
@@ -85,7 +100,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
             if (deployedDrone == drone) {
                 return index;
             }
-            ++index;
+            index++;
         }
         return -1;
     }
@@ -110,7 +125,7 @@ public class PSE_DroneCorona extends BaseShipSystemScript {
         return plugin;
     }
 
-    public CoronaDroneOrders getNextOrder() {
+    private CoronaDroneOrders getNextOrder() {
         if (droneOrders.ordinal() == CoronaDroneOrders.values().length - 1) {
             return CoronaDroneOrders.values()[0];
         }

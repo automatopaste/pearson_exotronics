@@ -3,14 +3,13 @@
   "hullId": "PSE_serrano",
   "displayName": "Support",
   "goalVariant": true,
-  "fluxCapacitors": 30,
-  "fluxVents": 25,
+  "fluxCapacitors": 13,
+  "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "fluxdistributor",
-    "stabilizedshieldemitter"
+    "PSE_ConvertedDroneHangars"
   ],
   "weaponGroups": [
     {
@@ -40,8 +39,6 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0008": "taclaser",
-        "WS0009": "taclaser",
         "WS0012": "taclaser"
       }
     },
@@ -57,5 +54,5 @@
     }
   ],
   "modules": [],
-  "wings": []
+  "wings": ["PSE_carlton_wing", "PSE_carlton_wing"],
 }

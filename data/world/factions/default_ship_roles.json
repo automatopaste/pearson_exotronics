@@ -4,6 +4,7 @@
 		"PSE_cassius_Balanced":4,
 		"PSE_cassius_CloseSupport":4,
 		"PSE_kiruna_Assault":2,
+		"PSE_kiruna_Balanced":3,
 		"PSE_kiruna_CloseSupport":2,
 		"PSE_kiruna_Strike":2,
 
@@ -15,6 +16,7 @@
 		"PSE_denmark_Assault":4,
 		"PSE_denmark_CloseSupport":3,
 		"PSE_denmark_Elite":2,
+		"PSE_denmark_Strike":5,
 		"PSE_richmond_Assault":4,
 		"PSE_richmond_Overdriven":3,
 
@@ -24,8 +26,9 @@
 
 	"combatLarge":{
 		"PSE_serrano_Assault":5,
-		"PSE_serrano_Support":4,
+		"PSE_serrano_Support":8,
 		"PSE_serrano_Balanced":5,
+		"PSE_serrano_Strike":6,
 		"PSE_leyland_Assault":3,
 		"PSE_leyland_CloseSupport":3,
 		"PSE_leyland_Elite":4,
@@ -38,7 +41,7 @@
 		"PSE_kingston_Assault":5,
 		"PSE_kingston_Balanced":6,
 		"PSE_kingston_Elite":4,
-		"PSE_kingston_Strike":3,
+		"PSE_kingston_Strike":7,
 
 		"PSE_kingston_sod_Special":10,
 	},

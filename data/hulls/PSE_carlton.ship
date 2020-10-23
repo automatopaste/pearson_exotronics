@@ -1,0 +1,57 @@
+{
+  "hullName": "Carlton",
+  "hullId": "PSE_carlton",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_carlton.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 34,
+  "width": 22,
+  "center": [11, 17],
+  "collisionRadius": 33.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 28.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "no_weapon_flux"
+  ],
+  "builtInWeapons": {
+    "WS0001": "PSE_spectrumpd",
+    "WS0002": "swarmer_fighter"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [1, 7]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [1, -7]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-13.5, -0],
+      "length": 16,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    -10, -9,
+    10, -0,
+    -10, 9
+  ]
+}

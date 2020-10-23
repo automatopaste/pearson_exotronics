@@ -30,7 +30,7 @@ import java.util.*;
 import java.util.List;
 
 public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFrameScript, FleetEventListener {
-    private Logger log = Global.getLogger(PSE_SODBountyFleetIntel.class);
+    private static Logger log = Global.getLogger(PSE_SODBountyFleetIntel.class);
 
     public static final String SPECIAL_BOUNTY_KEY = "$PSE_specialBountyDefeated";
 

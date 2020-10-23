@@ -34,8 +34,6 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
     private static final String WEAPON_ID = "pdlaser";
     private float weaponRange;
 
-    private String UNIQUE_SYSTEM_ID;
-
     public PSE_DroneBastionDroneAI(PSEDrone passedDrone) {
         this.engine = Global.getCombatEngine();
 
@@ -48,8 +46,6 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
                 weaponRange = weapon.getRange();
             }
         }
-
-        this.UNIQUE_SYSTEM_ID = PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
@@ -73,12 +69,12 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
 
         float sanity = 1f;
 
-        if (ship == null || !ship.isAlive()) {
+        if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX, engine);
 
-            if (ship == null) {
+            if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
                 PSE_DroneUtils.deleteDrone(drone, engine);
                 return;
             }
@@ -88,7 +84,8 @@ public class PSE_DroneBastionDroneAI implements ShipAIPlugin {
         float shipFacing = ship.getFacing();
 
         //get ship system object
-        PSE_DroneBastion shipDroneBastionSystem = (PSE_DroneBastion) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        String uniqueSystemId = PSE_DroneBastion.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
+        PSE_DroneBastion shipDroneBastionSystem = (PSE_DroneBastion) engine.getCustomData().get(uniqueSystemId);
         if (shipDroneBastionSystem == null) {
             return;
         }

@@ -1,0 +1,73 @@
+{
+  "hullName": "Rhys",
+  "hullId": "PSE_rhys",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_rhys.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 40,
+  "width": 30,
+  "center": [15, 20],
+  "collisionRadius": 43.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 35.5,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0001": "PSE_corsair_mk1",
+    "WS0003": "taclaser",
+    "WS0004": "ioncannon_fighter"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-4, 10]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-4, -10]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [14, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-17.5, 4.5],
+      "length": 16,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    },
+    {
+      "location": [-17.5, -4.5],
+      "length": 16,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    -10, -12,
+    17.5, -0,
+    -10, 12
+  ]
+}

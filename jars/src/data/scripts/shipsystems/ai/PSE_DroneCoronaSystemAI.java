@@ -4,6 +4,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.shipsystems.PSE_DroneCorona;
 import data.scripts.util.PSE_MiscUtils;
+import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
@@ -55,7 +56,7 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                                     target.getFluxTracker().getTimeToVent() > TARGET_VENT_TIME_REMAINING_THRESHOLD ||
                                     target.getFluxTracker().getOverloadTimeRemaining() > TARGET_VENT_TIME_REMAINING_THRESHOLD
                             )
-            );
+            ) || target.getFluxLevel() >= 0.8f;
 
             float distanceToTarget = MathUtils.getDistance(ship.getLocation(), target.getLocation());
 
@@ -74,7 +75,10 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                     Vector2f relativeVelocity = Vector2f.sub(missile.getVelocity(), ship.getVelocity(), new Vector2f());
 
                     //checks if the missile will come near the player ship
-                    if (PSE_MiscUtils.isEntityInArc(missile, ship.getLocation(), VectorUtils.getFacing(relativeVelocity), 30f)) {
+                    //if (PSE_MiscUtils.isEntityInArc(missile, ship.getLocation(), VectorUtils.getFacing(relativeVelocity), 30f)) {
+                    //    missileConcernTracker += missile.getDamageAmount();
+                    //}
+                    if (CollisionUtils.getCollisionPoint(missile.getLocation(),(Vector2f)missile.getVelocity().scale(2000f), ship) != null) {
                         missileConcernTracker += missile.getDamageAmount();
                     }
                 }
@@ -103,28 +107,20 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
 
             boolean PANICAAAAA = isMissileThreatPresent || isBomberThreatPresent;
 
-            boolean isAboveFluxThreshold = ship.getCurrFlux() >= (ship.getMaxFlux() * 0.8f);
+            boolean isAboveFluxThreshold = ship.getCurrFlux() >= (ship.getMaxFlux() * 0.5f);
 
             switch (droneSystem.getDroneOrders()) {
                 case DEPLOY:
-                    if (isAboveFluxThreshold) {
-                        return;
-                    } else if (PANICAAAAA) {
-                        return;
-                    } else if (!isShipInFocusModeEngagementRange) {
+                    if (isAboveFluxThreshold || PANICAAAAA || !isShipInFocusModeEngagementRange) {
                         return;
                     }
 
-                    if (isTargetVulnerable)  {
-                        droneSystem.nextDroneOrder();
-                    } else if (!AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    if (isTargetVulnerable || !AIUtils.getNearbyEnemies(ship, 2000f).isEmpty())  {
                         droneSystem.nextDroneOrder();
                     }
                     break;
                 case ATTACK:
-                    if (PANICAAAAA) {
-                        droneSystem.nextDroneOrder();
-                    } else if (AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    if (PANICAAAAA || isAboveFluxThreshold || AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         droneSystem.nextDroneOrder();
                     }
                     break;

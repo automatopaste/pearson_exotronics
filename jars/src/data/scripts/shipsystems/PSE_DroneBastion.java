@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDrone;
@@ -85,7 +86,7 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
             if (deployedDrone == drone) {
                 return index;
             }
-            ++index;
+            index++;
         }
         return -1;
     }
@@ -132,6 +133,21 @@ public class PSE_DroneBastion extends BaseShipSystemScript {
                     engine.maintainStatusForPlayerShip("BASTION_STAT_KEY", "graphics/icons/hullsys/drone_pd_high.png", "SYSTEM STATE", "RECALLING DRONES", true);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+        if (plugin == null) return "NULL";
+
+        String volume = plugin.getReserveDroneCount() + " / " + (maxDeployedDrones - 1);
+
+        if (system.getAmmo() < maxDeployedDrones - 1) {
+            return volume + ": FORGING";
+        } else if (system.getAmmo() > maxDeployedDrones - 1) {
+            return volume + ": OVER FORGE CAPACITY";
+        } else {
+            return volume + ": AT CAPACITY";
         }
     }
 

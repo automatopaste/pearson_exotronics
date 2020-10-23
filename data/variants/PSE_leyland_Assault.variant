@@ -3,13 +3,13 @@
   "hullId": "PSE_leyland",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 23,
+  "fluxCapacitors": 12,
   "fluxVents": 23,
   "quality": 0.9,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "fluxbreakers"
+    "PSE_OverclockedForgeVats"
   ],
   "weaponGroups": [
     {

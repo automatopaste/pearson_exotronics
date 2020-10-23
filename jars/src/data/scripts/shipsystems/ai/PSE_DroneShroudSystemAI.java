@@ -53,6 +53,8 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
 
         String key = "PSE_DroneList_" + ship.hashCode();
         ArrayList<PSEDrone> drones = (ArrayList<PSEDrone>) engine.getCustomData().get(key);
+        if (drones == null) return;
+
         int count = 0;
         for (PSEDrone drone : drones) {
             if (drone.getFluxTracker().getHardFlux() > 0.5f) {

@@ -170,7 +170,7 @@ public final class PSE_DroneUtils {
     }
 
     public static void attemptToLandAsExtra(ShipAPI ship, PSEDrone drone) {
-        if (!drone.isLanding()) {
+        if (!drone.isLanding() && MathUtils.getDistance(drone, ship) < ship.getCollisionRadius()) {
             drone.beginLandingAnimation(ship);
         }
     }

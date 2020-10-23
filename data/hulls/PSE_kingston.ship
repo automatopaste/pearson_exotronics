@@ -11,8 +11,6 @@
   "shieldCenter": [0, 0],
   "shieldRadius": 227.5,
   "viewOffset": 0,
-  "builtInMods": [
-  ],
   "weaponSlots": [
     {
       "id": "WS0003",
@@ -229,6 +227,24 @@
       "arc": 0,
       "angle": 90,
       "locations": [-53, -14.5]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-53, 14.5]
+    },
+    {
+      "id": "LB 2",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-53.5, -13.5]
     }
   ],
   "engineSlots": [

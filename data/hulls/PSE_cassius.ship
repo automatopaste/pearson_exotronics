@@ -68,6 +68,15 @@
       "arc": 5,
       "angle": -0,
       "locations": [25.5, -29.5]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-23.5, -0]
     }
   ],
   "engineSlots": [

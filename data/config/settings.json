@@ -2,6 +2,7 @@
 	"plugins":{
 		"PSE_CombatEffectsPlugin":"data.scripts.plugins.PSE_CombatEffectsPlugin",
 		"PSE_CombatWeaponsPlugin":"data.scripts.plugins.PSE_CombatWeaponsPlugin",
+		"PSE_CombatFighterLaunchPlugin":"data.scripts.plugins.PSE_CombatFighterLaunchPlugin",
 	},
 	"designTypeColors":{
 		"PSExotech":[58,197,150,255],
