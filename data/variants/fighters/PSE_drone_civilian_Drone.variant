@@ -1,6 +1,6 @@
 {
-  "variantId": "PSE_deuces_wing",
-  "hullId": "PSE_deuces",
+  "variantId": "PSE_drone_civilian_Drone",
+  "hullId": "PSE_drone_civilian",
   "displayName": "Drone",
   "goalVariant": false,
   "fluxCapacitors": 0,
@@ -13,14 +13,14 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "hil"
+        "WS0001": "PSE_starburst_mini"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "pdburst"
+        "WS0002": "ioncannon_fighter"
       }
     }
   ],

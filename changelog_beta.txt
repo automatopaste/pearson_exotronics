@@ -1,8 +1,21 @@
 beta.8
 -todo - added planet descriptions for Adelaide system
--todo - added missing wing descriptions
--todo - added missing market interaction descriptions and images
 -todo - fix bugs from beta.7
+
+beta.8
+-reduced forge speed penalty of converted hangars x5 -> x3
+-fixed drones being treated as individual ships
+-rhys wing size 2 -> 3
+-carlton wing size 3 -> 4
+-leyland shield upkeep 0.6 -> 0.4
+-fixed crash when attempting to put drone hangars on ship/module with no system
+-fixed MVA system description
+-added description to civilian drone
+-added description to Burrows EMP drone and system
+-added description to New Caledonia
+-added rogue AI core condition to New Caledonia
+-added unique comm text to patrols
+-added market flavour text to New Caledonia
 
 beta.7
 -fixed crash related to using shield bypass

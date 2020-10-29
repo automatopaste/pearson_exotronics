@@ -327,7 +327,18 @@ public final class PSE_DroneUtils {
     }
 
     public static void deleteDrone (PSEDrone drone, CombatEngineAPI engine) {
-        engine.removeEntity(drone);
-        engine.spawnExplosion(drone.getLocation(), drone.getVelocity(), DRONE_EXPLOSION_COLOUR, drone.getMass(), 1.5f);
+        //engine.removeEntity(drone);
+        //engine.spawnExplosion(drone.getLocation(), drone.getVelocity(), DRONE_EXPLOSION_COLOUR, drone.getMass(), 1.5f);
+        engine.applyDamage(
+                drone,
+                drone.getLocation(),
+                10000f,
+                DamageType.HIGH_EXPLOSIVE,
+                0f,
+                true,
+                false,
+                null,
+                false
+        );
     }
 }

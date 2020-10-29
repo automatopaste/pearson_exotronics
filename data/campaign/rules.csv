@@ -5,3 +5,44 @@ PSE_SODCampDeliveryCompletedButNoDocking,MarketPostDock,"!$PSE_SODCampDeliveryNo
 $tradeMode == NONE
 PSE_SODCampDeliveryMission PSE_checkCompletion score:100","$PSE_SODCampDeliveryNoCompleteShown = true 0
 FireBest MarketPostDock",You're unable to complete your delivery contract at this time.,,
+,,,,,,
+PSE_flavourTextMarketNewCaledonia,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == pearson_exotronics
+$market.id == PSE_newCaledoniamarket","AddText ""The glimmering port establishments tower over decks and walkways connecting berths with trader starcraft of every size. Security personnel accompanying corporate envoys glance disapprovingly at the more patched looking ships, which fade in and out of the smog enveloping less prestigious docking ports."" marketFlavorTextColor",,,
+PSE_flavourTextMarketNewCaledoniaUnstable,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == pearson_exotronics
+$market.id == PSE_newCaledoniamarket
+$stability < 6","AddText ""The once-glimmering port establishments now sport posters with slogans, and temporary security emplacements among the upper decks contain personnel displaying visibly lethal weaponry. The few trader craft docked in their berths are guarded by anxious crews, while autonomous civil enforcement drones buzz menacingly overhead."" marketFlavorTextColor",,,
+,,,,,,
+,,,,,,
+# Pearson fleet greeting lines,,,,,,
+greetingPearsonFriendly,OpenCommLink,"$faction.id == pearson_exotronics
+$faction.friendlyToPlayer","$menuState = fleetConvMain 0
+FireAll PopulateOptions","""Acknowledging receipt of your codes, moving to a secure channel."" Some jazz music interspersed with static, then: ""Yes? Anything to report? No worries, over and out.""
+OR
+""Your $shipOrFleet has been scanned and identified, everything is in order. Keep rocking, king.""
+OR
+""Scanned and identified, you're flying good, mate. Clean jumps and high burn."" $PersonRank $personName signs off with a flash of the hex-force logo.",,
+greetingPearsonHostileWeaker,OpenCommLink,"$faction.id == pearson_exotronics
+$entity.isHostile
+$entity.relativeStrength < 0",$entity.ignorePlayerCommRequests = true 1,"""Hostile vessel, be advised, linecast to system patrol craft has already been dispatched, reinforcements are en route. You are advised to power down weapon systems and disengage. Over.""
+OR
+""Belligerent contact! Be advised that firing upon a Pearson Exotronics Navy vessel is considered an act of insurrection and you'll be hunted down!"" The Pearson $personRank is sweating. ""When they're done with you, you'll be sold in black markets on worlds across the Sector, I swear it.""
+OR
+""We give our lives for the restoration of the Domain and all humanity."" $HeOrShe pauses for a moment as if to say something more, then cuts the comm.",cutCommLink:Cut the comm link,
+greetingPearsonHostileWeakerDefiant,OpenCommLink,"$faction.id == pearson_exotronics
+$entity.isHostile
+$entity.relativeStrength < 0
+$entity.weakerThanPlayerButHolding",$entity.ignorePlayerCommRequests = true 1,"The Hegemony $personRank looks grim but defiant. ""We will fight you to the last,"" $heOrShe says.
+OR
+""Nuts!"" The comm-line cuts out.",cutCommLink:Cut the comm link,
+greetingPearsonHostileStronger,OpenCommLink,"$faction.id == pearson_exotronics
+$entity.isHostile
+$entity.relativeStrength >= 0",$entity.ignorePlayerCommRequests = true 1,"""By authority of Navy Command, you are ordered to take hyperspace drives offline, disable weapons and surrender. Over.""
+OR
+""Resistance to Navy authority is an act of insurrection and shall be punished accordingly. Surrender now or be met with force.""",cutCommLink:Cut the comm link,
+greetingPearsonNeutral,OpenCommLink,"$faction.id == pearson_exotronics
+$faction.neutralToPlayer","$menuState = fleetConvMain 0
+FireAll PopulateOptions","""You have been scanned and identified. If nothing is amiss, we shall be on our way.""
+OR
+The Pearson Navy $personRank looks impatient. ""Is there an emergency to report? No? Then bugger off, mate.""",,

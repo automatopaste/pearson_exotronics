@@ -42,6 +42,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         newCaledonia.getSpec().setUseReverseLightForGlow(true);
         newCaledonia.getSpec().setRotation(0f);
         newCaledonia.setInteractionImage("illustrations", "urban03");
+        newCaledonia.setCustomDescriptionId("PSE_new_caledonia");
         newCaledonia.applySpecChanges();
 
         MarketAPI newCaledoniaMarketplace = PSE_CampaignUtils.addMarketplace(
@@ -59,7 +60,8 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                         Conditions.RUINS_SCATTERED,
                         Conditions.URBANIZED_POLITY,
                         Conditions.FARMLAND_RICH,
-                        Conditions.HABITABLE
+                        Conditions.HABITABLE,
+                        Conditions.ROGUE_AI_CORE
                 )),
                 new ArrayList<>(Arrays.asList(
                         Submarkets.SUBMARKET_OPEN,

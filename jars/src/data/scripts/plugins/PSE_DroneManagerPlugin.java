@@ -9,6 +9,8 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.campaign.fleet.FleetMember;
+import com.fs.starfarer.combat.CombatEngine;
 import data.scripts.PSEDrone;
 import data.scripts.ai.PSE_DroneBastionDroneAI;
 import data.scripts.ai.PSE_DroneCoronaDroneAI;

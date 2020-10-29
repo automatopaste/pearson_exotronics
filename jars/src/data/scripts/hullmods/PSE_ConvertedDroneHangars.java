@@ -1,10 +1,8 @@
 package data.scripts.hullmods;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
@@ -20,7 +18,7 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
     private static final float BOMBER_COST_INCREASE_PERCENT = 50f;
     private static final float FIGHTER_REFIT_TIME_INCREASE_PERCENT = 50f;
     private static final float DRONE_SYSTEM_LAUNCH_DELAY_MULT = 3f;
-    private static final float DRONE_SYSTEM_REGEN_MULT = 5f;
+    private static final float DRONE_SYSTEM_REGEN_MULT = 3f;
 
     private static Map<ShipAPI.HullSize, Integer> bays = new HashMap<>();
     static {
@@ -65,6 +63,7 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
         return ship != null && !ship.isFrigate() && !ship.isFighter() &&
                 ship.getHullSpec().getFighterBays() <= 0 &&
                 !ship.getVariant().hasHullMod(HullMods.CONVERTED_BAY) &&
+                ship.getSystem() != null &&
                 ship.getSystem().getId().startsWith("PSE_drone");
     }
 

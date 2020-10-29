@@ -9,7 +9,7 @@ Richmond,PSE_richmond,Destroyer,PSExotech,PSE_pulseImpeller,8,5000,500,4300,6,25
 Denmark,PSE_denmark,Destroyer,PSExotech,PSE_droneCorona,9,5800,750,6000,5,300,95,,90,55,35,25,30,600,OMNI,,120,0.5,0.9,,,70,140,75,90,2,60,9,60000,5,12,480,0.25,12,12,,PSE_military_bp,,0.5,2,3,47601
 #cruisers,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Serrano,PSE_serrano,Heavy Cruiser,PSExotech,PSE_droneCorona,15,10000,1000,10500,5,525,180,,40,25,15,18,18,2200,FRONT,,180,0.5,0.9,,,180,300,150,150,4,30,8,120000,4,12,540,0.25,24,24,,PSE_military_bp,,0.5,3,5,47606
-Leyland,PSE_leyland,Cruiser,PSExotech,PSE_droneMVA,17,8000,900,12000,6,720,160,,65,35,20,25,20,1800,FRONT,,280,0.6,0.9,,,200,350,150,90,4,30,8,150000,5,16,420,0.25,32,32,,rare_bp,,0.5,3,4,47612
+Leyland,PSE_leyland,Cruiser,PSExotech,PSE_droneMVA,17,8000,900,12000,6,720,160,,65,35,20,25,20,1800,FRONT,,280,0.4,0.9,,,200,350,150,90,4,30,8,150000,5,16,420,0.25,32,32,,rare_bp,,0.5,3,4,47612
 #capitals,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Kingston,PSE_kingston,Battleship,PSExotech,PSE_droneShroud,35,16000,1500,21000,5,1050,350,,30,20,10,5,5,3200,OMNI,,220,0.7,0.9,,,400,800,300,300,10,30,7,450000,4,20,720,0.25,60,60,,rare_bp,,0.6,2,4,47611
 #drones,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

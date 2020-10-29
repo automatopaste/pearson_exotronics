@@ -73,12 +73,12 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         ///////////////////
 
 
-        if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
+        if (ship == null || !ship.isAlive() || !engine.isEntityInPlay(ship)) {
             landingSlot = null;
 
             ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX, engine);
 
-            if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
+            if (ship == null || !ship.isAlive() || !engine.isEntityInPlay(ship)) {
                 PSE_DroneUtils.deleteDrone(drone, engine);
                 return;
             }
