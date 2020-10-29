@@ -118,7 +118,7 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
 
             switch (droneSystem.getDroneOrders()) {
                 case DEPLOY:
-                    if (isAboveFluxThreshold || PANICAAAAA || !isShipInFocusModeEngagementRange) {
+                    if (isAboveFluxThreshold || PANICAAAAA || !isShipInFocusModeEngagementRange || (droneSystem.getDeployedDrones() != null && !droneSystem.getDeployedDrones().isEmpty())) {
                         return;
                     }
 
@@ -127,7 +127,7 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
                     }
                     break;
                 case ATTACK:
-                    if (PANICAAAAA || isAboveFluxThreshold || AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
+                    if (PANICAAAAA || isAboveFluxThreshold || (droneSystem.getDeployedDrones() != null && droneSystem.getDeployedDrones().isEmpty()) || AIUtils.getNearbyEnemies(ship, 2000f).isEmpty()) {
                         droneSystem.nextDroneOrder();
                     }
                     break;

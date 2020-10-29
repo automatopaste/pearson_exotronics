@@ -403,6 +403,13 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         //if (system.getCooldownRemaining() < 0f) system.setCooldownRemaining(0f);
         //if (cooldownLastFrame < 0f) cooldownLastFrame = 0f;
 
+        if (reserveDroneCount >= (maxDeployedDrones - 1)) {
+            system.setCooldownRemaining(cooldownLastFrame);
+        }
+        if (system.getAmmo() >= system.getMaxAmmo()) {
+            system.setCooldownRemaining(cooldownLastFrame - engine.getElapsedInLastFrame());
+        }
+
         if (system.getCooldownRemaining() <= 0f && system.getCooldownRemaining() < cooldownLastFrame && reserveDroneCount < (maxDeployedDrones - 1)) {
             reserveDroneCount++;
 
@@ -417,10 +424,6 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         }*/
 
         //if (cooldownTracker < 0f) cooldownTracker = system.getCooldown();
-
-        if (reserveDroneCount >= (maxDeployedDrones - 1)) {
-            system.setCooldownRemaining(cooldownLastFrame);
-        }
 
         cooldownLastFrame = system.getCooldownRemaining();
     }

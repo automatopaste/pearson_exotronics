@@ -16,6 +16,8 @@ beta.8
 -added rogue AI core condition to New Caledonia
 -added unique comm text to patrols
 -added market flavour text to New Caledonia
+-drone corona shipsystem AI switches off of attack mode if all drones are destroyed
+-fixed infinite drone reserves at maximum capacity
 
 beta.7
 -fixed crash related to using shield bypass
