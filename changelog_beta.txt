@@ -9,6 +9,7 @@ beta.8
 -carlton wing size 3 -> 4
 -leyland shield upkeep 0.6 -> 0.4
 -fixed crash when attempting to put drone hangars on ship/module with no system
+-fixed crash when attempting to put forge vats on ship/module with no system
 -fixed MVA system description
 -added description to civilian drone
 -added description to Burrows EMP drone and system

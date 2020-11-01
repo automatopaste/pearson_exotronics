@@ -20,7 +20,7 @@ public class PSE_OverclockedForgeVats extends BaseHullMod {
 
     @Override
     public boolean isApplicableToShip(ShipAPI ship) {
-        return ship != null && !ship.isFighter() && ship.getSystem().getId().startsWith("PSE_drone");
+        return ship != null && !ship.isFighter() && ship.getSystem() != null && ship.getSystem().getId().startsWith("PSE_drone");
     }
 
     @Override
