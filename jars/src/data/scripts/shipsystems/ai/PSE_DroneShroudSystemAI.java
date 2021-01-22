@@ -28,11 +28,19 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
         mults.put(ShipAPI.HullSize.FRIGATE, 0.2f);
     }
 
+    private float longestWeaponRange = 0f;
 
     @Override
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
         this.ship = ship;
         this.engine = engine;
+
+        for (WeaponAPI weapon : ship.getAllWeapons()) {
+            //gets the longest range weapon
+            if (weapon.getRange() > longestWeaponRange) {
+                longestWeaponRange = weapon.getRange();
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -63,7 +71,7 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
         }
 
         float concernWeightTotal = 0f;
-        for (ShipAPI enemy : AIUtils.getNearbyEnemies(ship, 4000f)) {
+        for (ShipAPI enemy : AIUtils.getNearbyEnemies(ship, longestWeaponRange)) {
             if (enemy == null || enemy.getFleetMember() == null) {
                 continue;
             }
@@ -73,8 +81,17 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
             if (enemy.getFluxTracker().isOverloadedOrVenting()) {
                 weight *= 0.75f;
             }
+            if (enemy.getHullLevel() < 0.4f) {
+                weight *= 0.25f;
+            }
+            if (enemy.getFluxLevel() > 0.5f) {
+                weight *= 0.4f;
+            }
+            if (enemy.getEngineController().isFlamedOut()) {
+                weight *= 0.1f;
+            }
 
-            concernWeightTotal += (weight * (1f - (MathUtils.getDistance(ship, enemy) / 4000f)));
+            concernWeightTotal += (weight * (1f - (MathUtils.getDistance(ship, enemy) / longestWeaponRange)));
         }
 
         //useful debug display

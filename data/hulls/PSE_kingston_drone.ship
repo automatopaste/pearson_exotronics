@@ -14,7 +14,20 @@
   "builtInMods": [
     "fluxshunt"
   ],
-  "weaponSlots": [],
+  "builtInWeapons": {
+    "WS0001": "gravitonbeam"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 69,
+      "angle": 0,
+      "locations": [0, -0]
+    }
+  ],
   "engineSlots": [
     {
       "location": [-11.5, 19.5],

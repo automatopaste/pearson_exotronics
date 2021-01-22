@@ -1,2 +1,4 @@
 trail,projectile,sprite,minLength,fadeIn,duration,fadeOut,sizeIn,sizeOut,colorIn,colorOut,opacity,textLength,textScroll,distance,dispersion,drift,fadeOnFadeOut,angleAdjustment,additive,velocityIn,velocityOut,randomVelocity,angle,rotationIn,rotationOut,randomRotation,renderBelowExplosions
 PSE_parity_trail,PSE_parity_gun_shot,PSE_trail_charge,10,0,0,0.33,18,8,"[255,250,250]","[150,250,180]",0.6,300,-300,10,0,1,TRUE,FALSE,TRUE,200,200,0,0,50,10,TRUE,FALSE
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+PSE_cascade_accelerator_trail,PSE_cascade_accelerator_shot,base_trail_zap,10,0,0.05,0.15,15,10,"[100,250,150]","[50,255,100]",0.5,200,200,20,0,1,TRUE,FALSE,TRUE,100,20,0.3,0,1000,200,TRUE,TRUE

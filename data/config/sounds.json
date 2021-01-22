@@ -33,19 +33,38 @@
 	{"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.45,"volume":0.65},
     ],
 
-    #STARBURST
-    "PSE_starburst_mini_fire":
+    #NOVABURST
+    "PSE_novaburst_mini_fire":
     [
         {"file":"sounds/sfx_wpn_guns/flak_fire_01.ogg","pitch":1.40,"volume":0.65},
 	{"file":"sounds/sfx_wpn_guns/flak_fire_01.ogg","pitch":1.45,"volume":0.65},
     ],
-    "PSE_starburst_mini_explode":
+    "PSE_novaburst_mini_explode":
     [
         {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_01.ogg","pitch":1.60,"volume":0.50},
         {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_02.ogg","pitch":1.60,"volume":0.50},
         {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_03.ogg","pitch":1.60,"volume":0.50},
         {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_04.ogg","pitch":1.60,"volume":0.50},
     ],
+
+    #CASCADE ACCELERATOR
+    "PSE_cascade_accelerator_fire":
+    [
+        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_01.ogg","pitch":1.5,"volume":0.5},
+        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_02.ogg","pitch":1.5,"volume":0.5},
+        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_03.ogg","pitch":1.5,"volume":0.5},
+        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_03.ogg","pitch":1.3,"volume":0.5},
+    ],
+
+    #THRALL LAUNCHER
+    "PSE_thrall_launcher_fire":
+    [
+        {"file":"sounds/sfx_wpn_missiles/annihilator_fire_01.ogg","pitch":1.20,"volume":0.5},
+        {"file":"sounds/sfx_wpn_missiles/annihilator_fire_01.ogg","pitch":1.21,"volume":0.5},
+        {"file":"sounds/sfx_wpn_missiles/annihilator_fire_01.ogg","pitch":1.22,"volume":0.5},
+        {"file":"sounds/sfx_wpn_missiles/annihilator_fire_01.ogg","pitch":1.23,"volume":0.5},
+    ],
+
 
     #EMP IMPACTS
     "PSE_spectrumpd_impact":

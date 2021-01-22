@@ -11,6 +11,9 @@
   "shieldCenter": [0, 0],
   "shieldRadius": 227.5,
   "viewOffset": 0,
+  "builtInMods": [
+    "PSE_LeachingTargetMatrix"
+  ],
   "weaponSlots": [
     {
       "id": "WS0003",

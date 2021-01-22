@@ -17,8 +17,8 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
     private static final float MINI_FLAK_EXPLOSION_DAMAGE_MAX = 80f;
     private static final float MINI_FLAK_EXPLOSION_DAMAGE_MIN = 40f;
     private static final float MINI_FLAK_FUSE_RANGE = 35f;
-    private static final String MINI_FLAK_PROJECTILE_ID =  "PSE_starburst_shot";
-    private static final String MINI_FLAK_SOUND_ID = "PSE_starburst_mini_explode";
+    private static final String MINI_FLAK_PROJECTILE_ID =  "PSE_novaburst_shot";
+    private static final String MINI_FLAK_SOUND_ID = "PSE_novaburst_mini_explode";
 
     private CombatEngineAPI engine;
     private PSE_CombatEffectsPlugin effectsPlugin;

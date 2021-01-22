@@ -6,3 +6,4 @@ EM Pulse,PSE_droneEMP,,,,,,,,3,1.2,0.3,3,0.2,0.3,,,,,,,,,,,
 Pulse Impeller,PSE_pulseImpeller,,,,,,0.05,,4,0.2,0.2,0.05,1,0.8,,,,,,,,,,,
 MVA,PSE_droneMVA,,,,,,0.03,,4,,0.3,,0.3,20,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
 Shroud,PSE_droneShroud,,,,,,0.02,,5,,0.3,,0.3,50,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Ghost Skimmer,PSE_ghostSkimmer,,,,,,0.075,,4,0.2,0.2,,,0.8,,,,,,,,,,,

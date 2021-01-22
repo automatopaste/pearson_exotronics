@@ -63,7 +63,7 @@ public class PSE_DroneCoronaSystemAI implements ShipSystemAIScript {
             isShipInFocusModeEngagementRange = longestWeaponRange >= distanceToTarget;
         }
 
-        if (tracker.intervalElapsed()  && ship != null) {
+        if (tracker.intervalElapsed()) {
             List<MissileAPI> missilesInRange = AIUtils.getNearbyEnemyMissiles(ship, longestWeaponRange);
             boolean isMissileThreatPresent;
             float missileConcernTracker = 0f;

@@ -53,8 +53,8 @@
       "weapons": {
         "WS0005": "lrpdlaser",
         "WS0006": "lrpdlaser",
-        "WS0009": "PSE_starburst_mini",
-        "WS0010": "PSE_starburst_mini"
+        "WS0009": "PSE_novaburst_mini",
+        "WS0010": "PSE_novaburst_mini"
       }
     }
   ],

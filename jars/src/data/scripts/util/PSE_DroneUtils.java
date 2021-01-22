@@ -136,7 +136,6 @@ public final class PSE_DroneUtils {
         }
 
         angvel += accel;
-        //engine.maintainStatusForPlayerShip(drone, null, "lol", accel + ", " + angvel + ", " + rotationAngleDelta + ", " + decelerationAngleAbs, false);
 
         MathUtils.clamp(angvel, -drone.getMaxTurnRate(), drone.getMaxTurnRate());
 

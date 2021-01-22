@@ -3,7 +3,7 @@
   "hullId": "PSE_kiruna",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 2,
+  "fluxCapacitors": 0,
   "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
@@ -30,8 +30,8 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0006": "sabot",
-        "WS0007": "sabot"
+        "WS0006": "PSE_thrall_launcher",
+        "WS0007": "PSE_thrall_launcher"
       }
     },
     {

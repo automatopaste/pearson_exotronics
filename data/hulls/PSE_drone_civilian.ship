@@ -15,7 +15,7 @@
     "no_weapon_flux"
   ],
   "builtInWeapons": {
-    "WS0001": "PSE_starburst_mini",
+    "WS0001": "PSE_novaburst_mini",
     "WS0002": "irpulse_fighter"
   },
   "weaponSlots": [

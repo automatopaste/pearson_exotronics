@@ -1,0 +1,30 @@
+{
+	"id":"PSE_ghostSkimmer",
+	"type":"DISPLACER",
+	"aiType":"PHASE_DISPLACER",
+	
+	"jitterColor":[100,220,180,155],
+	"jitterCopies":6,
+	"jitterRange":0,
+	"jitterRangeRadiusFraction":0.5,
+	
+	"weaponGlowColor":[100,220,180,0],
+	"weaponTypes":[ENERGY, BALLISTIC],
+	
+	"engineGlowColor":[100,220,180,125],
+
+	"range":150,
+	"randomRange":0,
+	
+	"renderCopyDuringTeleport":true,
+	
+	"fadeActivationSoundOnChargedown":false,
+	"useSound":"system_phase_skimmer",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"aiHints":{
+		"activeSpeedIncrease":0,
+		"burstMovementPotential":150,
+		"averageSpeedIncrease":30,
+	}
+}

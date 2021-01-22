@@ -8,7 +8,15 @@
   "quality": 1,
   "permaMods": [],
   "hullMods": [],
-  "weaponGroups": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "gravitonbeam"
+      }
+    }
+  ],
   "modules": [],
   "wings": []
 }

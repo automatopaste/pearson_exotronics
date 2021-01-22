@@ -1,0 +1,66 @@
+{
+  "id": "PSE_thrall_launcher",
+  "specClass": "projectile",
+  "projectileSpecId": "PSE_thrall_rocket",
+  "type": "MISSILE",
+  "size": "SMALL",
+  "turretSprite": "graphics/PSE/weapons/PSE_small_kinetic_launcher.png",
+  "hardpointSprite": "graphics/PSE/weapons/PSE_small_kinetic_launcher_hp.png",
+  "renderAboveAllWeapons": 0,
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
+  "turretOffsets": [
+    10,
+    3,
+    10,
+    -3,
+    4,
+    3,
+    4,
+    -3
+  ],
+  "turretAngleOffsets": [
+    1,
+    -1,
+    2,
+    -2
+  ],
+  "hardpointOffsets": [
+    12,
+    3,
+    12,
+    -3,
+    6,
+    3,
+    6,
+    -3
+  ],
+  "hardpointAngleOffsets": [
+    1,
+    -1,
+    2,
+    -2
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "SMOKE",
+  "smokeSpec": {
+    "particleSizeMin": 8,
+    "particleSizeRange": 12,
+    "cloudParticleCount": 3,
+    "cloudDuration": 1.5,
+    "cloudRadius": 10,
+    "blowbackParticleCount": 3,
+    "blowbackDuration": 0.4,
+    "blowbackLength": 15,
+    "blowbackSpread": 5,
+    "particleColor": [
+      200,
+      230,
+      255,
+      95
+    ]
+  },
+  "textureType": ROUGH,
+  "fireSoundTwo": "PSE_thrall_launcher_fire"
+}

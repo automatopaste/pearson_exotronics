@@ -1,7 +1,7 @@
 {
-  "id": "PSE_starburst_mini",
+  "id": "PSE_novaburst_mini",
   "specClass": "projectile",
-  "projectileSpecId": "PSE_starburst_shot",
+  "projectileSpecId": "PSE_novaburst_shot",
   "type": "BALLISTIC",
   "size": "SMALL",
   "turretSprite": "graphics/PSE/weapons/PSE_mini_starburst_t_main.png",
@@ -50,5 +50,5 @@
     ]
   },
   "textureType": ROUGH,
-  "fireSoundTwo": "PSE_starburst_mini_fire"
+  "fireSoundTwo": "PSE_novaburst_mini_fire"
 }

@@ -12,7 +12,8 @@
   "shieldRadius": 90,
   "viewOffset": 0,
   "builtInMods": [
-    "eccm"
+    "eccm",
+    "PSE_LeachingTargetMatrix"
   ],
   "weaponSlots": [
     {

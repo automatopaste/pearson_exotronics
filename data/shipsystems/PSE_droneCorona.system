@@ -3,7 +3,7 @@
 	"type":"STAT_MOD",
 	"statsScript":"data.scripts.shipsystems.PSE_DroneCorona",
 	"aiType":"CUSTOM",
-	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneCoronaSystemAI",
+	"aiScript":"data.scripts.shipsystems.ai.PSE_DroneCoronaSystemAIV2",
 	
 	"PSE_droneVariant":"PSE_drone1_wing",
 	

@@ -1,6 +1,3 @@
 /out/
 /.idea/
 /PSE.iml
-jars/src/data/scripts/weapons/XHAN_SpawnExplosionOnHit.java
-jars/src/data/scripts/weapons/XHAN_SpawnEMPOnHit.java
-jars/src/data/scripts/weapons/XHAN_MagnetizeOnHit.java

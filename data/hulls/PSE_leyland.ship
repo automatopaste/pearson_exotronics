@@ -11,6 +11,9 @@
   "shieldCenter": [0, -0],
   "shieldRadius": 141,
   "viewOffset": 0,
+  "builtInMods": [
+    "PSE_LeachingTargetMatrix"
+  ],
   "builtInWeapons": {
     "WS0018": "PSE_parity_gun"
   },
@@ -173,7 +176,7 @@
       "size": "LARGE",
       "type": "BUILT_IN",
       "mount": "HARDPOINT",
-      "arc": 0,
+      "arc": 10,
       "angle": 0,
       "locations": [57, -0]
     },

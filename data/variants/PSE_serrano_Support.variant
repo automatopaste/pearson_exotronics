@@ -46,10 +46,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "PSE_starburst_mini",
-        "WS0003": "PSE_starburst_mini",
-        "WS0010": "PSE_starburst_mini",
-        "WS0011": "PSE_starburst_mini"
+        "WS0002": "PSE_novaburst_mini",
+        "WS0003": "PSE_novaburst_mini",
+        "WS0010": "PSE_novaburst_mini",
+        "WS0011": "PSE_novaburst_mini"
       }
     }
   ],

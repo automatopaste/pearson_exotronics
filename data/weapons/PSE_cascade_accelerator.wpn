@@ -1,0 +1,56 @@
+{
+  "id": "PSE_cascade_accelerator",
+  "specClass": "projectile",
+  "projectileSpecId": "PSE_cascade_accelerator_shot",
+  "type": "ENERGY",
+  "size": "LARGE",
+  "turretSprite": "graphics/PSE/weapons/PSE_large_plasma_cannon.png",
+  "turretGunSprite": "graphics/PSE/weapons/PSE_large_plasma_cannon_recoil.png",
+  "turretUnderSprite": "graphics/weapons/mjolnir_turret_under.png",
+  "hardpointSprite": "graphics/PSE/weapons/PSE_large_plasma_cannon_hp.png",
+  "hardpointGunSprite": "graphics/PSE/weapons/PSE_large_plasma_cannon_hp_recoil.png",
+  "hardpointUnderSprite": "graphics/weapons/mjolnir_hardpoint_under.png",
+  "renderAboveAllWeapons": 0,
+  "visualRecoil": 6,
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "turretOffsets": [
+    31,
+    5,
+    31,
+    -5
+  ],
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    33,
+    5,
+    33,
+    -5
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "barrelMode": "DUAL",
+  "animationType": "MUZZLE_FLASH",
+  "muzzleFlashSpec": {
+    "length": 40,
+    "spread": 10,
+    "particleSizeMin": 5,
+    "particleSizeRange": 20,
+    "particleDuration": 0.3,
+    "particleCount": 8,
+    "particleColor": [
+      100,
+      255,
+      150,
+      255
+    ]
+  },
+  "textureType": ROUGH,
+  "fireSoundTwo": "PSE_cascade_accelerator_fire"
+}

@@ -497,6 +497,8 @@ public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFra
 
         newFleet.getFleetData().ensureHasFlagship();
 
+        newFleet.getFleetData().syncIfNeeded();
+
         fleet = newFleet;
     }
 

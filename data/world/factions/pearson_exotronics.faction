@@ -94,11 +94,18 @@
 			"claw_wing",
 			"longbow_wing",
 			"wasp_wing",
+
+			"PSE_rhys_wing",
+			"PSE_carlton_wing",
+			"PSE_hale_wing",
 		],
 	},
 	"priorityFighters":{
-		"tags":[],
+		"tags":["PSE_military_bp"],
 		"fighters":[
+			"PSE_rhys_wing",
+			"PSE_carlton_wing",
+			"PSE_hale_wing",
 		],
 	},
 	"knownWeapons":{
@@ -109,7 +116,7 @@
 			"lightneedler",
 
 			"PSE_corsair_mk1",
-			"PSE_starburst_mini",
+			"PSE_novaburst_mini",
 
 			"flak",
 			"dualflak",
@@ -127,6 +134,8 @@
             "reaper", #missiles
             "sabot",
             "harpoon",
+
+            "PSE_thrall_launcher",
 
 			"sabotpod",
 			"annihilatorpod",
@@ -153,8 +162,10 @@
 			"ionbeam",
 			"gravitonbeam",
 
-			"plasma",
 			"tachyonlance",
+			"hil",
+
+			"PSE_cascade_accelerator",
 		],
 	},
 	"priorityWeapons":{

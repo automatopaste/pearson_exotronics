@@ -61,8 +61,8 @@
         "WS0018": "heavymg",
         "WS0019": "PSE_spectrumpd",
         "WS0020": "PSE_spectrumpd",
-        "WS0021": "PSE_starburst_mini",
-        "WS0022": "PSE_starburst_mini"
+        "WS0021": "PSE_novaburst_mini",
+        "WS0022": "PSE_novaburst_mini"
       }
     }
   ],

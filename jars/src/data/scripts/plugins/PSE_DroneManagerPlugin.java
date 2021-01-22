@@ -179,8 +179,8 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                     ship.getMutableStats().getShieldDamageTakenMult().modifyMult(this.toString(), 1.35f);
 
                     if (ship.equals(engine.getPlayerShip())) {
+                        if (ship.getShield() != null) engine.maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "SHIELD POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
                         engine.maintainStatusForPlayerShip("PSE_coronaBoost1", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
-                        if (ship.getShield() != null) engine.maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
                     }
                 } else {
                     ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(this.toString());

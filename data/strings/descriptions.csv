@@ -2,14 +2,19 @@ id,type,text1,text2,text3,notes
 PSE_corsair_mk1,WEAPON,"A derivative of the conventional Railgun, the Corsair mechanism delivers three bolts with moderate kinetic energy at medium range. The slug explosively deforms on hitting armour or hull, causing additional fragmentation damage.
 
 The loading mechanism for this weapon is a simple but effective modification of the Railgun's, separating magazine and firing chamber with a unique three-pattern mini-zine. When the firing sequence is started, the primary magnetic field is quickly charged, while the slugs in ""limbo"", as nicknamed by gunnery technicians familiar with the design, are quickly elevated into the chamber, and ejected at speed.",Close Support,,
-PSE_starburst_mini,WEAPON,"A minituarized defensive flak system that fires unique Starburst-pattern shrapnel shells equipped with a proximity fuse for effectiveness against fighters and missiles.
+PSE_novaburst_mini,WEAPON,"A minituarized defensive flak system that fires unique Starburst-pattern shrapnel shells equipped with a proximity fuse for effectiveness against fighters and missiles.
 
 The difficulty of scaling down of the conventional flak cannon required significant compromise of the standard warhead design. The unique Starburst type flak shell creates a surprising amount of fragmentation debris within its area of effect, while having a narrower calibre that this weapons system can fire with minimal wear and loss of accuracy.",Point Defense,,
 PSE_spectrumpd,WEAPON,"A semi-modification of the venerable Burst PD system that installs additional disruptive beam components capable of stunning fighters, but losing effective armor penetration.
 
 The disruption of the beam using dual secondary peaking oscillators, allows for the projection of exotic p-space particles, passively collected through natural ship movement, which cause unintended electrical behaviour in the flux management systems of unprotected targets. This results in effectively EMP-ing fighter craft a significant fraction of the time that contact is achieved.",Point Defense,,
+PSE_thrall_launcher,WEAPON,"Fire salvos of heavy tungsten alloy masses strapped to high-delta rocket motors. Effective at pressuring most shield generators, and pairs well with high-explosive weaponry.",Anti Shield,,
 ,,,,,
 PSE_douglas,WEAPON,"Designed to be a counterpart to mid-range kinetic weapons, this autocannon can provide consistent anti-armor punch at a moderate flux cost.",Assault,,
+,,,,,
+PSE_cascade_accelerator,WEAPON,"Unleashes bursts of self-sustaining dimensional projectiles dealing heavy damage to armour and incinerating unshielded electrical networks.
+
+The firing mechanism consists of dual quasi-magnetic accelerator rails with internal heavy ablative shielding that must be replaced between extended bursts. The protective shielding generally consists of ferrous organic compounds that can easily be applied with pressure nozzles, creating marbled layers of charred radioactive crusts and sticky composite, creating nightmare cleaning work for any maintenance crew. ",,,
 ,,,,,
 PSE_torrens,SHIP,"A quintessential logistics vessel, Torrens-class frigates find use in salvage expeditions and small trade convoys, providing easy operation in examining and detecting bodies of various sizes and compositions. Despite an anemic weapon loadout, compact drone tech can give it an edge in combat, but is not much use against anything bigger than itself.",,,
 PSE_eyre,SHIP,"A steady and efficient cargo hauler providing cheap mass storage transit, and a favourite of commanders of smaller expeditions. Following convention with true cargo ships, the Eyre wields no special defensive armament, and is rarely seen outside of small trade convoys, being generally favoured less than larger and more economical vessels.",,,
@@ -47,15 +52,15 @@ Developed as an answer to the Paragon-class fielded by rival corporation Tri-Tac
 PSE_rhys,SHIP,"A versatile attack fighter, equipped with a shell of heavy armour and a suite of suppressive weapons, ideal for supporting an attack formation. The integral kinetic railgun is particularly effective at applying heavy pressure to shields.",,,
 PSE_carlton,SHIP,"Fast and deadly, the Carlton will disable and neutralise enemy targets through the use of a standard miniaturised Swarmer SRM launcher, and an effective EMP burst beam that can disable engines as well as reliably intercepting missiles.",,,
 PSE_hale,SHIP,"A bomber designed for use in modular drone hangars, the Hale equips cheap Hammer-attern torpedoes for strong anti-ship strike capability, with a front shield that guarantees payload delivery in the absence of sufficient point defence coverage.",,,
-PSE_drone_civilian,SHIP,"A slow civilian drone equipped with a low-yield flak system and an infrared pulse laser. Useful as a distraction and mild PD support.",,,
-PSE_drone2,SHIP,"A drone built around an EMP emitter core and a directional shield generator. Fast and offers a powerful anti-missile and anti-fighter solution",,,
+PSE_drone_civilian,SHIP,A slow civilian drone equipped with a low-yield flak system and an infrared pulse laser. Useful as a distraction and mild PD support.,,,
+PSE_drone2,SHIP,A drone built around an EMP emitter core and a directional shield generator. Fast and offers a powerful anti-missile and anti-fighter solution,,,
 ,,,,,
 PSE_droneCorona,SHIP_SYSTEM,Launches drones programmed to cycle through two holding patterns; a PD defence formation and a focused attack formation.,,,
 PSE_droneBastion,SHIP_SYSTEM,"Launches four PD drones programmed to cycle through two holding patterns; a cardinal angle facing formation, and a focused front facing formation.",,,
 PSE_droneShroud,SHIP_SYSTEM,"Continually launches up to five unique shield drones in two holding patterns; a slowly orbiting circle cluster, and an unstable broadside oriented drive-boosting formation providing increased battleship maneuverability.",,,
 PSE_pulseImpeller,SHIP_SYSTEM,"Stores up to four quickly-regenerating charges of an instant force-applying mass acceleration system, providing quick burst maneuverability in combat.",,,
 PSE_droneMVA,SHIP_SYSTEM,"Launches drones programmed to cycle through two holding patterns; a targeting formation that increases the damage of the Parity Destabiliser gun, and a magnetically clamped vector thruster mode.",,,
-PSE_droneEMP,SHIP_SYSTEM,"Generates weak EMP arcs that hit nearby missiles and ships. Regenerates charges quickly",,,,,
+PSE_droneEMP,SHIP_SYSTEM,Generates weak EMP arcs that hit nearby missiles and ships. Regenerates charges quickly,,,
 ,,,,,
 pearson_exotronics,FACTION,"A lesser known megacorporation hailing from the late domain era, Pearson Exotronics were generally thought to have been founded as a conglomerate representing the interests of a number of formerly colonial worlds that had the infrastructure and good luck to develop original and inspired designs in the field of spaceborne engineering and robotics. Although finding competition in larger organisations such as the Tri-Tachyon Corporation and Eridani-Utopia, Pearson Exotronics was able to expand its influence into a number of sectors throughout its local region of colonised space, offering cheap transportation, habitation and defence contracting thanks to a number of significant breakthroughs in sub-sentient automation.
 

@@ -53,8 +53,8 @@
         "WS0006": "pdlaser",
         "WS0007": "flak",
         "WS0008": "flak",
-        "WS0009": "PSE_starburst_mini",
-        "WS0010": "PSE_starburst_mini",
+        "WS0009": "PSE_novaburst_mini",
+        "WS0010": "PSE_novaburst_mini",
         "WS0011": "pdlaser"
       }
     }

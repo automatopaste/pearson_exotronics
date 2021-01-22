@@ -1,0 +1,12 @@
+{
+	"id":"PSE_cascade_accelerator_shot",
+	"specClass":"projectile",
+	"spawnType":"PLASMA",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"width":35.0,
+	"fadeTime":0.4,
+	"hitGlowRadius":38,
+	"fringeColor":[0,255,0,255],
+	"coreColor":[100,255,150,255],
+}

@@ -3,7 +3,7 @@
   "hullId": "PSE_leyland",
   "displayName": "Elite",
   "goalVariant": true,
-  "fluxCapacitors": 10,
+  "fluxCapacitors": 8,
   "fluxVents": 30,
   "quality": 1.2,
   "permaMods": [],
@@ -15,8 +15,6 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0003": "heavyac",
-        "WS0004": "heavyac",
         "WS0018": "PSE_parity_gun"
       }
     },
@@ -25,16 +23,16 @@
       "mode": "ALTERNATING",
       "weapons": {
         "WS0013": "typhoon",
-        "WS0014": "sabot",
-        "WS0015": "sabot"
+        "WS0014": "PSE_thrall_launcher",
+        "WS0015": "PSE_thrall_launcher"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "PSE_corsair_mk1",
-        "WS0002": "PSE_corsair_mk1",
+        "WS0003": "heavyac",
+        "WS0004": "heavyac",
         "WS0007": "PSE_douglas",
         "WS0008": "PSE_douglas"
       }
@@ -43,6 +41,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0001": "PSE_corsair_mk1",
+        "WS0002": "PSE_corsair_mk1",
         "WS0012": "ionbeam"
       }
     },

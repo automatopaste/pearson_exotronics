@@ -12,7 +12,8 @@
   "shieldRadius": 24,
   "viewOffset": 0,
   "builtInMods": [
-    "no_weapon_flux"
+    "no_weapon_flux",
+    "pointdefenseai"
   ],
   "builtInWeapons": {
     "WS0001": "pdlaser",

@@ -3,41 +3,35 @@
   "hullId": "PSE_cassius",
   "displayName": "Balanced",
   "goalVariant": true,
-  "fluxCapacitors": 6,
+  "fluxCapacitors": 8,
   "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "hardened_subsystems"
+    "stabilizedshieldemitter"
   ],
   "weaponGroups": [
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "lightdualac",
-        "WS0002": "lightdualac"
+        "WS0001": "lightag",
+        "WS0002": "lightag"
       }
     },
     {
       "autofire": false,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
-        "WS0006": "heatseeker"
+        "WS0005": "PSE_thrall_launcher",
+        "WS0006": "PSE_thrall_launcher"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0005": "irpulse"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0003": "vulcan"
+        "WS0003": "PSE_novaburst_mini"
       }
     }
   ],
