@@ -23,7 +23,6 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
     private CombatEngineAPI engine;
     private PSE_CombatEffectsPlugin effectsPlugin;
 
-
     private void miniFlakExplode(DamagingProjectileAPI projectile, CombatEntityAPI target) {
         Vector2f location = projectile.getLocation();
 

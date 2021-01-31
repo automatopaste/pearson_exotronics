@@ -1,13 +1,16 @@
 beta.9
 -paintjobs adjusted once again (yeah i know) to a classic green
+-added faction inbuilt hullmod: Leaching Target Matrix, applies range increases on host ship to drone systems
 -overhauled drone corona system AI, acts much more aggressively in using attack formation
 -increased speed of parity projectile 1400 -> 1600
--added 10 degree arc to inbuilt parity gun
+-added 10 degree arc to inbuilt parity destabiliser gun
 -replaced pulse impeller shipsystem with new ghost skimmer shipsystem on cassius and richmond
 -added integrated point defence AI to corona and bastion pd drones
 -added new large energy weapon: Cascade Accelerator, fires bursts of powerful plasmatic singularities at long range
 -added new small missile weapon: Thrall Rocket Launcher, fires salvos of four kinetic rockets to spike enemy flux levels
 -updated some variants
+-fixed faction hullmods unknown by Pearson in campaign
+-adjusted faction doctrine
 
 beta.8
 -reduced forge speed penalty of converted hangars x5 -> x3

@@ -177,6 +177,8 @@
 			"PSE_douglas",
 
 			"PSE_spectrumpd",
+
+			"PSE_cascade_accelerator",
 		],
 	},
 	"knownHullMods":{
@@ -209,15 +211,18 @@
 			"surveying_equipment",
 			"hiressensors",
 			"efficiency_overhaul",
+
+			"PSE_ConvertedDroneHangars", #PSE
+			"PSE_OverclockedForgeVats",
 		],
 	},
 	"factionDoctrine":{
-		"warships":5,
-		"carriers":1,
+		"warships":4,
+		"carriers":2,
 		"phaseShips":1,
 		
-		"officerQuality":2,
-		"shipQuality":4,
+		"officerQuality":3,
+		"shipQuality":3,
 		"numShips":1,
 		
 		"shipSize":4,

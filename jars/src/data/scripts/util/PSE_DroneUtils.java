@@ -44,12 +44,10 @@ public final class PSE_DroneUtils {
             drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * 0.5f));
 
             //accelerate forwards or backwards
-            if (
-                    90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -90f
+            if (90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -90f
             ) { //between 90 and -90 is an acute angle therefore in front
                 drone.giveCommand(ShipCommand.ACCELERATE, null, 0);
-            } else if (
-                    (180f >= rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 90f) || (-90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle >= -180f)
+            } else if ((180f >= rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 90f) || (-90f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle >= -180f)
             ) { //falls between 90 to 180 or -90 to -180, which should be obtuse and thus relatively behind
                 drone.giveCommand(ShipCommand.ACCELERATE_BACKWARDS, null, 0);
             }

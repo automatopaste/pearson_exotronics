@@ -1,21 +1,21 @@
 {
-	"id":"PSE_thrall_rocket",
+	"id":"PSE_thrall_missile",
 	"specClass":"missile",
-	"missileType":"ROCKET",
+	"missileType":"MISSILE",
 	"sprite":"graphics/PSE/missiles/PSE_thrall_rocket.png",
 	"size":[10,18],	
 	"center":[5,9],
 	"collisionRadius":15,
-	"collisionClass":"MISSILE_FF",
+	"collisionClass":"MISSILE_NO_FF",
 	"explosionColor":[165,255,255,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":35, # purely visual
 	"flameoutTime":1, # total time from flameout to full fadeout
 	"noEngineGlowTime":0.5, # time spent without the engine glow being rendered
 	"fadeTime":0.5, # fadeout duration	
-	"engineSpec":{"turnAcc":0,
-				  "turnRate":0,
-				  "acc":500,
-				  "dec":0},
+	"engineSpec":{"turnAcc":200,#800
+				  "turnRate":50,#100
+				  "acc":2400,#1250
+				  "dec":600},#600
 	"engineSlots":[{"id":"ES1",
 					"loc":[-11, 0],
 				    "style":"CUSTOM",

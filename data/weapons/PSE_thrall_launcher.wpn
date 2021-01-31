@@ -1,14 +1,14 @@
 {
   "id": "PSE_thrall_launcher",
   "specClass": "projectile",
-  "projectileSpecId": "PSE_thrall_rocket",
+  "projectileSpecId": "PSE_thrall_missile",
   "type": "MISSILE",
   "size": "SMALL",
   "turretSprite": "graphics/PSE/weapons/PSE_small_kinetic_launcher.png",
   "hardpointSprite": "graphics/PSE/weapons/PSE_small_kinetic_launcher_hp.png",
   "renderAboveAllWeapons": 0,
   "renderHints": [
-    RENDER_LOADED_MISSILES
+    #RENDER_LOADED_MISSILES
   ],
   "turretOffsets": [
     10,

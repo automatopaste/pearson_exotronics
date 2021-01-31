@@ -71,7 +71,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         float angleRange;
         Color particleColour;
         Color explosionColour;
-        private IntervalUtil particleTracker;
+        private final IntervalUtil particleTracker;
 
         PSE_ExplosionWithParticles(float maxTime, Vector2f location, float minRadius, float maxRadius, float angleRange, Color explosionColour, Color particleColour) {
             this.maxTime = maxTime;
@@ -83,7 +83,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
             this.particleColour = particleColour;
 
             currTime = maxTime;
-            particleTracker = new IntervalUtil(0.05f, 0.1f);
+            particleTracker = new IntervalUtil(0.01f, 0.05f);
         }
 
         public void advance(float amount, CombatEngineAPI engine) {
@@ -120,7 +120,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         }
 
         public void advance(float amount, CombatEngineAPI engine) {
-            int num = 60;
+            int num = 12;
             for (int i = 0; i < num; i++) {
                 Vector2f loc = MathUtils.getPointOnCircumference(location, minRadius, i * (360f / num));
                 Vector2f vel = Vector2f.sub(loc, location, new Vector2f());

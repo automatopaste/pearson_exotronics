@@ -23,7 +23,7 @@
       "size": "MEDIUM",
       "type": "BUILT_IN",
       "mount": "TURRET",
-      "arc": 69,
+      "arc": 169,
       "angle": 0,
       "locations": [0, -0]
     }

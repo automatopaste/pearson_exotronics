@@ -9,6 +9,7 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import data.scripts.PSEModPlugin;
+import data.scripts.util.PSE_CampaignUtils;
 import data.scripts.world.PSE.systems.PSE_Adelaide;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class PSE_WorldGen implements SectorGeneratorPlugin {
 
     private void cleanUp(boolean useNexerelinTariffs, List<MarketAPI> markets) {
         for (MarketAPI market : markets) {
-            PersonAPI admin = PSEModPlugin.createAdmin(market);
+            PersonAPI admin = PSE_CampaignUtils.createAdmin(market);
             market.setAdmin(admin);
 
             if (useNexerelinTariffs && market.getTariff() != null) {
