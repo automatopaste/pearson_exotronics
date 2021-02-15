@@ -1,7 +1,8 @@
 beta.9
 -paintjobs adjusted once again (yeah i know) to a classic green
 -added faction inbuilt hullmod: Leaching Target Matrix, applies range increases on host ship to drone systems
--overhauled drone corona system AI, acts much more aggressively in using attack formation
+-overhauled corona system AI, acts much more aggressively in using attack formation
+-updated bastion system AI, less frantic switching
 -increased speed of parity projectile 1400 -> 1600
 -added 10 degree arc to inbuilt parity destabiliser gun
 -replaced pulse impeller shipsystem with new ghost skimmer shipsystem on cassius and richmond
@@ -11,6 +12,48 @@ beta.9
 -updated some variants
 -fixed faction hullmods unknown by Pearson in campaign
 -adjusted faction doctrine
+-adjusted ship spawning composition
+-weapon balancing
+    -corsair railgun
+        -damage/shot 90 -> 125
+-ship balancing
+    -denmark
+    -fixing legacy stats when ship was originally balanced as a light cruiser
+        -hitpoints 5800 -> 4800
+        -armour rating 750 -> 500
+        -max flux 6000 -> 5500
+        -flux dissipation 300 -> 275
+        -max speed 90 -> 85
+        -max turn rate 25 -> 30
+        -turn acceleration 30 -> 60
+        -mass 600 -> 400
+        -shield upkeep 0.5 -> 0.4
+        -shield efficiency 0.9 -> 0.8
+        -min crew 70 -> 55
+        -max crew 140 -> 110
+        -fuel 90 -> 60
+        -range 60 -> 30
+        -base value 60000 -> 40000
+        -peak performance time 480 -> 360
+        -dp cost 12 -> 11
+    -richmond
+        -bringing stats closer to destroyer standard
+        -hitpoints 5000 -> 4200
+        -armour rating 500 -> 400
+        -shield efficiency 0.8 -> 0.7
+        -fuel 60 -> 50
+        -range 30 -> 25
+        -shield arc 150 -> 300
+        -base value 40000 -> 35000
+        -dp cost 10 -> 9
+    -leyland
+        -much-needed ordnance point increase to reflect mount options
+        -ordnance points 160 -> 195
+    -serrano
+        slight maneuverability boost to balance weaker defensive stats
+        -max speed 40 -> 45
+        -acceleration 25 -> 30
+        -deceleration 15 -> 20
 
 beta.8
 -reduced forge speed penalty of converted hangars x5 -> x3
@@ -105,3 +148,83 @@ beta.2:
 -removed reference to extraneous scripts
 
 beta.1:
+-added new Leyland-class cruiser
+    -has unique drone system with targeting mode and clamped vector thruster mode
+    -spinal inbuilt energy gun
+    -targeting mode increases projectile speed and damage by 1.35x
+    -added system AI
+-added new unique faction weapons
+    -Douglas autocannon
+        -medium ballistic, fires HE shells at medium range
+    -Corsair mk1 railgun
+        -small ballistic, fires triple burst kinetic slugs at average range
+    -Spectrum PD
+        -small energy, fires fragmentation damage burst beam at average range, EMPs fighters consistently
+    -Mini-starburst Flak
+        -small ballistic, fires small fragmenting proximity shells at short range, useful against massed missile attacks
+-migrated repository to github, fixed version files along the way
+-complete paintjob rework
+    -added white, standard military skins as the common ship type
+    -added rare dark military skins of the standard ships with modifications
+        -(visit the bar on iuicharba to get a taste c;)
+-added clandestine subfaction Pearson Special Operations Division (PSOD), responsible for particular bounty commissions and rewards
+    -found through hidden markets that will spawn in the core worlds
+-added story/lore content and descriptions
+-graphicslib integration, ships now use normal map functionality
+-complete set of unique hull sfx
+-ship balancing and updates
+    -denmark
+        -replace small universal hardpoints with ballistic medium hardpoints
+        -OP 90 -> 95 to compensate for larger slots
+        -increased arcs of small energy mounts
+    -eyre
+        -complete rework/overhaul
+        -now has three small mounts with two ballistics and a synergy
+        -added inbuilt civilian escort drone wing equipped with mini starburst flak and fighter ir pulse cannon
+        -reworked variants
+        -DP 3 -> 4
+        -Max burn 11 -> 9
+    -cassius
+        -sprite overhaul
+        -added two synergy hardpoints
+        -OP 40 -> 45 to compensate
+        -reworked variants
+        -Max burn 11 -> 10
+    -serrano
+        -sprite overhaul
+        -flux capacity 10000 -> 10500
+        -dissipation 500 -> 525
+        -DP 25 -> 24
+        -max speed 35 -> 40
+        -base price 110000 -> 120000
+    -kingston
+        -sprite overhaul
+        -drone flux capacity 6000 -> 4000
+        -drone spin degrees/second 15 -> 25
+    -torrens
+        -sprite overhaul
+        -shipsystem drone bastion replaced with flares
+        -added inbuilt civilian escort drone wing equipped with mini starburst flak and fighter ir pulse cannon
+        -DP 5 -> 3
+        -Max burn 11 -> 9
+    -kiruna
+        -sprite overhaul
+        -acceleration increased
+        -shield upkeep 0.6 -> 0.5
+        -shield efficiency 1.0 -> 0.8
+        -max crew 30 -> 35
+        -cargo 12 -> 40
+        -max burn 12 -> 11
+    -richmond
+        -sprite overhaul
+        -emp drones
+            -emp damage 300 -> 150
+            -system cooldown 0.4 -> 1.2
+            -wing refit time 0 -> 10
+-adjusted pulse impeller gfx
+-updated drone movement AI
+    -improved damping algorithm, much less jitter at low speeds, with higher maximum speeds
+-fixed drones piling up in deployed and destroyed ships with zero deployment points
+-fixed default colour for manufacturer
+-adjusted nex start options
+-tweaked malfunctioning shield generator text

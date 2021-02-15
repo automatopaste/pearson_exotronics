@@ -16,8 +16,11 @@ import java.util.List;
 public final class PSE_DroneUtils {
     private static final Color DRONE_EXPLOSION_COLOUR = new Color(183, 255, 153, 255);
 
-    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation, float sanity, IntervalUtil velocityRotationIntervalTracker) {
+    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation,IntervalUtil velocityRotationIntervalTracker) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
+
+        //account for ship velocity
+        Vector2f.add(movementTargetLocation, (Vector2f) new Vector2f(drone.getLaunchingShip().getVelocity()).scale(Global.getCombatEngine().getElapsedInLastFrame()), movementTargetLocation);
 
         //GET USEFUL VALUES
         float angleFromDroneToTargetLocation = VectorUtils.getAngle(drone.getLocation(), movementTargetLocation); //ABSOLUTE 360 ANGLE
@@ -65,7 +68,7 @@ public final class PSE_DroneUtils {
         } else {
             //COURSE CORRECTION
             if (velocityRotationIntervalTracker.intervalElapsed()) {
-                drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle * sanity));
+                drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle));
             }
         }
 
@@ -301,8 +304,8 @@ public final class PSE_DroneUtils {
         return false;
     }
 
-    public static ShipAPI getAlternateHost(PSEDrone drone, String prefix, CombatEngineAPI engine) {
-        engine = Global.getCombatEngine();
+    public static ShipAPI getAlternateHost(PSEDrone drone, String prefix) {
+        CombatEngineAPI engine = Global.getCombatEngine();
         List<ShipAPI> allies = AIUtils.getNearbyAllies(drone, 4000f);
         if (allies.isEmpty()) {
             return null;

@@ -2,7 +2,7 @@
     #WEAPONS
 
 
-    #parity gun
+    #PARITY GUN
     "PSE_parity_charge":
     [
         {"file":"sounds/pearson_exotronics/weapon_fx/PSE_parity_charge.ogg","pitch":1.00,"volume":0.6},
@@ -24,6 +24,21 @@
         {"file":"sounds/sfx_wpn_guns/needler_fire_01.ogg","pitch":1.00,"volume":1.00},
         {"file":"sounds/sfx_wpn_guns/needler_fire_01.ogg","pitch":1.05,"volume":1.00},
         {"file":"sounds/sfx_wpn_guns/needler_fire_01.ogg","pitch":0.95,"volume":1.00},
+    ],
+
+    #HELSING FLAK RIFLE
+    "PSE_helsing_flak_rifle_fire":
+    [
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot_2.ogg","pitch":1.00,"volume":0.3},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot_2.ogg","pitch":1.05,"volume":0.3},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot_2.ogg","pitch":0.95,"volume":0.3},
+    ],
+    "PSE_helsing_flak_rifle_explode":
+    [
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_01.ogg","pitch":1.40,"volume":0.5},
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_02.ogg","pitch":1.40,"volume":0.5},
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_03.ogg","pitch":1.40,"volume":0.5},
+        {"file":"sounds/sfx_wpn_guns/devastator_shell_exp_04.ogg","pitch":1.40,"volume":0.5},
     ],
 
     #DOUGLAS
@@ -189,5 +204,14 @@
         "DESTROYER":{"sounds":[0,1,2], "pitch":1, "volume":0.6},
         "CRUISER":{"sounds":[0,1,2], "pitch":1, "volume":0.8},
         "CAPITAL_SHIP":{"sounds":[0,1,2], "pitch":1, "volume":1},
+    },
+
+
+    #MUSIC
+
+    "music":{
+        "PSE_music_market_hostile":[
+            {"file":"PSE_market_hostile.ogg","source":"sounds/tomatopaste/music/","volume":0.7,"randomStart":true},
+        ],
     },
 }

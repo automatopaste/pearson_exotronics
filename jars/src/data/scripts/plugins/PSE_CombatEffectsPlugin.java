@@ -22,6 +22,15 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
     private static final float MINI_FLAK_ANGLE_RANGE = 180f;
     private static final Color MINI_FLAK_EXPLOSION_COLOUR = new Color(194, 97, 60, 180);
     private static final Color MINI_FLAK_PARTICLE_COLOUR = new Color(167, 167, 73, 255);
+    private static final int MINI_FLAK_NUM_PARTICLES = 12;
+
+    private static final float HELSING_FLAK_TIME = 0.9f;
+    private static final float HELSING_FLAK_MIN_RADIUS = 25f;
+    private static final float HELSING_FLAK_MAX_RADIUS = 35f;
+    private static final float HELSING_FLAK_ANGLE_RANGE = 360f;
+    private static final Color HELSING_FLAK_EXPLOSION_COLOUR = new Color(248, 153, 116, 210);
+    private static final Color HELSING_FLAK_PARTICLE_COLOUR = new Color(255, 93, 93, 255);
+    private static final int HELSING_FLAK_NUM_PARTICLES = 16;
 
     private CombatEngineAPI engine;
 
@@ -83,7 +92,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
             this.particleColour = particleColour;
 
             currTime = maxTime;
-            particleTracker = new IntervalUtil(0.01f, 0.05f);
+            particleTracker = new IntervalUtil(0.05f, 0.1f);
         }
 
         public void advance(float amount, CombatEngineAPI engine) {
@@ -107,22 +116,23 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
     public static class PSE_ParticleRing extends PSE_Explosion {
         Color particleColour;
         float particleSize;
+        int numParticles;
 
-        PSE_ParticleRing(float maxTime, Vector2f location, float minRadius, float maxRadius, Color particleColour, float particleSize) {
+        PSE_ParticleRing(float maxTime, Vector2f location, float minRadius, float maxRadius, Color particleColour, float particleSize, int numParticles) {
             this.maxTime = maxTime;
             this.location = location;
             this.minRadius = minRadius;
             this.maxRadius = maxRadius;
             this.particleColour = particleColour;
             this.particleSize = particleSize;
+            this.numParticles = numParticles;
 
             currTime = maxTime;
         }
 
         public void advance(float amount, CombatEngineAPI engine) {
-            int num = 12;
-            for (int i = 0; i < num; i++) {
-                Vector2f loc = MathUtils.getPointOnCircumference(location, minRadius, i * (360f / num));
+            for (int i = 0; i < numParticles; i++) {
+                Vector2f loc = MathUtils.getPointOnCircumference(location, minRadius, i * (360f / numParticles));
                 Vector2f vel = Vector2f.sub(loc, location, new Vector2f());
                 vel.normalise();
                 vel.scale((maxRadius - minRadius) / maxTime);
@@ -138,14 +148,14 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         PSE_CombatEffectsPlugin effectsPlugin;
     }
 
-    public void spawnMiniStarburstFlakExplosion(Vector2f loc) {
+    public void spawnMiniStarburstFlakExplosion(Vector2f location) {
         PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
         if (data == null) {
             return;
         }
 
         Global.getCombatEngine().spawnExplosion(
-                loc,
+                location,
                 new Vector2f(0f, 0f),
                 MINI_FLAK_EXPLOSION_COLOUR,
                 MINI_FLAK_MAX_RADIUS,
@@ -154,7 +164,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
 
         data.explosions.add(new PSE_ExplosionWithParticles(
                 MINI_FLAK_TIME,
-                loc,
+                location,
                 MINI_FLAK_MIN_RADIUS,
                 MINI_FLAK_MAX_RADIUS,
                 MINI_FLAK_ANGLE_RANGE,
@@ -163,12 +173,47 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         ));
         data.explosions.add(new PSE_ParticleRing(
                 MINI_FLAK_TIME * 0.3f,
-                loc,
+                location,
                 MINI_FLAK_MIN_RADIUS,
                 MINI_FLAK_MAX_RADIUS,
                 MINI_FLAK_EXPLOSION_COLOUR,
-                10f
+                10f,
+                MINI_FLAK_NUM_PARTICLES
         ));
+    }
+
+    public void spawnHelsingFlakExplosion(Vector2f location) {
+        PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
+        if (data == null) {
+            return;
+        }
+
+        Global.getCombatEngine().spawnExplosion(
+                location,
+                new Vector2f(0f, 0f),
+                HELSING_FLAK_EXPLOSION_COLOUR,
+                HELSING_FLAK_MAX_RADIUS,
+                HELSING_FLAK_TIME
+        );
+
+        data.explosions.add(new PSE_ExplosionWithParticles(
+                HELSING_FLAK_TIME,
+                location,
+                HELSING_FLAK_MIN_RADIUS,
+                HELSING_FLAK_MAX_RADIUS,
+                HELSING_FLAK_ANGLE_RANGE,
+                HELSING_FLAK_EXPLOSION_COLOUR,
+                HELSING_FLAK_PARTICLE_COLOUR
+        ));
+        /*data.explosions.add(new PSE_ParticleRing(
+                HELSING_FLAK_TIME * 0.3f,
+                location,
+                HELSING_FLAK_MIN_RADIUS,
+                HELSING_FLAK_MAX_RADIUS,
+                HELSING_FLAK_EXPLOSION_COLOUR,
+                16f,
+                HELSING_FLAK_NUM_PARTICLES
+        ));*/
     }
 
     public void spawnParticleRing(PSE_ParticleRing ring) {

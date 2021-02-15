@@ -31,14 +31,15 @@
 		    "PSE_sod_bp":0.25,
 		},
 		"hulls":{
-			"PSE_cassius":4,
-			"PSE_torrens":3,
+			"PSE_cassius":3,
+			"PSE_torrens":1,
 			"PSE_kiruna":2,
 			"PSE_denmark":2,
-			"PSE_richmond":4,
-			"PSE_serrano":4,
-			"PSE_kingston":2,
-			"PSE_leyland":3,
+			"PSE_richmond":3,
+			"PSE_armstrong":2,
+			"PSE_serrano":3,
+			"PSE_kingston":1,
+			"PSE_leyland":2,
 			"PSE_buffalo_pe":2,
 		},
 	},
@@ -49,6 +50,7 @@
 		    "enforcer",
 		    #"dominator",
 		    "eagle",
+		    "falcon",
 		],
 	},
 	"knownShips":{
@@ -65,6 +67,7 @@
 			"PSE_kiruna",
 			"PSE_denmark",
 			"PSE_richmond",
+			"PSE_armstrong",
 			"PSE_serrano",
 			"PSE_leyland",
 			"PSE_kingston",
@@ -80,6 +83,7 @@
 			"PSE_kiruna",
 			"PSE_denmark",
 			"PSE_richmond",
+			"PSE_armstrong",
 			"PSE_serrano",
 			"PSE_leyland",
 			"PSE_kingston",
@@ -117,6 +121,7 @@
 
 			"PSE_corsair_mk1",
 			"PSE_novaburst_mini",
+			"PSE_helsing_flak_rifle",
 
 			"flak",
 			"dualflak",
@@ -245,8 +250,14 @@
 		"ai_cores",
 	],
 	"music":{
-
-    	},
+	    "theme":"PSE_music_market_hostile",
+		#"market_neutral":"PSE_music_market_hostile",
+		"market_hostile":"PSE_music_market_hostile",
+		#"market_friendly":"PSE_music_market_hostile",
+		#"encounter_neutral":"PSE_music_market_hostile",
+		"encounter_hostile":"PSE_music_market_hostile",
+		#"encounter_friendly":"PSE_music_market_hostile",
+    },
 	"internalComms":"PSE_secure",
 	"portraits":{
 		"standard_male":[

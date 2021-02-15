@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
+import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneCorona;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
@@ -14,21 +15,15 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
 
-public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
-
-    private final PSEDrone drone;
-    private ShipAPI ship;
-    private CombatEngineAPI engine;
-
-    private boolean loaded = false;
-
+public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
     //USED FOR MOVEMENT AND POSITIONING AI
-    private float[] initialOrbitAngleArray;
-    private float[] focusModeOrbitAngleArray;
-    private float[] orbitRadiusArray;
-    private IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
-    private IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
-    private WeaponSlotAPI landingSlot;
+    private final float[] initialOrbitAngleArray;
+    private final float[] focusModeOrbitAngleArray;
+    private final float[] orbitRadiusArray;
+    private float initialOrbitAngle;
+    private float focusModeOrbitAngle;
+    private float orbitRadius;
+    private PSE_DroneCorona.CoronaDroneOrders droneOrders;
 
     //USED FOR SYSTEM ACTIVATION AI
     private static final String PD_WEAPON_ID = "pdlaser";
@@ -36,12 +31,8 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
     private float focusWeaponRange;
     private boolean isInFocusMode;
 
-    public PSE_DroneCoronaDroneAI(PSEDrone passedDrone) {
-        this.engine = Global.getCombatEngine();
-
-        this.drone = passedDrone;
-
-        this.ship = drone.getDroneSource();
+    public PSE_DroneCoronaDroneAI(PSEDrone passedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        super(passedDrone, baseDroneSystem);
 
         List<WeaponAPI> droneWeapons = drone.getAllWeapons();
 
@@ -54,90 +45,119 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
             }
         }
 
-        drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
+        initialOrbitAngleArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getInitialOrbitAngleArray();
+        focusModeOrbitAngleArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getFocusOrbitAngleArray();
+        orbitRadiusArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getOrbitRadiusArray();
     }
 
     @Override
     public void advance(float amount) {
-        this.engine = Global.getCombatEngine();
-        if (engine.isPaused()) {
+        super.advance(amount);
+
+        PSE_DroneCorona coronaDroneSystem = (PSE_DroneCorona) engine.getCustomData().get(getUniqueSystemID());
+        if (coronaDroneSystem == null) {
             return;
         }
-        if (drone == null) {
-            return;
-        }
-
-
-        ////////////////////
-        ///INITIALISATION///
-        ///////////////////
-
-
-        if (ship == null || !ship.isAlive() || !engine.isEntityInPlay(ship)) {
-            landingSlot = null;
-
-            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX, engine);
-
-            if (ship == null || !ship.isAlive() || !engine.isEntityInPlay(ship)) {
-                PSE_DroneUtils.deleteDrone(drone, engine);
-                return;
-            }
-        }
-
-        //get ship system object
-        String uniqueSystemId = PSE_DroneCorona.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
-        PSE_DroneCorona shipDroneCoronaSystem = (PSE_DroneCorona) engine.getCustomData().get(uniqueSystemId);
-        if (shipDroneCoronaSystem == null) {
-            return;
-        }
-        if (!shipDroneCoronaSystem.getDeployedDrones().contains(drone)) {
-            shipDroneCoronaSystem.getDeployedDrones().add(drone);
-        }
-
-        //config checking
-        if (!loaded) {
-            initialOrbitAngleArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getInitialOrbitAngleArray();
-            focusModeOrbitAngleArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getFocusOrbitAngleArray();
-            orbitRadiusArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getOrbitRadiusArray();
-
-            loaded = true;
-        }
+        baseDroneSystem = coronaDroneSystem;
 
         //assign specific values
-        int droneIndex = shipDroneCoronaSystem.getIndex(drone);
-        if (droneIndex == -1) {
-            if (landingSlot == null) {
-                landingSlot = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponSlotAPI();
-            }
+        int droneIndex = coronaDroneSystem.getIndex(drone);
 
-            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
-
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
-
-            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
-            float angle = VectorUtils.getFacing(to);
-            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
-
-            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
-            return;
-        }
-
-        float initialOrbitAngle = initialOrbitAngleArray[droneIndex];
-        float focusModeOrbitAngle = focusModeOrbitAngleArray[droneIndex];
-        float orbitRadius = orbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
-
-        //UNUSED AS YET CONSTANT FOR BEHAVIOUR WHEN HOST SIGNAL LOST
-        float sanity = 1f;
+        initialOrbitAngle = initialOrbitAngleArray[droneIndex];
+        focusModeOrbitAngle = focusModeOrbitAngleArray[droneIndex];
+        orbitRadius = orbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
 
         //GET DRONE ORDERS STATE
-        PSE_DroneCorona.CoronaDroneOrders coronaDroneOrders = shipDroneCoronaSystem.getDroneOrders();
+        droneOrders = coronaDroneSystem.getDroneOrders();
+
+        ///////////////////////////////////
+        ///DRONE WEAPON ACTIVATION LOGIC///
+        ///////////////////////////////////
 
 
-        /////////////////////////
-        ///TARGETING BEHAVIOUR///
-        /////////////////////////
+        if (isInFocusMode) {
+            for (WeaponAPI weapon : drone.getAllWeapons()) {
+                if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
+                    weapon.disable(true);
+                }
+            }
 
+            if (droneIndex == 0 && !drone.getSystem().isStateActive()) {
+                drone.useSystem();
+            }
+            } else {
+            for (WeaponAPI weapon : drone.getAllWeapons()) {
+                if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
+                    weapon.repair();
+                }
+            }
 
+            if (droneIndex == 0 && drone.getSystem().isStateActive()) {
+                drone.useSystem();
+            }
+        }
+
+        doRotationTargeting();
+
+        Vector2f movementTargetLocation = getMovementTargetLocation(amount);
+        if (movementTargetLocation != null) {
+            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+        }
+    }
+
+    @Override
+    protected Vector2f getMovementTargetLocation(float amount) {
+        float angle;
+        float radius;
+        Vector2f movementTargetLocation;
+        switch (droneOrders) {
+            case DEPLOY:
+                angle = initialOrbitAngle + ship.getFacing();
+
+                radius = orbitRadius;
+
+                delayBeforeLandingTracker.setElapsed(0f);
+
+                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
+                landingSlot = null;
+
+                isInFocusMode = false;
+
+                break;
+            case RECALL:
+                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
+
+                if (landingSlot == null) {
+                    landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
+                }
+
+                movementTargetLocation = landingSlot.computePosition(ship);
+
+                isInFocusMode = false;
+
+                break;
+            case ATTACK:
+                angle = focusModeOrbitAngle + ship.getFacing();
+
+                radius = orbitRadius;
+
+                delayBeforeLandingTracker.setElapsed(0f);
+
+                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
+                landingSlot = null;
+
+                isInFocusMode = true;
+
+                break;
+            default:
+                movementTargetLocation = ship.getLocation();
+        }
+
+        return movementTargetLocation;
+    }
+
+    @Override
+    protected void doRotationTargeting() {
         //PRIORITISE TARGET, SET LOCATION
         float droneFacing = drone.getFacing();
         CombatEntityAPI target;
@@ -179,92 +199,7 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         } else {
             PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), engine);
         }
-
-
-        ////////////////////////
-        ///MOVEMENT BEHAVIOUR///
-        ////////////////////////
-
-
-        //PERFORM LOGIC BASED ON MOTHERSHIP SHIPSYSTEM STATE - SELECT TARGET LOCATION
-        float angle;
-        float radius;
-        Vector2f movementTargetLocation;
-        switch (coronaDroneOrders) {
-            case DEPLOY:
-                angle = initialOrbitAngle + ship.getFacing();
-
-                radius = orbitRadius;
-
-                delayBeforeLandingTracker.setElapsed(0f);
-
-                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
-                landingSlot = null;
-
-                isInFocusMode = false;
-
-                break;
-            case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
-
-                if (landingSlot == null) {
-                    landingSlot = shipDroneCoronaSystem.getPlugin().getLandingBayWeaponSlotAPI();
-                }
-
-                movementTargetLocation = landingSlot.computePosition(ship);
-
-                isInFocusMode = false;
-
-                break;
-            case ATTACK:
-                angle = focusModeOrbitAngle + ship.getFacing();
-
-                radius = orbitRadius;
-
-                delayBeforeLandingTracker.setElapsed(0f);
-
-                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
-                landingSlot = null;
-
-                isInFocusMode = true;
-
-                break;
-            default:
-                movementTargetLocation = ship.getLocation();
-        }
-
-        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
-
-
-        ///////////////////////////////////
-        ///DRONE WEAPON ACTIVATION LOGIC///
-        ///////////////////////////////////
-
-
-        if (isInFocusMode) {
-            for (WeaponAPI weapon : drone.getAllWeapons()) {
-                if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
-                    weapon.disable(true);
-                }
-            }
-
-            if (droneIndex == 0 && !drone.getSystem().isStateActive()) {
-                drone.useSystem();
-            }
-            } else {
-            for (WeaponAPI weapon : drone.getAllWeapons()) {
-                if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
-                    weapon.repair();
-                }
-            }
-
-            if (droneIndex == 0 && drone.getSystem().isStateActive()) {
-                drone.useSystem();
-            }
-        }
     }
-
-    //OVERRIDES
 
     @Override
     public boolean needsRefit() {
@@ -278,26 +213,20 @@ public class PSE_DroneCoronaDroneAI implements ShipAIPlugin {
         return flags;
     }
 
-    //not relevant
     @Override
     public void cancelCurrentManeuver() {
     }
 
-    //not relevant
     @Override
     public ShipAIConfig getConfig() {
         return null;
     }
 
-    //not relevant
     @Override
     public void setDoNotFireDelay(float amount) {
     }
 
-    //called when AI activated on player ship
     @Override
     public void forceCircumstanceEvaluation() {
     }
 }
-
-

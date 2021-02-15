@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
+import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneModularVectorAssembly;
 import data.scripts.util.PSE_DroneUtils;
 import data.scripts.util.PSE_MiscUtils;
@@ -12,202 +13,76 @@ import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
-
-    private final PSEDrone drone;
-    private ShipAPI ship;
-    private CombatEngineAPI engine;
-
-    private boolean loaded = false;
-
+public class PSE_DroneModularVectorAssemblyDroneAI extends PSE_BaseDroneAI {
     //USED FOR MOVEMENT AND POSITIONING AI
     private static float[] defenceOrbitAngleArray;
     private static float[] clampedOrbitAngleArray;
     private static float[] defenceOrbitRadiusArray;
     private static float[] clampedOrbitRadiusArray;
     private static float[] clampedFacingOffsetArray;
-    private IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
-    private IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
-    private WeaponSlotAPI landingSlot;
+    private float defenceOrbitAngle;
+    private float clampedOrbitAngle;
+    private float defenceOrbitRadius;
+    private float clampedOrbitRadius;
+    private float clampedFacingOffset;
+    private float droneFacing;
+    private PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders droneOrders;
 
-    //USED FOR SYSTEM ACTIVATION AI
-    private static final String WEAPON_ID = "pdlaser";
-    private float weaponRange;
+    public PSE_DroneModularVectorAssemblyDroneAI(PSEDrone passedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        super(passedDrone, baseDroneSystem);
 
-    public PSE_DroneModularVectorAssemblyDroneAI(PSEDrone passedDrone) {
-        this.engine = Global.getCombatEngine();
-
-        this.drone = passedDrone;
-
-        this.ship = drone.getDroneSource();
-
-        for (WeaponAPI weapon : drone.getAllWeapons()) {
-            if (weapon.getId().contentEquals(WEAPON_ID)) {
-                weaponRange = weapon.getRange();
-            }
-        }
-
-        drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
+        defenceOrbitAngleArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDefenceOrbitAngleArray();
+        clampedOrbitAngleArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getClampedOrbitAngleArray();
+        defenceOrbitRadiusArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDefenceOrbitRadiusArray();
+        clampedOrbitRadiusArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getClampedOrbitRadiusArray();
+        clampedFacingOffsetArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getClampedFacingOffsetArray();
     }
 
     @Override
     public void advance(float amount) {
-        this.engine = Global.getCombatEngine();
+        super.advance(amount);
 
-        if (engine.isPaused()) {
-            return;
-        }
-        if (drone == null) {
-            return;
-        }
-
-
-        ////////////////////
-        ///INITIALISATION///
-        ///////////////////
-
-
-        float sanity = 1f;
-
-        if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
-            landingSlot = null;
-
-            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneModularVectorAssembly.UNIQUE_SYSTEM_PREFIX, engine);
-
-            if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
-                PSE_DroneUtils.deleteDrone(drone, engine);
-                return;
-            }
-        }
-
-        float droneFacing = drone.getFacing();
-        float shipFacing = ship.getFacing();
+        droneFacing = drone.getFacing();
 
         //get ship system object
-        String uniqueSystemId = PSE_DroneModularVectorAssembly.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
-        PSE_DroneModularVectorAssembly shipDroneMVASystem = (PSE_DroneModularVectorAssembly) engine.getCustomData().get(uniqueSystemId);
+        PSE_DroneModularVectorAssembly shipDroneMVASystem = (PSE_DroneModularVectorAssembly) engine.getCustomData().get(getUniqueSystemID());
         if (shipDroneMVASystem == null) {
             return;
         }
-        if (!shipDroneMVASystem.getDeployedDrones().contains(drone)) {
-            shipDroneMVASystem.getDeployedDrones().add(drone);
-        }
-
-        //config
-        if (!loaded) {
-            defenceOrbitAngleArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDefenceOrbitAngleArray();
-            clampedOrbitAngleArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getClampedOrbitAngleArray();
-            defenceOrbitRadiusArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDefenceOrbitRadiusArray();
-            clampedOrbitRadiusArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getClampedOrbitRadiusArray();
-            clampedFacingOffsetArray = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getClampedFacingOffsetArray();
-
-            loaded = true;
-        }
+        baseDroneSystem = shipDroneMVASystem;
 
         //assign specific values
         int droneIndex = shipDroneMVASystem.getIndex(drone);
-        if (droneIndex == -1) {
-            if (landingSlot == null) {
-                landingSlot = shipDroneMVASystem.getPlugin().getLandingBayWeaponSlotAPI();
-            }
 
-            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
-
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
-
-            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
-            float angle = VectorUtils.getFacing(to);
-            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
-
-            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
-            return;
-        }
-        float defenceOrbitAngle = defenceOrbitAngleArray[droneIndex];
-        float clampedOrbitAngle = clampedOrbitAngleArray[droneIndex];
-        float defenceOrbitRadius = defenceOrbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
-        float clampedOrbitRadius = clampedOrbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
-        float clampedFacingOffset = clampedFacingOffsetArray[droneIndex];
+        defenceOrbitAngle = defenceOrbitAngleArray[droneIndex];
+        clampedOrbitAngle = clampedOrbitAngleArray[droneIndex];
+        defenceOrbitRadius = defenceOrbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
+        clampedOrbitRadius = clampedOrbitRadiusArray[droneIndex] + ship.getShieldRadiusEvenIfNoShield();
+        clampedFacingOffset = clampedFacingOffsetArray[droneIndex];
 
         //get orders
-        PSE_DroneModularVectorAssembly.ModularVectorAssemblyDroneOrders droneOrders = shipDroneMVASystem.getDroneOrders();
+        droneOrders = shipDroneMVASystem.getDroneOrders();
 
-
-        /////////////////////////
-        ///TARGETING BEHAVIOUR///
-        /////////////////////////
-
-
-        //needs no special targeting behaviour
-        CombatEntityAPI target = PSE_DroneUtils.getEnemyTarget(ship, drone, weaponRange, false, false, false, 120f);
-
-
-        ////////////////////////
-        ///MOVEMENT BEHAVIOUR///
-        ////////////////////////
-
-
-        //PERFORM LOGIC BASED ON MOTHERSHIP SHIPSYSTEM STATE - SELECT TARGET LOCATION
-        boolean isClamped = false;
-        float angle;
-        Vector2f movementTargetLocation;
         switch (droneOrders) {
             case TARGETING:
-                angle = defenceOrbitAngle + shipFacing;
-
+            case CLAMPED:
                 delayBeforeLandingTracker.setElapsed(0f);
-
-                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), defenceOrbitRadius, angle);
                 landingSlot = null;
-
-                //ROTATION
-                if (target != null) {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
-                } else {
-                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
-                }
 
                 break;
             case RECALL:
                 PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
-                    landingSlot = shipDroneMVASystem.getPlugin().getLandingBayWeaponSlotAPI();
+                    landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
                 }
 
-                //ROTATION
-                PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
-
-                movementTargetLocation = landingSlot.computePosition(ship);
-
                 break;
-            case CLAMPED:
-                angle = clampedOrbitAngle + shipFacing;
-
-                delayBeforeLandingTracker.setElapsed(0f);
-
-                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), clampedOrbitRadius, angle);
-
-                landingSlot = null;
-
-                isClamped = MathUtils.getDistance(drone, movementTargetLocation) == 0f;
-
-                //ROTATION
-                float targetRotationAngle = shipFacing + clampedFacingOffset;
-
-                if (ship.getEngineController().isTurningLeft()) {
-                    targetRotationAngle -= 35f;
-                } else if (ship.getEngineController().isTurningRight()) {
-                    targetRotationAngle += 35f;
-                }
-
-                PSE_DroneUtils.rotateToFacing(drone, targetRotationAngle, engine);
-
-                break;
-            default:
-                movementTargetLocation = ship.getLocation();
         }
 
-        if (isClamped) {
+        Vector2f movementTargetLocation = getMovementTargetLocation(amount);
+
+        if (MathUtils.getDistance(drone, movementTargetLocation) == 0f) {
             PSE_DroneUtils.snapToLocation(drone, movementTargetLocation);
 
             ship.getMutableStats().getAcceleration().modifyFlat(this.toString(), 20f);
@@ -218,16 +93,68 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
 
             drone.getEngineController().extendFlame(this, 8f, 1.5f, 15f);
         } else {
-            PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
+            PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, velocityRotationIntervalTracker);
             ship.getMutableStats().getAcceleration().unmodify(this.toString());
             ship.getMutableStats().getTurnAcceleration().unmodify(this.toString());
             ship.getMutableStats().getDeceleration().unmodify(this.toString());
             ship.getMutableStats().getMaxSpeed().unmodify(this.toString());
         }
 
+        doRotationTargeting();
+
+        PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
     }
 
-    //OVERRIDES
+    @Override
+    protected Vector2f getMovementTargetLocation(float amount) {
+        float angle;
+        float shipFacing = ship.getFacing();
+        Vector2f movementTargetLocation;
+
+        switch (droneOrders) {
+            case TARGETING:
+                angle = defenceOrbitAngle + shipFacing;
+                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), defenceOrbitRadius, angle);
+
+                break;
+            case RECALL:
+                movementTargetLocation = landingSlot.computePosition(ship);
+
+                break;
+            case CLAMPED:
+                angle = clampedOrbitAngle + shipFacing;
+                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), clampedOrbitRadius, angle);
+
+                break;
+            default:
+                movementTargetLocation = ship.getLocation();
+        }
+
+        return movementTargetLocation;
+    }
+
+    @Override
+    protected void doRotationTargeting() {
+        float shipFacing = ship.getFacing();
+
+        switch (droneOrders) {
+            case TARGETING:
+            case RECALL:
+                PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
+                break;
+            case CLAMPED:
+                float targetRotationAngle = shipFacing + clampedFacingOffset;
+
+                if (ship.getEngineController().isTurningLeft()) {
+                    targetRotationAngle -= 35f;
+                } else if (ship.getEngineController().isTurningRight()) {
+                    targetRotationAngle += 35f;
+                }
+
+                PSE_DroneUtils.rotateToFacing(drone, targetRotationAngle, engine);
+                break;
+        }
+    }
 
     @Override
     public boolean needsRefit() {
@@ -241,23 +168,19 @@ public class PSE_DroneModularVectorAssemblyDroneAI implements ShipAIPlugin {
         return flags;
     }
 
-    //not relevant
     @Override
     public void cancelCurrentManeuver() {
     }
 
-    //not relevant
     @Override
     public ShipAIConfig getConfig() {
         return null;
     }
 
-    //not relevant
     @Override
     public void setDoNotFireDelay(float amount) {
     }
 
-    //called when AI activated on player ship
     @Override
     public void forceCircumstanceEvaluation() {
     }

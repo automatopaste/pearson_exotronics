@@ -1,0 +1,17 @@
+{
+	"id":"PSE_helsing_flak_rifle_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":100.0,
+	"width":6,
+	"hitGlowRadius":45,
+	"fadeTime":0.2,
+	"fringeColor":[210,120,40,255],
+	"coreColor":[255,200,150,255],	
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/shell_medium_red.png",
+	"onHitEffect":"data.scripts.weapons.PSE_HelsingFlakRifleOnHit",
+}

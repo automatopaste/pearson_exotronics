@@ -1,0 +1,10 @@
+{
+    "id": "PSE_droneCitadelMode",
+
+    "type": "STAT_MOD",
+    "aiType": "NONE",
+
+    "statsScript": "data.scripts.shipsystems.PSE_DroneCitadelMode",
+
+    "outOfUsesSound": "gun_out_of_ammo"
+}

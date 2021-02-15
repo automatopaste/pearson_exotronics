@@ -50,7 +50,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         playerVariants.add("heron_Attack");
 
         playerVariants.add("PSE_denmark_sod_Special");
-        //playerVariants.add("PSE_denmark_sod_Special");
+        playerVariants.add("PSE_armstrong_sod_Special");
         playerVariants.add("PSE_richmond_sod_Special");
         //playerVariants.add("PSE_richmond_sod_Special");
 

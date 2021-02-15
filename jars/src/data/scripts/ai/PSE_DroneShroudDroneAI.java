@@ -1,106 +1,51 @@
 package data.scripts.ai;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.DamageType;
+import com.fs.starfarer.api.combat.ShipAIConfig;
+import com.fs.starfarer.api.combat.ShipCommand;
+import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import com.fs.starfarer.api.loading.WeaponSlotAPI;
-import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
-import data.scripts.plugins.PSE_DroneManagerPlugin;
+import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneShroud;
 import data.scripts.util.PSE_DroneUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Random;
 
-public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
-
+public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
     private static final Color JITTER_COLOUR = new Color(0, 255, 120, 255);
 
-    private final PSEDrone drone;
-    private ShipAPI ship;
-    private CombatEngineAPI engine;
-
     //USED FOR MOVEMENT AND POSITIONING AI
-    private IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
-    private IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
-    private WeaponSlotAPI landingSlot;
+    private float[] broadsideFacingAngleArray;
+    private float orbitAngle;
+    private float orbitRadius;
+    private PSE_DroneShroud.ShroudDroneOrders droneOrders;
+    private int droneIndex;
 
-    public PSE_DroneShroudDroneAI(PSEDrone passedDrone) {
-        this.engine = Global.getCombatEngine();
+    public PSE_DroneShroudDroneAI(PSEDrone passedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        super(passedDrone, baseDroneSystem);
 
-        this.drone = passedDrone;
 
-        this.ship = drone.getDroneSource();
-
-        drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
     }
 
     @Override
     public void advance(float amount) {
-        this.engine = Global.getCombatEngine();
-        if (engine.isPaused()) {
-            return;
-        }
-        if (drone == null) {
-            return;
-        }
-
-
-        ////////////////////
-        ///INITIALISATION///
-        ///////////////////
-
-
-        if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
-            landingSlot = null;
-
-            ship = PSE_DroneUtils.getAlternateHost(drone, PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX, engine);
-
-            if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
-                PSE_DroneUtils.deleteDrone(drone, engine);
-                return;
-            }
-        }
+        super.advance(amount);
 
         //get ship system object
-        String uniqueSystemId = PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
-        PSE_DroneShroud shipDroneShroudSystem = (PSE_DroneShroud) engine.getCustomData().get(uniqueSystemId);
+        PSE_DroneShroud shipDroneShroudSystem = (PSE_DroneShroud) engine.getCustomData().get(getUniqueSystemID());
         if (shipDroneShroudSystem == null) {
             return;
         }
-        if (!shipDroneShroudSystem.getDeployedDrones().contains(drone)) {
-            shipDroneShroudSystem.getDeployedDrones().add(drone);
-        }
+        baseDroneSystem = shipDroneShroudSystem;
 
         //assign specific values
-        int droneIndex = shipDroneShroudSystem.getIndex(drone);
-        if (droneIndex == -1) {
-            if (landingSlot == null) {
-                landingSlot = shipDroneShroudSystem.getPlugin().getLandingBayWeaponSlotAPI();
-            }
+        droneIndex = shipDroneShroudSystem.getIndex(drone);
 
-            Vector2f movementTargetLocation = landingSlot.computePosition(ship);
-
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, 1f, velocityRotationIntervalTracker);
-
-            Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
-            float angle = VectorUtils.getFacing(to);
-            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
-
-            if (drone.getShield().isOn()) {
-                drone.giveCommand(ShipCommand.TOGGLE_SHIELD_OR_PHASE_CLOAK, null, 0);
-            }
-
-            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
-            return;
-        }
-
-        List<PSEDrone> deployedDrones = shipDroneShroudSystem.deployedDrones;
+        List<PSEDrone> deployedDrones = baseDroneSystem.deployedDrones;
 
         float[] orbitAngleArray = new float[deployedDrones.size()];
         float angleDivisor = 360f / deployedDrones.size();
@@ -108,7 +53,7 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
             orbitAngleArray[i] = angleDivisor * i;
         }
 
-        float[] broadsideFacingAngleArray = new float[deployedDrones.size()];
+        broadsideFacingAngleArray = new float[deployedDrones.size()];
         for (int i = 0; i < deployedDrones.size(); i++) {
             float angle = orbitAngleArray[i];
             if (angle >= 30f && angle <= 150f) {
@@ -120,33 +65,12 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
             }
         }
 
-        float orbitAngle = orbitAngleArray[droneIndex]  + shipDroneShroudSystem.getOrbitAngleBase();
+        orbitAngle = orbitAngleArray[droneIndex] + shipDroneShroudSystem.getOrbitAngleBase();
 
-        float orbitRadius = -30f + ship.getShieldRadiusEvenIfNoShield();
-
-        //UNUSED AS YET CONSTANT FOR BEHAVIOUR WHEN HOST SIGNAL LOST
-        float sanity = 1f;
+        orbitRadius = -30f + ship.getShieldRadiusEvenIfNoShield();
 
         //GET DRONE ORDERS STATE
-        PSE_DroneShroud.ShroudDroneOrders shroudDroneOrders = shipDroneShroudSystem.getDroneOrders();
-
-
-        /////////////////////////
-        ///TARGETING BEHAVIOUR///
-        /////////////////////////
-
-
-
-
-        ////////////////////////
-        ///MOVEMENT BEHAVIOUR///
-        ////////////////////////
-
-
-        //PERFORM LOGIC BASED ON MOTHERSHIP SHIPSYSTEM STATE - SELECT TARGET LOCATION
-        float angle;
-        float radius;
-        Vector2f movementTargetLocation;
+        droneOrders = shipDroneShroudSystem.getDroneOrders();
 
         ship.getMutableStats().getMaxSpeed().unmodify(this.toString());
         ship.getMutableStats().getTurnAcceleration().unmodify(this.toString());
@@ -154,34 +78,21 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
         ship.getMutableStats().getDeceleration().unmodify(this.toString());
         ship.getMutableStats().getAcceleration().unmodify(this.toString());
 
-        float droneFacing = drone.getFacing();
-        float targetFacing = 0f;
-        switch (shroudDroneOrders) {
+
+        switch (droneOrders) {
             case CIRCLE:
-                angle = orbitAngle + ship.getFacing();
-
-                radius = orbitRadius;
-
                 delayBeforeLandingTracker.setElapsed(0f);
 
-                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
                 landingSlot = null;
 
                 if (drone.getShield().isOff()) {
                     drone.giveCommand(ShipCommand.TOGGLE_SHIELD_OR_PHASE_CLOAK, null, 0);
                 }
 
-                targetFacing = orbitAngle + ship.getFacing();
-
                 break;
             case BROADSIDE_MOVEMENT:
-                angle = orbitAngle + ship.getFacing();
-
-                radius = orbitRadius - 10f;
-
                 delayBeforeLandingTracker.setElapsed(0f);
 
-                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
                 landingSlot = null;
 
                 if (drone.getShield().isOff()) {
@@ -199,7 +110,6 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
 
                 ship.getEngineController().extendFlame(this, 1.2f, 1f, 1.2f);
 
-                targetFacing = broadsideFacingAngleArray[droneIndex] + ship.getFacing();
 
                 drone.getMutableStats().getShieldDamageTakenMult().modifyFlat(this.toString(), 0.5f);
 
@@ -234,25 +144,76 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
                     landingSlot = shipDroneShroudSystem.getPlugin().getLandingBayWeaponSlotAPI();
                 }
 
-                movementTargetLocation = landingSlot.computePosition(ship);
-
                 if (drone.getShield().isOn()) {
                     drone.giveCommand(ShipCommand.TOGGLE_SHIELD_OR_PHASE_CLOAK, null, 0);
                 }
 
-                targetFacing = orbitAngle + ship.getFacing();
+                break;
+        }
+
+        doRotationTargeting();
+
+        Vector2f movementTargetLocation = getMovementTargetLocation(amount);
+        if (movementTargetLocation != null) {
+            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+        }
+    }
+
+    @Override
+    protected Vector2f getMovementTargetLocation(float amount) {
+        float angle;
+        float radius;
+        Vector2f movementTargetLocation;
+
+        switch (droneOrders) {
+            case CIRCLE:
+                angle = orbitAngle + ship.getFacing();
+                radius = orbitRadius;
+                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
+
+                break;
+            case BROADSIDE_MOVEMENT:
+                angle = orbitAngle + ship.getFacing();
+                radius = orbitRadius - 10f;
+                movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), radius, angle);
+
+                break;
+            case RECALL:
+                if (landingSlot == null) {
+                    landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
+                }
+
+                movementTargetLocation = landingSlot.computePosition(ship);
 
                 break;
             default:
                 movementTargetLocation = ship.getLocation();
         }
 
-        //ROTATION moved here for streamlined switching
-        PSE_DroneUtils.rotateToFacing(drone, targetFacing, engine);
-        //drone.setFacing(targetFacing);
+        return movementTargetLocation;
+    }
 
-        PSE_DroneUtils.move(drone, droneFacing, movementTargetLocation, sanity, velocityRotationIntervalTracker);
-        //PSE_DroneUtils.snapToLocation(drone, movementTargetLocation);
+    @Override
+    protected void doRotationTargeting() {
+        float targetFacing;
+
+        switch (droneOrders) {
+            case CIRCLE:
+            case RECALL:
+                targetFacing = orbitAngle + ship.getFacing();
+
+                break;
+            case BROADSIDE_MOVEMENT:
+                targetFacing = broadsideFacingAngleArray[droneIndex] + ship.getFacing();
+
+                break;
+            default:
+                targetFacing = 0f;
+
+                break;
+        }
+
+        PSE_DroneUtils.rotateToFacing(drone, targetFacing, engine);
     }
 
     //OVERRIDES
@@ -290,5 +251,3 @@ public class PSE_DroneShroudDroneAI implements ShipAIPlugin {
     public void forceCircumstanceEvaluation() {
     }
 }
-
-

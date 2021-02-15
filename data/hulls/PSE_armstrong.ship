@@ -1,0 +1,201 @@
+{
+  "hullName": "Armstrong",
+  "hullId": "PSE_armstrong",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/PSE/ships/PSE_armstrong.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 184,
+  "width": 92,
+  "center": [49, 79],
+  "collisionRadius": 155,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 137,
+  "viewOffset": 0,
+  "builtInMods": [
+    "PSE_LeachingTargetMatrix"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 220,
+      "angle": 125,
+      "locations": [-41, 27]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 220,
+      "angle": -125,
+      "locations": [-41, -27]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "TURRET",
+      "arc": 0,
+      "angle": 0,
+      "locations": [54, 37]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "TURRET",
+      "arc": 0,
+      "angle": 0,
+      "locations": [38, 37]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 255,
+      "angle": 22,
+      "locations": [48, 18]
+    },
+    {
+      "id": "WS0007",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 0,
+      "angle": 0,
+      "locations": [82, 8]
+    },
+    {
+      "id": "WS0008",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-30, -0]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 152,
+      "angle": -66,
+      "locations": [17, -30]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [27.5, 2]
+    },
+    {
+      "id": "WS0009",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [50, 2]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-70, 3.5],
+      "length": 33.5,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 12,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-70, -3.5],
+      "length": 33.5,
+      "width": 12,
+      "angle": -180,
+      "contrailSize": 12,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-77, 17.5],
+      "length": 22.5,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-77, -17.5],
+      "length": 22.5,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-66.5, 24.5],
+      "length": 21.5,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-66.5, -24.5],
+      "length": 21.5,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-67.5, 34],
+      "length": 14,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-67.5, -34],
+      "length": 14,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": [
+    -13.5, -36,
+    -62.5, -36.5,
+    -62.5, 36.5,
+    -13.5, 36,
+    -8.5, 42,
+    27.5, 44.5,
+    49, 39,
+    50.5, 28.5,
+    74.5, 17.5,
+    81.5, -6,
+    100.5, -6.5,
+    97, -21.5,
+    28.5, -27,
+    23, -37.5,
+    11, -38.5,
+    6, -33
+  ]
+}

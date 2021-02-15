@@ -7,8 +7,8 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
 import java.util.List;
 
-public class PSE_DroneLaser extends BaseShipSystemScript {
-    private static final String WEAPON_ID = "hil";
+public class PSE_DroneCitadelMode extends BaseShipSystemScript {
+    private static final String WEAPON_ID = "PSE_helsing_flak_rifle";
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
@@ -22,14 +22,8 @@ public class PSE_DroneLaser extends BaseShipSystemScript {
             return;
         }
 
-        List<WeaponAPI> weapons = ship.getAllWeapons();
-        if (weapons != null) {
-            for (WeaponAPI weapon : weapons) {
-                if (weapon.getId().equals(WEAPON_ID)) {
-                    weapon.repair();
-                }
-            }
-        }
+        stats.getBallisticWeaponRangeBonus().modifyFlat(id, -20000);
+        stats.getWeaponTurnRateBonus().modifyFlat(id, -20000);
     }
 
     @Override
@@ -44,13 +38,7 @@ public class PSE_DroneLaser extends BaseShipSystemScript {
             return;
         }
 
-        List<WeaponAPI> weapons = ship.getAllWeapons();
-        if (weapons != null) {
-            for (WeaponAPI weapon : weapons) {
-                if (weapon.getId().equals(WEAPON_ID)) {
-                    weapon.disable(true);
-                }
-            }
-        }
+        ship.getMutableStats().getBallisticWeaponRangeBonus().unmodify(id);
+        stats.getWeaponTurnRateBonus().unmodify(id);
     }
 }

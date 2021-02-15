@@ -32,6 +32,10 @@ import java.util.List;
 public class PSEModPlugin extends BaseModPlugin {
     Logger log = Global.getLogger(PSEModPlugin.class);
 
+    private static final String[] incompatibleMods = {
+         "superdegenerateportraitpack"
+    };
+
     public static final String MOD_ID = "pearson_exotronics";
     public static final String MOD_AUTHOR = "tomatopaste";
     public static final String MOD_ERROR_PREFIX =
@@ -42,7 +46,6 @@ public class PSEModPlugin extends BaseModPlugin {
                     + System.lineSeparator();
 
     private static final String THRALL_ID = "PSE_thrall_missile";
-    //private static final String ATROPOS_ID = "squall_rocket";
 
     public static boolean haveNexerelin = false;
     public static boolean isNexerelinRandomSector = false;
@@ -83,7 +86,7 @@ public class PSEModPlugin extends BaseModPlugin {
                     + System.lineSeparator();
             throw new ClassNotFoundException(message);
         }
-        /*try {
+        try {
             Global.getSettings().getScriptClassLoader().loadClass("data.scripts.util.MagicAnim");
         } catch (ClassNotFoundException ex) {
             String message = System.lineSeparator()
@@ -92,7 +95,18 @@ public class PSEModPlugin extends BaseModPlugin {
                     + "You can download MagicLib at http://fractalsoftworks.com/forum/index.php?topic=13718.0"
                     + System.lineSeparator();
             throw new ClassNotFoundException(message);
-        }*/
+        }
+
+        for (String id : incompatibleMods) {
+            if (Global.getSettings().getModManager().isModEnabled(id)) {
+                String message = System.lineSeparator()
+                        + System.lineSeparator() + "One or more of the mods you have installed has been made incompatible for technical or moral reasons."
+                        + System.lineSeparator() + System.lineSeparator()
+                        + "Name of incompatible mod: " + Global.getSettings().getModManager().getModSpec(id).getName()
+                        + System.lineSeparator();
+                throw new IllegalStateException(message);
+            }
+        }
 
         //load some custom jsons
         try {
@@ -107,6 +121,11 @@ public class PSEModPlugin extends BaseModPlugin {
         }
         try {
             PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.loadJSON();
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PSE_MiscUtils.PSE_CitadelSpecLoading.loadJSON();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }

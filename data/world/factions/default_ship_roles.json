@@ -19,6 +19,10 @@
 		"PSE_denmark_Strike":5,
 		"PSE_richmond_Assault":4,
 		"PSE_richmond_Overdriven":3,
+		"PSE_armstrong_Balanced":3,
+		"PSE_armstrong_CloseSupport":2,
+		"PSE_armstrong_Assault":3,
+		"PSE_armstrong_Strike":2,
 
 		"PSE_denmark_sod_Special":10,
 		"PSE_richmond_sod_Special":10,
