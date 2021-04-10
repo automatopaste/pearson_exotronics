@@ -1,9 +1,13 @@
 package data.scripts.shipsystems;
 
-import data.scripts.util.PSE_MiscUtils;
+import data.scripts.PSEDrone;
+import data.scripts.ai.PSE_BaseDroneAI;
+import data.scripts.ai.PSE_DroneBastionDroneAI;
+import data.scripts.ai.PSE_DroneCitadelDroneAI;
+import data.scripts.util.PSE_SpecLoadingUtils;
 
 public class PSE_DroneCitadel extends PSE_BaseDroneSystem {
-    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneCitadel_";
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_droneCitadel";
 
     public enum CitadelDroneOrders {
         ANTI_FIGHTER,
@@ -17,12 +21,9 @@ public class PSE_DroneCitadel extends PSE_BaseDroneSystem {
     private CitadelDroneOrders droneOrders = CitadelDroneOrders.RECALL;
 
     public PSE_DroneCitadel() {
-        uniqueSystemPrefix = UNIQUE_SYSTEM_PREFIX;
+        systemID = UNIQUE_SYSTEM_PREFIX;
 
-        maxDeployedDrones = PSE_MiscUtils.PSE_CitadelSpecLoading.getMaxDeployedDrones();
-        launchDelay = (float) PSE_MiscUtils.PSE_CitadelSpecLoading.getLaunchDelay();
-        launchSpeed = (float) PSE_MiscUtils.PSE_CitadelSpecLoading.getLaunchSpeed();
-        droneVariant = PSE_MiscUtils.PSE_CitadelSpecLoading.getDroneVariant();
+        loadSpecData();
     }
 
     private CitadelDroneOrders getNextDroneOrder() {
@@ -83,5 +84,23 @@ public class PSE_DroneCitadel extends PSE_BaseDroneSystem {
 
     public float getOrbitAngleBase() {
         return orbitAngleMovementBase;
+    }
+
+    @Override
+    public void executePerOrders(float amount) {
+        switch (droneOrders) {
+            case ANTI_FIGHTER:
+            case RECALL:
+                resetOrbitAngleBase();
+                break;
+            case SHIELD:
+                advanceOrbitAngleBase(amount);
+                break;
+        }
+    }
+
+    @Override
+    public PSE_BaseDroneAI getNewAIInstance(PSEDrone spawnedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        return new PSE_DroneCitadelDroneAI(spawnedDrone, baseDroneSystem);
     }
 }

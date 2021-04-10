@@ -1,14 +1,12 @@
 package data.scripts.ai;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.loading.WeaponSlotAPI;
-import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneCorona;
-import data.scripts.util.PSE_DroneUtils;
+import data.scripts.util.PSE_DroneAIUtils;
 import data.scripts.util.PSE_MiscUtils;
+import data.scripts.util.PSE_SpecLoadingUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -45,9 +43,9 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
             }
         }
 
-        initialOrbitAngleArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getInitialOrbitAngleArray();
-        focusModeOrbitAngleArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getFocusOrbitAngleArray();
-        orbitRadiusArray = PSE_MiscUtils.PSE_CoronaSpecLoading.getOrbitRadiusArray();
+        initialOrbitAngleArray = PSE_SpecLoadingUtils.PSE_CoronaSpecLoading.getInitialOrbitAngleArray();
+        focusModeOrbitAngleArray = PSE_SpecLoadingUtils.PSE_CoronaSpecLoading.getFocusOrbitAngleArray();
+        orbitRadiusArray = PSE_SpecLoadingUtils.PSE_CoronaSpecLoading.getOrbitRadiusArray();
     }
 
     @Override
@@ -101,7 +99,7 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
         }
     }
 
@@ -125,7 +123,7 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
+                PSE_DroneAIUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -159,17 +157,16 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
     @Override
     protected void doRotationTargeting() {
         //PRIORITISE TARGET, SET LOCATION
-        float droneFacing = drone.getFacing();
         CombatEntityAPI target;
         float targetingArcDeviation = 120f;
         if (isInFocusMode) {
             if (engine.getPlayerShip().equals(ship) && ship.getShipTarget() != null) {
                 target = ship.getShipTarget();
             } else {
-                target = PSE_DroneUtils.getEnemyTarget(ship, drone, focusWeaponRange, true, true, false, targetingArcDeviation);
+                target = PSE_DroneAIUtils.getEnemyTarget(ship, drone, focusWeaponRange, true, true, false, targetingArcDeviation);
             }
         } else {
-            target = PSE_DroneUtils.getEnemyTarget(ship, drone, PDWeaponRange,false, false, false, targetingArcDeviation);
+            target = PSE_DroneAIUtils.getEnemyTarget(ship, drone, PDWeaponRange,false, false, false, targetingArcDeviation);
         }
 
         //ROTATION
@@ -179,16 +176,16 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
             if (PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), relativeAngleFromShip, 60f)) {
                 if (isInFocusMode) {
                     Vector2f to = Vector2f.sub(target.getLocation(), drone.getLocation(),new Vector2f());
-                    PSE_DroneUtils.rotateToFacingJerky(drone, VectorUtils.getFacing(to));
+                    PSE_DroneAIUtils.rotateToFacingJerky(drone, VectorUtils.getFacing(to));
                 } else {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
+                    PSE_DroneAIUtils.rotateToTarget(ship, drone, target.getLocation());
                 }
             } else {
-                PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), engine);
+                PSE_DroneAIUtils.rotateToFacing(drone, ship.getFacing(), engine);
             }
 
             //check for friendlies
-            boolean areFriendliesInFiringArc = PSE_DroneUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange, droneFacing, 40f);
+            boolean areFriendliesInFiringArc = PSE_DroneAIUtils.areFriendliesBlockingArc(drone, target, focusWeaponRange);
             drone.setHoldFireOneFrame(areFriendliesInFiringArc);
 
             /* debug stuff
@@ -197,7 +194,7 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
                 engine.maintainStatusForPlayerShip("thingiepse2", "graphics/icons/hullsys/drone_pd_high.png", "FRIENDLIES", areFriendliesInFiringArc + "", false);
             }//*/
         } else {
-            PSE_DroneUtils.rotateToFacing(drone, ship.getFacing(), engine);
+            PSE_DroneAIUtils.rotateToFacing(drone, ship.getFacing(), engine);
         }
     }
 

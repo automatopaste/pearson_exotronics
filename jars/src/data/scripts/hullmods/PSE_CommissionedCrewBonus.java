@@ -53,6 +53,19 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
         stats.getDynamic().getStat(Stats.ELECTRONIC_WARFARE_PENALTY_MULT).modifyPercent(id, ECM_REDUCTION_PERCENT.get(hullSize));
+
+        float targetHP = 7500f;
+
+        float hitpoints = 0f;
+        if (stats.getEntity() instanceof  ShipAPI) {
+            ShipAPI ship = (ShipAPI) stats.getEntity();
+            hitpoints = ship.getHullSpec().getHitpoints();
+        }
+
+        float diff = targetHP - hitpoints;
+        stats.getHullBonus().modifyPercent(id, 40f);
+
+        stats.getHullBonus().computeEffective(1f);
     }
 
 

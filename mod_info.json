@@ -4,7 +4,7 @@
 	"author":"tomatopaste",
 	"version":"0.6.1-beta.8",
 	"description":"A domain-era corporation specialising in advanced automated defence systems and military technologies. Currently a functional work in progress, please contact the author via discord or on the mod forum thread about queries, bugs and suggestions! :)",
-	"gameVersion":"0.9.1a-RC8",
+	"gameVersion":"0.95a-RC12",
 	"jars":["jars/PearsonExotronics.jar"],
 	"modPlugin":"data.scripts.PSEModPlugin",
 }

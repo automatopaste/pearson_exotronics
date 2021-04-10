@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
@@ -22,10 +23,8 @@ import data.scripts.campaign.intel.PSE_SODCampDeliveryIntel;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
     private static final String AGENT_PORTRAIT = "graphics/PSE/portraits/PSE_RobertPool.png";
@@ -37,7 +36,7 @@ public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
 
     private static final List<String> prompts = new ArrayList<>(Arrays.asList(
             "$NAME is watching the bar occupants with one eye while manipulating a virtual keyboard.",
-            "$NAME is in the lounge, and appears to be absorbed in manipulating some circuitry"
+            "$NAME is in the lounge, and appears to be absorbed in fiddling with some circuitry exposed from an unfamiliar gadget."
     ));
 
     /*
@@ -90,8 +89,8 @@ public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
     private PSE_SODCamp camp;
 
     @Override
-    public void init(InteractionDialogAPI dialog) {
-        super.init(dialog);
+    public void init(InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap) {
+        super.init(dialog, memoryMap);
 
         dialog.getVisualPanel().showPersonInfo(person, true);
         done = false;
@@ -154,8 +153,8 @@ public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
     }
 
     @Override
-    public void addPromptAndOption(InteractionDialogAPI dialog) {
-        super.addPromptAndOption(dialog);
+    public void addPromptAndOption(InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap) {
+        super.addPromptAndOption(dialog, memoryMap);
 
         regen(dialog.getInteractionTarget().getMarket());
 
@@ -166,7 +165,7 @@ public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
             promptColour = Misc.getStoryOptionColor();
 
             text.addPara("At the back of the bar sits a scarred " + getManOrWoman() + " watching you with their one good eye");
-            dialog.getOptionPanel().addOption("Approach them.", this, promptColour, null);
+            dialog.getOptionPanel().addOption("Approach the scarred spacer.", this, promptColour, null);
         } else {
             text.addPara(getRandomPromptLine());
             dialog.getOptionPanel().addOption("Approach " + person.getName().getLast(), this);

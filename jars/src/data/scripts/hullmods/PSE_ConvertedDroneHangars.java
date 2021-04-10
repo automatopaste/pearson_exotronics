@@ -3,6 +3,7 @@ package data.scripts.hullmods;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import data.scripts.plugins.PSE_DroneManagerPlugin;
@@ -66,6 +67,15 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
                 ship.getSystem() != null &&
                 ship.getSystem().getId().startsWith("PSE_drone");
     }
+
+    //ALEX PLS
+    /*public boolean isApplicableToVariant(ShipVariantAPI variant) {
+        if ("lol" == "comedy") {
+            return true;
+        }
+
+        return false;
+    }*/
 
     @Override
     public String getUnapplicableReason(ShipAPI ship) {

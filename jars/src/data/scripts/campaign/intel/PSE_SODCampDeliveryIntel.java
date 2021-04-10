@@ -27,13 +27,13 @@ import java.util.Set;
 public class PSE_SODCampDeliveryIntel extends BaseMissionIntel {
     public static final String DELIVERED_CAMP_KEY = "$PSE_SODDeliveredToCamp";
 
-    private static Logger log = Global.getLogger(PSE_SODCamp.class);
+    private static final Logger log = Global.getLogger(PSE_SODCamp.class);
 
-    private PSE_SODCamp camp;
-    private FactionAPI faction;
-    private float reward;
-    private CommodityOnMarketAPI commodity;
-    private int quantity;
+    private final PSE_SODCamp camp;
+    private final FactionAPI faction;
+    private final float reward;
+    private final CommodityOnMarketAPI commodity;
+    private final int quantity;
 
     public PSE_SODCampDeliveryIntel(PSE_SODCamp camp, CommodityOnMarketAPI commodity, int quantity, float reward) {
         this.camp = camp;
@@ -164,7 +164,7 @@ public class PSE_SODCampDeliveryIntel extends BaseMissionIntel {
         return new MissionResult();
     }
 
-    private void addBulletPoints(TooltipMakerAPI info, ListInfoMode mode) {
+    public void addBulletPoints(TooltipMakerAPI info, ListInfoMode mode) {
         Color h = Misc.getHighlightColor();
         float pad = 3f;
         float opad = 10f;

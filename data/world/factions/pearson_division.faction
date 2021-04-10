@@ -32,8 +32,9 @@
 		"hulls":{
 			"PSE_cassius_sod":4,
 			"PSE_kiruna_sod":2,
-			"PSE_denmark_sod":2,
+			"PSE_denmark_sod":4,
 			"PSE_richmond_sod":4,
+			"PSE_armstrong_sod":2,
 			"PSE_serrano_sod":4,
 			"PSE_kingston_sod":2,
 			"PSE_leyland_sod":3,
@@ -48,6 +49,7 @@
 			"PSE_kiruna_sod",
 			"PSE_denmark_sod",
 			"PSE_richmond_sod",
+			"PSE_armstrong_sod",
 			"PSE_serrano_sod",
 			"PSE_kingston_sod",
 			"PSE_leyland_sod",
@@ -61,6 +63,7 @@
 			"PSE_kiruna_sod",
 			"PSE_denmark_sod",
 			"PSE_richmond_sod",
+			"PSE_armstrong_sod",
 			"PSE_serrano_sod",
 			"PSE_kingston_sod",
 			"PSE_leyland_sod",
@@ -75,6 +78,7 @@
 			"PSE_kiruna_sod",
 			"PSE_denmark_sod",
 			"PSE_richmond_sod",
+			"PSE_armstrong_sod",
 			"PSE_serrano_sod",
 			"PSE_kingston_sod",
 			"PSE_leyland_sod",
@@ -88,80 +92,101 @@
 			"thunder_wing",
 			"claw_wing",
 			"longbow_wing",
+
+			"PSE_rhys_wing",
+			"PSE_carlton_wing",
+			"PSE_hale_wing",
 		],
 	},
 	"priorityFighters":{
 		"tags":["base_bp"],
 		"fighters":[
-			"xyphos_wing",
-			"claw_wing",
+			"PSE_rhys_wing",
+			"PSE_carlton_wing",
+			"PSE_hale_wing",
 		],
 	},
 	"knownWeapons":{
 		"tags":["base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "missile_bp", "sindrian_diktat", "lions_guard"],
 		"weapons":[
+			"railgun",  #ballistics
+			"vulcan",
 			"lightneedler",
-			"railgun",
+
+			"PSE_corsair_mk1",
+			"PSE_novaburst_mini",
+			"PSE_helsing_flak_rifle",
+
+			"flak",
 			"dualflak",
 			"heavymauler",
-			"hveldriver",
+			"heavymortar",
 			"heavyneedler",
+			"hveldriver",
+
+			"PSE_douglas",
+
+			"hephag",
 			"gauss",
-			"mjolnir",
-			"multineedler",
+			"hellbore",
+
+            "reaper", #missiles
+            "sabot",
+            "harpoon",
+
+            "PSE_thrall_launcher",
+
 			"sabotpod",
-			"phasecl",
+			"annihilatorpod",
+			"harpoonpod",
+			"salamanderpod",
+            "pilum",
+
 			"cyclone",
 			"hurricane",
 			"squall",
 			"locust",
-			"pdburst",
+
+			"pdburst",  #energies
+			"pdlaser",
 			"amblaster",
-			"phasebeam",
-			"heavyblaster",
+			"taclaser",
+			"ioncannon",
+			"lrpdlaser",
+
+			"PSE_spectrumpd",
+
 			"heavyburst",
 			"ionpulser",
 			"ionbeam",
-			"plasma",
-			"guardian",
+			"gravitonbeam",
+
 			"tachyonlance",
+			"hil",
+
+			"PSE_cascade_accelerator",
 		],
 	},
 	"priorityWeapons":{
 		"tags":["base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "missile_bp", "sindrian_diktat", "lions_guard"],
 		"weapons":[
-			"lightneedler",
-			"railgun",
-			"dualflak",
-			"heavymauler",
-			"hveldriver",
-			"heavyneedler",
-			"gauss",
-			"mjolnir",
-			"multineedler",
-			"sabotpod",
-			"phasecl",
-			"cyclone",
-			"hurricane",
-			"squall",
-			"locust",
-			"pdburst",
-			"amblaster",
-			"phasebeam",
-			"heavyblaster",
-			"heavyburst",
-			"ionpulser",
-			"ionbeam",
-			"plasma",
-			"guardian",
-			"tachyonlance",
+			"PSE_corsair_mk1",
+			"PSE_novaburst_mini",
+			"PSE_helsing_flak_rifle",
+
+			"PSE_douglas",
+
+            "PSE_thrall_launcher",
+
+			"PSE_spectrumpd",
+
+			"PSE_cascade_accelerator",
 		],
 	},
 	"knownHullMods":{
 		"tags":["base_bp", "sindrian_diktat", "lions_guard"],
 		"hullMods":[
 			"advancedshieldemitter", # accelerated
-			"advancedoptics",
 			"turretgyros",
 			"armoredweapons",
 			"augmentedengines",
@@ -178,21 +203,24 @@
 			"hardenedshieldemitter",
 			"heavyarmor",
 			"insulatedengine",
-			"pointdefenseai",
 			"targetingunit",
 			"nav_relay",
 			"adaptiveshields", # omni
 			"operations_center",
 			"recovery_shuttles",
 			"fluxbreakers",
-			"solar_shielding",
 			"stabilizedshieldemitter",
 			"surveying_equipment",
+			"hiressensors",
+			"efficiency_overhaul",
+
+			"PSE_ConvertedDroneHangars", #PSE
+			"PSE_OverclockedForgeVats",
 		],
 	},
 	"factionDoctrine":{
-		"warships":5,
-		"carriers":1,
+		"warships":3,
+		"carriers":3,
 		"phaseShips":1,
 		
 		"officerQuality":5,
@@ -201,12 +229,12 @@
 		
 		"shipSize":4,
 		
-		"aggression":3,
+		"aggression":4,
 		
 		"combatFreighterProbability":0.1,      				# instead of some portion of the freighters in a fleet
 		"combatFreighterCombatUseFraction":0,  				# as part of the normal combat lineup
 		"combatFreighterCombatUseFractionWhenPriority":0,   # as part of normal combat lineup, when marked as priority ship
-		"autofitRandomizeProbability":0.1,
+		"autofitRandomizeProbability":0,
 		
 		"commanderSkillsShuffleProbability":0,
 		"commanderSkills":[

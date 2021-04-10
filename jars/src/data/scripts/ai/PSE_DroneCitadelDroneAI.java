@@ -4,8 +4,8 @@ import com.fs.starfarer.api.combat.ShipCommand;
 import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneCitadel;
-import data.scripts.util.PSE_DroneUtils;
-import data.scripts.util.PSE_MiscUtils;
+import data.scripts.util.PSE_DroneAIUtils;
+import data.scripts.util.PSE_SpecLoadingUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -26,10 +26,10 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
     public PSE_DroneCitadelDroneAI(PSEDrone passedDrone, PSE_BaseDroneSystem baseDroneSystem) {
         super(passedDrone, baseDroneSystem);
 
-        antiFighterOrbitAngleArray = PSE_MiscUtils.PSE_CitadelSpecLoading.getAntiFighterOrbitAngleArray();
-        antiFighterFacingOffsetArray = PSE_MiscUtils.PSE_CitadelSpecLoading.getAntiFighterFacingOffsetArray();
-        antiFighterOrbitRadiusArray = PSE_MiscUtils.PSE_CitadelSpecLoading.getAntiFighterOrbitRadiusArray();
-        shieldOrbitRadiusArray = PSE_MiscUtils.PSE_CitadelSpecLoading.getShieldOrbitRadiusArray();
+        antiFighterOrbitAngleArray = PSE_SpecLoadingUtils.PSE_CitadelSpecLoading.getAntiFighterOrbitAngleArray();
+        antiFighterFacingOffsetArray = PSE_SpecLoadingUtils.PSE_CitadelSpecLoading.getAntiFighterFacingOffsetArray();
+        antiFighterOrbitRadiusArray = PSE_SpecLoadingUtils.PSE_CitadelSpecLoading.getAntiFighterOrbitRadiusArray();
+        shieldOrbitRadiusArray = PSE_SpecLoadingUtils.PSE_CitadelSpecLoading.getShieldOrbitRadiusArray();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
         baseDroneSystem = droneCitadelSystem;
 
         //assign specific values
-        int droneIndex = baseDroneSystem.getIndex(drone);
+        droneIndex = baseDroneSystem.getIndex(drone);
 
         antiFighterOrbitAngle = antiFighterOrbitAngleArray[droneIndex];
         antiFighterFacingOffset = antiFighterFacingOffsetArray[droneIndex];
@@ -84,7 +84,7 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
         }
     }
 
@@ -105,7 +105,7 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
+                PSE_DroneAIUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -144,6 +144,6 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
                 break;
         }
 
-        PSE_DroneUtils.rotateToFacing(drone, targetFacing, engine);
+        PSE_DroneAIUtils.rotateToFacing(drone, targetFacing, engine);
     }
 }

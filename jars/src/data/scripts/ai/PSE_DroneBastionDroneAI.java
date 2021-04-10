@@ -1,13 +1,13 @@
 package data.scripts.ai;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneBastion;
-import data.scripts.util.PSE_DroneUtils;
+import data.scripts.util.PSE_DroneAIUtils;
 import data.scripts.util.PSE_MiscUtils;
+import data.scripts.util.PSE_SpecLoadingUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -37,9 +37,9 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
             }
         }
 
-        cardinalOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getCardinalOrbitAngleArray();
-        frontOrbitAngleArray = PSE_MiscUtils.PSE_BastionSpecLoading.getFrontOrbitAngleArray();
-        orbitRadiusArray = PSE_MiscUtils.PSE_BastionSpecLoading.getOrbitRadiusArray();
+        cardinalOrbitAngleArray = PSE_SpecLoadingUtils.PSE_BastionSpecLoading.getCardinalOrbitAngleArray();
+        frontOrbitAngleArray = PSE_SpecLoadingUtils.PSE_BastionSpecLoading.getFrontOrbitAngleArray();
+        orbitRadiusArray = PSE_SpecLoadingUtils.PSE_BastionSpecLoading.getOrbitRadiusArray();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
         }
     }
 
@@ -86,7 +86,7 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
+                PSE_DroneAIUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = droneBastionSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -115,7 +115,7 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
     @Override
     protected void doRotationTargeting() {
         CombatEntityAPI target;
-        target = PSE_DroneUtils.getEnemyTarget(ship, drone, weaponRange, false, false, false, 360f);
+        target = PSE_DroneAIUtils.getEnemyTarget(ship, drone, weaponRange, false, false, false, 360f);
 
         //ROTATION
         float shipFacing = ship.getFacing();
@@ -124,17 +124,17 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
         switch (orders) {
             case FRONT:
                 if (target != null && PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), droneAngleRelativeToShip, 120f)) {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
+                    PSE_DroneAIUtils.rotateToTarget(ship, drone, target.getLocation());
                 } else {
-                    PSE_DroneUtils.rotateToFacing(drone, shipFacing, engine);
+                    PSE_DroneAIUtils.rotateToFacing(drone, shipFacing, engine);
                 }
                 break;
             case CARDINAL:
             case RECALL:
                 if (target != null && PSE_MiscUtils.isEntityInArc(target, drone.getLocation(), droneAngleRelativeToShip, 120f)) {
-                    PSE_DroneUtils.rotateToTarget(ship, drone, target.getLocation(), engine);
+                    PSE_DroneAIUtils.rotateToTarget(ship, drone, target.getLocation());
                 } else {
-                    PSE_DroneUtils.rotateToFacing(drone, facing, engine);
+                    PSE_DroneAIUtils.rotateToFacing(drone, facing, engine);
                 }
                 break;
         }

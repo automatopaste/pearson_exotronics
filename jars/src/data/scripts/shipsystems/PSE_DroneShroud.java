@@ -1,20 +1,14 @@
 package data.scripts.shipsystems;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipSystemAPI;
-import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
-import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import data.scripts.PSEDrone;
-import data.scripts.PSEModPlugin;
-import data.scripts.plugins.PSE_DroneManagerPlugin;
+import data.scripts.ai.PSE_BaseDroneAI;
+import data.scripts.ai.PSE_DroneShroudDroneAI;
+import data.scripts.util.PSE_SpecLoadingUtils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PSE_DroneShroud extends PSE_BaseDroneSystem {
-    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneShroud_";
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_droneShroud";
 
     public enum ShroudDroneOrders {
         CIRCLE,
@@ -22,16 +16,24 @@ public class PSE_DroneShroud extends PSE_BaseDroneSystem {
         RECALL
     }
 
-    private final static float ORBIT_BASE_ROTATION_SPEED = 25f;
-    private float orbitAngleMovementBase = 0f;
+    //private final static float ORBIT_BASE_ROTATION_SPEED = 25f;
+    //private float orbitAngleMovementBase = 0f;
+    private final float[] orbitBaseRotationSpeed;
+    public float[] orbitAngles;
 
     private ShroudDroneOrders droneOrders = ShroudDroneOrders.RECALL;
 
     public PSE_DroneShroud() {
-        maxDeployedDrones = 5;
-        launchDelay = 0.1f;
-        launchSpeed = 10f;
-        droneVariant = "PSE_kingston_wing";
+        systemID = UNIQUE_SYSTEM_PREFIX;
+
+        orbitBaseRotationSpeed = PSE_SpecLoadingUtils.PSE_ShroudSpecLoading.getOrbitBaseRotationSpeed();
+
+        loadSpecData();
+
+        orbitAngles = new float[maxDeployedDrones];
+        for (int i = 0; i < maxDeployedDrones; i++) {
+            orbitAngles[i] = 0f;
+        }
     }
 
     public ShroudDroneOrders getDroneOrders() {
@@ -83,18 +85,48 @@ public class PSE_DroneShroud extends PSE_BaseDroneSystem {
         setDroneOrders(ShroudDroneOrders.CIRCLE);
     }
 
-    public void advanceOrbitAngleBase(float amount) {
-        orbitAngleMovementBase += (ORBIT_BASE_ROTATION_SPEED * amount);
+    public void advanceOrbitAngles(float amount) {
+        /*orbitAngleMovementBase += (ORBIT_BASE_ROTATION_SPEED * amount);
         if (orbitAngleMovementBase >= 360f) {
             orbitAngleMovementBase -= 360f;
+        }*/
+
+        for (int i = 0; i < maxDeployedDrones; i++) {
+            float angle = orbitAngles[i];
+            angle += orbitBaseRotationSpeed[i] * amount;
+            if (angle >= 360f) angle -= 360f;
+            orbitAngles[i] = angle;
         }
     }
 
     public void resetOrbitAngleBase() {
-        orbitAngleMovementBase = 0f;
+        //orbitAngleMovementBase = 0f;
+        for (int i = 0; i < maxDeployedDrones; i++) {
+            orbitAngles[i] = 0f;
+        }
     }
 
-    public float getOrbitAngleBase() {
-        return orbitAngleMovementBase;
+    public float getOrbitAngleBase(int index) {
+        //return orbitAngleMovementBase;
+        return orbitAngles[index];
+    }
+
+    @Override
+    public void executePerOrders(float amount) {
+        switch (droneOrders) {
+            case CIRCLE:
+                advanceOrbitAngles(amount);
+                break;
+            case BROADSIDE_MOVEMENT:
+                resetOrbitAngleBase();
+                break;
+            case RECALL:
+                break;
+        }
+    }
+
+    @Override
+    public PSE_BaseDroneAI getNewAIInstance(PSEDrone spawnedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        return new PSE_DroneShroudDroneAI(spawnedDrone, baseDroneSystem);
     }
 }

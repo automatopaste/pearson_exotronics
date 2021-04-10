@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PSE_Adelaide implements SectorGeneratorPlugin {
-    private List<MarketAPI> markets = new ArrayList<>();
+    private final List<MarketAPI> markets = new ArrayList<>();
 
     private static MarketAPI iucharMarket;
 
@@ -174,6 +174,8 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 false
         );
         markets.add(iucharbaMarketplace);
+        //debug use
+        iucharbaMarketplace.addSubmarket("PSE_sod_submarket");
 
         //nebula
         SectorEntityToken nebula = Misc.addNebulaFromPNG("data/campaign/terrain/eos_nebula.png", 0, 0, system, "terrain", "nebula_amber", 4, 4, StarAge.AVERAGE);

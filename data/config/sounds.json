@@ -21,17 +21,17 @@
     #CORSAIR
     "PSE_corsair_mk1_fire":
     [
-        {"file":"sounds/sfx_wpn_guns/needler_fire_01.ogg","pitch":1.00,"volume":1.00},
-        {"file":"sounds/sfx_wpn_guns/needler_fire_01.ogg","pitch":1.05,"volume":1.00},
-        {"file":"sounds/sfx_wpn_guns/needler_fire_01.ogg","pitch":0.95,"volume":1.00},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_corsair_mk1_shot.ogg","pitch":1.00,"volume":1.00},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_corsair_mk1_shot.ogg","pitch":1.05,"volume":1.00},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_corsair_mk1_shot.ogg","pitch":0.95,"volume":1.00},
     ],
 
     #HELSING FLAK RIFLE
     "PSE_helsing_flak_rifle_fire":
     [
-        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot_2.ogg","pitch":1.00,"volume":0.3},
-        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot_2.ogg","pitch":1.05,"volume":0.3},
-        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot_2.ogg","pitch":0.95,"volume":0.3},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot.ogg","pitch":1.00,"volume":0.4},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot.ogg","pitch":1.05,"volume":0.4},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_helsing_flak_rifle_shot.ogg","pitch":0.95,"volume":0.4},
     ],
     "PSE_helsing_flak_rifle_explode":
     [
@@ -65,10 +65,10 @@
     #CASCADE ACCELERATOR
     "PSE_cascade_accelerator_fire":
     [
-        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_01.ogg","pitch":1.5,"volume":0.5},
-        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_02.ogg","pitch":1.5,"volume":0.5},
-        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_03.ogg","pitch":1.5,"volume":0.5},
-        {"file":"sounds/sfx_wpn_energy/plasma_cannon_fire_03.ogg","pitch":1.3,"volume":0.5},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_cascade_shot.ogg","pitch":1.05,"volume":0.5},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_cascade_shot.ogg","pitch":1.1,"volume":0.5},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_cascade_shot.ogg","pitch":0.95,"volume":0.5},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_cascade_shot.ogg","pitch":1.0,"volume":0.5},
     ],
 
     #THRALL LAUNCHER

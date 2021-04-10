@@ -129,7 +129,7 @@ public class PSE_CombatFighterLaunchPlugin extends BaseEveryFrameCombatPlugin {
         }*/
     }
 
-    //method from tomatopaste's drone movement algorithms
+    //method from drone movement algorithms
     public static void rotateShipToFacing(ShipAPI fighter, float absoluteFacingTargetAngle) {
         float delta = MathUtils.getShortestRotation(fighter.getFacing(), absoluteFacingTargetAngle);
         fighter.setFacing(fighter.getFacing() + delta * 0.5f);

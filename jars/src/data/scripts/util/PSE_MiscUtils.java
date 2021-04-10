@@ -1,269 +1,41 @@
 package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.SettingsAPI;
-import com.fs.starfarer.api.combat.BoundsAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.loading.WeaponGroupSpec;
 import com.fs.starfarer.api.util.Misc;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
+import org.lazywizard.lazylib.ui.FontException;
+import org.lazywizard.lazylib.ui.LazyFont;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.io.IOException;
-import java.util.Objects;
+import java.awt.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-public final class PSE_MiscUtils {
-    private static final String droneCoronaSpecJsonFilename = "data/shipsystems/PSE_droneCorona.system";
-    private static final String droneBastionSpecJsonFilename = "data/shipsystems/PSE_droneBastion.system";
-    private static final String droneMVASpecJsonFilename = "data/shipsystems/PSE_droneMVA.system";
-    private static final String droneCitadelSpecJsonFilename = "data/shipsystems/PSE_droneCitadel.system";
+public class PSE_MiscUtils {
+    private static final float UIScaling = Global.getSettings().getScreenScaleMult();
+    public static final Color GREENCOLOR;
+    public static final Color BLUCOLOR;
+    private static LazyFont.DrawableString TODRAW14;
+    static {
+        GREENCOLOR = Global.getSettings().getColor("textFriendColor");
+        BLUCOLOR = Global.getSettings().getColor("textNeutralColor");
 
-    public static class PSE_CoronaSpecLoading {
-        private static float[] initialOrbitAngleArray;
-        private static float[] focusOrbitAngleArray;
-        private static float[] orbitRadiusArray;
-
-        private static int maxDeployedDrones;
-        private static double launchDelay;
-        private static double launchSpeed;
-        private static String droneVariant;
-
-        public static void loadJSON() throws JSONException, IOException {
-            SettingsAPI settings = Global.getSettings();
-            JSONObject droneSystemSpecJson = settings.loadJSON(droneCoronaSpecJsonFilename);
-            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
-
-            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
-            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
-            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
-            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
-            
-            initialOrbitAngleArray = new float[maxDeployedDrones];
-            focusOrbitAngleArray = new float[maxDeployedDrones];
-            orbitRadiusArray = new float[maxDeployedDrones];
-            
-            for (int i = 0; i < maxDeployedDrones; i++) {
-                JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
-
-                initialOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("initialOrbitAngle");
-                focusOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("focusModeOrbitAngle");
-                orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius");
-            }
-        }
-        public static float[] getInitialOrbitAngleArray() {
-            return initialOrbitAngleArray;
-        }
-        public static float[] getFocusOrbitAngleArray() {
-            return focusOrbitAngleArray;
-        }
-        public static float[] getOrbitRadiusArray() {
-            return orbitRadiusArray;
-        }
-
-        public static int getMaxDeployedDrones() {
-            return maxDeployedDrones;
-        }
-        public static double getLaunchDelay() {
-            return launchDelay;
-        }
-        public static double getLaunchSpeed() {
-            return launchSpeed;
-        }
-        public static String getDroneVariant() {
-            return droneVariant;
+        try {
+            LazyFont fontdraw = LazyFont.loadFont("graphics/fonts/victor14.fnt");
+            TODRAW14 = fontdraw.createText();
+        } catch (FontException ignored) {
         }
     }
 
-    public static class PSE_BastionSpecLoading {
-        private static float[] cardinalOrbitAngleArray;
-        private static float[] frontOrbitAngleArray;
-        private static float[] orbitRadiusArray;
-
-        private static int maxDeployedDrones;
-        private static double launchDelay;
-        private static double launchSpeed;
-        private static String droneVariant;
-
-        public static void loadJSON() throws JSONException, IOException {
-            SettingsAPI settings = Global.getSettings();
-            JSONObject droneSystemSpecJson = settings.loadJSON(droneBastionSpecJsonFilename);
-            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
-
-            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
-            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
-            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
-            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
-
-            cardinalOrbitAngleArray = new float[maxDeployedDrones];
-            frontOrbitAngleArray = new float[maxDeployedDrones];
-            orbitRadiusArray = new float[maxDeployedDrones];
-            
-            for (int i = 0; i < maxDeployedDrones; i++) {
-                JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
-
-                cardinalOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("cardinalOrbitAngle");
-                frontOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("frontOrbitAngle");
-                orbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("orbitRadius");
-            }
-        }
-        public static float[] getCardinalOrbitAngleArray() {
-            return cardinalOrbitAngleArray;
-        }
-        public static float[] getFrontOrbitAngleArray() {
-            return frontOrbitAngleArray;
-        }
-        public static float[] getOrbitRadiusArray() {
-            return orbitRadiusArray;
-        }
-
-        public static int getMaxDeployedDrones() {
-            return maxDeployedDrones;
-        }
-        public static double getLaunchDelay() {
-            return launchDelay;
-        }
-        public static double getLaunchSpeed() {
-            return launchSpeed;
-        }
-        public static String getDroneVariant() {
-            return droneVariant;
-        }
-    }
-
-    public static class PSE_ModularVectorAssemblySpecLoading {
-        private static float[] defenceOrbitAngleArray;
-        private static float[] clampedOrbitAngleArray;
-        private static float[] defenceOrbitRadiusArray;
-        private static float[] clampedOrbitRadiusArray;
-        private static float[] clampedFacingOffsetArray;
-
-        private static int maxDeployedDrones;
-        private static double launchDelay;
-        private static double launchSpeed;
-        private static String droneVariant;
-
-        public static void loadJSON() throws JSONException, IOException {
-            SettingsAPI settings = Global.getSettings();
-            JSONObject droneSystemSpecJson = settings.loadJSON(droneMVASpecJsonFilename);
-            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
-
-            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
-            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
-            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
-            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
-
-            defenceOrbitAngleArray = new float[maxDeployedDrones];
-            clampedOrbitAngleArray = new float[maxDeployedDrones];
-            defenceOrbitRadiusArray = new float[maxDeployedDrones];
-            clampedOrbitRadiusArray = new float[maxDeployedDrones];
-            clampedFacingOffsetArray = new float[maxDeployedDrones];
-
-            for (int i = 0; i < maxDeployedDrones; i++) {
-                JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
-
-                defenceOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceAngle");
-                clampedOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("clampedAngle");
-                defenceOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceOrbitRadius");
-                clampedOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("clampedOrbitRadius");
-                clampedFacingOffsetArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("clampedFacingOffset");
-            }
-        }
-        public static float[] getDefenceOrbitAngleArray() {
-            return defenceOrbitAngleArray;
-        }
-        public static float[] getClampedOrbitAngleArray() {
-            return clampedOrbitAngleArray;
-        }
-        public static float[] getDefenceOrbitRadiusArray() {
-            return defenceOrbitRadiusArray;
-        }
-        public static float[] getClampedOrbitRadiusArray() {
-            return clampedOrbitRadiusArray;
-        }
-        public static float[] getClampedFacingOffsetArray() {
-            return clampedFacingOffsetArray;
-        }
-
-        public static int getMaxDeployedDrones() {
-            return maxDeployedDrones;
-        }
-        public static double getLaunchDelay() {
-            return launchDelay;
-        }
-        public static double getLaunchSpeed() {
-            return launchSpeed;
-        }
-        public static String getDroneVariant() {
-            return droneVariant;
-        }
-    }
-
-    public static class PSE_CitadelSpecLoading {
-        private static float[] antiFighterOrbitAngleArray;
-        private static float[] antiFighterFacingOffsetArray;
-        private static float[] antiFighterOrbitRadiusArray;
-        private static float[] shieldOrbitRadiusArray;
-
-        private static int maxDeployedDrones;
-        private static double launchDelay;
-        private static double launchSpeed;
-        private static String droneVariant;
-
-        public static void loadJSON() throws JSONException, IOException {
-            SettingsAPI settings = Global.getSettings();
-            JSONObject droneSystemSpecJson = settings.loadJSON(droneCitadelSpecJsonFilename);
-            JSONArray droneBehaviorSpecJson = droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
-
-            launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
-            launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
-            droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
-            maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
-
-            antiFighterOrbitAngleArray = new float[maxDeployedDrones];
-            antiFighterFacingOffsetArray = new float[maxDeployedDrones];
-            antiFighterOrbitRadiusArray = new float[maxDeployedDrones];
-            shieldOrbitRadiusArray = new float[maxDeployedDrones];
-
-            for (int i = 0; i < maxDeployedDrones; i++) {
-                JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
-
-                antiFighterOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("antiFighterOrbitAngle");
-                antiFighterFacingOffsetArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("antiFighterFacingOffset");
-                antiFighterOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("antiFighterOrbitRadius");
-                shieldOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("shieldOrbitRadius");
-            }
-        }
-
-        public static float[] getAntiFighterOrbitAngleArray() {
-            return antiFighterOrbitAngleArray;
-        }
-        public static float[] getAntiFighterFacingOffsetArray() {
-            return antiFighterFacingOffsetArray;
-        }
-        public static float[] getAntiFighterOrbitRadiusArray() {
-            return antiFighterOrbitRadiusArray;
-        }
-        public static float[] getShieldOrbitRadiusArray() {
-            return shieldOrbitRadiusArray;
-        }
-
-        public static int getMaxDeployedDrones() {
-            return maxDeployedDrones;
-        }
-        public static double getLaunchDelay() {
-            return launchDelay;
-        }
-        public static double getLaunchSpeed() {
-            return launchSpeed;
-        }
-        public static String getDroneVariant() {
-            return droneVariant;
-        }
-    }
+    private static final Vector2f PERCENTBARVEC1 = new Vector2f(21f, 0f); // Just 21 pixel of width of difference.
+    private static final Vector2f PERCENTBARVEC2 = new Vector2f(50f, 58f);
 
     public static boolean isEntityInArc(CombatEntityAPI entity, Vector2f center, float centerAngle, float arcDeviation) {
         //Vector2f entityRelativeLocation = Vector2f.sub(entity.getLocation(), center, new Vector2f());
@@ -331,5 +103,19 @@ public final class PSE_MiscUtils {
             }
             return closest;
         }
+    }
+
+    private void rotateDecoThruster(WeaponAPI weapon, float angle, float thrust, ShipAPI ship, float amount, float woobleVariation){
+        float targetAngle = angle + ship.getFacing();
+        float woobleOffset = (float) FastTrig.sin((3.14159f / 2f) * ship.getFullTimeDeployed() * thrust) * woobleVariation;
+        targetAngle += woobleOffset;
+
+        float delta = MathUtils.getShortestRotation(weapon.getCurrAngle(), targetAngle);
+        delta *= amount;
+
+        float maxRotationSpeed = 5f * amount; //5 degrees/second, but limited to degrees per frame
+        MathUtils.clamp(delta, -maxRotationSpeed, maxRotationSpeed);
+
+        weapon.setCurrAngle(weapon.getCurrAngle() + delta);
     }
 }

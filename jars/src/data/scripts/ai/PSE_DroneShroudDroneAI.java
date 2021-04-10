@@ -8,7 +8,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_BaseDroneSystem;
 import data.scripts.shipsystems.PSE_DroneShroud;
-import data.scripts.util.PSE_DroneUtils;
+import data.scripts.util.PSE_DroneAIUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -27,8 +27,6 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
 
     public PSE_DroneShroudDroneAI(PSEDrone passedDrone, PSE_BaseDroneSystem baseDroneSystem) {
         super(passedDrone, baseDroneSystem);
-
-
     }
 
     @Override
@@ -65,7 +63,7 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
             }
         }
 
-        orbitAngle = orbitAngleArray[droneIndex] + shipDroneShroudSystem.getOrbitAngleBase();
+        orbitAngle = orbitAngleArray[droneIndex] + shipDroneShroudSystem.getOrbitAngleBase(droneIndex);
 
         orbitRadius = -30f + ship.getShieldRadiusEvenIfNoShield();
 
@@ -138,7 +136,7 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
 
                 break;
             case RECALL:
-                PSE_DroneUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
+                PSE_DroneAIUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
                 if (landingSlot == null) {
                     landingSlot = shipDroneShroudSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -155,7 +153,7 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
         }
     }
 
@@ -213,7 +211,7 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
                 break;
         }
 
-        PSE_DroneUtils.rotateToFacing(drone, targetFacing, engine);
+        PSE_DroneAIUtils.rotateToFacing(drone, targetFacing, engine);
     }
 
     //OVERRIDES

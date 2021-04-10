@@ -3,6 +3,7 @@ package data.scripts;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.listeners.CombatListenerManagerAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
@@ -13,6 +14,7 @@ import org.lwjgl.util.vector.Vector2f;
 import java.awt.*;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class PSEDrone implements ShipAPI {
@@ -39,6 +41,36 @@ public class PSEDrone implements ShipAPI {
     public void setLaunchingShip(ShipAPI launchingShip) {
         Ship ship = (Ship) drone;
         ship.setLaunchingShip((Ship) launchingShip);
+    }
+
+    @Override
+    public boolean isNonCombat(boolean considerOrders) {
+        return false;
+    }
+
+    @Override
+    public float findBestArmorInArc(float facing, float arc) {
+        return 0;
+    }
+
+    @Override
+    public float getAverageArmorInSlice(float direction, float arc) {
+        return 0;
+    }
+
+    @Override
+    public void setHoldFire(boolean holdFire) {
+
+    }
+
+    @Override
+    public void cloneVariant() {
+
+    }
+
+    @Override
+    public void setTimeDeployed(float timeDeployed) {
+
     }
 
     public ShipAPI getLaunchingShip() {
@@ -508,23 +540,13 @@ public class PSEDrone implements ShipAPI {
     }
 
     @Override
-    public void setVentCoreTexture(String textureId) {
-        drone.setVentCoreTexture(textureId);
+    public void setFluxVentTextureSheet(String textureId) {
+        drone.setFluxVentTextureSheet(textureId);
     }
 
     @Override
-    public void setVentFringeTexture(String textureId) {
-        drone.setVentFringeTexture(textureId);
-    }
-
-    @Override
-    public String getVentFringeTexture() {
-        return drone.getVentFringeTexture();
-    }
-
-    @Override
-    public String getVentCoreTexture() {
-        return drone.getVentCoreTexture();
+    public String getFluxVentTextureSheet() {
+        return null;
     }
 
     @Override
@@ -1053,6 +1075,106 @@ public class PSEDrone implements ShipAPI {
     }
 
     @Override
+    public Vector2f getShieldTarget() {
+        return drone.getShieldTarget();
+    }
+
+    @Override
+    public void setShieldTargetOverride(float x, float y) {
+        drone.setShieldTargetOverride(x, y);
+    }
+
+    @Override
+    public CombatListenerManagerAPI getListenerManager() {
+        return drone.getListenerManager();
+    }
+
+    @Override
+    public void addListener(Object listener) {
+        drone.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(Object listener) {
+        drone.removeListener(listener);
+    }
+
+    @Override
+    public void removeListenerOfClass(Class<?> c) {
+        drone.removeListenerOfClass(c);
+    }
+
+    @Override
+    public boolean hasListener(Object listener) {
+        return drone.hasListener(listener);
+    }
+
+    @Override
+    public boolean hasListenerOfClass(Class<?> c) {
+        return drone.hasListenerOfClass(c);
+    }
+
+    @Override
+    public <T> List<T> getListeners(Class<T> c) {
+        return drone.getListeners(c);
+    }
+
+    @Override
+    public Object getParamAboutToApplyDamage() {
+        return drone.getParamAboutToApplyDamage();
+    }
+
+    @Override
+    public void setParamAboutToApplyDamage(Object param) {
+        drone.setParamAboutToApplyDamage(param);
+    }
+
+    @Override
+    public float getFluxBasedEnergyWeaponDamageMultiplier() {
+        return drone.getFluxBasedEnergyWeaponDamageMultiplier();
+    }
+
+    @Override
+    public void setName(String name) {
+        drone.setName(name);
+    }
+
+    @Override
+    public void setHulk(boolean isHulk) {
+        drone.setHulk(isHulk);
+    }
+
+    @Override
+    public void setCaptain(PersonAPI captain) {
+        drone.setCaptain(captain);
+    }
+
+    @Override
+    public float getShipExplosionRadius() {
+        return drone.getShipExplosionRadius();
+    }
+
+    @Override
+    public void setCircularJitter(boolean circular) {
+        drone.setCircularJitter(circular);
+    }
+
+    @Override
+    public float getExtraAlphaMult() {
+        return drone.getExtraAlphaMult();
+    }
+
+    @Override
+    public void setAlphaMult(float alphaMult) {
+        drone.setAlphaMult(alphaMult);
+    }
+
+    @Override
+    public float getAlphaMult() {
+        return drone.getAlphaMult();
+    }
+
+    @Override
     public Vector2f getLocation() {
         return drone.getLocation();
     }
@@ -1150,5 +1272,25 @@ public class PSEDrone implements ShipAPI {
     @Override
     public Object getAI() {
         return drone.getAI();
+    }
+
+    @Override
+    public boolean isExpired() {
+        return drone.isExpired();
+    }
+
+    @Override
+    public void setCustomData(String key, Object data) {
+        drone.setCustomData(key, data);
+    }
+
+    @Override
+    public void removeCustomData(String key) {
+        drone.removeCustomData(key);
+    }
+
+    @Override
+    public Map<String, Object> getCustomData() {
+        return drone.getCustomData();
     }
 }

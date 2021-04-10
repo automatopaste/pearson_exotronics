@@ -10,11 +10,10 @@ import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.awt.*;
 import java.util.List;
 
-public final class PSE_DroneUtils {
-    private static final Color DRONE_EXPLOSION_COLOUR = new Color(183, 255, 153, 255);
+public final class PSE_DroneAIUtils {
+    //private static final Color DRONE_EXPLOSION_COLOUR = new Color(183, 255, 153, 255);
 
     public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation,IntervalUtil velocityRotationIntervalTracker) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
@@ -33,10 +32,11 @@ public final class PSE_DroneUtils {
         float distanceToTargetLocation = MathUtils.getDistance(drone.getLocation(), movementTargetLocation); //DISTANCE
 
         //damping scaling based on ship speed (function y = -x + 2 where x is 0->1)
-        float damping = (-drone.getLaunchingShip().getVelocity().length() / drone.getLaunchingShip().getMaxSpeedWithoutBoost()) + 2f;
+        //float damping = (-drone.getLaunchingShip().getVelocity().length() / drone.getLaunchingShip().getMaxSpeedWithoutBoost()) + 2f;
 
         //FIND DISTANCE THAT CAN BE DECELERATED FROM CURRENT SPEED TO ZERO s = v^2 / 2a
-        float decelerationDistance = (float) (Math.pow(drone.getVelocity().length(), 2)) / (2 * drone.getDeceleration());
+        float speedSquared = drone.getVelocity().lengthSquared();
+        float decelerationDistance = speedSquared / (2 * drone.getDeceleration());
         //decelerationDistance *= 0.5f;
 
         //DO LARGE MOVEMENT IF OVER DISTANCE THRESHOLD
@@ -56,13 +56,9 @@ public final class PSE_DroneUtils {
             }
 
             //strafe left or right
-            if (
-                    180f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 0f
-            ) { //between 0 and 180 (i.e. left)
+            if (180f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > 0f) { //between 0 and 180 (i.e. left)
                 drone.giveCommand(ShipCommand.STRAFE_LEFT, null, 0);
-            } else if (
-                    0f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -180f
-            ) { //between 0 and -180 (i.e. right)
+            } else if (0f > rotationFromFacingToLocationAngle && rotationFromFacingToLocationAngle > -180f) { //between 0 and -180 (i.e. right)
                 drone.giveCommand(ShipCommand.STRAFE_RIGHT, null, 0);
             }
         } else {
@@ -92,16 +88,16 @@ public final class PSE_DroneUtils {
         drone.getLocation().set(target);
     }
 
-    public static void rotateToTarget(ShipAPI ship, PSEDrone drone, Vector2f targetedLocation, CombatEngineAPI engine) {
-        engine = Global.getCombatEngine();
-        float droneFacing = drone.getFacing();
+    public static void rotateToTarget(ShipAPI ship, PSEDrone drone, Vector2f targetedLocation) {
+        CombatEngineAPI engine = Global.getCombatEngine();
+        //float droneFacing = drone.getFacing();
 
         //FIND ANGLE THAT CAN BE DECELERATED FROM CURRENT ANGULAR VELOCITY TO ZERO theta = v^2 / 2 (not actually used atm)
-        float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
+        //float decelerationAngle = (float) (Math.pow(drone.getAngularVelocity(), 2) / (2 * drone.getTurnDeceleration()));
 
 
         //point at target, if that doesn't exist then point in direction of mothership facing
-        float rotationAngleDelta;
+        //float rotationAngleDelta;
         if (targetedLocation != null) {
             //GET ABSOLUTE ANGLE FROM DRONE TO TARGETED LOCATION
             Vector2f droneToTargetedLocDir = VectorUtils.getDirectionalVector(drone.getLocation(), targetedLocation);
@@ -271,7 +267,7 @@ public final class PSE_DroneUtils {
         return target;
     }
 
-    public static boolean areFriendliesBlockingArc(CombatEntityAPI drone, CombatEntityAPI target, float focusWeaponRange, float arcFacing, float arcDeviation) {
+    public static boolean areFriendliesBlockingArc(CombatEntityAPI drone, CombatEntityAPI target, float focusWeaponRange) {
         for (ShipAPI ally : AIUtils.getNearbyAllies(drone, focusWeaponRange)) {
             if (ally.getCollisionClass() == CollisionClass.FIGHTER || ally.getCollisionClass() == CollisionClass.NONE) {
                 continue;

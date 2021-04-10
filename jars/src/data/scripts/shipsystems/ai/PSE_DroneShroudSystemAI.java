@@ -53,8 +53,8 @@ public class PSE_DroneShroudSystemAI implements ShipSystemAIScript {
         }
 
         //unique identifier so that individual system can be gotten from combat engine custom data
-        String UNIQUE_SYSTEM_ID = "PSE_DroneShroud_" + ship.hashCode();
-        PSE_DroneShroud droneSystem = (PSE_DroneShroud) engine.getCustomData().get(UNIQUE_SYSTEM_ID);
+        String uniqueSystemId = PSE_DroneShroud.UNIQUE_SYSTEM_PREFIX + ship.hashCode();
+        PSE_DroneShroud droneSystem = (PSE_DroneShroud) engine.getCustomData().get(uniqueSystemId);
         if (droneSystem == null || ship == null || !ship.isAlive()) {
             return;
         }

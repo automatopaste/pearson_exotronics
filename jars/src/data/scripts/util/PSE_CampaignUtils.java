@@ -173,9 +173,8 @@ public final class PSE_CampaignUtils {
         {
             if (military)
             {
-                if (skills.contains(Skills.FLEET_LOGISTICS))
-                {
-                    admin.getStats().setSkillLevel(Skills.FLEET_LOGISTICS, 3);
+                if (skills.contains(Skills.SPACE_OPERATIONS)) {
+                    admin.getStats().setSkillLevel(Skills.SPACE_OPERATIONS, 3);
                 }
             }
             else if (defenses > 0)

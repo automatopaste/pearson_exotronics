@@ -10,6 +10,8 @@
 	"PSE_launchSpeed":150,
 	"PSE_launchDelay":0.5,
 	"PSE_maxDrones":3,
+	"PSE_forgeCooldown":20,
+	"PSE_droneAIScript":"data.scripts.ai.PSE_DroneCoronaDroneAI", #unused
 	"PSE_droneBehavior":[
 		{"droneIndex":[0],
 		 "initialOrbitAngle":0,

@@ -4,30 +4,19 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.campaign.CampaignPlugin;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.econ.Industry;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.characters.ImportantPeopleAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.MissileAIPlugin;
 import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
-import data.scripts.ai.PSE_BaseCompetentMissileAI;
+import data.scripts.ai.MagicMissileAI;
 import data.scripts.campaign.PSE_SODCampEventListener;
 import data.scripts.campaign.intel.bar.events.PSE_SpecialAgentBarEventCreator;
-import data.scripts.util.PSE_MiscUtils;
+import data.scripts.util.PSE_SpecLoadingUtils;
 import data.scripts.world.PSE.PSE_WorldGen;
-import exerelin.campaign.SectorManager;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.List;
 
 public class PSEModPlugin extends BaseModPlugin {
     Logger log = Global.getLogger(PSEModPlugin.class);
@@ -48,7 +37,6 @@ public class PSEModPlugin extends BaseModPlugin {
     private static final String THRALL_ID = "PSE_thrall_missile";
 
     public static boolean haveNexerelin = false;
-    public static boolean isNexerelinRandomSector = false;
 
     public static boolean memes = Global.getSettings().getBoolean("PSE_memes");
 
@@ -56,15 +44,16 @@ public class PSEModPlugin extends BaseModPlugin {
     public void onNewGame() {
         haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
         boolean haveSSTC = Global.getSettings().getModManager().isModEnabled("salvage_and_solder_tc");
-        boolean haveIndEvo = Global.getSettings().getModManager().isModEnabled("deconomics");
 
-        if (haveSSTC) {
+        new PSE_WorldGen().generate(Global.getSector());
+
+        //if (haveSSTC) {
             //coming soon(tm)
-        } else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
-            new PSE_WorldGen().generate(Global.getSector());
-        }
+        //} else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
+        //    new PSE_WorldGen().generate(Global.getSector());
+        //}
 
-        isNexerelinRandomSector = haveNexerelin && SectorManager.getManager().isCorvusMode();
+        //isNexerelinRandomSector = haveNexerelin && SectorManager.getManager().isCorvusMode();
     }
 
     @Override
@@ -108,24 +97,35 @@ public class PSEModPlugin extends BaseModPlugin {
             }
         }
 
+        try {
+            PSE_SpecLoadingUtils.loadBaseSystemSpecs();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
         //load some custom jsons
         try {
-            PSE_MiscUtils.PSE_CoronaSpecLoading.loadJSON();
+            PSE_SpecLoadingUtils.PSE_CoronaSpecLoading.loadJSON();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         try {
-            PSE_MiscUtils.PSE_BastionSpecLoading.loadJSON();
+            PSE_SpecLoadingUtils.PSE_BastionSpecLoading.loadJSON();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         try {
-            PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.loadJSON();
+            PSE_SpecLoadingUtils.PSE_ModularVectorAssemblySpecLoading.loadJSON();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         try {
-            PSE_MiscUtils.PSE_CitadelSpecLoading.loadJSON();
+            PSE_SpecLoadingUtils.PSE_CitadelSpecLoading.loadJSON();
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PSE_SpecLoadingUtils.PSE_ShroudSpecLoading.loadJSON();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
@@ -142,7 +142,8 @@ public class PSEModPlugin extends BaseModPlugin {
         String specId = missile.getProjectileSpecId();
 
         if (specId.equals(THRALL_ID)) {
-            return new PluginPick<MissileAIPlugin>(new PSE_BaseCompetentMissileAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
+            //return new PluginPick<MissileAIPlugin>(new PSE_BaseCompetentMissileAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
+            return new PluginPick<MissileAIPlugin>(new MagicMissileAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
         }
 
         return null;

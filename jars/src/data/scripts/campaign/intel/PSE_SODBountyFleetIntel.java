@@ -285,7 +285,7 @@ public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFra
          addBulletPoints(info, mode);
     }
 
-    private void addBulletPoints(TooltipMakerAPI info, ListInfoMode mode) {
+    public void addBulletPoints(TooltipMakerAPI info, ListInfoMode mode) {
         Color h = Misc.getHighlightColor();
         float pad = 3f;
         float opad = 10f;
@@ -341,7 +341,7 @@ public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFra
     private void initPerson() {
         int personLevel = 5;
         personLevel += (int) ((Global.getSector().getPlayerStats().getLevel() / Global.getSettings().getLevelupPlugin().getMaxLevel()) * 20f);
-        person = OfficerManagerEvent.createOfficer(bountyFaction, personLevel, true, false);
+        person = OfficerManagerEvent.createOfficer(bountyFaction, personLevel);
     }
 
     public String getName() {

@@ -1,12 +1,14 @@
 package data.scripts.shipsystems;
 
 import data.scripts.PSEDrone;
-import data.scripts.util.PSE_MiscUtils;
+import data.scripts.ai.PSE_BaseDroneAI;
+import data.scripts.ai.PSE_DroneBastionDroneAI;
+import data.scripts.ai.PSE_DroneModularVectorAssemblyDroneAI;
 
 import java.util.ArrayList;
 
 public class PSE_DroneModularVectorAssembly extends PSE_BaseDroneSystem {
-    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_MVA_";
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_droneMVA";
 
     public enum ModularVectorAssemblyDroneOrders {
         TARGETING,
@@ -19,12 +21,9 @@ public class PSE_DroneModularVectorAssembly extends PSE_BaseDroneSystem {
     private ModularVectorAssemblyDroneOrders droneOrders = ModularVectorAssemblyDroneOrders.RECALL;
 
     public PSE_DroneModularVectorAssembly() {
-        uniqueSystemPrefix = UNIQUE_SYSTEM_PREFIX;
+        systemID = UNIQUE_SYSTEM_PREFIX;
 
-        maxDeployedDrones = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getMaxDeployedDrones();
-        launchDelay = (float) PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getLaunchDelay();
-        launchSpeed = (float) PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getLaunchSpeed();
-        droneVariant = PSE_MiscUtils.PSE_ModularVectorAssemblySpecLoading.getDroneVariant();
+        loadSpecData();
     }
 
     public ModularVectorAssemblyDroneOrders getDroneOrders() {
@@ -69,5 +68,15 @@ public class PSE_DroneModularVectorAssembly extends PSE_BaseDroneSystem {
     @Override
     public void setDefaultDeployMode() {
         droneOrders = ModularVectorAssemblyDroneOrders.TARGETING;
+    }
+
+    @Override
+    public void executePerOrders(float amount) {
+        //unneeded
+    }
+
+    @Override
+    public PSE_BaseDroneAI getNewAIInstance(PSEDrone spawnedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        return new PSE_DroneModularVectorAssemblyDroneAI(spawnedDrone, baseDroneSystem);
     }
 }

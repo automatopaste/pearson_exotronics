@@ -12,10 +12,11 @@
   "shieldRadius": 221.5,
   "viewOffset": 0,
   "builtInMods": [
-    "fluxshunt"
+    "fluxshunt",
+    "advancedcore"
   ],
   "builtInWeapons": {
-    "WS0001": "gravitonbeam"
+    "WS0001": "pilum"
   },
   "weaponSlots": [
     {

@@ -3,8 +3,11 @@ package data.scripts.weapons;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
+import data.scripts.plugins.PSE_CombatEffectsPlugin;
 import data.scripts.shipsystems.PSE_DroneModularVectorAssembly;
 import data.scripts.util.PSE_MiscUtils;
+import data.scripts.util.PSE_SpecLoadingUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -98,7 +101,10 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
                         vel.scale(0.5f);
                     }
 
-                    engine.addSmoothParticle(loc, vel, size,10f, CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR);
+                    float rotation = VectorUtils.getFacing(vel);
+
+                    //engine.addSmoothParticle(loc, vel, size,10f, CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR);
+                    PSE_CombatEffectsPlugin.spawnPrimitiveParticle(loc, vel, new Vector2f(), CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR, CombatEngineLayers.ABOVE_SHIPS_LAYER, size, 3, rotation, 0f, 0f, 0.2f, 0.5f);
                 }
                 if (bigParticleInterval.intervalElapsed()) {
                     Vector2f loc = PSE_MiscUtils.getRandomVectorInCircleRangeWithDistanceMult(CHARGEUP_PARTICLE_DISTANCE_MAX, CHARGEUP_PARTICLE_DISTANCE_MIN, muzzleLocation, chargeLevel);
@@ -115,7 +121,10 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
                         vel.scale(0.5f);
                     }
 
-                    engine.addSmoothParticle(loc, vel, size,20f, CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR_EXTRA);
+                    float rotation = VectorUtils.getFacing(vel);
+
+                    //engine.addSmoothParticle(loc, vel, size,20f, CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR_EXTRA);
+                    PSE_CombatEffectsPlugin.spawnPrimitiveParticle(loc, vel, new Vector2f(), CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR_EXTRA, CombatEngineLayers.ABOVE_SHIPS_LAYER, size, 6, rotation, 0f, 0f, 0.2f, 0.5f);
                 }
 
                 if (droneParticleInterval.intervalElapsed() && isTargeting) {

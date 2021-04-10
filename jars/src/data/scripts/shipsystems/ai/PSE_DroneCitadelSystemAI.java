@@ -2,7 +2,6 @@ package data.scripts.shipsystems.ai;
 
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.shipsystems.PSE_DroneBastion;
 import data.scripts.shipsystems.PSE_DroneCitadel;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
@@ -43,21 +42,7 @@ public class PSE_DroneCitadelSystemAI implements ShipSystemAIScript {
         }
 
         if (tracker.intervalElapsed() && ship != null) {
-            /*List<MissileAPI> missilesInRange = AIUtils.getNearbyEnemyMissiles(ship, longestWeaponRange);
-            boolean isMissileThreatPresent = !missilesInRange.isEmpty();
-            float missileThreatAngle = 0;
-            if (isMissileThreatPresent) {
-                for (MissileAPI missile : missilesInRange) {
-                    float a = MathUtils.getShortestRotation(ship.getFacing(), VectorUtils.getFacing(VectorUtils.getDirectionalVector(ship.getLocation(), missile.getLocation())));
-                    a = Math.abs(a);
-                    if (a > missileThreatAngle) {
-                        missileThreatAngle = a;
-                    }
-                }
-            }*/
             boolean isMissileThreatPresent = missileDangerDir == null;
-            float missileThreatAngle = 0f;
-            if (missileDangerDir != null) missileThreatAngle = VectorUtils.getFacing(missileDangerDir);
 
             List<ShipAPI> shipsInRange = AIUtils.getNearbyEnemies(ship, longestWeaponRange);
             boolean isShipThreatPresent = !shipsInRange.isEmpty();
@@ -95,6 +80,10 @@ public class PSE_DroneCitadelSystemAI implements ShipSystemAIScript {
                     break;
                 default:
                     break;
+            }
+
+            if (ship.getFluxTracker().isOverloadedOrVenting()) {
+                droneSystem.setDefaultDeployMode();
             }
         }
     }

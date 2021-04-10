@@ -6,7 +6,7 @@ import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.PSEDrone;
 import data.scripts.shipsystems.PSE_BaseDroneSystem;
-import data.scripts.util.PSE_DroneUtils;
+import data.scripts.util.PSE_DroneAIUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -16,6 +16,7 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
     protected ShipAPI ship;
     protected String uniqueSystemPrefix;
     protected PSE_BaseDroneSystem baseDroneSystem;
+    protected int droneIndex;
 
     protected final IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
     protected final IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
@@ -26,7 +27,7 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
         this.ship = drone.getDroneSource();
 
         this.baseDroneSystem = baseDroneSystem;
-        this.uniqueSystemPrefix = baseDroneSystem.uniqueSystemPrefix;
+        this.uniqueSystemPrefix = baseDroneSystem.systemID;
 
         drone.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DRONE_MOTHERSHIP);
 
@@ -50,10 +51,10 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
         if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
             landingSlot = null;
 
-            ship = PSE_DroneUtils.getAlternateHost(drone, uniqueSystemPrefix);
+            ship = PSE_DroneAIUtils.getAlternateHost(drone, uniqueSystemPrefix);
 
             if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
-                PSE_DroneUtils.deleteDrone(drone, engine);
+                PSE_DroneAIUtils.deleteDrone(drone, engine);
                 return;
             }
         }
@@ -65,7 +66,7 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
         }
 
         //check if currently superfluous
-        int droneIndex = baseDroneSystem.getIndex(drone);
+        droneIndex = baseDroneSystem.getIndex(drone);
         if (droneIndex == -1) {
             if (landingSlot == null) {
                 landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
@@ -73,13 +74,13 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
 
             Vector2f movementTargetLocation = landingSlot.computePosition(ship);
 
-            PSE_DroneUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
 
             Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
             float angle = VectorUtils.getFacing(to);
-            PSE_DroneUtils.rotateToFacing(drone, angle, engine);
+            PSE_DroneAIUtils.rotateToFacing(drone, angle, engine);
 
-            PSE_DroneUtils.attemptToLandAsExtra(ship, drone);
+            PSE_DroneAIUtils.attemptToLandAsExtra(ship, drone);
         }
     }
 

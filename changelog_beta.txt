@@ -8,11 +8,12 @@ beta.9
 -replaced pulse impeller shipsystem with new ghost skimmer shipsystem on cassius and richmond
 -added integrated point defence AI to corona and bastion pd drones
 -added new large energy weapon: Cascade Accelerator, fires bursts of powerful plasmatic singularities at long range
--added new small missile weapon: Thrall Rocket Launcher, fires salvos of four kinetic rockets to spike enemy flux levels
+-added new small missile weapon: Thrall Rocket Launcher, fires salvos of two kinetic rockets to spike enemy flux levels
 -updated some variants
 -fixed faction hullmods unknown by Pearson in campaign
 -adjusted faction doctrine
 -adjusted ship spawning composition
+-some drone AI optimisation
 -weapon balancing
     -corsair railgun
         -damage/shot 90 -> 125

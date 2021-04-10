@@ -3,10 +3,8 @@ package data.scripts.shipsystems.ai;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.shipsystems.PSE_DroneCorona;
-import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 

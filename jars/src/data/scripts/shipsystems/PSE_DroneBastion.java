@@ -1,10 +1,13 @@
 package data.scripts.shipsystems;
 
-import data.scripts.util.PSE_MiscUtils;
+import data.scripts.PSEDrone;
+import data.scripts.ai.PSE_BaseDroneAI;
+import data.scripts.ai.PSE_DroneBastionDroneAI;
+import data.scripts.util.PSE_SpecLoadingUtils;
 
 public class PSE_DroneBastion extends PSE_BaseDroneSystem {
     //static final float FLUX_PER_SECOND = 100f;
-    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_DroneBastion_";
+    public static final String UNIQUE_SYSTEM_PREFIX = "PSE_droneBastion";
 
     public enum BastionDroneOrders {
         FRONT,
@@ -15,12 +18,9 @@ public class PSE_DroneBastion extends PSE_BaseDroneSystem {
     private BastionDroneOrders droneOrders = BastionDroneOrders.RECALL;
 
     public PSE_DroneBastion() {
-        uniqueSystemPrefix = UNIQUE_SYSTEM_PREFIX;
+        systemID = UNIQUE_SYSTEM_PREFIX;
 
-        maxDeployedDrones = PSE_MiscUtils.PSE_BastionSpecLoading.getMaxDeployedDrones();
-        launchDelay = (float) PSE_MiscUtils.PSE_BastionSpecLoading.getLaunchDelay();
-        launchSpeed = (float) PSE_MiscUtils.PSE_BastionSpecLoading.getLaunchSpeed();
-        droneVariant = PSE_MiscUtils.PSE_BastionSpecLoading.getDroneVariant();
+        loadSpecData();
     }
 
     public BastionDroneOrders getDroneOrders() {
@@ -70,5 +70,15 @@ public class PSE_DroneBastion extends PSE_BaseDroneSystem {
     @Override
     public void setDefaultDeployMode() {
         setDroneOrders(BastionDroneOrders.FRONT);
+    }
+
+    @Override
+    public void executePerOrders(float amount) {
+        //unneeded
+    }
+
+    @Override
+    public PSE_BaseDroneAI getNewAIInstance(PSEDrone spawnedDrone, PSE_BaseDroneSystem baseDroneSystem) {
+        return new PSE_DroneBastionDroneAI(spawnedDrone, baseDroneSystem);
     }
 }
