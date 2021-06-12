@@ -18,7 +18,6 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
     protected PSE_BaseDroneSystem baseDroneSystem;
     protected int droneIndex;
 
-    protected final IntervalUtil velocityRotationIntervalTracker = new IntervalUtil(0.01f, 0.05f);
     protected final IntervalUtil delayBeforeLandingTracker = new IntervalUtil(2f, 2f);
     protected WeaponSlotAPI landingSlot;
 
@@ -59,8 +58,6 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
             }
         }
 
-        float droneFacing = drone.getFacing();
-
         if (!baseDroneSystem.getDeployedDrones().contains(drone)) {
             baseDroneSystem.getDeployedDrones().add(drone);
         }
@@ -74,7 +71,7 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
 
             Vector2f movementTargetLocation = landingSlot.computePosition(ship);
 
-            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation);
 
             Vector2f to = Vector2f.sub(movementTargetLocation, drone.getLocation(), new Vector2f());
             float angle = VectorUtils.getFacing(to);
@@ -89,6 +86,9 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
     protected abstract void doRotationTargeting();
 
     protected String getUniqueSystemID() {
+        if (uniqueSystemPrefix == null || ship == null) {
+            return "troled";
+        }
         return uniqueSystemPrefix + ship.hashCode();
     }
 

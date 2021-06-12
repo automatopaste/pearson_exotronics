@@ -50,11 +50,14 @@ beta.9
     -leyland
         -much-needed ordnance point increase to reflect mount options
         -ordnance points 160 -> 195
+        -hitpoints 8000 -> 7000
+        -mass 1800 -> 1600
     -serrano
         slight maneuverability boost to balance weaker defensive stats
         -max speed 40 -> 45
         -acceleration 25 -> 30
         -deceleration 15 -> 20
+        -mass 2200 -> 1800
 
 beta.8
 -reduced forge speed penalty of converted hangars x5 -> x3

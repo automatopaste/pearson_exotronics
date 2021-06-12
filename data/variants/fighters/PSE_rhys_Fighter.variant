@@ -10,7 +10,7 @@
   "hullMods": [],
   "weaponGroups": [
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
         "WS0001": "PSE_corsair_mk1"
@@ -20,15 +20,13 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0004": "ioncannon_fighter"
+        "WS0002": "taclaser"
       }
     },
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0003": "taclaser"
-      }
+      "weapons": {}
     }
   ],
   "modules": [],

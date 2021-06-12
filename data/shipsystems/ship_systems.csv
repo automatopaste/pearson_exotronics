@@ -9,3 +9,4 @@ Shroud,PSE_droneShroud,,,,,,0.02,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/d
 Ghost Skimmer,PSE_ghostSkimmer,,,,,,0.075,,4,0.2,0.2,,,0.8,,,,,,,,,,,
 Citadel,PSE_droneCitadel,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
 Citadel Mode,PSE_droneCitadelMode,,,,,,,,,,,,,,TRUE,,,,,,,,,,
+Rift,PSE_droneRift,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png

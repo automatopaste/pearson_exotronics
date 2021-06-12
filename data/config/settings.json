@@ -2,7 +2,8 @@
 	"plugins":{
 		"PSE_CombatEffectsPlugin":"data.scripts.plugins.PSE_CombatEffectsPlugin",
 		"PSE_CombatWeaponsPlugin":"data.scripts.plugins.PSE_CombatWeaponsPlugin",
-		"PSE_CombatFighterLaunchPlugin":"data.scripts.plugins.PSE_CombatFighterLaunchPlugin",
+		#"PSE_CombatFighterLaunchPlugin":"data.scripts.plugins.PSE_CombatFighterLaunchPlugin",
+		#"PSE_TitleScreenPlugin":"data.scripts.plugins.PSE_TitleScreenPlugin",
 	},
 	"designTypeColors":{
 		"PSExotech":[58,197,150,255],
@@ -18,6 +19,7 @@
 		},
 		"fx":{
 			"PSE_trail_charge":"graphics/PSE/fx/PSE_trail_charge.png",		
+			"lol":"graphics/PSE/fx/lol.png",
 		},
 		"industry":{
 			"PSE_malfunctioning_shield_texture":"graphics/PSE/planets/PSE_NewCaledonia_planetary_shield.png",
@@ -29,5 +31,5 @@
 
 	"PSE_maxNumSODMarkets":3,
 
-	"PSE_memes":true,
+	"PSE_eliminateJangala":false, #based
 }

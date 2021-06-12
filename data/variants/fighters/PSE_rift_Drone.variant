@@ -1,0 +1,22 @@
+{
+  "variantId": "PSE_rift_Drone",
+  "hullId": "PSE_rift_drone",
+  "displayName": "Drone",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "ioncannon"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

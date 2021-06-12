@@ -226,4 +226,49 @@ public final class PSE_SpecLoadingUtils {
             return orbitBaseRotationSpeed;
         }
     }
+
+    public static class PSE_RiftSpecLoading {
+        private static float[] fieldOrbitRadiusArray;
+        private static float[] fieldOrbitSpeedArray;
+        private static float[] defenceOrbitAngleArray;
+        private static float[] defenceFacingArray;
+        private static float[] defenceOrbitRadiusArray;
+
+        public static void loadJSON() throws JSONException, IOException {
+            JSONArray droneBehaviorSpecJson = getDroneBehaviour(getFilenameForSystemID(PSE_DroneRift.UNIQUE_SYSTEM_PREFIX));
+            int maxDeployedDrones = droneSystemSpecHashMap.get(PSE_DroneRift.UNIQUE_SYSTEM_PREFIX).maxDeployedDrones;
+
+            fieldOrbitRadiusArray = new float[maxDeployedDrones];
+            fieldOrbitSpeedArray = new float[maxDeployedDrones];
+            defenceOrbitAngleArray = new float[maxDeployedDrones];
+            defenceFacingArray = new float[maxDeployedDrones];
+            defenceOrbitRadiusArray = new float[maxDeployedDrones];
+
+            for (int i = 0; i < maxDeployedDrones; i++) {
+                JSONObject droneConfigPerIndexJsonObject = droneBehaviorSpecJson.getJSONObject(i);
+
+                fieldOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("fieldOrbitRadius");
+                fieldOrbitSpeedArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("fieldOrbitSpeed");
+                defenceOrbitAngleArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceOrbitAngle");
+                defenceFacingArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceFacing");
+                defenceOrbitRadiusArray[i] = Objects.requireNonNull(droneConfigPerIndexJsonObject).getInt("defenceOrbitRadius");
+            }
+        }
+
+        public static float[] getFieldOrbitRadiusArray() {
+            return fieldOrbitRadiusArray;
+        }
+        public static float[] getFieldOrbitSpeedArray() {
+            return fieldOrbitSpeedArray;
+        }
+        public static float[] getDefenceOrbitAngleArray() {
+            return defenceOrbitAngleArray;
+        }
+        public static float[] getDefenceFacingArray() {
+            return defenceFacingArray;
+        }
+        public static float[] getDefenceOrbitRadiusArray() {
+            return defenceOrbitRadiusArray;
+        }
+    }
 }

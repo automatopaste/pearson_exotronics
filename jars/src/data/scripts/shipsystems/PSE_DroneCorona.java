@@ -1,5 +1,6 @@
 package data.scripts.shipsystems;
 
+import com.fs.starfarer.api.Global;
 import data.scripts.PSEDrone;
 import data.scripts.ai.PSE_BaseDroneAI;
 import data.scripts.ai.PSE_DroneBastionDroneAI;
@@ -73,20 +74,20 @@ public class PSE_DroneCorona extends PSE_BaseDroneSystem {
 
     @Override
     public boolean isRecallMode() {
-        return false;
+        return droneOrders == CoronaDroneOrders.RECALL;
     }
 
     @Override
     public void setDefaultDeployMode() {
-
+        droneOrders = CoronaDroneOrders.DEPLOY;
     }
 
     @Override
     public void applyActiveStatBehaviour() {
         super.applyActiveStatBehaviour();
 
-        if (ship.getShield() != null && ship.equals(engine.getPlayerShip())) {
-            engine.maintainStatusForPlayerShip(
+        if (ship.getShield() != null && ship.equals(Global.getCombatEngine().getPlayerShip())) {
+            Global.getCombatEngine().maintainStatusForPlayerShip(
                     "PSE_shieldDebuffStat",
                     "graphics/icons/hullsys/fortress_shield.png",
                     "SHIELD POWER DIVERTED",
@@ -112,9 +113,9 @@ public class PSE_DroneCorona extends PSE_BaseDroneSystem {
             ship.getMutableStats().getZeroFluxSpeedBoost().modifyMult(this.toString(), 0f);
             ship.getMutableStats().getShieldDamageTakenMult().modifyMult(this.toString(), 1.35f);
 
-            if (ship.equals(engine.getPlayerShip())) {
-                if (ship.getShield() != null) engine.maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "SHIELD POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
-                engine.maintainStatusForPlayerShip("PSE_coronaBoost1", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
+            if (ship.equals(Global.getCombatEngine().getPlayerShip())) {
+                if (ship.getShield() != null) Global.getCombatEngine().maintainStatusForPlayerShip("PSE_coronaBoost2", "graphics/icons/hullsys/infernium_injector.png", "SHIELD POWER DIVERTED", "+35% DAMAGE TO SHIELDS", true);
+                Global.getCombatEngine().maintainStatusForPlayerShip("PSE_coronaBoost1", "graphics/icons/hullsys/infernium_injector.png", "ENGINE POWER DIVERTED", "ZERO FLUX BOOST DISABLED", true);
             }
         } else {
             ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(this.toString());

@@ -7,13 +7,15 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.ids.*;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
+import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.impl.campaign.procgen.Constellation;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpecial;
@@ -22,15 +24,18 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.util.MagicCampaign;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFrameScript, FleetEventListener {
-    private static Logger log = Global.getLogger(PSE_SODBountyFleetIntel.class);
+    private static final Logger log = Global.getLogger(PSE_SODBountyFleetIntel.class);
 
     public static final String SPECIAL_BOUNTY_KEY = "$PSE_specialBountyDefeated";
 
@@ -40,12 +45,17 @@ public class PSE_SODBountyFleetIntel extends BaseIntelPlugin implements EveryFra
         DEFEATED_OTHER
     }
     private CampaignFleetAPI fleet;
-    private FactionAPI bountyFaction;
+    private final FactionAPI bountyFaction;
     private SectorEntityToken hideoutLocation;
     private BountyState state = BountyState.ACTIVE;
     private PersonAPI person;
-    private int payment;
-    private PersonAPI bountyGiver;
+    private final int payment;
+    private final PersonAPI bountyGiver;
+
+    @Override
+    public void advance(float amount) {
+        super.advance(amount);
+    }
 
     public PSE_SODBountyFleetIntel(int payment, PersonAPI bountyGiver) { //todo.txt - add detailed intel descriptions
         this.payment = payment;

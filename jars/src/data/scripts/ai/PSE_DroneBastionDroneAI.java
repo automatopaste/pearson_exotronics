@@ -66,7 +66,7 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation);
         }
     }
 
@@ -83,7 +83,6 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
 
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), orbitRadius, angle);
                 landingSlot = null;
-
                 break;
             case RECALL:
                 PSE_DroneAIUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
@@ -93,7 +92,6 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
                 }
 
                 movementTargetLocation = landingSlot.computePosition(ship);
-
                 break;
             case CARDINAL:
                 angle = frontOrbitAngle + shipFacing;
@@ -103,7 +101,6 @@ public class PSE_DroneBastionDroneAI extends PSE_BaseDroneAI {
                 movementTargetLocation = MathUtils.getPointOnCircumference(ship.getLocation(), orbitRadius, angle);
 
                 landingSlot = null;
-
                 break;
             default:
                 movementTargetLocation = ship.getLocation();

@@ -3,6 +3,7 @@
 		"PSE_cassius_Assault":4,
 		"PSE_cassius_Balanced":4,
 		"PSE_cassius_CloseSupport":4,
+
 		"PSE_kiruna_Assault":2,
 		"PSE_kiruna_Balanced":3,
 		"PSE_kiruna_CloseSupport":2,
@@ -17,8 +18,10 @@
 		"PSE_denmark_CloseSupport":3,
 		"PSE_denmark_Elite":2,
 		"PSE_denmark_Strike":5,
+
 		"PSE_richmond_Assault":4,
 		"PSE_richmond_Overdriven":3,
+
 		"PSE_armstrong_Balanced":3,
 		"PSE_armstrong_CloseSupport":2,
 		"PSE_armstrong_Assault":3,
@@ -33,11 +36,17 @@
 		"PSE_serrano_Support":5,
 		"PSE_serrano_Balanced":5,
 		"PSE_serrano_Strike":6,
+
 		"PSE_leyland_Assault":3,
 		"PSE_leyland_CloseSupport":3,
 		"PSE_leyland_Elite":4,
 
+		"PSE_penrith_Assault":4,
+		"PSE_penrith_Balanced":5,
+		"PSE_penrith_Strike":3,
+
 		"PSE_serrano_sod_Special":10,
+
 		"PSE_leyland_sod_Special":10,
 	},
 

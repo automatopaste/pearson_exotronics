@@ -6,10 +6,12 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import data.scripts.util.PSE_MiscUtils;
 import data.scripts.util.PSE_SpecLoadingUtils;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,10 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
     private static final String HELSING_FLAK_PROJECTILE_ID =  "PSE_helsing_flak_rifle_shot";
     private static final String HELSING_FLAK_SOUND_ID = "PSE_helsing_flak_rifle_explode";
     private static final DamageType HELSING_FLAK_DAMAGE_TYPE = DamageType.HIGH_EXPLOSIVE;
+
+    private static final String CASCADE_PROJECTILE_ID = "PSE_cascade_accelerator_shot";
+    private static final float CASCADE_PROJECTILE_ACCELERATION = 750f;
+    private static final float CASCADE_PROJECTILE_MIN_DISTANCE = 500f;
 
     private CombatEngineAPI engine;
     private PSE_CombatEffectsPlugin effectsPlugin;
@@ -164,12 +170,22 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
             return;
         }
 
+        /*for (ShipAPI ship : engine.getShips()) {
+            ship.setFluxVentTextureSheet("thonk");
+            ship.setVentCoreColor(Color.YELLOW);
+            ship.setVentFringeColor(Color.YELLOW);
+        }*/
+
         PSE_CombatEffectsPlugin.PSE_EngineData data = (PSE_CombatEffectsPlugin.PSE_EngineData) engine.getCustomData().get(PSE_CombatEffectsPlugin.ENGINE_DATA_KEY);
         effectsPlugin = data.effectsPlugin;
 
         List<DamagingProjectileAPI> projectiles = engine.getProjectiles();
+        List<DamagingProjectileAPI> remove = new ArrayList<>();
         List<CombatEntityAPI> entities;
 
+        float dist;
+        DamagingProjectileAPI proj2;
+        Vector2f acc;
         for (DamagingProjectileAPI projectile : projectiles) {
             String spec = projectile.getProjectileSpecId();
             Vector2f location = projectile.getLocation();
@@ -273,9 +289,66 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
                         }
                     }
                     break;
+                case CASCADE_PROJECTILE_ID:
+                    proj2 = null;
+                    dist = Float.MAX_VALUE;
+                    for (DamagingProjectileAPI p : engine.getProjectiles()) {
+                        if (p.getProjectileSpecId() == null || !p.getProjectileSpecId().equals(CASCADE_PROJECTILE_ID) || p.equals(projectile)) continue;
+
+                        float d = MathUtils.getDistanceSquared(projectile, p);
+                        if (d < dist && d > CASCADE_PROJECTILE_MIN_DISTANCE) {
+                            dist = d;
+                            proj2 = p;
+                        }
+                    }
+                    if (proj2 == null) break;
+
+                    acc = Vector2f.sub(proj2.getLocation(), location, new Vector2f());
+                    if (VectorUtils.isZeroVector(acc)) break;
+
+                    acc.normalise();
+                    acc.scale(CASCADE_PROJECTILE_ACCELERATION * amount);
+                    Vector2f.add(acc, projectile.getVelocity(), projectile.getVelocity());
+
+                    if (MathUtils.getDistance(projectile.getLocation(), projectile.getSpawnLocation()) > projectile.getWeapon().getRange()) {
+                        remove.add(projectile);
+
+                        spawnCascadeEffects(projectile);
+                    }
+                    break;
                 default:
                     break;
             }
+        }
+
+        for (DamagingProjectileAPI p : remove) {
+            engine.removeEntity(p);
+        }
+    }
+
+    public static void spawnCascadeEffects(DamagingProjectileAPI projectile) {
+        int n = MathUtils.getRandomNumberInRange(3, 6);
+        for (int i = 0; i < n; i++) {
+            Vector2f loc = MathUtils.getPointOnCircumference(projectile.getLocation(), 10f, (float) (Math.random() * 360f));
+
+            PSE_CombatEffectsPlugin.spawnPrimitiveParticle(
+                    loc,
+                    projectile.getVelocity(),
+                    (Vector2f) new Vector2f(projectile.getVelocity()).scale(-0.01f),
+                    1f,
+                    projectile.getWeapon().getMuzzleFlashSpec().getParticleColor(),
+                    CombatEngineLayers.ABOVE_PARTICLES_LOWER,
+                    3f,
+                    3f / 1f,
+                    n,
+                    (float) (Math.random() * 360f),
+                    60f,
+                    -60f,
+                    0.3f,
+                    0f,
+                    0.1f,
+                    3f
+            );
         }
     }
 }

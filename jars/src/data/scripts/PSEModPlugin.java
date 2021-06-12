@@ -9,10 +9,12 @@ import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
 import data.scripts.ai.MagicMissileAI;
+import data.scripts.campaign.PSE_JangalaEliminatorScript;
 import data.scripts.campaign.PSE_SODCampEventListener;
 import data.scripts.campaign.intel.bar.events.PSE_SpecialAgentBarEventCreator;
 import data.scripts.util.PSE_SpecLoadingUtils;
 import data.scripts.world.PSE.PSE_WorldGen;
+import exerelin.campaign.SectorManager;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
@@ -38,29 +40,25 @@ public class PSEModPlugin extends BaseModPlugin {
 
     public static boolean haveNexerelin = false;
 
-    public static boolean memes = Global.getSettings().getBoolean("PSE_memes");
-
     @Override
     public void onNewGame() {
         haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
-        boolean haveSSTC = Global.getSettings().getModManager().isModEnabled("salvage_and_solder_tc");
 
-        new PSE_WorldGen().generate(Global.getSector());
-
-        //if (haveSSTC) {
-            //coming soon(tm)
-        //} else if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
-        //    new PSE_WorldGen().generate(Global.getSector());
-        //}
-
-        //isNexerelinRandomSector = haveNexerelin && SectorManager.getManager().isCorvusMode();
+       if (haveNexerelin && SectorManager.getManager().isCorvusMode()) {
+           new PSE_WorldGen().generate(Global.getSector());
+       }
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
         PSE_SODCampEventListener SODListener = new PSE_SODCampEventListener(newGame);
-        Global.getSector().addTransientListener(SODListener);
+        //Global.getSector().addTransientListener(SODListener);
         Global.getSector().getListenerManager().addListener(SODListener, true);
+    }
+
+    @Override
+    public void onNewGameAfterTimePass() {
+        if (Global.getSettings().getBoolean("PSE_eliminateJangala")) Global.getSector().addTransientScript(new PSE_JangalaEliminatorScript());
     }
 
     @Override
@@ -126,6 +124,11 @@ public class PSEModPlugin extends BaseModPlugin {
         }
         try {
             PSE_SpecLoadingUtils.PSE_ShroudSpecLoading.loadJSON();
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PSE_SpecLoadingUtils.PSE_RiftSpecLoading.loadJSON();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }

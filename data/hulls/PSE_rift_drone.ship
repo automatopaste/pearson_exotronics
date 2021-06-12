@@ -1,0 +1,57 @@
+{
+  "hullName": "Rift",
+  "hullId": "PSE_rift_drone",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_rift_drone.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 36,
+  "width": 48,
+  "center": [24, 18],
+  "collisionRadius": 45.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 37.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "pointdefenseai"
+  ],
+  "builtInWeapons": {
+    "WS0001": "ioncannon"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 150,
+      "angle": 0,
+      "locations": [-3, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-13.5, 8.5],
+      "length": 9.748221,
+      "width": 11.484281,
+      "angle": 165.5,
+      "contrailSize": 11.484281,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    },
+    {
+      "location": [-13.5, -8.5],
+      "length": 9.748221,
+      "width": 11.484281,
+      "angle": -165.5,
+      "contrailSize": 11.484281,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    10, -13.5,
+    -13.5, -22.5,
+    -13.5, 22.5,
+    10, 13.5
+  ]
+}

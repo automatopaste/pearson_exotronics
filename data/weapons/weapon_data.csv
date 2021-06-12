@@ -5,12 +5,13 @@ Parity Destabiliser Gun,PSE_parity_gun,0,,,1100,,1350,800,0,0,,4,0.1,1,ENERGY,25
 Spectrum PD,PSE_spectrumpd,2,,700,600,400,,,0,90,7,4,0.75,2,FRAGMENTATION,,220,0.2,0.1,0.4,0.1,,,,,10000,,,,,"PD,ANTI_FTR","pd10, beam6, rare_bp",,PSExotech,,Point Defense,,,,,"Hits on fighters have a %s chance to arc to engines, potentially causing a flameout.",25%,,,,47302
 Corsair Mk.1 Railgun,PSE_corsair_mk1,1,,400,600,,125,35,10,35,6,9,1,3,KINETIC,70,,0,1.5,3,0.25,0,10,0.33,5,,900,,,15,,"kinetic8, LR, remnant, PSE_weapon_bp",,PSExotech,,Anti Shield,,,,,Hits on hull or armor deal %s extra Fragmentation damage.,40,,,,47301
 Mini Novaburst Flak Cannon,PSE_novaburst_mini,1,,300,350,,80,0,5,110,4,,,,FRAGMENTATION,10,,0,0.6,1,,0,25,1,10,,700,,,5,"PD,ANTI_FTR","pd7, SR, PSE_base_bp",,PSExotech,,Point Defense (Area),,,,,Fires shells with a proximity fuse that detonates within %s of missiles and fighters.,25su,,,,47303
-Thrall Rocket Launcher,PSE_thrall_launcher,0,,150,1000,,220,0,15,30,5,16,,,KINETIC,0,,0,6,2,0.1,0,0,0,0,,600,200,3,200,DO_NOT_CONSERVE,"rocket7, strike3, PSE_base_bp",,PSExotech,,Anti Shield,,,,,,,,,,47304
+Thrall Rocket Launcher,PSE_thrall_launcher,0,,150,1000,,300,0,15,30,5,16,,,KINETIC,0,,0,6,4,0.2,0,0,0,0,,600,200,3,200,DO_NOT_CONSERVE,"rocket7, strike3, PSE_base_bp",,PSExotech,,Anti Shield,,,,,,,,,,47304
 Helsing Flak Rifle,PSE_helsing_flak_rifle,1,,400,900,,175,0,20,45,5,,,,FRAGMENTATION,100,,0,2,1,,0,0,0,0,,1300,,,20,ANTI_FTR,"pd4,he2,PSE_base_bp",,PSExotech,,Anti Small Craft,,,,,Fires explosive flak shells that detonate within %s of enemy fighters and deal %s High Explosive damage when impacting hull or armour on any ship.,35su | 50,,,,47305
 #mediums,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Douglas Autocannon,PSE_douglas,2,,2200,800,,170,0,35,12,11,,,,HIGH_EXPLOSIVE,220,,0,0.8,1,,0,16,2,4,,900,,,30,,"he15, LR, remnant, PSE_weapon_bp",,PSExotech,,Anti Armor,,,,,,,,,,47401
+Hardlux Beamcannon,PSE_hardlux,3,,3000,700,300,,50,0,18,10,,,,ENERGY,,800,0,0.6,0.6,,,,,,100000,,,,,,,,,,Anti Shield,,,,,Deals hard flux damage to shields. Beam does %s extra Kinetic damage on shield hits.,15%,,,,47402
+Douglas Autocannon,PSE_douglas,2,,2200,800,,170,0,35,20,11,,,,HIGH_EXPLOSIVE,220,,0,0.8,1,,0,16,2,4,,900,,,30,,"he15, LR, remnant, PSE_weapon_bp",,PSExotech,,Anti Armor,,,,,,,,,,47401
 #larges,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Cascade Accelerator,PSE_cascade_accelerator,3,,7500,800,,250,200,50,20,24,24,1,12,ENERGY,275,,0.4,1.5,3,0.3,5,30,1,10,,450,,,500,"STRIKE, USE_VS_FRIGATES","energy20, rare_bp",,PSExotech,,General,,,,,,,,,,47501
+Cascade Accelerator,PSE_cascade_accelerator,3,,7500,750,,60,20,10,12,24,240,10,120,ENERGY,50,,0.4,1.5,30,0.05,15,15,0,0,,450,,,500,"STRIKE, USE_VS_FRIGATES","energy20, rare_bp",,PSExotech,,General,,,,,,,,,,47501
 #deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #misc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

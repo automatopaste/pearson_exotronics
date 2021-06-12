@@ -64,6 +64,7 @@ public class PSE_DroneModularVectorAssemblyDroneAI extends PSE_BaseDroneAI {
 
         switch (droneOrders) {
             case TARGETING:
+                break;
             case CLAMPED:
                 delayBeforeLandingTracker.setElapsed(0f);
                 landingSlot = null;
@@ -77,9 +78,9 @@ public class PSE_DroneModularVectorAssemblyDroneAI extends PSE_BaseDroneAI {
                     ship.getMutableStats().getMaxTurnRate().modifyFlat(this.toString(), 10f);
                     ship.getMutableStats().getMaxSpeed().modifyFlat(this.toString(), 10f);
 
-                    drone.getEngineController().extendFlame(this, 8f, 1.5f, 15f);
+                    drone.getEngineController().extendFlame(this, 5f, 1f, 8f);
                 } else {
-                    PSE_DroneAIUtils.move(drone, droneFacing, movementTargetLocation, velocityRotationIntervalTracker);
+                    PSE_DroneAIUtils.move(drone, droneFacing, movementTargetLocation);
                     ship.getMutableStats().getAcceleration().unmodify(this.toString());
                     ship.getMutableStats().getTurnAcceleration().unmodify(this.toString());
                     ship.getMutableStats().getDeceleration().unmodify(this.toString());
@@ -90,16 +91,12 @@ public class PSE_DroneModularVectorAssemblyDroneAI extends PSE_BaseDroneAI {
             case RECALL:
                 PSE_DroneAIUtils.attemptToLand(ship, drone, amount, delayBeforeLandingTracker, engine);
 
-                if (landingSlot == null) {
-                    landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
-                }
-
                 break;
         }
 
         doRotationTargeting();
 
-        PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+        PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation);
     }
 
     @Override
@@ -115,6 +112,10 @@ public class PSE_DroneModularVectorAssemblyDroneAI extends PSE_BaseDroneAI {
 
                 break;
             case RECALL:
+                if (landingSlot == null) {
+                    landingSlot = baseDroneSystem.getPlugin().getLandingBayWeaponSlotAPI();
+                }
+
                 movementTargetLocation = landingSlot.computePosition(ship);
 
                 break;

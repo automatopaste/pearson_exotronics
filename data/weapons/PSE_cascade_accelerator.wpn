@@ -12,6 +12,7 @@
   "hardpointUnderSprite": "graphics/weapons/mjolnir_hardpoint_under.png",
   "renderAboveAllWeapons": 0,
   "visualRecoil": 6,
+  "everyFrameEffect":"data.scripts.weapons.PSE_CascadeAcceleratorEveryFrame",
   "renderHints": [
     RENDER_BARREL_BELOW
   ],

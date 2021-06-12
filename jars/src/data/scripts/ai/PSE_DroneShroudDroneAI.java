@@ -153,7 +153,7 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation);
         }
     }
 
@@ -199,15 +199,12 @@ public class PSE_DroneShroudDroneAI extends PSE_BaseDroneAI {
             case CIRCLE:
             case RECALL:
                 targetFacing = orbitAngle + ship.getFacing();
-
                 break;
             case BROADSIDE_MOVEMENT:
                 targetFacing = broadsideFacingAngleArray[droneIndex] + ship.getFacing();
-
                 break;
             default:
                 targetFacing = 0f;
-
                 break;
         }
 

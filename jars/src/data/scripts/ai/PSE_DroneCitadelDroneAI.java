@@ -84,7 +84,7 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation);
         }
     }
 
@@ -127,20 +127,15 @@ public class PSE_DroneCitadelDroneAI extends PSE_BaseDroneAI{
         switch (orders) {
             case ANTI_FIGHTER:
                 targetFacing = antiFighterOrbitAngle + ship.getFacing() + antiFighterFacingOffset;
-
                 break;
             case RECALL:
                 targetFacing = antiFighterOrbitAngle + ship.getFacing();
-
                 break;
             case SHIELD:
                 targetFacing = shieldOrbitAngle + ship.getFacing();
-
                 break;
-
             default:
                 targetFacing = 0f;
-
                 break;
         }
 

@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  *
  * @author Dark.Revenant, Tartiflette, LazyWizard, Snrasha
- * and tomatopaste because jesus fucking christ
+ * and tomatopaste because jesus fucking christ why are these all private methods in magiclib
  *
  */
 
@@ -47,7 +47,7 @@ public class PSE_ActuallyUsefulUI {
             LazyFont fontdraw = LazyFont.loadFont("graphics/fonts/victor14.fnt");
             TODRAW14 = fontdraw.createText();
 
-            if (UIscaling > 1f) {
+            if (UIscaling > 1f) { //motherfucker
                 TODRAW14.setFontSize(14f * UIscaling);
             }
 

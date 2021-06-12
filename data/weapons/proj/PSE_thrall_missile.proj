@@ -14,7 +14,7 @@
 	"fadeTime":0.5, # fadeout duration	
 	"engineSpec":{"turnAcc":200,#800
 				  "turnRate":50,#100
-				  "acc":2400,#1250
+				  "acc":1200,#1250
 				  "dec":600},#600
 	"engineSlots":[{"id":"ES1",
 					"loc":[-11, 0],
@@ -32,8 +32,8 @@
 						"contrailColor":[75,75,75,150],
 						"type":"SMOKE" # GLOW or SMOKE; additive or regular blend mode
 					},
-				    "width":4.0,
-				    "length":45.0,
+				    "width":5.0,
+				    "length":60.0,
 				    "angle":180.0}]
 }
 

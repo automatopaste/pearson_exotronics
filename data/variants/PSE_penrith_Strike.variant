@@ -1,0 +1,59 @@
+{
+  "variantId": "PSE_penrith_Strike",
+  "hullId": "PSE_penrith",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 16,
+  "fluxVents": 15,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "expanded_deck_crew"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "hurricane"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "heavyac",
+        "WS0004": "heavyac"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "guardian"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0012": "PSE_helsing_flak_rifle",
+        "WS0014": "PSE_helsing_flak_rifle"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "taclaser",
+        "WS0002": "taclaser",
+        "WS0009": "heavyburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "PSE_hale_wing",
+    "PSE_hale_wing"
+  ]
+}

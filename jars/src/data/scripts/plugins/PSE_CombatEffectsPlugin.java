@@ -2,13 +2,16 @@ package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
+import data.scripts.util.PSE_MiscUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -46,47 +49,18 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         if (engine == null) return;
 
         PSE_EngineData data = (PSE_EngineData) engine.getCustomData().get(ENGINE_DATA_KEY);
-        if (data == null) {
-            return;
-        }
+        if (data == null) return;
 
-        for (PSE_PrimitiveParticle particle : data.primitiveParticles) {
-            if (layer != particle.layer) continue;
+        for (PSE_RenderObject object : data.renderObjects) {
+            if (layer != object.layer || !object.shouldRender(engine)) continue;
 
-            glPushAttrib(GL_ALL_ATTRIB_BITS);
-            glMatrixMode(GL_PROJECTION);
-            glDisable(GL_TEXTURE_2D);
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            object.render(engine);
 
-            glBegin(GL_POLYGON);
-
-            float alpha = particle.getSmoothAlpha();
-            alpha = MathUtils.clamp(alpha, 0f, 1f);
-            glColor(particle.color, alpha * 0.25f, true);
-
-            for (int i = 0; i < particle.poly; i++) {
-                Vector2f vertex = particle.getVertex(i);
-                glVertex2f(vertex.x, vertex.y);
-            }
-
-            glEnd();
-
-            glBegin(GL_LINE_LOOP);
-
-            glColor(particle.color, alpha, true);
-
-            for (int i = 0; i < particle.poly; i++) {
-                Vector2f vertex = particle.getVertex(i);
-                glVertex2f(vertex.x, vertex.y);
-            }
-
-            glEnd();
-
-            glDisable(GL_BLEND);
-            glPopAttrib();
+            //throw new ClassCastException("troled");
         }
     }
+
+    IntervalUtil interval = new IntervalUtil(1f, 1f);
 
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
@@ -101,26 +75,6 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         }
         data.effectsPlugin = this;
 
-        /*for (ShipAPI ship : engine.getShips()) {
-            if (Math.random() < 0.01f) {
-                data.primitiveParticles.add(new PSE_PrimitiveParticle(
-                        new Vector2f(ship.getLocation()),
-                        VectorUtils.rotate((Vector2f) new Vector2f(ship.getVelocity()).scale(-1f), MathUtils.getRandomNumberInRange(-60f, 60f)),
-                        (Vector2f) new Vector2f(ship.getVelocity()).scale(-0.5f),
-                        5f,
-                        new Color(0, 255, 135),
-                        CombatEngineLayers.BELOW_SHIPS_LAYER,
-                        MathUtils.getRandomNumberInRange(5f,30f),
-                        MathUtils.getRandomNumberInRange(3, 7),
-                        MathUtils.getRandomNumberInRange(0f, 360f),
-                        MathUtils.getRandomNumberInRange(-360f, 360f),
-                        MathUtils.getRandomNumberInRange(-30f, 30f),
-                        0.3f,
-                        1f
-                ));
-            }
-        }*/
-
         ListIterator<PSE_Explosion> explosionIterator = data.explosions.listIterator();
         while (explosionIterator.hasNext()) {
             PSE_Explosion explosion = explosionIterator.next();
@@ -134,40 +88,74 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
             explosion.advance(amount, engine);
         }
 
-        ListIterator<PSE_PrimitiveParticle> particleIterator = data.primitiveParticles.listIterator();
-        while (particleIterator.hasNext()) {
-            PSE_PrimitiveParticle particle = particleIterator.next();
+        ListIterator<PSE_RenderObject> objectIterator = data.renderObjects.listIterator();
+        while (objectIterator.hasNext()) {
+            PSE_RenderObject object = objectIterator.next();
 
-            particle.currtime -= amount;
-            if (particle.currtime <= 0f) {
-                particleIterator.remove();
-                continue;
+            object.advance(amount);
+
+            if (object.shouldRemove(amount)) objectIterator.remove();
+        }
+
+        if (interval.intervalElapsed()) {
+            for (ShipAPI ship : engine.getShips()) {
+                SpriteAPI sprite = ship.getSpriteAPI();
+                spawnSpriteTrail(
+                        sprite,
+                        new Vector2f(sprite.getWidth(), sprite.getHeight()),
+                        ship.getLocation(),
+                        ship.getVelocity(),
+                        new Vector2f(),
+                        ship.getFacing(),
+                        ship.getAngularVelocity(),
+                        0f,
+                        new IntervalUtil(0.2f, 0.2f),
+                        0.5f,
+                        CombatEngineLayers.UNDER_SHIPS_LAYER,
+                        new Color(255, 0, 0, 255),
+                        0.1f,
+                        0f,
+                        1f,
+                        2f
+                );
             }
-
-            particle.advance(amount);
         }
     }
 
-    public static class PSE_PrimitiveParticle {
+    public abstract static class PSE_RenderObject {
+        CombatEngineLayers layer;
+
+        public abstract void advance(float amount);
+
+        public abstract void render(CombatEngineAPI engine);
+
+        public abstract boolean shouldRemove(float amount);
+
+        public abstract boolean shouldRender(CombatEngineAPI engine);
+    }
+
+    public static class PSE_PrimitiveParticle extends PSE_RenderObject{
+        float maxVertexRadius;
+        float vertexRadius;
+        float vertexRadiusSpeed;
+        int poly;
+        Color color;
+
+        float currTime;
+
         Vector2f location;
         Vector2f velocity;
         Vector2f acceleration;
         float lifetime;
-        float maxVertexRadius;
-        float vertexRadius;
-        int poly;
-        Color color;
-        CombatEngineLayers layer;
         float rotation;
         float rotationVelocity;
         float rotationAcceleration;
         float alphaRampRatio;
+        float minAlpha;
         float maxAlpha;
+        float lineWidth;
 
-        float currtime;
-        float lifeRatio; //1f -> 0f
-
-        PSE_PrimitiveParticle(
+        PSE_PrimitiveParticle (
                 Vector2f location,
                 Vector2f velocity,
                 Vector2f acceleration,
@@ -175,81 +163,454 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
                 Color color,
                 CombatEngineLayers layer,
                 float vertexRadius,
+                float vertexRadiusSpeed,
                 int poly,
                 float rotation,
                 float rotationVelocity,
                 float rotationAcceleration,
                 float alphaRampRatio,
-                float maxAlpha
+                float minAlpha,
+                float maxAlpha,
+                float lineWidth
         ) {
-            this.location = location;
-            this.velocity = velocity;
-            this.acceleration = acceleration;
-            this.lifetime = lifetime;
+            this.location = new Vector2f(location);
+            this.velocity = new Vector2f(velocity);
+            this.acceleration = new Vector2f(acceleration);
             this.color = color;
             this.layer = layer;
             this.maxVertexRadius = vertexRadius;
+            this.vertexRadiusSpeed = vertexRadiusSpeed;
             this.poly = poly;
+
+            this.lifetime = lifetime;
+            currTime = lifetime;
             this.rotation = rotation;
             this.rotationVelocity = rotationVelocity;
             this.rotationAcceleration = rotationAcceleration;
             this.alphaRampRatio = alphaRampRatio;
+            this.minAlpha = minAlpha;
             this.maxAlpha = maxAlpha;
-
-            currtime = lifetime;
-            lifeRatio = 1f;
+            this.lineWidth = lineWidth;
         }
 
+        @Override
         public void advance(float amount) {
-            lifeRatio = currtime / lifetime;
+            vertexRadius -= vertexRadiusSpeed * amount;
+
+            currTime -= amount;
 
             rotationVelocity += rotationAcceleration * amount;
             rotation += rotationVelocity * amount;
 
             Vector2f.add(velocity, (Vector2f) new Vector2f(acceleration).scale(amount), velocity);
             Vector2f.add(location, (Vector2f) new Vector2f(velocity).scale(amount), location);
+        }
 
-            vertexRadius = maxVertexRadius * lifeRatio;
+        @Override
+        public void render(CombatEngineAPI engine) {
+            glDisable(GL_TEXTURE_2D);
+            glEnable(GL_BLEND);
+            glEnable(GL_LINE_SMOOTH);
+            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+            glBegin(GL_POLYGON);
+
+            float ratio = currTime / lifetime;
+            float alpha = PSE_MiscUtils.getSmoothAlpha(ratio, alphaRampRatio, minAlpha, maxAlpha);
+            glColor(color, alpha * 0.25f, true);
+
+            for (int i = 0; i < poly; i++) {
+                Vector2f vertex = getVertex(i);
+                glVertex2f(vertex.x, vertex.y);
+            }
+
+            glEnd();
+
+            glBegin(GL_LINE_LOOP);
+
+            glColor(color, alpha, true);
+
+            glLineWidth(lineWidth / engine.getViewport().getViewMult());
+
+            for (int i = 0; i < poly; i++) {
+                Vector2f vertex = getVertex(i);
+                glVertex2f(vertex.x, vertex.y);
+            }
+
+            glEnd();
+
+            glDisable(GL_BLEND);
+            glPopAttrib();
         }
 
         public Vector2f getVertex(int index) {
             float divisor = 360f / poly;
             float angle = divisor * index;
 
-            Vector2f up = (Vector2f) new Vector2f(0f, 1f).scale(maxVertexRadius);
+            Vector2f up = (Vector2f) new Vector2f(0f, 1f).scale(vertexRadius);
             up = VectorUtils.rotate(up, angle);
             up = VectorUtils.rotate(up, rotation);
 
             return Vector2f.add(up, location, null);
         }
 
-        public float getSmoothAlpha() {
-            float alpha;
-            if (lifeRatio > 1 - alphaRampRatio) {
-                alpha = (1f - lifeRatio) / alphaRampRatio;
-            } else {
-                alpha = lifeRatio / (1f - alphaRampRatio);
-            }
+        @Override
+        public boolean shouldRemove(float amount) {
+            return currTime <= 0f;
+        }
 
-            MathUtils.clamp(alpha, 0f, maxAlpha);
-
-            return alpha;
+        @Override
+        public boolean shouldRender(CombatEngineAPI engine) {
+            return engine.getViewport().isNearViewport(location, maxVertexRadius);
         }
     }
 
-    public static void spawnPrimitiveParticle(
+    public static class PSE_EntityTrackingPrimitiveParticle extends PSE_PrimitiveParticle {
+        private final CombatEntityAPI entity;
+
+        PSE_EntityTrackingPrimitiveParticle(
+                CombatEntityAPI entity,
+                float lifetime,
+                Color color,
+                CombatEngineLayers layer,
+                float vertexRadius,
+                float vertexRadiusSpeed,
+                int poly,
+                float alphaRampRatio,
+                float minAlpha,
+                float maxAlpha,
+                float lineWidth
+        ) {
+            super(
+                    entity.getLocation(),
+                    entity.getVelocity(),
+                    new Vector2f(),
+                    lifetime,
+                    color,
+                    layer,
+                    vertexRadius,
+                    vertexRadiusSpeed,
+                    poly,
+                    entity.getFacing(),
+                    0f,
+                    0f,
+                    alphaRampRatio,
+                    minAlpha,
+                    maxAlpha,
+                    lineWidth
+            );
+
+            this.entity = entity;
+        }
+
+        @Override
+        public void advance(float amount) {
+            vertexRadius -= vertexRadiusSpeed * amount;
+
+            location = entity.getLocation();
+            rotation = entity.getFacing();
+        }
+    }
+
+    public static class PSE_ShipBoundRender extends PSE_RenderObject {
+        ShipAPI ship;
+        float sizeMult;
+
+        public PSE_ShipBoundRender(
+                ShipAPI ship,
+                float sizeMult
+        ) {
+            this.ship = ship;
+            this.sizeMult = sizeMult;
+        }
+
+        @Override
+        public void advance(float amount) {
+            sizeMult += 1f * amount;
+        }
+
+        @Override
+        public void render(CombatEngineAPI engine) {
+            BoundsAPI bounds = ship.getExactBounds();
+            if (bounds == null) return;
+            if (!engine.getViewport().isNearViewport(ship.getLocation(), ship.getCollisionRadius())) return;
+
+            glPushAttrib(GL_ALL_ATTRIB_BITS);
+            glMatrixMode(GL_PROJECTION);
+            glDisable(GL_TEXTURE_2D);
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(GL_LINE_SMOOTH);
+            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
+            bounds.update(ship.getLocation(), ship.getFacing());
+
+            glBegin(GL_LINE_LOOP);
+
+            List<Vector2f> points = new ArrayList<>(bounds.getSegments().size());
+            for (BoundsAPI.SegmentAPI segment : bounds.getSegments()) {
+                Vector2f toSeg = Vector2f.sub(segment.getP1(), ship.getLocation(), new Vector2f());
+                toSeg.scale(sizeMult);
+                points.add(Vector2f.add(toSeg, ship.getLocation(), null));
+            }
+
+            for (Vector2f point : points) {
+                glVertex2f(point.x, point.y);
+            }
+
+            glEnd();
+
+            glBegin(GL_POLYGON);
+
+            for (Vector2f point : points) {
+                glVertex2f(point.x, point.y);
+            }
+
+            glEnd();
+
+            glDisable(GL_BLEND);
+            glPopAttrib();
+        }
+
+        @Override
+        public boolean shouldRemove(float amount) {
+            return false;
+        }
+
+        @Override
+        public boolean shouldRender(CombatEngineAPI engine) {
+            return engine.getViewport().isNearViewport(ship.getLocation(), ship.getCollisionRadius());
+        }
+    }
+
+    public static class PSE_SpriteTrail extends PSE_RenderObject {
+        SpriteAPI sprite;
+        Vector2f size;
+        Vector2f location;
+        Vector2f velocity;
+        Vector2f acceleration;
+        float angle;
+        float angleVelocity;
+        float angleAcceleration;
+        IntervalUtil ghostInterval;
+        float ghostLifetime;
+        Color outColor;
+        float alphaRampRatio;
+        float minAlpha;
+        float maxAlpha;
+        float lifetime;
+        float currTime;
+
+        public PSE_SpriteTrail (
+                SpriteAPI sprite,
+                Vector2f size,
+                Vector2f location,
+                Vector2f velocity,
+                Vector2f acceleration,
+                float angle,
+                float angleVelocity,
+                float angleAcceleration,
+                IntervalUtil ghostInterval,
+                float ghostLifetime,
+                CombatEngineLayers layer,
+                Color outColor,
+                float alphaRampRatio,
+                float minAlpha,
+                float maxAlpha,
+                float lifetime
+        ) {
+            this.sprite = sprite;
+            this.size = size;
+            this.location = location;
+            this.velocity = velocity;
+            this.acceleration = acceleration;
+            this.angle = angle;
+            this.angleVelocity = angleVelocity;
+            this.angleAcceleration = angleAcceleration;
+            this.ghostInterval = ghostInterval;
+            this.ghostLifetime = ghostLifetime;
+            this.layer = layer;
+            this.outColor = outColor;
+            this.alphaRampRatio = alphaRampRatio;
+            this.minAlpha = minAlpha;
+            this.maxAlpha = maxAlpha;
+            this.lifetime = lifetime;
+            currTime = lifetime;
+        }
+
+        @Override
+        public void advance(float amount) {
+            Vector2f.add(velocity, (Vector2f) new Vector2f(acceleration).scale(amount), velocity);
+            Vector2f.add(location, (Vector2f) new Vector2f(velocity).scale(amount), location);
+
+            angleVelocity += angleAcceleration;
+            angle += angleVelocity;
+
+            currTime -= amount;
+
+            ghostInterval.advance(amount);
+            if (ghostInterval.intervalElapsed()) {
+                spawnSpriteObject(sprite, size, location, new Vector2f(), new Vector2f(), angle, angleVelocity, angleAcceleration, ghostLifetime, outColor, layer, alphaRampRatio, minAlpha, maxAlpha);
+            }
+        }
+
+        @Override
+        public void render(CombatEngineAPI engine) {
+            glPushMatrix();
+            glLoadIdentity();
+            glOrtho(0, Global.getSettings().getScreenWidth(), 0, Global.getSettings().getScreenHeight(), -1, 1);
+
+            sprite.setAngle(angle);
+            sprite.setSize(size.x, size.y);
+            sprite.renderAtCenter(location.x, location.y);
+
+            glEnd();
+            glDisable(GL_BLEND);
+            glPopAttrib();
+            glColor(outColor, PSE_MiscUtils.getSqrtAlpha(currTime / lifetime, alphaRampRatio, minAlpha, maxAlpha));
+            glPopMatrix();
+        }
+
+        @Override
+        public boolean shouldRemove(float amount) {
+            return currTime <= 0f;
+        }
+
+        @Override
+        public boolean shouldRender(CombatEngineAPI engine) {
+            return engine.getViewport().isNearViewport(location, size.length());
+        }
+    }
+
+    public static void spawnSpriteTrail(
+            SpriteAPI sprite,
+            Vector2f size,
             Vector2f location,
             Vector2f velocity,
             Vector2f acceleration,
-            float lifetime,
-            Color color,
+            float angle,
+            float angleVelocity,
+            float angleAcceleration,
+            IntervalUtil ghostInterval,
+            float ghostLifetime,
             CombatEngineLayers layer,
-            float vertexRadius,
-            int poly,
-            float rotation,
-            float rotationVelocity,
-            float rotationAcceleration,
+            Color outColor,
             float alphaRampRatio,
+            float minAlpha,
+            float maxAlpha,
+            float lifetime
+    ) {
+        PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
+        if (data == null) {
+            return;
+        }
+
+        data.renderObjects.add(new PSE_SpriteTrail(sprite, size, location, velocity, acceleration, angle, angleVelocity, angleAcceleration, ghostInterval, ghostLifetime, layer, outColor, alphaRampRatio, minAlpha, maxAlpha, lifetime));
+    }
+
+    public static class PSE_SpriteObject extends PSE_RenderObject{
+        SpriteAPI sprite;
+        Vector2f size;
+        Color color;
+        Vector2f location;
+        Vector2f velocity;
+        Vector2f acceleration;
+        float angle;
+        float angleVelocity;
+        float angleAcceleration;
+        float lifetime;
+        float currTime;
+        float alphaRampRatio;
+        float minAlpha;
+        float maxAlpha;
+
+        PSE_SpriteObject (
+                SpriteAPI sprite,
+                Vector2f size,
+                Vector2f location,
+                Vector2f velocity,
+                Vector2f acceleration,
+                float angle,
+                float angleVelocity,
+                float angleAcceleration,
+                float lifetime,
+                Color color,
+                CombatEngineLayers layer,
+                float alphaRampRatio,
+                float minAlpha,
+                float maxAlpha
+        ) {
+            this.sprite = sprite;
+            this.size = size;
+            this.location = new Vector2f(location);
+            this.velocity = new Vector2f(velocity);
+            this.acceleration = new Vector2f(acceleration);
+            this.color = color;
+            this.layer = layer;
+            this.lifetime = lifetime;
+            currTime = lifetime;
+            this.angle = angle;
+            this.angleVelocity = angleVelocity;
+            this.angleAcceleration = angleAcceleration;
+            this.alphaRampRatio = alphaRampRatio;
+            this.minAlpha = minAlpha;
+            this.maxAlpha = maxAlpha;
+        }
+
+        @Override
+        public void advance(float amount) {
+            angleVelocity += angleAcceleration * amount;
+            angle += angleVelocity * amount;
+
+            currTime -= amount;
+
+            Vector2f.add(velocity, (Vector2f) new Vector2f(acceleration).scale(amount), velocity);
+            Vector2f.add(location, (Vector2f) new Vector2f(velocity).scale(amount), location);
+        }
+
+        @Override
+        public void render(CombatEngineAPI engine) {
+            glPushMatrix();
+            glLoadIdentity();
+            glOrtho(0, Global.getSettings().getScreenWidth(), 0, Global.getSettings().getScreenHeight(), -1, 1);
+
+            sprite.setAngle(angle);
+            sprite.setSize(size.x, size.y);
+            sprite.renderAtCenter(location.x, location.y);
+
+            glEnd();
+            glDisable(GL_BLEND);
+            glPopAttrib();
+            glColor(color, PSE_MiscUtils.getSqrtAlpha(currTime / lifetime, alphaRampRatio, minAlpha, maxAlpha));
+            glPopMatrix();
+        }
+
+        @Override
+        public boolean shouldRemove(float amount) {
+            return currTime <= 0f;
+        }
+
+        @Override
+        public boolean shouldRender(CombatEngineAPI engine) {
+            return engine.getViewport().isNearViewport(location, size.length());
+        }
+    }
+
+    public static void spawnSpriteObject(
+            SpriteAPI sprite,
+            Vector2f size,
+            Vector2f location,
+            Vector2f velocity,
+            Vector2f acceleration,
+            float angle,
+            float angleVelocity,
+            float angleAcceleration,
+            float lifetime,
+            Color outColor,
+            CombatEngineLayers layer,
+            float alphaRampRatio,
+            float minAlpha,
             float maxAlpha
     ) {
         PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
@@ -257,7 +618,66 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
             return;
         }
 
-        data.primitiveParticles.add(new PSE_PrimitiveParticle(location, velocity, acceleration, lifetime, color, layer, vertexRadius, poly, rotation, rotationVelocity, rotationAcceleration, alphaRampRatio, maxAlpha));
+        data.renderObjects.add(new PSE_SpriteObject(sprite, size, location, velocity, acceleration, angle, angleVelocity, angleAcceleration, lifetime, outColor, layer, alphaRampRatio, minAlpha, maxAlpha));
+    }
+
+    public static void spawnPrimitiveParticle (
+            Vector2f location,
+            Vector2f velocity,
+            Vector2f acceleration,
+            float lifetime,
+            Color color,
+            CombatEngineLayers layer,
+            float vertexRadius,
+            float vertexRadiusSpeed,
+            int poly,
+            float rotation,
+            float rotationVelocity,
+            float rotationAcceleration,
+            float alphaRampRatio,
+            float minAlpha,
+            float maxAlpha,
+            float lineWidth
+    ) {
+        PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
+        if (data == null) {
+            return;
+        }
+
+        data.renderObjects.add(new PSE_PrimitiveParticle(location, velocity, acceleration, lifetime, color, layer, vertexRadius, vertexRadiusSpeed, poly, rotation, rotationVelocity, rotationAcceleration, alphaRampRatio, minAlpha, maxAlpha, lineWidth));
+    }
+
+    public static void spawnEntityTrackingPrimitiveParticle(
+            CombatEntityAPI entity,
+            float lifetime,
+            Color color,
+            CombatEngineLayers layer,
+            float vertexRadius,
+            float vertexRadiusSpeed,
+            int poly,
+            float alphaRampRatio,
+            float minAlpha,
+            float maxAlpha,
+            float lineWidth
+    ) {
+        PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
+        if (data == null) {
+            return;
+        }
+
+        data.renderObjects.add(new PSE_EntityTrackingPrimitiveParticle(entity, lifetime, color, layer, vertexRadius, vertexRadiusSpeed, poly, alphaRampRatio, minAlpha, maxAlpha, lineWidth));
+    }
+
+    public static void spawnShipBoundRender (
+            ShipAPI ship,
+            float sizeMult
+    ) {
+        PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
+        if (data == null) {
+            return;
+        }
+
+        data.renderObjects.add(new PSE_ShipBoundRender(ship, sizeMult));
     }
 
     abstract static class PSE_Explosion {
@@ -338,7 +758,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
 
     public static final class PSE_EngineData {
         List<PSE_Explosion> explosions = new LinkedList<>();
-        List<PSE_PrimitiveParticle> primitiveParticles = new LinkedList<>();
+        List<PSE_RenderObject> renderObjects = new LinkedList<>();
         PSE_CombatEffectsPlugin effectsPlugin;
     }
 
@@ -401,12 +821,61 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         ));
     }
 
-    public void spawnParticleRing(PSE_ParticleRing ring) {
-        PSE_EngineData data = (PSE_EngineData) Global.getCombatEngine().getCustomData().get(ENGINE_DATA_KEY);
-        if (data == null) {
-            return;
-        }
+    public static void beamPrimitiveParticlesAdvance(
+            IntervalUtil interval,
+            int numParticlesPerInterval,
+            BeamAPI beam,
+            float amount,
+            float width,
+            int poly,
+            float velDeviation,
+            float speed,
+            Vector2f acc,
+            float lifetime,
+            CombatEngineLayers layer,
+            float radius,
+            float rotationVelocity,
+            float rotationAcceleration,
+            float alphaRampRatio,
+            float maxAlpha,
+            float lineWidth
+    ) {
+        interval.advance(amount);
+        if (!interval.intervalElapsed()) return;
 
-        data.explosions.add(ring);
+        for (int i = 0; i < numParticlesPerInterval; i++) {
+            Vector2f to = Vector2f.sub(beam.getTo(), beam.getFrom(), new Vector2f());
+            to.scale((float) Math.random());
+
+            float currAngle = beam.getWeapon().getCurrAngle();
+
+            Vector2f offset = new Vector2f((float) ((Math.random() * (2f * width)) - width), 0f);
+            VectorUtils.rotate(offset, currAngle);
+
+            Vector2f loc = Vector2f.add(to, beam.getWeapon().getLocation(), new Vector2f());
+            Vector2f.add(loc, offset, loc);
+
+            Vector2f vel = VectorUtils.resize(to, speed);
+            if (velDeviation != 0f) VectorUtils.rotate(vel, (float) ((Math.random() * 2f * velDeviation) - velDeviation));
+
+            spawnPrimitiveParticle(
+                    loc,
+                    vel,
+                    acc,
+                    lifetime,
+                    beam.getFringeColor(),
+                    layer,
+                    radius,
+                    radius / lifetime,
+                    poly,
+                    currAngle,
+                    rotationVelocity,
+                    rotationAcceleration,
+                    alphaRampRatio,
+                    0f,
+                    maxAlpha,
+                    lineWidth
+            );
+        }
     }
 }

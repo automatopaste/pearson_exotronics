@@ -15,7 +15,7 @@ import java.util.List;
 public final class PSE_DroneAIUtils {
     //private static final Color DRONE_EXPLOSION_COLOUR = new Color(183, 255, 153, 255);
 
-    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation,IntervalUtil velocityRotationIntervalTracker) {
+    public static void move(PSEDrone drone, float droneFacing, Vector2f movementTargetLocation) {
         //The bones of the movement AI are below, all it needs is a target vector location to move to
 
         //account for ship velocity
@@ -63,9 +63,7 @@ public final class PSE_DroneAIUtils {
             }
         } else {
             //COURSE CORRECTION
-            if (velocityRotationIntervalTracker.intervalElapsed()) {
-                drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle));
-            }
+            drone.getVelocity().set(VectorUtils.rotate(drone.getVelocity(), rotationFromVelocityToLocationAngle));
         }
 
         //DECELERATE IF IN THRESHOLD DISTANCE OF TARGET

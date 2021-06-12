@@ -83,7 +83,7 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
             if (droneIndex == 0 && !drone.getSystem().isStateActive()) {
                 drone.useSystem();
             }
-            } else {
+        } else {
             for (WeaponAPI weapon : drone.getAllWeapons()) {
                 if (weapon.getId().contentEquals(PD_WEAPON_ID)) {
                     weapon.repair();
@@ -99,7 +99,7 @@ public class PSE_DroneCoronaDroneAI extends PSE_BaseDroneAI {
 
         Vector2f movementTargetLocation = getMovementTargetLocation(amount);
         if (movementTargetLocation != null) {
-            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation, velocityRotationIntervalTracker);
+            PSE_DroneAIUtils.move(drone, drone.getFacing(), movementTargetLocation);
         }
     }
 

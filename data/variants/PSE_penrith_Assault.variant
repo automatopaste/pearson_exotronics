@@ -1,0 +1,62 @@
+{
+  "variantId": "PSE_penrith_Assault",
+  "hullId": "PSE_penrith",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 7,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "locust"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "hephag"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "heavyac",
+        "WS0004": "heavyac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0012": "PSE_helsing_flak_rifle",
+        "WS0014": "PSE_helsing_flak_rifle"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pdlaser",
+        "WS0002": "pdlaser",
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser",
+        "WS0007": "pdlaser",
+        "WS0008": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "PSE_carlton_wing",
+    "PSE_carlton_wing"
+  ]
+}

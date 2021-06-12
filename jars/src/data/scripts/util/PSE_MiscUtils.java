@@ -118,4 +118,62 @@ public class PSE_MiscUtils {
 
         weapon.setCurrAngle(weapon.getCurrAngle() + delta);
     }
+
+    /**
+     * @param value value from 0 to 1
+     * @param ratio value from 0 to 1, when value equals ratio, returned alpha will be at the maximum value
+     * @param minAlpha value from 0 to 1, minimum alpha value
+     * @param maxAlpha value from 0 to 1, maximum alpha value
+     * @return value from 0 to 1, alpha multiplier
+     */
+    public static float getSmoothAlpha(float value, float ratio, float minAlpha, float maxAlpha) {
+        float alpha;
+        if (value > 1 - ratio) { //second
+            //alpha = (1f - value) / ratio;
+            alpha = (((minAlpha - maxAlpha) / (1f - ratio)) * value) + maxAlpha - (((minAlpha - maxAlpha) / (1f - ratio)) * ratio);
+        } else { //first
+            //alpha = value / (1f - ratio);
+            alpha = (((maxAlpha - minAlpha) / (ratio)) * value) + minAlpha;
+        }
+
+        MathUtils.clamp(alpha, minAlpha, maxAlpha); //just in case
+
+        return alpha;
+    }
+
+    /**
+     * @param value value from 0 to 1
+     * @param ratio value from 0 to 1, when value equals ratio, returned alpha will be at the maximum value
+     * @param minAlpha value from 0 to 1, minimum alpha value
+     * @param maxAlpha value from 0 to 1, maximum alpha value
+     * @return value from 0 to 1, alpha multiplier
+     */
+    public static float getSqrtAlpha(float value, float ratio, float minAlpha, float maxAlpha) {
+        float alpha;
+        if (value < 1 - ratio) {
+            alpha = (float) ((maxAlpha - minAlpha) * (Math.sqrt(value / ratio))) + minAlpha;
+        } else {
+            alpha = (float) ((maxAlpha - minAlpha) * (Math.sqrt((-value + 1) / (-ratio + 1)))) + minAlpha;
+        }
+
+        MathUtils.clamp(alpha, minAlpha, maxAlpha); //just in case
+
+        return alpha;
+    }
+
+    /**
+     *
+     * @param value value from 0 to 1
+     * @param time value for complete rotation
+     * @param minAlpha value from 0 to 1, minimum alpha value
+     * @param maxAlpha value from 0 to 1, maximum alpha value
+     * @return value from 0 to 1, alpha multiplier
+     */
+    public static float getSinAlpha(float value, float time, float minAlpha, float maxAlpha) {
+        float alpha = (float) (((maxAlpha - minAlpha) / 2f) * FastTrig.sin((Math.PI * 2f * value) / (time)) + ((maxAlpha - minAlpha) / 2f) + minAlpha);
+
+        MathUtils.clamp(alpha, minAlpha, maxAlpha); //just in case
+
+        return alpha;
+    }
 }

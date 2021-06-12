@@ -10,4 +10,4 @@ Additional credit:
 
 My other mods:
 -Lights Out - forum link: https://fractalsoftworks.com/forum/index.php?topic=18416.0
--Total Conversion: Salvage and Solder - not released, still in development
+-Roguesynth

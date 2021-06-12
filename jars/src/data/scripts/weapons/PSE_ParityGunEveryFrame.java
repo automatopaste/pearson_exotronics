@@ -20,8 +20,8 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
 
     private static final String TRAIL_SPRITE_ID = "projectile_trail_charge";
 
-    private static final Color CHARGEUP_GLOW_COLOUR = new Color(255, 234, 119, 255);
-    private static final Color CHARGEUP_GLOW_COLOUR_EXTRA = new Color(255, 251, 228, 255);
+    private static final Color CHARGEUP_GLOW_COLOUR = new Color(119, 255, 185, 255);
+    private static final Color CHARGEUP_GLOW_COLOUR_EXTRA = new Color(228, 255, 233, 255);
     private static final float CHARGEUP_PARTICLE_DISTANCE_MIN = 30f;
     private static final float CHARGEUP_PARTICLE_DISTANCE_MAX = 80f;
     private static final float CHARGEUP_PARTICLE_VEL_MAX = 400f;
@@ -33,11 +33,11 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
     private static final Color MUZZLE_GLOW_COLOUR_EXTRA = new Color(255, 251, 149, 255);
     private static final float MUZZLE_GLOW_SIZE = 150f;
 
-    private static final Color DRONE_ARC_COLOUR =  new Color(255, 237, 51, 120);
+    private static final Color DRONE_ARC_COLOUR =  new Color(148, 255, 211, 120);
 
-    private IntervalUtil mainParticleInterval = new IntervalUtil(0.005f, 0.01f);
-    private IntervalUtil bigParticleInterval = new IntervalUtil(0.05f, 0.1f);
-    private IntervalUtil droneParticleInterval = new IntervalUtil(0.15f, 0.3f);
+    private final IntervalUtil mainParticleInterval = new IntervalUtil(0.005f, 0.01f);
+    private final IntervalUtil bigParticleInterval = new IntervalUtil(0.05f, 0.1f);
+    private final IntervalUtil droneParticleInterval = new IntervalUtil(0.15f, 0.3f);
 
     private static final float PROJECTILE_ARC_CHANCE = 0.75f;
     private static final float PROJECTILE_ARC_DISTANCE_MIN = 30f;
@@ -47,7 +47,7 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
     private boolean isTargeting = false;
     private float oldChargeLevel = 0f;
     private float oldCooldown = 0f;
-    private List<DamagingProjectileAPI> projectiles = new ArrayList<>();
+    private final List<DamagingProjectileAPI> projectiles = new ArrayList<>();
 
     @SuppressWarnings("unchecked")
     @Override
@@ -104,7 +104,7 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
                     float rotation = VectorUtils.getFacing(vel);
 
                     //engine.addSmoothParticle(loc, vel, size,10f, CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR);
-                    PSE_CombatEffectsPlugin.spawnPrimitiveParticle(loc, vel, new Vector2f(), CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR, CombatEngineLayers.ABOVE_SHIPS_LAYER, size, 3, rotation, 0f, 0f, 0.2f, 0.5f);
+                    PSE_CombatEffectsPlugin.spawnPrimitiveParticle(loc, vel, new Vector2f(), CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR, CombatEngineLayers.ABOVE_SHIPS_LAYER, size, size / CHARGEUP_PARTICLE_DURATION,3, rotation, 0f, 0f, 0.2f, 0f,0.5f, 2f);
                 }
                 if (bigParticleInterval.intervalElapsed()) {
                     Vector2f loc = PSE_MiscUtils.getRandomVectorInCircleRangeWithDistanceMult(CHARGEUP_PARTICLE_DISTANCE_MAX, CHARGEUP_PARTICLE_DISTANCE_MIN, muzzleLocation, chargeLevel);
@@ -124,7 +124,7 @@ public class PSE_ParityGunEveryFrame implements EveryFrameWeaponEffectPlugin {
                     float rotation = VectorUtils.getFacing(vel);
 
                     //engine.addSmoothParticle(loc, vel, size,20f, CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR_EXTRA);
-                    PSE_CombatEffectsPlugin.spawnPrimitiveParticle(loc, vel, new Vector2f(), CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR_EXTRA, CombatEngineLayers.ABOVE_SHIPS_LAYER, size, 6, rotation, 0f, 0f, 0.2f, 0.5f);
+                    PSE_CombatEffectsPlugin.spawnPrimitiveParticle(loc, vel, new Vector2f(), CHARGEUP_PARTICLE_DURATION, CHARGEUP_GLOW_COLOUR_EXTRA, CombatEngineLayers.ABOVE_SHIPS_LAYER, size, size / CHARGEUP_PARTICLE_DURATION,6, rotation, 0f, 0f, 0.2f, 0f,0.5f, 2f);
                 }
 
                 if (droneParticleInterval.intervalElapsed() && isTargeting) {

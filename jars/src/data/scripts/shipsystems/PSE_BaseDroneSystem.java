@@ -23,8 +23,6 @@ public abstract class PSE_BaseDroneSystem extends BaseShipSystemScript {
 
     public ArrayList<PSEDrone> deployedDrones = new ArrayList<>();
 
-    protected CombatEngineAPI engine;
-
     public ShipAPI ship;
 
     public int maxDeployedDrones;
@@ -52,7 +50,7 @@ public abstract class PSE_BaseDroneSystem extends BaseShipSystemScript {
     public void unapply(MutableShipStatsAPI stats, java.lang.String id) {
         //initialisation and engine data stuff
         this.ship = (ShipAPI) stats.getEntity();
-        this.engine = Global.getCombatEngine();
+        CombatEngineAPI engine = Global.getCombatEngine();
 
         if (engine != null) {
             ensurePluginExistence();
@@ -64,7 +62,7 @@ public abstract class PSE_BaseDroneSystem extends BaseShipSystemScript {
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
-        if (ship.getSystem().isOn()) {
+        /*if (ship.getSystem().isOn()) {
             //can only be called once on activation
             if (canSwitchDroneOrders) {
                 nextDroneOrder();
@@ -72,7 +70,7 @@ public abstract class PSE_BaseDroneSystem extends BaseShipSystemScript {
             }
         } else {
             canSwitchDroneOrders = true;
-        }
+        }*/
     }
 
     public int getIndex(PSEDrone drone) {
@@ -142,11 +140,11 @@ public abstract class PSE_BaseDroneSystem extends BaseShipSystemScript {
     public void ensurePluginExistence() {
         if (plugin == null) {
             plugin = new PSE_DroneManagerPlugin(this);
-            engine.addPlugin(plugin);
+            Global.getCombatEngine().addPlugin(plugin);
         }
     }
 
     protected void maintainSystemStateStatus(String state) {
-        engine.maintainStatusForPlayerShip(STATUS_DISPLAY_KEY, STATUS_DISPLAY_SPRITE, STATUS_DISPLAY_TITLE, state, false);
+        Global.getCombatEngine().maintainStatusForPlayerShip(STATUS_DISPLAY_KEY, STATUS_DISPLAY_SPRITE, STATUS_DISPLAY_TITLE, state, false);
     }
 }

@@ -1,5 +1,6 @@
 package data.scripts.shipsystems;
 
+import com.fs.starfarer.api.Global;
 import data.scripts.PSEDrone;
 import data.scripts.ai.PSE_BaseDroneAI;
 import data.scripts.ai.PSE_DroneShroudDroneAI;
@@ -63,7 +64,7 @@ public class PSE_DroneShroud extends PSE_BaseDroneSystem {
                 break;
             case BROADSIDE_MOVEMENT:
                 maintainSystemStateStatus("BROADSIDE FORMATION");
-                engine.maintainStatusForPlayerShip("SHROUD_STAT_KEY_2", STATUS_DISPLAY_SPRITE, "DRONE-ASSISTED MANEUVERS", "DRIVE FIELD BOOSTED", false);
+                Global.getCombatEngine().maintainStatusForPlayerShip("SHROUD_STAT_KEY_2", STATUS_DISPLAY_SPRITE, "DRONE-ASSISTED MANEUVERS", "DRIVE FIELD BOOSTED", false);
                 break;
             case RECALL:
                 if (deployedDrones.isEmpty()) {

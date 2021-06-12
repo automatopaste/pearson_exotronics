@@ -12,7 +12,7 @@ PSE_thrall_launcher,WEAPON,"Fire salvos of heavy tungsten alloy masses strapped 
 ,,,,,
 PSE_douglas,WEAPON,"Designed to be a counterpart to mid-range kinetic weapons, this autocannon can provide consistent anti-armor punch at a moderate flux cost.",Assault,,
 ,,,,,
-PSE_cascade_accelerator,WEAPON,"Unleashes bursts of self-sustaining dimensional projectiles dealing heavy damage to armour and incinerating unshielded electrical networks.
+PSE_cascade_accelerator,WEAPON,"Unleashes bursts of self-sustaining dimensional projectiles incinerating unshielded electrical networks, but dealing minimal damage to armour.
 
 The firing mechanism consists of dual quasi-magnetic accelerator rails with internal heavy ablative shielding that must be replaced between extended bursts. The protective shielding generally consists of ferrous organic compounds that can easily be applied with pressure nozzles, creating marbled layers of charred radioactive crusts and sticky composite, creating nightmare cleaning work for any maintenance crew. ",,,
 ,,,,,

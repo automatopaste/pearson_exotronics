@@ -15,20 +15,7 @@
     "fluxshunt",
     "advancedcore"
   ],
-  "builtInWeapons": {
-    "WS0001": "pilum"
-  },
-  "weaponSlots": [
-    {
-      "id": "WS0001",
-      "size": "MEDIUM",
-      "type": "BUILT_IN",
-      "mount": "TURRET",
-      "arc": 169,
-      "angle": 0,
-      "locations": [0, -0]
-    }
-  ],
+  "weaponSlots": [],
   "engineSlots": [
     {
       "location": [-11.5, 19.5],

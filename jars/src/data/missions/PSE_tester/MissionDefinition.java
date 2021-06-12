@@ -30,7 +30,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         // Set up the player's fleet
         //capitals
-        boolean first = true;
+        /*boolean first = true;
         List<String> variants = Global.getSettings().getAllVariantIds();
         Collections.sort(variants);
         for (String variant : variants) {
@@ -40,28 +40,31 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
             api.addToFleet(FleetSide.PLAYER, variant, FleetMemberType.SHIP, first);
             first = false;
-        }
-        /*
+        }*/
+
         api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Assault", FleetMemberType.SHIP, true);
-        api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Elite", FleetMemberType.SHIP, true);
-        api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Strike", FleetMemberType.SHIP, true);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Elite", FleetMemberType.SHIP, true);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Strike", FleetMemberType.SHIP, true);
         //cruisers
+        api.addToFleet(FleetSide.PLAYER, "PSE_leyland_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Overdriven", FleetMemberType.SHIP, false);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Overdriven", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_penrith_Assault", FleetMemberType.SHIP, false);
         //destroyers
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_armstrong_Assault", FleetMemberType.SHIP, false);
         //frigates
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
+        //api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
         //civilian
         api.addToFleet(FleetSide.PLAYER, "PSE_eyre_Standard", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_torrens_Standard", FleetMemberType.SHIP, false);
-         */
+
 
         // Set up the enemy fleet
         api.addToFleet(FleetSide.ENEMY, "PSE_kingston_Elite", FleetMemberType.SHIP, false);

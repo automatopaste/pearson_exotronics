@@ -30,7 +30,6 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
 
     private final PSE_BaseDroneSystem baseDroneSystem;
 
-    private final CombatEngineAPI engine;
     private final IntervalUtil launchTracker;
     private final ShipAPI ship;
     private final String droneVariant;
@@ -66,7 +65,6 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         this.droneVariant = baseDroneSystem.droneVariant;
         this.maxDeployedDrones = baseDroneSystem.maxDeployedDrones;
         this.reserveDroneCount = maxDeployedDrones;
-        this.engine = Global.getCombatEngine();
     }
 
     private boolean isActivationKeyDownPreviousFrame = false;
@@ -86,6 +84,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
                 reserveDroneCount + "/" + maxReserveDroneCount
         );
 
+        CombatEngineAPI engine = Global.getCombatEngine();
         if (engine.isPaused()) {
             return;
         }
@@ -127,7 +126,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         if (numDronesActive < maxDeployedDrones && !baseDroneSystem.isRecallMode() && reserveDroneCount > 0) {
             if (launchTracker.getElapsed() >= launchTracker.getIntervalDuration()) {
                 launchTracker.setElapsed(0);
-                baseDroneSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant));
+                baseDroneSystem.getDeployedDrones().add(spawnDroneFromShip(droneVariant, engine));
 
                 //subtract from reserve drone count on launch
                 reserveDroneCount -= 1;
@@ -139,7 +138,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
             launchTracker.advance(amount / launchDelayStatMod);
         }
 
-        if (ship.equals(engine.getPlayerShip()) && isActivationKeyDown && !isActivationKeyDownPreviousFrame) {
+        if (isActivationKeyDown && !isActivationKeyDownPreviousFrame && ship.equals(engine.getPlayerShip())) {
             baseDroneSystem.nextDroneOrder();
         }
 
@@ -210,7 +209,7 @@ public class PSE_DroneManagerPlugin extends BaseEveryFrameCombatPlugin {
         }
     }
 
-    private PSEDrone spawnDroneFromShip(String specID) {
+    private PSEDrone spawnDroneFromShip(String specID, CombatEngineAPI engine) {
         engine.getFleetManager(ship.getOriginalOwner()).setSuppressDeploymentMessages(true);
 
         Vector2f location;

@@ -7,7 +7,6 @@ import com.fs.starfarer.api.combat.listeners.CombatListenerManagerAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
-import com.fs.starfarer.combat.CombatEngine;
 import com.fs.starfarer.combat.entities.Ship;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -19,7 +18,7 @@ import java.util.Set;
 
 public class PSEDrone implements ShipAPI {
     private ShipAPI mothership;
-    private ShipAPI drone;
+    private final ShipAPI drone;
 
     public PSEDrone(ShipAPI drone, ShipAPI mothership) {
         this.drone = drone;
@@ -40,7 +39,7 @@ public class PSEDrone implements ShipAPI {
 
     public void setLaunchingShip(ShipAPI launchingShip) {
         Ship ship = (Ship) drone;
-        ship.setLaunchingShip((Ship) launchingShip);
+        ship.setLaunchingShip(launchingShip);
     }
 
     @Override

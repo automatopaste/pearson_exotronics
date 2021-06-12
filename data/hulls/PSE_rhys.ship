@@ -11,38 +11,31 @@
   "shieldCenter": [0, 0],
   "shieldRadius": 35.5,
   "viewOffset": 0,
+  "builtInMods": [
+    "high_scatter_amp"
+  ],
   "builtInWeapons": {
     "WS0001": "PSE_corsair_mk1",
-    "WS0003": "taclaser",
-    "WS0004": "ioncannon_fighter"
+    "WS0002": "taclaser"
   },
   "weaponSlots": [
-    {
-      "id": "WS0003",
-      "size": "SMALL",
-      "type": "BUILT_IN",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 0,
-      "locations": [-4, 10]
-    },
-    {
-      "id": "WS0004",
-      "size": "SMALL",
-      "type": "BUILT_IN",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": -0,
-      "locations": [-4, -10]
-    },
     {
       "id": "WS0001",
       "size": "SMALL",
       "type": "BUILT_IN",
       "mount": "HIDDEN",
-      "arc": 0,
+      "arc": 10,
       "angle": 0,
       "locations": [14, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 20,
+      "angle": 0,
+      "locations": [-2, -0]
     }
   ],
   "engineSlots": [
