@@ -13,52 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static data.scripts.util.dl_SpecLoadingUtils.*;
+
 public final class PSE_SpecLoadingUtils {
-    public static Map<String, PSE_DroneSystemSpec> droneSystemSpecHashMap = new HashMap<>();
-
-    public static void loadBaseSystemSpecs() throws IOException, JSONException {
-        SettingsAPI settings = Global.getSettings();
-
-        JSONArray droneSystems = settings.loadCSV("data/shipsystems/drone_systems.csv");
-
-        for (int i = 0; i < droneSystems.length(); i++) {
-            JSONObject row = droneSystems.getJSONObject(i);
-            String id = row.getString("id");
-            String filename = row.getString("filename");
-
-            JSONObject droneSystemSpecJson = settings.loadJSON(filename);
-
-            PSE_DroneSystemSpec spec = new PSE_DroneSystemSpec();
-
-            spec.launchDelay = droneSystemSpecJson.getDouble("PSE_launchDelay");
-            spec.launchSpeed = droneSystemSpecJson.getDouble("PSE_launchSpeed");
-            spec.droneVariant = droneSystemSpecJson.getString("PSE_droneVariant");
-            spec.maxDeployedDrones = droneSystemSpecJson.getInt("PSE_maxDrones");
-            spec.forgeCooldown = droneSystemSpecJson.getDouble("PSE_forgeCooldown");
-            spec.filename = filename;
-
-            droneSystemSpecHashMap.put(id, spec);
-        }
-    }
-
-    public static String getFilenameForSystemID(String id) {
-        return droneSystemSpecHashMap.get(id).filename;
-    }
-
-    public static class PSE_DroneSystemSpec {
-        public int maxDeployedDrones;
-        public double forgeCooldown;
-        public double launchDelay;
-        public double launchSpeed;
-        public String droneVariant;
-        public String filename;
-    }
-
-    public static JSONArray getDroneBehaviour(String filename) throws JSONException, IOException {
-        JSONObject droneSystemSpecJson = Global.getSettings().loadJSON(filename);
-        return droneSystemSpecJson.getJSONArray("PSE_droneBehavior");
-    }
-
     public static class PSE_CoronaSpecLoading {
         private static float[] initialOrbitAngleArray;
         private static float[] focusOrbitAngleArray;

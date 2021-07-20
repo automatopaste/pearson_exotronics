@@ -50,7 +50,7 @@ public abstract class PSE_BaseDroneAI implements ShipAIPlugin {
         if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
             landingSlot = null;
 
-            ship = PSE_DroneAIUtils.getAlternateHost(drone, uniqueSystemPrefix);
+            ship = PSE_DroneAIUtils.getAlternateHost(drone, uniqueSystemPrefix, 4000f);
 
             if (ship == null || !engine.isEntityInPlay(ship) || !ship.isAlive()) {
                 PSE_DroneAIUtils.deleteDrone(drone, engine);

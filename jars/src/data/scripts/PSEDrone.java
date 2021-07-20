@@ -25,7 +25,7 @@ public class PSEDrone implements ShipAPI {
         this.mothership = mothership;
     }
 
-    //stuff marked with "//IMPORTANT!" is custom
+    //this implementation is probably unnecessary but its been months since i touched it and i cant be fucken bothered
 
     public void setAnimatedLaunch() {
         Ship ship = (Ship) drone;

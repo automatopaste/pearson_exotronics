@@ -51,7 +51,7 @@ public class PSE_DroneRift extends PSE_BaseDroneSystem {
     }
 
     private RiftDroneOrders getNextDroneOrder() {
-        if (droneOrders.ordinal() == PSE_DroneCitadel.CitadelDroneOrders.values().length - 1) {
+        if (droneOrders.ordinal() == PSE_DroneRift.RiftDroneOrders.values().length - 1) {
             return RiftDroneOrders.values()[0];
         }
         return RiftDroneOrders.values()[droneOrders.ordinal() + 1];

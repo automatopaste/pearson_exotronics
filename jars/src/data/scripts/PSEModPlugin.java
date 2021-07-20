@@ -19,6 +19,9 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
 public class PSEModPlugin extends BaseModPlugin {
     Logger log = Global.getLogger(PSEModPlugin.class);
@@ -51,9 +54,28 @@ public class PSEModPlugin extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
+        float[] vertices = new float[] {
+                0f, 1f, 0f, 1f,
+                1f, 0f, 1f, 0f,
+                0f, 0f, 0f, 0f,
+
+                0f, 1f, 0f, 1f,
+                1f, 1f, 1f, 1f,
+                1f, 0f, 1f, 0f
+        };
+        FloatBuffer buffer = createFloatBuffer(vertices.length);
+        buffer.put(vertices);
+
+
         PSE_SODCampEventListener SODListener = new PSE_SODCampEventListener(newGame);
         //Global.getSector().addTransientListener(SODListener);
         Global.getSector().getListenerManager().addListener(SODListener, true);
+    }
+
+    private static FloatBuffer createFloatBuffer(int size) {
+        return ByteBuffer.allocateDirect(size << 2)
+                .order(ByteOrder.nativeOrder())
+                .asFloatBuffer();
     }
 
     @Override

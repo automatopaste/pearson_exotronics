@@ -37,7 +37,6 @@ public final class PSE_DroneAIUtils {
         //FIND DISTANCE THAT CAN BE DECELERATED FROM CURRENT SPEED TO ZERO s = v^2 / 2a
         float speedSquared = drone.getVelocity().lengthSquared();
         float decelerationDistance = speedSquared / (2 * drone.getDeceleration());
-        //decelerationDistance *= 0.5f;
 
         //DO LARGE MOVEMENT IF OVER DISTANCE THRESHOLD
         if (distanceToTargetLocation >= decelerationDistance) {
@@ -298,9 +297,9 @@ public final class PSE_DroneAIUtils {
         return false;
     }
 
-    public static ShipAPI getAlternateHost(PSEDrone drone, String prefix) {
+    public static ShipAPI getAlternateHost(PSEDrone drone, String prefix, float range) {
         CombatEngineAPI engine = Global.getCombatEngine();
-        List<ShipAPI> allies = AIUtils.getNearbyAllies(drone, 4000f);
+        List<ShipAPI> allies = AIUtils.getNearbyAllies(drone, range);
         if (allies.isEmpty()) {
             return null;
         }

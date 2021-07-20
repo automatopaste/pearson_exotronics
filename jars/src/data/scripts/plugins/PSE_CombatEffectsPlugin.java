@@ -5,7 +5,12 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
+import data.scripts.shaders.PSE_BaseFlare;
+import data.scripts.shaders.PSE_EngineFlareShader;
+import data.scripts.shaders.PSE_EngineFlareAPI;
+import data.scripts.shaders.util.PSE_ShaderRenderer;
 import data.scripts.util.PSE_MiscUtils;
+import org.dark.shaders.util.ShaderLib;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -42,6 +47,9 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
         engine.getCustomData().put(ENGINE_DATA_KEY, new PSE_EngineData());
         CombatLayeredRenderingPlugin layerPlugin = new PSE_LayeredEffectsPlugin(this);
         engine.addLayeredRenderingPlugin(layerPlugin);
+
+        PSE_EngineFlareShader engineShader = new PSE_EngineFlareShader();
+        ShaderLib.addShaderAPI(engineShader);
     }
 
     public void render(CombatEngineLayers layer) {
@@ -61,6 +69,7 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
     }
 
     IntervalUtil interval = new IntervalUtil(1f, 1f);
+    List<ShipAPI> yeah = new ArrayList<>();
 
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
@@ -118,6 +127,39 @@ public class PSE_CombatEffectsPlugin extends BaseEveryFrameCombatPlugin {
                         1f,
                         2f
                 );
+            }
+        }
+
+        for (ShipAPI ship : engine.getShips()) {
+            //if (!ship.getHullSpec().getHullId().equals("PSE_cassius2")) continue;
+
+            for (ShipEngineControllerAPI.ShipEngineAPI controller : ship.getEngineController().getShipEngines()) {
+                ship.getEngineController().setFlameLevel(controller.getEngineSlot(), 1f);
+                /*Vector2f pos = controller.getEngineSlot().computePosition(ship.getLocation(), ship.getFacing());
+                float angle = controller.getEngineSlot().getAngle();
+                Vector2f size = new Vector2f(controller.getEngineSlot().getWidth(), controller.getEngineSlot().getLength());
+                Color color = Color.red;
+
+                if (yeah.contains(ship)) {
+                    PSE_EngineFlareAPI flare = PSE_EngineFlareShader.getFlare(controller);
+                    if (flare != null) {
+                        flare.setAngle(angle);
+                        flare.setSize(size);
+                        flare.setLocation(pos);
+                        flare.setColor(color);
+                    }
+                } else {
+                    yeah.add(ship);
+
+                    PSE_EngineFlareShader.addFlare(controller,
+                            new PSE_BaseFlare(pos, size, color, angle,
+                                    new PSE_ShaderRenderer(
+                                            "data/shaders/engineflare.vert",
+                                            "data/shaders/pass.frag"
+                                    )
+                            )
+                    );
+                }*/
             }
         }
     }
