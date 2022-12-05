@@ -1,12 +1,12 @@
 package data.scripts.hullmods;
 
+import cmu.drones.systems.ForgeTracker;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import data.scripts.plugins.PSE_DroneManagerPlugin;
+import data.scripts.PSEModPlugin;
 import data.scripts.util.MagicIncompatibleHullmods;
 
 import java.util.HashMap;
@@ -42,8 +42,8 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
 
         stats.getDynamic().getMod(Stats.BOMBER_COST_MOD).modifyPercent(id, BOMBER_COST_INCREASE_PERCENT);
         stats.getFighterRefitTimeMult().modifyPercent(id, FIGHTER_REFIT_TIME_INCREASE_PERCENT);
-        stats.getDynamic().getMod(PSE_DroneManagerPlugin.LAUNCH_DELAY_STAT_KEY).modifyMult(id, DRONE_SYSTEM_LAUNCH_DELAY_MULT);
-        stats.getDynamic().getMod(PSE_DroneManagerPlugin.REGEN_DELAY_STAT_KEY).modifyMult(id, DRONE_SYSTEM_REGEN_MULT);
+        stats.getDynamic().getMod(ForgeTracker.LAUNCH_DELAY_STAT_KEY).modifyMult(id, DRONE_SYSTEM_LAUNCH_DELAY_MULT);
+        stats.getDynamic().getMod(ForgeTracker.REGEN_DELAY_STAT_KEY).modifyMult(id, DRONE_SYSTEM_REGEN_MULT);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
                 ship.getHullSpec().getFighterBays() <= 0 &&
                 !ship.getVariant().hasHullMod(HullMods.CONVERTED_BAY) &&
                 ship.getSystem() != null &&
-                ship.getSystem().getId().startsWith("PSE_drone");
+                PSEModPlugin.DRONE_SYSTEM_IDS.contains(ship.getSystem().getId());
     }
 
     //ALEX PLS

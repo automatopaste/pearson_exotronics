@@ -4,7 +4,7 @@
   "displayName": "Balanced",
   "goalVariant": true,
   "fluxCapacitors": 6,
-  "fluxVents": 9,
+  "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -30,7 +30,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "gravitonbeam"
+        "WS0002": "PSE_hardlux"
       }
     },
     {

@@ -6,9 +6,9 @@ import com.fs.starfarer.api.combat.*;
 import java.util.EnumSet;
 
 public class PSE_LayeredEffectsPlugin implements CombatLayeredRenderingPlugin {
-    private final PSE_CombatEffectsPlugin parent;
+    private final PSE_ExplosionEffectsPlugin parent;
 
-    PSE_LayeredEffectsPlugin(PSE_CombatEffectsPlugin parent) {
+    PSE_LayeredEffectsPlugin(PSE_ExplosionEffectsPlugin parent) {
         this.parent = parent;
     }
 

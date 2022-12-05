@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Rift",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.rift.RiftShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.rift.RiftSystemAI",
+
+	# VERY IMPORTANT
+    "runScriptWhileIdle":true, # unapply() never gets called
+
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

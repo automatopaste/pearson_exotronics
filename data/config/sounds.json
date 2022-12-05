@@ -9,6 +9,12 @@
         {"file":"sounds/pearson_exotronics/weapon_fx/PSE_parity_charge.ogg","pitch":1.05,"volume":0.6},
         {"file":"sounds/pearson_exotronics/weapon_fx/PSE_parity_charge.ogg","pitch":0.95,"volume":0.6},
     ],
+    "PSE_parity_shot":
+    [
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_parity_shot.ogg","pitch":1.0,"volume":0.6},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_parity_shot.ogg","pitch":1.05,"volume":0.6},
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_parity_shot.ogg","pitch":0.95,"volume":0.6},
+    ],
 
     #SPECTRUM PD
     "PSE_spectrumpd_fire":
@@ -46,6 +52,13 @@
     [
         {"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.40,"volume":0.65},
 	{"file":"sounds/sfx_wpn_guns/mauler_fire_01.ogg","pitch":1.45,"volume":0.65},
+    ],
+
+    #HARDLUX
+    "PSE_hardlux_fire":
+    [
+        {"file":"sounds/pearson_exotronics/weapon_fx/PSE_hardlux_fire.ogg","pitch":1.0,"volume":0.65},
+	{"file":"sounds/pearson_exotronics/weapon_fx/PSE_hardlux_fire.ogg","pitch":0.95,"volume":0.65},
     ],
 
     #NOVABURST
@@ -210,8 +223,5 @@
     #MUSIC
 
     "music":{
-        "PSE_music_market_hostile":[
-            {"file":"PSE_market_hostile.ogg","source":"sounds/tomatopaste/music/","volume":0.7,"randomStart":true},
-        ],
     },
 }

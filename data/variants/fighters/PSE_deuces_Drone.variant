@@ -13,16 +13,9 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "hil"
+        "WS0001": "pdlaser"
       }
     },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0001": "pdburst"
-      }
-    }
   ],
   "modules": [],
   "wings": []

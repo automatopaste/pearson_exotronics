@@ -3,36 +3,36 @@
   "specClass": "beam",
   "type": "ENERGY",
   "size": "MEDIUM",
+  "beamEffect": "data.scripts.weapons.PSE_HardluxBeamEffect",
   "collisionClass": "RAY",
   "collisionClassByFighter": "RAY_FIGHTER",
-  "turretSprite": "graphics/PSE/weapons/rotary/PSE_hardlux_00.png",
-  "hardpointSprite": "graphics/PSE/weapons/rotary/PSE_hardlux_00.png",
-  "numFrames":18,
-  "frameRate":15,
-  "beamEffect": "data.scripts.weapons.PSE_HardluxBeamEffect",
-  "renderAboveAllWeapons": 0,
+  "turretSprite": "graphics/PSE/weapons/PSE_hardlux_turret.png",
+  "turretGlowSprite": "graphics/PSE/weapons/PSE_hardlux_turret_glow.png",
+  "turretGunSprite": "graphics/PSE/weapons/PSE_hardlux_turret_barrel.png",
+  "hardpointSprite": "graphics/PSE/weapons/PSE_hardlux_hardpoint.png",
+  "hardpointGlowSprite": "graphics/PSE/weapons/PSE_hardlux_hardpoint_glow.png",
+  "hardpointGunSprite": "graphics/PSE/weapons/PSE_hardlux_hardpoint_barrel.png",
   "glowColor": [
+    120,
     255,
-    255,
-    255,
+    220,
     255
   ],
   "hitGlowRadius": 0,
   "turretOffsets": [
-    22,
+    29,
     0
   ],
   "turretAngleOffsets": [
     0
   ],
   "hardpointOffsets": [
-    0,
+    35,
     0
   ],
   "hardpointAngleOffsets": [
     0
   ],
-  "beamFireOnlyOnFullCharge": true,
   "fringeColor": [
     120,
     255,
@@ -42,12 +42,12 @@
   "coreColor": [
     200,
     255,
-    255,
+    230,
     255
   ],
-  "width":20,
+  "width": 20,
   "textureType": SMOOTH,
   "textureScrollSpeed": 64,
   "pixelsPerTexel": 1,
-  "unaffectedByProjectileSpeedBonuses": true
+  "fireSoundOne": "PSE_hardlux_fire"
 }

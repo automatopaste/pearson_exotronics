@@ -15,10 +15,10 @@
   "engineSlots": [
     {
       "location": [-6, -0],
-      "length": 15.5,
-      "width": 10,
+      "length": 72,
+      "width": 16,
       "angle": 180,
-      "contrailSize": 10,
+      "contrailSize": 16,
       "style": "CUSTOM",
       "styleId": "PSE_specOpsFlare"
     }

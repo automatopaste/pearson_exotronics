@@ -39,28 +39,26 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         enemyVariants.add("brawler_tritachyon_Standard");
     }
 
-    private static final String playerFlagship = "PSE_kingston_sod_Special";
+    private static final String playerFlagship = "PSE_kingston_Balanced";
     private static final String playerFlagshipName = "PCS Tasmania";
 
     private static final List<String> playerVariants = new ArrayList<String>();
     static {
-        playerVariants.add("PSE_leyland_sod_Special");
-        playerVariants.add("PSE_serrano_sod_Special");
-        playerVariants.add("PSE_serrano_sod_Special");
-        playerVariants.add("heron_Attack");
+        playerVariants.add("PSE_leyland_Elite");
+        playerVariants.add("PSE_penrith_Balanced");
+        playerVariants.add("PSE_serrano_Balanced");
 
-        playerVariants.add("PSE_denmark_sod_Special");
-        playerVariants.add("PSE_armstrong_sod_Special");
-        playerVariants.add("PSE_richmond_sod_Special");
-        //playerVariants.add("PSE_richmond_sod_Special");
+        playerVariants.add("PSE_denmark_Assault");
+        playerVariants.add("PSE_armstrong_Balanced");
+        playerVariants.add("PSE_richmond_Overdriven");
+        playerVariants.add("PSE_richmond_Overdriven");
 
         playerVariants.add("PSE_cassius_Assault");
-        playerVariants.add("PSE_cassius_sod_Special");
+        playerVariants.add("PSE_cassius_Assault");
         playerVariants.add("PSE_cassius_CloseSupport");
-        playerVariants.add("PSE_kiruna_sod_Special");
+        playerVariants.add("PSE_kiruna_Strike");
         playerVariants.add("PSE_kiruna_Assault");
         playerVariants.add("PSE_eyre_Elite");
-        //playerVariants.add("PSE_eyre_sod_Special");
     }
 
     @Override

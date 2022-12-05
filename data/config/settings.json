@@ -1,6 +1,6 @@
 {
 	"plugins":{
-		"PSE_CombatEffectsPlugin":"data.scripts.plugins.PSE_CombatEffectsPlugin",
+		"PSE_ExplosionEffectsPlugin":"data.scripts.plugins.PSE_ExplosionEffectsPlugin",
 		"PSE_CombatWeaponsPlugin":"data.scripts.plugins.PSE_CombatWeaponsPlugin",
 		#"PSE_CombatFighterLaunchPlugin":"data.scripts.plugins.PSE_CombatFighterLaunchPlugin",
 		#"PSE_TitleScreenPlugin":"data.scripts.plugins.PSE_TitleScreenPlugin",

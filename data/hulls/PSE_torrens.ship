@@ -4,11 +4,11 @@
   "hullSize": "FRIGATE",
   "spriteName": "graphics/PSE/ships/PSE_torrens.png",
   "style": "PEARSON_EXOTRONICS_BASE_HULL",
-  "height": 66,
-  "width": 62,
-  "center": [31, 33.5],
+  "height": 80,
+  "width": 74,
+  "center": [37, 33],
   "collisionRadius": 87,
-  "shieldCenter": [0, 0],
+  "shieldCenter": [0, -0],
   "shieldRadius": 66.5,
   "viewOffset": 0,
   "builtInMods": [
@@ -27,7 +27,7 @@
       "mount": "TURRET",
       "arc": 220,
       "angle": 90,
-      "locations": [-21.5, 20]
+      "locations": [1, 20]
     },
     {
       "id": "WS0002",
@@ -36,7 +36,7 @@
       "mount": "TURRET",
       "arc": 220,
       "angle": -90,
-      "locations": [-21.5, -20]
+      "locations": [1, -20]
     },
     {
       "id": "LB 1",
@@ -46,8 +46,8 @@
       "arc": 360,
       "angle": 0,
       "locations": [
-        17, -7,
-        10, -7
+        17.5, -1,
+        10.5, -1
       ]
     },
     {
@@ -56,8 +56,8 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": 120,
-      "locations": [-22.5, 28.5]
+      "angle": -120,
+      "locations": [-28, -20]
     },
     {
       "id": "WS0004",
@@ -65,14 +65,14 @@
       "type": "SYSTEM",
       "mount": "HIDDEN",
       "arc": 0,
-      "angle": -120,
-      "locations": [-22.5, -28.5]
+      "angle": 120,
+      "locations": [-28, 20]
     }
   ],
   "engineSlots": [
     {
-      "location": [-29, 10],
-      "length": 24,
+      "location": [-20, 10.5],
+      "length": 20,
       "width": 8,
       "angle": 180,
       "contrailSize": 8,
@@ -80,8 +80,8 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-29, -10],
-      "length": 24,
+      "location": [-20, -10.5],
+      "length": 20,
       "width": 8,
       "angle": -180,
       "contrailSize": 8,
@@ -89,19 +89,21 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-28.5, -0],
-      "length": 36,
-      "width": 18,
+      "location": [-14, -0.5],
+      "length": 50,
+      "width": 22,
       "angle": 180,
-      "contrailSize": 18,
+      "contrailSize": 22,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }
   ],
   "bounds": [
-    24, -25.5,
-    -28, -27,
-    -28, 27,
-    24, 25.5
+    38.5, -24,
+    -29.5, -30,
+    -15.5, -7,
+    -15.5, 7,
+    -29.5, 30,
+    38.5, 24
   ]
 }

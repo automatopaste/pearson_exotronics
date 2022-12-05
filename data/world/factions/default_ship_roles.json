@@ -8,9 +8,6 @@
 		"PSE_kiruna_Balanced":3,
 		"PSE_kiruna_CloseSupport":2,
 		"PSE_kiruna_Strike":2,
-
-		"PSE_cassius_sod_Special":10,
-		"PSE_kiruna_sod_Special":10,
 	},
 
 	"combatMedium":{
@@ -26,9 +23,6 @@
 		"PSE_armstrong_CloseSupport":2,
 		"PSE_armstrong_Assault":3,
 		"PSE_armstrong_Strike":2,
-
-		"PSE_denmark_sod_Special":10,
-		"PSE_richmond_sod_Special":10,
 	},
 
 	"combatLarge":{
@@ -44,10 +38,6 @@
 		"PSE_penrith_Assault":4,
 		"PSE_penrith_Balanced":5,
 		"PSE_penrith_Strike":3,
-
-		"PSE_serrano_sod_Special":10,
-
-		"PSE_leyland_sod_Special":10,
 	},
 
 	"combatCapital":{
@@ -55,16 +45,12 @@
 		"PSE_kingston_Balanced":6,
 		"PSE_kingston_Elite":4,
 		"PSE_kingston_Strike":7,
-
-		"PSE_kingston_sod_Special":10,
 	},
 
 	"combatFreighterSmall":{
 		"PSE_torrens_Standard":2,
 		"PSE_eyre_Standard":4,
 		"PSE_eyre_Elite":3,
-
-		"PSE_eyre_sod_Special":10,
 	},
 
 	"freighterMedium":{

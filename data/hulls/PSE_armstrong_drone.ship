@@ -8,8 +8,8 @@
   "width": 30,
   "center": [15, 14],
   "collisionRadius": 155,
-  "shieldCenter": [-140, -0],
-  "shieldRadius": 207,
+  "shieldCenter": [-42, -0],
+  "shieldRadius": 102.5,
   "viewOffset": 0,
   "builtInMods": [
     "fluxshunt"

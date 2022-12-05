@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Bastion",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.bastion.BastionShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.bastion.BastionSystemAI",
+
+    # VERY IMPORTANT
+    "runScriptWhileIdle":true, # unapply() never gets called
+
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

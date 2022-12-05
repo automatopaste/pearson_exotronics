@@ -5,12 +5,10 @@ import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.plugins.PSE_CombatEffectsPlugin;
 import data.scripts.plugins.PSE_CombatWeaponsPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 public class PSE_CascadeAcceleratorEveryFrame implements EveryFrameWeaponEffectPlugin {

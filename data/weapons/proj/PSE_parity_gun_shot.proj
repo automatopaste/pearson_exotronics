@@ -1,6 +1,7 @@
 {
     "id":"PSE_parity_gun_shot",
     "specClass":"projectile",
+    "onFireEffect":"data.scripts.weapons.PSE_ParityGunOnFire",
     #"onHitEffect":"",
     "spawnType":"BALLISTIC",
     "collisionClass":"PROJECTILE_FF",

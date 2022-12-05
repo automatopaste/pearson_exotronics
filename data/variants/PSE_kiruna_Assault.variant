@@ -16,19 +16,13 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "pulselaser"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0001": "pulselaser"
+        "WS0001": "PSE_hardlux",
+        "WS0002": "PSE_hardlux"
       }
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS0006": "PSE_thrall_launcher",
         "WS0007": "PSE_thrall_launcher"
@@ -36,10 +30,15 @@
     },
     {
       "autofire": true,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
         "WS0005": "PSE_spectrumpd"
       }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
     },
     {
       "autofire": false,

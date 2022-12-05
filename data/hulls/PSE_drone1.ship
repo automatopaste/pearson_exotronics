@@ -13,7 +13,8 @@
   "viewOffset": 0,
   "builtInMods": [
     "no_weapon_flux",
-    "pointdefenseai"
+    "pointdefenseai",
+    "turretgyros"
   ],
   "builtInWeapons": {
     "WS0001": "pdlaser",

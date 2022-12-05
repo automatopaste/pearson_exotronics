@@ -3,7 +3,7 @@
   "hullId": "PSE_armstrong",
   "displayName": "Close Support",
   "goalVariant": true,
-  "fluxCapacitors": 18,
+  "fluxCapacitors": 17,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
@@ -15,7 +15,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0007": "gravitonbeam"
+        "WS0007": "PSE_hardlux"
       }
     },
     {

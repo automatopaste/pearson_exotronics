@@ -29,20 +29,20 @@ $entity.relativeStrength < 0",$entity.ignorePlayerCommRequests = true 1,"""Hosti
 OR
 ""Belligerent contact! Be advised that firing upon a Pearson Exotronics Navy vessel is considered an act of insurrection and you'll be hunted down!"" The Pearson $personRank is sweating. ""When they're done with you, you'll be sold in black markets on worlds across the Sector, I swear it.""
 OR
-""We give our lives for the restoration of the Domain and all humanity."" $HeOrShe pauses for a moment as if to say something more, then cuts the comm.",cutCommLink:Cut the comm link,
+""We strongly condemn those that would seek to threaten our interests."" $HeOrShe pauses for a moment as if to say something more, then cuts the comm.",cutCommLink:Cut the comm link,
 greetingPearsonHostileWeakerDefiant,OpenCommLink,"$faction.id == pearson_exotronics
 $entity.isHostile
 $entity.relativeStrength < 0
-$entity.weakerThanPlayerButHolding",$entity.ignorePlayerCommRequests = true 1,"The Hegemony $personRank looks grim but defiant. ""We will fight you to the last,"" $heOrShe says.
+$entity.weakerThanPlayerButHolding",$entity.ignorePlayerCommRequests = true 1,"The Pearson $personRank looks into the commfeed directly without apparent emotion. ""We will fight you to the last,"" $heOrShe says. You feel a chill on the nape of your neck.
 OR
 ""Nuts!"" The comm-line cuts out.",cutCommLink:Cut the comm link,
 greetingPearsonHostileStronger,OpenCommLink,"$faction.id == pearson_exotronics
 $entity.isHostile
-$entity.relativeStrength >= 0",$entity.ignorePlayerCommRequests = true 1,"""By authority of Navy Command, you are ordered to take hyperspace drives offline, disable weapons and surrender. Over.""
+$entity.relativeStrength >= 0",$entity.ignorePlayerCommRequests = true 1,"""You are hereby ordered to take hyperspace drives offline, and submit crew manifests for processing. Comply or be destroyed.""
 OR
-""Resistance to Navy authority is an act of insurrection and shall be punished accordingly. Surrender now or be met with force.""",cutCommLink:Cut the comm link,
+""Resistance to Corporation authority is an act of insurrection and shall be punished accordingly. Surrender now or be met with force.""",cutCommLink:Cut the comm link,
 greetingPearsonNeutral,OpenCommLink,"$faction.id == pearson_exotronics
 $faction.neutralToPlayer","$menuState = fleetConvMain 0
-FireAll PopulateOptions","""You have been scanned and identified. If nothing is amiss, we shall be on our way.""
+FireAll PopulateOptions","""Intelligence has identified your vessel and corroborated with NavInt. Is there anything else to justify this conversation?""
 OR
 The Pearson Navy $personRank looks impatient. ""Is there an emergency to report? No? Then bugger off, mate.""",,

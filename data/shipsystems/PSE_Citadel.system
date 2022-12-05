@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Citadel",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.citadel.CitadelShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.citadel.CitadelSystemAI",
+
+	# VERY IMPORTANT
+	"runScriptWhileIdle":true, # unapply() never gets called
+
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Corona",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.corona.CoronaShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.corona.CoronaSystemAI",
+
+	# VERY IMPORTANT
+	"runScriptWhileIdle":true, # unapply() never gets called
+	
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

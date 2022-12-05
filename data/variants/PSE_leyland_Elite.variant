@@ -3,7 +3,7 @@
   "hullId": "PSE_leyland",
   "displayName": "Elite",
   "goalVariant": true,
-  "fluxCapacitors": 8,
+  "fluxCapacitors": 29,
   "fluxVents": 30,
   "quality": 1.2,
   "permaMods": [],
@@ -19,10 +19,27 @@
       }
     },
     {
-      "autofire": false,
-      "mode": "ALTERNATING",
+      "autofire": true,
+      "mode": "LINKED",
       "weapons": {
-        "WS0013": "typhoon",
+        "WS0001": "PSE_corsair_mk1",
+        "WS0002": "PSE_corsair_mk1",
+        "WS0003": "PSE_hardlux",
+        "WS0004": "PSE_hardlux"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0012": "typhoon",
+        "WS0013": "typhoon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
         "WS0014": "PSE_thrall_launcher",
         "WS0015": "PSE_thrall_launcher"
       }
@@ -31,19 +48,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "heavyac",
-        "WS0004": "heavyac",
-        "WS0007": "PSE_douglas",
-        "WS0008": "PSE_douglas"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0001": "PSE_corsair_mk1",
-        "WS0002": "PSE_corsair_mk1",
-        "WS0012": "ionbeam"
+        "WS0007": "heavymauler",
+        "WS0008": "heavymauler"
       }
     },
     {
@@ -52,6 +58,8 @@
       "weapons": {
         "WS0005": "PSE_spectrumpd",
         "WS0006": "PSE_spectrumpd",
+        "WS0009": "PSE_spectrumpd",
+        "WS0010": "PSE_spectrumpd",
         "WS0011": "PSE_spectrumpd"
       }
     }

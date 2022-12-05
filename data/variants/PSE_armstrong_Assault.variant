@@ -3,7 +3,7 @@
   "hullId": "PSE_armstrong",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 4,
+  "fluxCapacitors": 8,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
@@ -30,7 +30,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0008": "heavyneedler"
+        "WS0008": "PSE_douglas"
       }
     },
     {

@@ -1,15 +1,17 @@
 package data.scripts.hullmods;
 
+import cmu.drones.systems.DroneSystem;
+import cmu.drones.systems.SystemData;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.PSEDrone;
 import data.scripts.plugins.PSE_RingVisual;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PSE_LeachingTargetMatrix extends BaseHullMod {
     private static final Color RING_COLOUR = new Color(191, 253, 225, 255);
@@ -58,17 +60,16 @@ public class PSE_LeachingTargetMatrix extends BaseHullMod {
 
         if (!tracker.intervalElapsed()) return;
 
-        List<PSEDrone> drones = new ArrayList<>();
-        for (ShipAPI s : engine.getShips()) {
-            if (s instanceof PSEDrone) {
-                PSEDrone drone = (PSEDrone) s;
+        List<ShipAPI> drones = new ArrayList<>();
 
-                if (drone.getLaunchingShip().equals(ship)) drones.add(drone);
+        for (Map<ShipAPI, DroneSystem> m : SystemData.getDroneSystems(engine).values()) {
+            for (DroneSystem d : m.values()) {
+                drones.addAll(d.getForgeTracker().getDeployed());
             }
         }
 
-        PSEDrone target = null;
-        for (PSEDrone drone : drones) {
+        ShipAPI target = null;
+        for (ShipAPI drone : drones) {
             drone.getMutableStats().getBallisticWeaponRangeBonus().modifyMult(this.getClass().toString(), ship.getMutableStats().getBallisticWeaponRangeBonus().computeEffective(1f));
             drone.getMutableStats().getEnergyWeaponRangeBonus().modifyMult(this.getClass().toString(), ship.getMutableStats().getEnergyWeaponRangeBonus().computeEffective(1f));
             drone.getMutableStats().getBeamWeaponRangeBonus().modifyFlat(this.getClass().toString(), ship.getMutableStats().getBeamWeaponRangeBonus().computeEffective(1f));

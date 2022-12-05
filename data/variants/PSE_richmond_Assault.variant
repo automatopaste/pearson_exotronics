@@ -15,7 +15,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "heavyac",
+        "WS0001": "PSE_hardlux",
         "WS0002": "PSE_douglas"
       }
     },
@@ -30,17 +30,17 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
       "weapons": {
         "WS0003": "pdlaser",
         "WS0004": "pdlaser",
         "WS0005": "pdlaser",
         "WS0006": "pdlaser"
       }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
     },
     {
       "autofire": false,

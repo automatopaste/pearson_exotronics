@@ -13,14 +13,15 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "pdlaser",
-        "WS0002": "hil"
+        "WS0001": "pdlaser"
       }
     },
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS0002": "hil"
+      }
     }
   ],
   "modules": [],

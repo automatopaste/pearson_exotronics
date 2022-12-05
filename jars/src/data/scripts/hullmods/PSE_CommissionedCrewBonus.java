@@ -1,14 +1,10 @@
 package data.scripts.hullmods;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import data.scripts.PSEDrone;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,20 +68,20 @@ public class PSE_CommissionedCrewBonus extends BaseHullMod {
     @SuppressWarnings("unchecked")
     @Override
     public void advanceInCombat(ShipAPI ship, float amount) {
-        CombatEngineAPI engine = Global.getCombatEngine();
-
-        if (ship == null || !ship.isAlive()) {
-            return;
-        }
-
-        String key = "PSE_DroneList_" + ship.hashCode();
-
-        ArrayList<PSEDrone> list = (ArrayList<PSEDrone>) engine.getCustomData().get(key);
-
-        if (list != null && !list.isEmpty()) {
-            for (PSEDrone drone : list) {
-                drone.getMutableStats().getEffectiveArmorBonus().modifyFlat(this.getClass().toString(), DRONE_ARMOUR_RATING_FLAT_BONUS);
-            }
-        }
+//        CombatEngineAPI engine = Global.getCombatEngine();
+//
+//        if (ship == null || !ship.isAlive()) {
+//            return;
+//        }
+//
+//        String key = "PSE_DroneList_" + ship.hashCode();
+//
+//        ArrayList<PSE_Drone> list = (ArrayList<PSE_Drone>) engine.getCustomData().get(key);
+//
+//        if (list != null && !list.isEmpty()) {
+//            for (PSE_Drone drone : list) {
+//                drone.getMutableStats().getEffectiveArmorBonus().modifyFlat(this.getClass().toString(), DRONE_ARMOUR_RATING_FLAT_BONUS);
+//            }
+//        }
     }
 }

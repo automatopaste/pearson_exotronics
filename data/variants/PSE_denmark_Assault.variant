@@ -3,7 +3,7 @@
   "hullId": "PSE_denmark",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 12,
+  "fluxCapacitors": 7,
   "fluxVents": 20,
   "quality": 0.9,
   "permaMods": [],
@@ -16,21 +16,23 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0004": "harpoonpod"
+        "WS0004": "PSE_hardlux"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0005": "heavyac"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
+        "WS0005": "PSE_douglas",
         "WS0006": "PSE_douglas"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "PSE_novaburst_mini",
+        "WS0009": "PSE_novaburst_mini"
       }
     },
     {
@@ -42,11 +44,9 @@
       }
     },
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0003": "PSE_novaburst_mini"
-      }
+      "weapons": {}
     }
   ],
   "modules": [],

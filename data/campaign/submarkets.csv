@@ -1,3 +1,2 @@
 id,name,faction,desc,script,icon,order
-PSE_sod_submarket,"SOD Covert
-Military Outpost",pearson_exotronics,"A Pearson Exotronics Special Operations Division espionage group has a clandestine military presence on this planet. They will let you buy some unique equipment, for the right price.",data.scripts.campaign.submarkets.PSE_SODCampSubmarketPlugin,graphics/PSE/factions/PSE_banner_sod.png,1200
+PSE_sod_submarket,"SOD Covert Military Outpost",pearson_exotronics,"A Pearson Exotronics Special Operations Division espionage group has a clandestine military presence on this planet. They will let you buy some unique equipment, for the right price.",data.scripts.campaign.submarkets.PSE_SODCampSubmarketPlugin,graphics/PSE/factions/PSE_banner_sod.png,1200

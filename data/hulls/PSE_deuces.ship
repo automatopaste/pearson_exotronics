@@ -16,8 +16,7 @@
     "pointdefenseai"
   ],
   "builtInWeapons": {
-    "WS0001": "pdlaser",
-    "WS0002": "hil"
+    "WS0001": "pdlaser"
   },
   "weaponSlots": [
     {
@@ -28,15 +27,6 @@
       "arc": 35,
       "angle": 0,
       "locations": [-1, -0]
-    },
-    {
-      "id": "WS0002",
-      "size": "LARGE",
-      "type": "BUILT_IN",
-      "mount": "HIDDEN",
-      "arc": 90,
-      "angle": 0,
-      "locations": [-7.5, -0]
     }
   ],
   "engineSlots": [

@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Shroud",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.shroud.ShroudShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.shroud.ShroudSystemAI",
+
+    # VERY IMPORTANT
+    "runScriptWhileIdle":true, # unapply() never gets called
+
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

@@ -1,0 +1,14 @@
+{
+	"portraits":{
+		"standard_male":[
+			"graphics/PSE/portraits/PSE_fleet1.png",
+			"graphics/PSE/portraits/PSE_fleet2.png",
+			"graphics/PSE/portraits/PSE_fleet3.png",
+			"graphics/PSE/portraits/PSE_fleet4.png",
+			"graphics/PSE/portraits/PSE_MarcusPrice.png",
+			"graphics/PSE/portraits/PSE_RobertPool.png",
+		],
+	},
+}
+
+

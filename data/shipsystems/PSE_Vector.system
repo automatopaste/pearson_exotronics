@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Vector",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.vector.VectorShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.vector.VectorSystemAI",
+
+    # VERY IMPORTANT
+    "runScriptWhileIdle":true, # unapply() never gets called
+
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

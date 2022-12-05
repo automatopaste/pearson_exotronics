@@ -3,7 +3,7 @@
 	"specClass":"projectile",
 	"type":"ENERGY",
 	"size":"LARGE",
-    	"everyFrameEffect":"data.scripts.weapons.PSE_ParityGunEveryFrame",
+        "everyFrameEffect":"data.scripts.weapons.PSE_ParityGunEveryFrame",
 	"turretSprite":"",
 	"turretGlowSprite":"graphics/PSE/weapons/PSE_parity_gun_glow.png",
 	"hardpointSprite":"",
@@ -22,8 +22,9 @@
 					   "particleDuration":0.12,
 					   "particleCount":10,
 					   "particleColor":[255,166,0,255]},		
-	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+	"autocharge":false,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"projectileSpecId":"PSE_parity_gun_shot",  # projectile that will be fired
-	"fireSoundOne":"PSE_parity_charge",
-	"fireSoundTwo":"thermal_pulse_cannon_fire",
+
+	#"fireSoundOne":"PSE_parity_charge",
+	"fireSoundTwo":"PSE_parity_shot",
 }

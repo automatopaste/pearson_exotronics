@@ -28,7 +28,6 @@
 	# multiplier for how often hulls show up in the faction's fleets
 	"hullFrequency":{
 		"tags":{
-		    "PSE_sod_bp":0.25,
 		},
 		"hulls":{
 			"PSE_cassius":3,
@@ -54,13 +53,14 @@
 		],
 	},
 	"knownShips":{
-		"tags":["base_bp", "PSE_base_bp", "PSE_support_bp", "PSE_military_bp", "PSE_sod_bp"],
+		"tags":["base_bp", "PSE_base_bp", "PSE_support_bp", "PSE_military_bp"],
 		"hulls":[
 			"atlas",
 			"monitor",
 			"prometheus",
 			#"heron",
 			"shade",
+			"champion",
 
 			"PSE_cassius",
 			"PSE_torrens",
@@ -76,7 +76,7 @@
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available
 	"priorityShips":{
-		"tags":["PSE_base_bp", "PSE_military_bp", "PSE_sod_bp"],
+		"tags":["PSE_base_bp", "PSE_military_bp"],
 		"hulls":[
 			"PSE_cassius",
 			#"PSE_torrens",
@@ -86,8 +86,8 @@
 			"PSE_armstrong",
 			"PSE_serrano",
 			"PSE_leyland",
+			"PSE_penrith",
 			"PSE_kingston",
-			"PSE_kingston_sod",
 			"PSE_buffalo_pe",
 		],
 	},
@@ -131,6 +131,7 @@
 			"hveldriver",
 
 			"PSE_douglas",
+			"PSE_hardlux",
 
 			"hephag",
 			"gauss",
@@ -180,6 +181,7 @@
 			"PSE_starburst_mini",
 
 			"PSE_douglas",
+			"PSE_hardlux",
 
 			"PSE_spectrumpd",
 
@@ -222,9 +224,9 @@
 		],
 	},
 	"factionDoctrine":{
-		"warships":4,
+		"warships":5,
 		"carriers":2,
-		"phaseShips":1,
+		"phaseShips":0,
 		
 		"officerQuality":3,
 		"shipQuality":3,
@@ -264,14 +266,9 @@
 			"graphics/PSE/portraits/PSE_fleet1.png",
 			"graphics/PSE/portraits/PSE_fleet2.png",
 			"graphics/PSE/portraits/PSE_fleet3.png",
-			"graphics/portraits/portrait_hegemony02.png",
-			"graphics/portraits/portrait12.png",
-			"graphics/portraits/portrait_league09.png",
-			"graphics/portraits/portrait13.png",
-			"graphics/portraits/portrait18.png",
-			"graphics/portraits/portrait20.png",
-			"graphics/portraits/portrait23.png",
-			"graphics/portraits/portrait38.png",
+			"graphics/PSE/portraits/PSE_fleet4.png",
+			"graphics/PSE/portraits/PSE_MarcusPrice.png",
+			"graphics/PSE/portraits/PSE_RobertPool.png",
 		],
 		"standard_female":[
 			"graphics/portraits/portrait_hegemony11.png",

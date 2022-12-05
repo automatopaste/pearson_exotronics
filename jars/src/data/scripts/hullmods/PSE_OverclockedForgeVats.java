@@ -1,9 +1,10 @@
 package data.scripts.hullmods;
 
+import cmu.drones.systems.ForgeTracker;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import data.scripts.plugins.PSE_DroneManagerPlugin;
+import data.scripts.PSEModPlugin;
 
 public class PSE_OverclockedForgeVats extends BaseHullMod {
     private static final float FORGE_SPEED_INCREASE_PERCENT = 50f;
@@ -12,7 +13,7 @@ public class PSE_OverclockedForgeVats extends BaseHullMod {
 
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-        stats.getDynamic().getMod(PSE_DroneManagerPlugin.REGEN_DELAY_STAT_KEY).modifyPercent(id, -FORGE_SPEED_INCREASE_PERCENT);
+        stats.getDynamic().getMod(ForgeTracker.REGEN_DELAY_STAT_KEY).modifyPercent(id, -FORGE_SPEED_INCREASE_PERCENT);
 
         stats.getMissileHealthBonus().modifyPercent(id, MISSILE_HEALTH_DECREASE_PERCENT);
         stats.getMissileWeaponDamageMult().modifyPercent(id, MISSILE_DAMAGE_DECREASE_PERCENT);
@@ -20,7 +21,7 @@ public class PSE_OverclockedForgeVats extends BaseHullMod {
 
     @Override
     public boolean isApplicableToShip(ShipAPI ship) {
-        return ship != null && !ship.isFighter() && ship.getSystem() != null && ship.getSystem().getId().startsWith("PSE_drone");
+        return ship != null && !ship.isFighter() && ship.getSystem() != null && PSEModPlugin.DRONE_SYSTEM_IDS.contains(ship.getSystem().getId());
     }
 
     @Override

@@ -3,7 +3,7 @@
   "hullId": "PSE_kiruna",
   "displayName": "Close Support",
   "goalVariant": true,
-  "fluxCapacitors": 4,
+  "fluxCapacitors": 3,
   "fluxVents": 10,
   "quality": 0.9,
   "permaMods": [],
@@ -20,9 +20,10 @@
       }
     },
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0001": "PSE_hardlux",
         "WS0002": "phasebeam"
       }
     },
@@ -37,15 +38,13 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "gravitonbeam"
+        "WS0005": "pdlaser"
       }
     },
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0005": "pdlaser"
-      }
+      "weapons": {}
     }
   ],
   "modules": [],

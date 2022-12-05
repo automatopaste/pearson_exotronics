@@ -30,6 +30,9 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         system.setLightColor(new Color(221, 255, 226));
         system.setBackgroundTextureFilename("graphics/backgrounds/background1.jpg");
 
+        Global.getSector().getStarSystem("epic_star_system");
+        SectorEntityToken entity = system.getEntityById("epic_entity");
+
         //set up star
         PlanetAPI star = system.initStar("PSE_adelaide_star", "star_orange", 900, 1550, -15000, 900);
         //todo.txt - set custom description
@@ -219,7 +222,7 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         HyperspaceTerrainPlugin hyperspaceTerrainPlugin = (HyperspaceTerrainPlugin) Misc.getHyperspaceTerrain().getPlugin();
         NebulaEditor nebulaEditor = new NebulaEditor(hyperspaceTerrainPlugin);
 
-        //set up radius's in hyperspace of system
+        //set up radii in hyperspace of system
         float minHyperspaceRadius = hyperspaceTerrainPlugin.getTileSize() * 2f;
         float maxHyperspaceRadius = system.getMaxRadiusInHyperspace();
 

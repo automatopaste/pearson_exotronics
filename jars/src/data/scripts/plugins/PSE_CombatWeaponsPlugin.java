@@ -1,17 +1,15 @@
 package data.scripts.plugins;
 
+import cmu.misc.MiscUtils;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
-import data.scripts.util.PSE_MiscUtils;
-import data.scripts.util.PSE_SpecLoadingUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
     private static final float CASCADE_PROJECTILE_MIN_DISTANCE = 500f;
 
     private CombatEngineAPI engine;
-    private PSE_CombatEffectsPlugin effectsPlugin;
+    private PSE_ExplosionEffectsPlugin effectsPlugin;
 
     private void flakExplode(
             DamagingProjectileAPI projectile,
@@ -70,14 +68,14 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
                 float damage;
                 if (ship.getShield() != null && ship.getShield().isWithinArc(location)) {
                     float dist = MathUtils.getDistance(
-                            PSE_MiscUtils.getNearestPointOnRadius(ship.getLocation(), ship.getShieldRadiusEvenIfNoShield(), location),
+                            MiscUtils.getNearestPointOnRadius(ship.getLocation(), ship.getShieldRadiusEvenIfNoShield(), location),
                             location
                     );
                     float frac = (explosionMaxRadius - dist) / explosionMaxRadius;
                     frac *= explosionMaxDamage - explosionMinDamage;
                     damage = frac + explosionMinDamage;
                 } else {
-                    float dist = MathUtils.getDistance(PSE_MiscUtils.getNearestPointOnShipBounds(ship, location), location);
+                    float dist = MathUtils.getDistance(MiscUtils.getNearestPointOnShipBounds(ship, location), location);
                     float frac = (explosionMaxRadius - dist) / explosionMaxRadius;
                     frac *= explosionMaxDamage - explosionMinDamage;
                     damage = frac + explosionMinDamage;
@@ -97,7 +95,7 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
             }
             for (CombatEntityAPI entity : targets) {
                 float dist = MathUtils.getDistance(
-                        PSE_MiscUtils.getNearestPointOnCollisionRadius(entity, location),
+                        MiscUtils.getNearestPointOnCollisionRadius(entity, location),
                         location
                 );
                 float frac = (explosionMaxRadius - dist) / explosionMaxRadius;
@@ -176,7 +174,7 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
             ship.setVentFringeColor(Color.YELLOW);
         }*/
 
-        PSE_CombatEffectsPlugin.PSE_EngineData data = (PSE_CombatEffectsPlugin.PSE_EngineData) engine.getCustomData().get(PSE_CombatEffectsPlugin.ENGINE_DATA_KEY);
+        PSE_ExplosionEffectsPlugin.PSE_EngineData data = (PSE_ExplosionEffectsPlugin.PSE_EngineData) engine.getCustomData().get(PSE_ExplosionEffectsPlugin.ENGINE_DATA_KEY);
         effectsPlugin = data.effectsPlugin;
 
         List<DamagingProjectileAPI> projectiles = engine.getProjectiles();
@@ -226,18 +224,18 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
                                 if (projectile.getOwner() != entity.getOwner()) {
                                     miniFlakExplode(projectile, entity);
                                 }
-                            } else if (MathUtils.getDistance(PSE_MiscUtils.getNearestPointOnShipBounds((ShipAPI) entity, location), location) <= MINI_FLAK_FUSE_RANGE) {
+                            } else if (MathUtils.getDistance(MiscUtils.getNearestPointOnShipBounds((ShipAPI) entity, location), location) <= MINI_FLAK_FUSE_RANGE) {
                                 miniFlakExplode(projectile, entity);
                             }
                         } else {
                             if (entity instanceof ShipAPI) {
                                 ShipAPI ship = (ShipAPI) entity;
 
-                                if (MathUtils.getDistance(PSE_MiscUtils.getNearestPointOnShipBounds(ship, location), location) <= MINI_FLAK_FUSE_RANGE) {
+                                if (MathUtils.getDistance(MiscUtils.getNearestPointOnShipBounds(ship, location), location) <= MINI_FLAK_FUSE_RANGE) {
                                     miniFlakExplode(projectile, entity);
                                 }
                             } else {
-                                Vector2f collisionPoint = PSE_MiscUtils.getNearestPointOnCollisionRadius(entity, location);
+                                Vector2f collisionPoint = MiscUtils.getNearestPointOnCollisionRadius(entity, location);
                                 if (MathUtils.getDistance(collisionPoint, location) <= MINI_FLAK_FUSE_RANGE) {
                                     miniFlakExplode(projectile, entity);
                                 }
@@ -275,14 +273,14 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
                                 if (projectile.getOwner() != entity.getOwner()) {
                                     helsingFlakExplode(projectile, entity);
                                 }
-                            } else if (MathUtils.getDistance(PSE_MiscUtils.getNearestPointOnShipBounds((ShipAPI) entity, location), location) <= HELSING_FLAK_FUSE_RANGE) {
+                            } else if (MathUtils.getDistance(MiscUtils.getNearestPointOnShipBounds((ShipAPI) entity, location), location) <= HELSING_FLAK_FUSE_RANGE) {
                                 helsingFlakExplode(projectile, entity);
                             }
                         } else {
                             if (entity instanceof ShipAPI) {
                                 ShipAPI ship = (ShipAPI) entity;
 
-                                if (ship.isFighter() && MathUtils.getDistance(PSE_MiscUtils.getNearestPointOnShipBounds(ship, location), location) <= HELSING_FLAK_FUSE_RANGE) {
+                                if (ship.isFighter() && MathUtils.getDistance(MiscUtils.getNearestPointOnShipBounds(ship, location), location) <= HELSING_FLAK_FUSE_RANGE) {
                                     helsingFlakExplode(projectile, entity);
                                 }
                             }
@@ -331,24 +329,24 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
         for (int i = 0; i < n; i++) {
             Vector2f loc = MathUtils.getPointOnCircumference(projectile.getLocation(), 10f, (float) (Math.random() * 360f));
 
-            PSE_CombatEffectsPlugin.spawnPrimitiveParticle(
-                    loc,
-                    projectile.getVelocity(),
-                    (Vector2f) new Vector2f(projectile.getVelocity()).scale(-0.01f),
-                    1f,
-                    projectile.getWeapon().getMuzzleFlashSpec().getParticleColor(),
-                    CombatEngineLayers.ABOVE_PARTICLES_LOWER,
-                    3f,
-                    3f / 1f,
-                    n,
-                    (float) (Math.random() * 360f),
-                    60f,
-                    -60f,
-                    0.3f,
-                    0f,
-                    0.1f,
-                    3f
-            );
+//            PSE_ExplosionEffectsPlugin.spawnPrimitiveParticle(
+//                    loc,
+//                    projectile.getVelocity(),
+//                    (Vector2f) new Vector2f(projectile.getVelocity()).scale(-0.01f),
+//                    1f,
+//                    projectile.getWeapon().getMuzzleFlashSpec().getParticleColor(),
+//                    CombatEngineLayers.ABOVE_PARTICLES_LOWER,
+//                    3f,
+//                    3f,
+//                    n,
+//                    (float) (Math.random() * 360f),
+//                    60f,
+//                    -60f,
+//                    0.3f,
+//                    0f,
+//                    0.1f,
+//                    3f
+//            );
         }
     }
 }

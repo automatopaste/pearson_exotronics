@@ -12,7 +12,8 @@
   "shieldRadius": 37.5,
   "viewOffset": 0,
   "builtInMods": [
-    "pointdefenseai"
+    "pointdefenseai",
+    "turretgyros"
   ],
   "builtInWeapons": {
     "WS0001": "ioncannon"

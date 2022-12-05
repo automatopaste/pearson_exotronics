@@ -4,12 +4,12 @@
   "hullSize": "DESTROYER",
   "spriteName": "graphics/PSE/ships/PSE_richmond.png",
   "style": "PEARSON_EXOTRONICS_BASE_HULL",
-  "height": 128,
-  "width": 150,
-  "center": [75, 64],
-  "collisionRadius": 132,
-  "shieldCenter": [0, 0],
-  "shieldRadius": 110.5,
+  "height": 124,
+  "width": 156,
+  "center": [78, 64],
+  "collisionRadius": 117,
+  "shieldCenter": [-10, -0],
+  "shieldRadius": 97.5,
   "viewOffset": 0,
   "builtInWings": [
     "PSE_drone2_wing"
@@ -22,7 +22,7 @@
       "mount": "TURRET",
       "arc": 210,
       "angle": 35,
-      "locations": [1, 44]
+      "locations": [0, 44]
     },
     {
       "id": "WS0002",
@@ -31,7 +31,7 @@
       "mount": "TURRET",
       "arc": 210,
       "angle": -35,
-      "locations": [1, -44]
+      "locations": [0, -44]
     },
     {
       "id": "WS0003",
@@ -40,7 +40,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": 120,
-      "locations": [-29, 53]
+      "locations": [-30, 53]
     },
     {
       "id": "WS0004",
@@ -49,7 +49,7 @@
       "mount": "TURRET",
       "arc": 225,
       "angle": -120,
-      "locations": [-29, -53]
+      "locations": [-30, -53]
     },
     {
       "id": "WS0005",
@@ -58,7 +58,7 @@
       "mount": "TURRET",
       "arc": 160,
       "angle": 20,
-      "locations": [28, 48]
+      "locations": [27, 48]
     },
     {
       "id": "WS0006",
@@ -67,7 +67,7 @@
       "mount": "TURRET",
       "arc": 160,
       "angle": -20,
-      "locations": [28, -48]
+      "locations": [27, -48]
     },
     {
       "id": "WS0007",
@@ -95,8 +95,8 @@
       "arc": 360,
       "angle": 0,
       "locations": [
-        -11.5, 14,
-        -11.5, -14.5
+        -11.5, 17,
+        -11.5, -11.5
       ]
     },
     {
@@ -107,8 +107,8 @@
       "arc": 360,
       "angle": 0,
       "locations": [
-        -8, -14,
-        -8.5, 14
+        -8, -11,
+        -8.5, 17
       ]
     },
     {
@@ -118,7 +118,7 @@
       "mount": "HIDDEN",
       "arc": 0,
       "angle": 0,
-      "locations": [-10.5, 13.5]
+      "locations": [-10, 13]
     },
     {
       "id": "WS0010",
@@ -127,22 +127,13 @@
       "mount": "HIDDEN",
       "arc": 0,
       "angle": -0,
-      "locations": [-10.5, -13.5]
+      "locations": [-10, -13]
     }
   ],
   "engineSlots": [
     {
-      "location": [-52, 19],
-      "length": 14,
-      "width": 16,
-      "angle": 180,
-      "contrailSize": 16,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-52, -19],
-      "length": 14,
+      "location": [-56, 8.5],
+      "length": 40,
       "width": 16,
       "angle": -180,
       "contrailSize": 16,
@@ -150,35 +141,17 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-45, 29],
-      "length": 12,
-      "width": 15,
+      "location": [-56, -8.5],
+      "length": 40,
+      "width": 16,
       "angle": 180,
-      "contrailSize": 15,
+      "contrailSize": 16,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-45, -29],
-      "length": 12,
-      "width": 15,
-      "angle": -180,
-      "contrailSize": 15,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-44, 40.5],
-      "length": 11,
-      "width": 20,
-      "angle": 180,
-      "contrailSize": 20,
-      "style": "CUSTOM",
-      "styleId": "PSE_baseFlare"
-    },
-    {
-      "location": [-44, -40.5],
-      "length": 11,
+      "location": [-55, 19],
+      "length": 48,
       "width": 20,
       "angle": -180,
       "contrailSize": 20,
@@ -186,34 +159,69 @@
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-55, 8.5],
-      "length": 11,
-      "width": 14,
+      "location": [-55, -19],
+      "length": 48,
+      "width": 20,
       "angle": 180,
-      "contrailSize": 14,
+      "contrailSize": 20,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     },
     {
-      "location": [-55, -8.5],
-      "length": 11,
-      "width": 14,
+      "location": [-45, 40.5],
+      "length": 40,
+      "width": 16,
       "angle": -180,
-      "contrailSize": 14,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-45, -40.5],
+      "length": 40,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-47, 29],
+      "length": 26,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-47, -29],
+      "length": 26,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
       "style": "CUSTOM",
       "styleId": "PSE_baseFlare"
     }
   ],
   "bounds": [
-    25.5, -16,
-    54.5, -37.5,
-    29.5, -64,
-    -30.5, -64.5,
-    -54, -6.5,
-    -54, 6.5,
-    -30.5, 64.5,
-    29.5, 64,
-    54.5, 37.5,
-    25.5, 16
+    22, -18.5,
+    56, -39.5,
+    44.5, -42.5,
+    28, -65,
+    -22, -75.5,
+    -20, -64,
+    -33, -64.5,
+    -41.5, -52.5,
+    -48.5, -20,
+    -48.5, 20,
+    -41.5, 52.5,
+    -33, 64.5,
+    -20, 64,
+    -22, 75.5,
+    28, 65,
+    44.5, 42.5,
+    56, 39.5,
+    22, 18.5
   ]
 }

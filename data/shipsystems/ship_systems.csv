@@ -1,12 +1,10 @@
 name,id,flux/second,f/s (base rate),f/s (base cap),flux/use,f/u (base rate),f/u (base cap),cr/u,max uses,regen,charge up,active,down,cooldown,toggle,noDissipation,noHardDissipation,hardFlux,noFiring,noTurning,noStrafing,noAccel,noShield,noVent,icon
-Corona,PSE_droneCorona,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
-Laser,PSE_droneLaser,,,,,,,,,,,,,,TRUE,,,,,,,,,,
-Bastion,PSE_droneBastion,,,,,,0.02,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Corona Drones,PSE_Corona,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Bastion Drones,PSE_Bastion,,,,,,0.02,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
 EM Pulse,PSE_droneEMP,,,,,,,,3,1.2,0.3,3,0.2,0.3,,,,,,,,,,,
 Pulse Impeller,PSE_pulseImpeller,,,,,,0.05,,4,0.2,0.2,0.05,1,0.8,,,,,,,,,,,
-MVA,PSE_droneMVA,,,,,,0.03,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
-Shroud,PSE_droneShroud,,,,,,0.02,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Vector Drones,PSE_Vector,,,,,,0.03,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Shroud Drones,PSE_Shroud,,,,,,0.02,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
 Ghost Skimmer,PSE_ghostSkimmer,,,,,,0.075,,4,0.2,0.2,,,0.8,,,,,,,,,,,
-Citadel,PSE_droneCitadel,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
-Citadel Mode,PSE_droneCitadelMode,,,,,,,,,,,,,,TRUE,,,,,,,,,,
-Rift,PSE_droneRift,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Citadel Drones,PSE_Citadel,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png
+Rift Drones,PSE_Rift,,,,,,0.01,,,,0.3,,0.3,,,,,,,,,,,,graphics/icons/hullsys/drone_pd_high.png

@@ -3,13 +3,14 @@
   "hullId": "PSE_leyland",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 12,
-  "fluxVents": 23,
+  "fluxCapacitors": 26,
+  "fluxVents": 30,
   "quality": 0.9,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "PSE_OverclockedForgeVats"
+    "PSE_OverclockedForgeVats",
+    "pointdefenseai"
   ],
   "weaponGroups": [
     {
@@ -31,18 +32,16 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0012": "pulselaser",
-        "WS0013": "pulselaser"
+        "WS0003": "PSE_douglas",
+        "WS0004": "PSE_douglas"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "lightag",
-        "WS0002": "lightag",
-        "WS0003": "heavyac",
-        "WS0004": "heavyac"
+        "WS0012": "PSE_hardlux",
+        "WS0013": "PSE_hardlux"
       }
     },
     {
@@ -56,6 +55,14 @@
         "WS0009": "PSE_novaburst_mini",
         "WS0010": "PSE_novaburst_mini",
         "WS0011": "pdlaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightag",
+        "WS0002": "lightag"
       }
     }
   ],
