@@ -7,4 +7,10 @@
 	"gameVersion":"0.95.1a-RC6",
 	"jars":["jars/PearsonExotronics.jar"],
 	"modPlugin":"data.scripts.PSEModPlugin",
+    "dependencies": [
+        {
+            "id": "cmutils",
+            "name": "Combat Misc Utils",
+        },
+    ],
 }
