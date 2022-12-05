@@ -17,7 +17,7 @@ public class PSE_SODCampSubmarketPlugin extends BaseSubmarketPlugin {
     private static final List<String> PERSISTENT_SHIP_VARIANTS = new ArrayList<>();
     static {
         //PERSISTENT_SHIP_VARIANTS.add("PSE_leyland_sod_Hull");
-        PERSISTENT_SHIP_VARIANTS.add("PSE_kingston_sod_Hull");
+        //PERSISTENT_SHIP_VARIANTS.add("PSE_kingston_sod_Hull");
         //PERSISTENT_SHIP_VARIANTS.add("PSE_serrano_sod_Hull");
         //PERSISTENT_SHIP_VARIANTS.add("PSE_denmark_sod_Hull");
         //PERSISTENT_SHIP_VARIANTS.add("PSE_richmond_sod_Hull");
@@ -49,19 +49,19 @@ public class PSE_SODCampSubmarketPlugin extends BaseSubmarketPlugin {
                 addShip(variant, false, 1f);
             }*/
 
-            addShips(
-                    "pearson_division",
-                    180f,
-                    0f,
-                    0f,
-                    0f,
-                    0f,
-                    0f,
-                    null,
-                    1f,
-                    FactionAPI.ShipPickMode.PRIORITY_ONLY,
-                    new FactionDoctrine()
-            );
+//            addShips(
+//                    "pearson_division",
+//                    180f,
+//                    0f,
+//                    0f,
+//                    0f,
+//                    0f,
+//                    0f,
+//                    null,
+//                    1f,
+//                    FactionAPI.ShipPickMode.PRIORITY_ONLY,
+//                    new FactionDoctrine()
+//            );
 
             for (FleetMemberAPI member : getCargo().getMothballedShips().getMembersListCopy()) {
                 if (!PERSISTENT_SHIP_VARIANTS.contains(member.getVariant().getHullVariantId())) {

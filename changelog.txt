@@ -1,3 +1,9 @@
+========v0.7.1========
+-fixed erroneous mount on the armstrong
+-added description to the helsing flak rifle
+-added flak rifle to priority weapons
+-fixed crash related to removed SOD quest content
+
 ========v0.7.0========
 -full sprite rework
 -vast simplification and streamlining of core scripts to external library

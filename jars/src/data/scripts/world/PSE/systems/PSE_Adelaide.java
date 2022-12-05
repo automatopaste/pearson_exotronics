@@ -20,8 +20,6 @@ import java.util.List;
 public class PSE_Adelaide implements SectorGeneratorPlugin {
     private final List<MarketAPI> markets = new ArrayList<>();
 
-    private static MarketAPI iucharMarket;
-
     @Override
     public void generate(SectorAPI sector) {
         //initialise system
@@ -30,12 +28,8 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         system.setLightColor(new Color(221, 255, 226));
         system.setBackgroundTextureFilename("graphics/backgrounds/background1.jpg");
 
-        Global.getSector().getStarSystem("epic_star_system");
-        SectorEntityToken entity = system.getEntityById("epic_entity");
-
         //set up star
         PlanetAPI star = system.initStar("PSE_adelaide_star", "star_orange", 900, 1550, -15000, 900);
-        //todo.txt - set custom description
 
         //generate up to three entities in the centre of the system and returns the orbit radius of the furthest entity
         float innerOrbitDistance = StarSystemGenerator.addOrbitingEntities(system, star, StarAge.AVERAGE, 1, 3, 4000, 1, true);
@@ -142,7 +136,6 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 false
         );
         markets.add(iucharMarketplace);
-        iucharMarket = iucharMarketplace;
 
         PlanetAPI iucharba = system.addPlanet("PSE_iucharba", danu, "Iucharba", "cryovolcanic", 0f, 70f, 1000f, 100f);
         MarketAPI iucharbaMarketplace = PSE_CampaignUtils.addMarketplace(
@@ -178,8 +171,6 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
                 false
         );
         markets.add(iucharbaMarketplace);
-        //debug use
-        iucharbaMarketplace.addSubmarket("PSE_sod_submarket");
 
         //nebula
         SectorEntityToken nebula = Misc.addNebulaFromPNG("data/campaign/terrain/eos_nebula.png", 0, 0, system, "terrain", "nebula_amber", 4, 4, StarAge.AVERAGE);
@@ -206,7 +197,6 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
         stable1.setCircularOrbitPointingDown(star, 120f, innerOrbitDistance + 10000f, 900f);
         stable2.setCircularOrbitPointingDown(star, 270f, innerOrbitDistance + 3000f, 300f);
 
-
         //jump points
         JumpPointAPI newCaledoniaJumpPoint = Global.getFactory().createJumpPoint("PSE_newCaledonia_jumpPoint", "New Caledonia Jump Point");
         OrbitAPI newCaledoniaJumpPointOrbit = Global.getFactory().createCircularOrbit(newCaledonia, 90f, 550f, 40f);
@@ -232,9 +222,5 @@ public class PSE_Adelaide implements SectorGeneratorPlugin {
 
     public List<MarketAPI> getMarkets() {
         return markets;
-    }
-
-    public static MarketAPI getIucharMarket() {
-        return iucharMarket;
     }
 }

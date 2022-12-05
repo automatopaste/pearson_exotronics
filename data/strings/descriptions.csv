@@ -9,6 +9,7 @@ PSE_spectrumpd,WEAPON,"A semi-modification of the venerable Burst PD system that
 
 The disruption of the beam using dual secondary peaking oscillators, allows for the projection of exotic p-space particles, passively collected through natural ship movement, which cause unintended electrical behaviour in the flux management systems of unprotected targets. This results in effectively EMP-ing fighter craft a significant fraction of the time that contact is achieved.",Point Defense,,
 PSE_thrall_launcher,WEAPON,"Fire salvos of heavy tungsten alloy masses strapped to high-delta rocket motors. Effective at pressuring most shield generators, and pairs well with high-explosive weaponry.",Anti Shield,,
+PSE_helsing_flak_rifle,WEAPON,"A unique point defence weapon designed to take out fighter craft from long range with extreme prejudice, it can be a powerful area denial weapon in conjunction with dedicated PD processor AIs.",Anti Fighter,,
 ,,,,,
 PSE_douglas,WEAPON,"Designed to be a counterpart to mid-range kinetic weapons, this autocannon can provide consistent anti-armor punch at a moderate flux cost.",Assault,,
 PSE_hardlux,WEAPON,"A revolutionary design that fills a much-needed generalist role capable of heavily pressuring shield generators, at the cost of the major reactor drain needed to generate the exotic particles accelerated by this beamcannon.",Anti Shield,,

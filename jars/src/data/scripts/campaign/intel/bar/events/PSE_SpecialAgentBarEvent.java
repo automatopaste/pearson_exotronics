@@ -669,12 +669,13 @@ public class PSE_SpecialAgentBarEvent extends BaseBarEventWithPerson {
 
     @Override
     public boolean shouldShowAtMarket(MarketAPI market) {
-        if (!market.getFaction().getId().contentEquals(Factions.INDEPENDENT)) {
-            return false;
-        }
-        if (!market.getName().contentEquals("Iuchar")) {
-            return false;
-        }
-        return true;
+        return false;
+//        if (!market.getFaction().getId().contentEquals(Factions.INDEPENDENT)) {
+//            return false;
+//        }
+//        if (!market.getName().contentEquals("Iuchar")) {
+//            return false;
+//        }
+//        return true;
     }
 }
