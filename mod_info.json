@@ -2,7 +2,7 @@
 	"id":"pearson_exotronics",
 	"name":"Pearson Exotronics",
 	"author":"tomatopaste",
-	"version":"0.7.1",
+	"version":"0.7.2",
 	"description":"A domain-era corporation specialising in advanced automated defence systems.",
 	"gameVersion":"0.95.1a-RC6",
 	"jars":["jars/PearsonExotronics.jar"],

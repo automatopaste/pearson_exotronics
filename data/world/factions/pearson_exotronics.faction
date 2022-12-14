@@ -253,7 +253,7 @@
 		"ai_cores",
 	],
 	"music":{
-	    "theme":"PSE_music_market_hostile",
+	    #"theme":"PSE_music_market_hostile",
 		#"market_neutral":"PSE_music_market_hostile",
 		"market_hostile":"PSE_music_market_hostile",
 		#"market_friendly":"PSE_music_market_hostile",
