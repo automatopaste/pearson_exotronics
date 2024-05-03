@@ -3,7 +3,7 @@
   "hullId": "PSE_leyland",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 26,
+  "fluxCapacitors": 29,
   "fluxVents": 30,
   "quality": 0.9,
   "permaMods": [],
@@ -17,6 +17,14 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
+        "WS0001": "pdlaser",
+        "WS0002": "pdlaser",
+        "WS0003": "irautolance",
+        "WS0004": "irautolance",
+        "WS0007": "heavymauler",
+        "WS0008": "heavymauler",
+        "WS0009": "pdlaser",
+        "WS0010": "pdlaser",
         "WS0018": "PSE_parity_gun"
       }
     },
@@ -31,10 +39,7 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {
-        "WS0003": "PSE_douglas",
-        "WS0004": "PSE_douglas"
-      }
+      "weapons": {}
     },
     {
       "autofire": true,
@@ -50,20 +55,13 @@
       "weapons": {
         "WS0005": "pdlaser",
         "WS0006": "pdlaser",
-        "WS0007": "flak",
-        "WS0008": "flak",
-        "WS0009": "PSE_novaburst_mini",
-        "WS0010": "PSE_novaburst_mini",
         "WS0011": "pdlaser"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {
-        "WS0001": "lightag",
-        "WS0002": "lightag"
-      }
+      "weapons": {}
     }
   ],
   "modules": [],

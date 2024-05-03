@@ -50,7 +50,7 @@ public class PSE_HardluxBeamEffect implements BeamEffectPlugin {
                 t.scale((float) Math.random());
                 Vector2f.add(l, t, t);
 
-                Vector2f v = new Vector2f(100f, 0f);
+                Vector2f v = new Vector2f(50f, 0f);
                 VectorUtils.rotate(v, (float) Math.random() * 360f);
 
                 params.vel = v;
@@ -76,23 +76,25 @@ public class PSE_HardluxBeamEffect implements BeamEffectPlugin {
                 Vector2f point,
                 boolean shieldHit
         ) {
-            if (!(param instanceof DamagingProjectileAPI) && param instanceof BeamAPI) {
-                if (shieldHit) {
-                    Global.getCombatEngine().applyDamage(
-                            target,
-                            point,
-                            damage.getBaseDamage() * KINETIC_PERCENT_BONUS,
-                            DamageType.KINETIC,
-                            0f,
-                            false,
-                            false,
-                            ship
-                    );
-                }
-
+            if (param instanceof BeamAPI) {
                 BeamAPI beam = (BeamAPI) param;
 
-                if (beam.getWeapon().getSpec().getWeaponId().equals("PSE_hardlux")) damage.setForceHardFlux(true);
+                if (beam.getWeapon().getSpec().getWeaponId().equals("PSE_hardlux")) {
+                    if (shieldHit) {
+                        Global.getCombatEngine().applyDamage(
+                                target,
+                                point,
+                                damage.getBaseDamage() * KINETIC_PERCENT_BONUS,
+                                DamageType.KINETIC,
+                                0f,
+                                false,
+                                false,
+                                ship
+                        );
+
+                        damage.setForceHardFlux(true);
+                    }
+                }
             }
             return null;
         }

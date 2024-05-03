@@ -1,0 +1,13 @@
+{
+	"id":"PSE_Trophy",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.drones.trophy.TrophyShipsystem",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.drones.trophy.TrophySystemAI",
+
+    # VERY IMPORTANT
+    "runScriptWhileIdle":true, # unapply() never gets called
+
+	"useSound":"drone_launch",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

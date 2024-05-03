@@ -17,6 +17,7 @@ public class PSE_LeachingTargetMatrix extends BaseHullMod {
     private static final Color RING_COLOUR = new Color(191, 253, 225, 255);
     //private static final Color HIGHLIGHT_COLOUR = Global.getSettings().getColor("hColor");
     private static final Color HIGHLIGHT_COLOUR = new Color(0, 255, 85, 255);
+    private static final Color DEBUFF_COLOUR = new Color(255, 115, 0, 255);
     private static final String bullet = "  - ";
 
     private final IntervalUtil tracker = new IntervalUtil(1f, 1f);
@@ -171,11 +172,14 @@ public class PSE_LeachingTargetMatrix extends BaseHullMod {
         if (amount == 0) return;
 
         String type;
-        if (amount > 0) type = "increased by ";
+        boolean buff = amount > 0;
+        if (buff) type = "increased by ";
         else type = "decreased by ";
 
+        Color color = buff ? HIGHLIGHT_COLOUR : DEBUFF_COLOUR;
+
         String text = bullet + desc + type + amount + post;
-        if (highlightPost) tooltip.addPara(text, 3f, HIGHLIGHT_COLOUR, amount + post.replaceFirst("%", ""));
-        else tooltip.addPara(text, 3f, HIGHLIGHT_COLOUR, amount + "");
+        if (highlightPost) tooltip.addPara(text, 3f, color, amount + post.replaceFirst("%", ""));
+        else tooltip.addPara(text, 3f, color, amount + "");
     }
 }

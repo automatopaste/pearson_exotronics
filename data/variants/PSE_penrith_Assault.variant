@@ -15,42 +15,55 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0013": "locust"
+        "WS0013": "hurricane"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0004": "PSE_thrall_launcher",
+        "WS0005": "PSE_thrall_launcher"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0010": "hephag"
+        "WS0006": "mark9"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "heavyac",
-        "WS0004": "heavyac"
+        "WS0007": "PSE_douglas",
+        "WS0008": "PSE_douglas"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0012": "PSE_helsing_flak_rifle",
-        "WS0014": "PSE_helsing_flak_rifle"
+        "WS0011": "PSE_helsing_flak_rifle",
+        "WS0012": "PSE_helsing_flak_rifle"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "pdlaser",
-        "WS0002": "pdlaser",
-        "WS0005": "pdlaser",
-        "WS0006": "pdlaser",
-        "WS0007": "pdlaser",
-        "WS0008": "pdlaser"
+        "WS0001": "gravitonbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "PSE_spectrumpd",
+        "WS0003": "PSE_spectrumpd",
+        "WS0009": "PSE_spectrumpd",
+        "WS0010": "PSE_spectrumpd"
       }
     }
   ],

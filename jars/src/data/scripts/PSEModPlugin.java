@@ -4,14 +4,11 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.campaign.CampaignPlugin;
-import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
-import data.scripts.ai.MagicMissileAI;
-import data.scripts.campaign.PSE_JangalaEliminatorScript;
-import data.scripts.campaign.PSE_SODCampEventListener;
-import data.scripts.campaign.intel.bar.events.PSE_SpecialAgentBarEventCreator;
+import com.fs.starfarer.api.combat.MissileAIPlugin;
+import com.fs.starfarer.api.combat.MissileAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
+import data.scripts.ai.DIYMissileAI;
 import data.scripts.world.PSE.PSE_WorldGen;
-import exerelin.campaign.SectorManager;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -47,10 +44,12 @@ public class PSEModPlugin extends BaseModPlugin {
 
     @Override
     public void onNewGame() {
-        haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
-        if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
-            new PSE_WorldGen().generate(Global.getSector());
-        }
+//        haveNexerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
+//        if (!haveNexerelin || SectorManager.getManager().isCorvusMode()) {
+//            new PSE_WorldGen().generate(Global.getSector());
+//        }
+
+        new PSE_WorldGen().generate(Global.getSector());
     }
 
     @Override
@@ -85,14 +84,16 @@ public class PSEModPlugin extends BaseModPlugin {
 //        BarEventManager.getInstance().addEventCreator(new PSE_SpecialAgentBarEventCreator());
     }
 
+    public static final String DIY_MISSILE_ID = "atropos_torp";
+
     @Override
     public PluginPick<MissileAIPlugin> pickMissileAI(MissileAPI missile, ShipAPI launchingShip) {
-        String specId = missile.getProjectileSpecId();
+        String specID = missile.getProjectileSpecId();
 
-//        if (specId.equals(THRALL_ID)) {
-//            //return new PluginPick<MissileAIPlugin>(new PSE_BaseCompetentMissileAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
-//            return new PluginPick<MissileAIPlugin>(new MagicMissileAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
-//        }
+        if (specID.equals(DIY_MISSILE_ID)) {
+            MissileAIPlugin newAIPlugin = new DIYMissileAI(missile, launchingShip);
+            return new PluginPick<>(newAIPlugin, CampaignPlugin.PickPriority.MOD_SET);
+        }
 
         return null;
     }

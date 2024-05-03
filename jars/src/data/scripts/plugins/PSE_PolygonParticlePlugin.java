@@ -1,31 +1,45 @@
 package data.scripts.plugins;
 
+import cmu.CMUtils;
+import cmu.plugins.renderers.PolygonParticleRenderer;
 import cmu.shaders.particles.BaseParticle;
 import cmu.shaders.particles.ComputeFunction;
 import cmu.shaders.particles.PolygonParticle;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.util.IntervalUtil;
+import javafx.scene.shape.Polygon;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.Iterator;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 import static org.lazywizard.lazylib.opengl.ColorUtils.glColor;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
 
 public class PSE_PolygonParticlePlugin extends BaseCombatLayeredRenderingPlugin {
 
     public static final String DATA_KEY = "PSE_polygons";
 
+    public static final boolean SHADER_MODE = true;
+    private final PolygonParticleRenderer polygonRenderer;
+
     private final List<PolygonParticle> particles;
 
     public PSE_PolygonParticlePlugin() {
         particles = new ArrayList<>();
+
+        if (SHADER_MODE) {
+            polygonRenderer = (PolygonParticleRenderer) CMUtils.initBuiltinParticleRenderer(CMUtils.BuiltinParticleRenderers.POLYGON, CombatEngineLayers.BELOW_SHIPS_LAYER);
+            polygonRenderer.setBlendEquation(GL_FUNC_ADD);
+        } else {
+            polygonRenderer = null;
+        }
     }
 
     @Override
@@ -35,8 +49,21 @@ public class PSE_PolygonParticlePlugin extends BaseCombatLayeredRenderingPlugin 
         engine.getCustomData().put(DATA_KEY, this);
     }
 
+//    private IntervalUtil interval = new IntervalUtil(15f, 15f);
+
     @Override
     public void advance(float amount) {
+        if (SHADER_MODE) {
+//            interval.advance(amount);
+//            if (!interval.intervalElapsed()) return;
+//
+//            for (int i = 0; i < 1000; i++) {
+//                spawnRandomParticle();
+//            }
+
+            return;
+        }
+
         for (Iterator<PolygonParticle> iterator = particles.iterator(); iterator.hasNext();) {
             PolygonParticle p = iterator.next();
 
@@ -45,8 +72,42 @@ public class PSE_PolygonParticlePlugin extends BaseCombatLayeredRenderingPlugin 
         }
     }
 
+//    private void spawnRandomParticle() {
+//        Random r = new Random();
+//
+//        Color c1 = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 200);
+//        Color c2 = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 200);
+//
+//        int poly = r.nextInt(6);
+//        PolygonParticle.PolygonParams params = new PolygonParticle.PolygonParams(poly, CombatEngineLayers.BELOW_SHIPS_LAYER, c2, 0.8f);
+//        params.color = c1;
+//        float i1 = r.nextFloat() * 100f;
+//        params.sizeInit = new Vector2f(i1, i1);
+//        float i2 = r.nextFloat() * 100f;
+//        params.sizeFinal = new Vector2f(i2, i2);
+//        params.lifetime = 10f;
+//        params.vel = new Vector2f(r.nextFloat() * 20f - 10f, r.nextFloat() * 20f - 10f);
+//        params.acc = new Vector2f(r.nextFloat() * 20f - 10f, r.nextFloat() * 20f - 10f);
+//        params.angVel = r.nextFloat() * 60f - 30f;
+//        params.angAcc = r.nextFloat() * 60f - 30f;
+//        params.angle = r.nextFloat() * 360f;
+//
+//        Vector2f loc = new Vector2f(800f, 0f);
+//        VectorUtils.rotate(loc, r.nextFloat() * 360f);
+//
+//        polygonRenderer.addParticle(new PolygonParticle(loc, params));
+//    }
+
     @Override
     public void render(CombatEngineLayers layer, ViewportAPI viewport) {
+        if (SHADER_MODE) {
+            return;
+        }
+
+        fixedRender(layer, viewport);
+    }
+
+    private void fixedRender(CombatEngineLayers layer, ViewportAPI viewport) {
         openGL();
 
         for (PolygonParticle p : particles) {
@@ -54,7 +115,6 @@ public class PSE_PolygonParticlePlugin extends BaseCombatLayeredRenderingPlugin 
 
             glPushMatrix();
             glTranslatef(viewport.convertWorldXtoScreenX(p.location.x), viewport.convertWorldYtoScreenY(p.location.y), 0f);
-//            glTranslatef(viewport.convertWorldXtoScreenX(0f), viewport.convertWorldYtoScreenY(0f), 0f);
 
             glBegin(GL_POLYGON);
 
@@ -118,7 +178,11 @@ public class PSE_PolygonParticlePlugin extends BaseCombatLayeredRenderingPlugin 
     }
 
     public void addParticle(PolygonParticle p) {
-        particles.add(p);
+        if (SHADER_MODE) {
+            polygonRenderer.addParticle(p);
+        } else {
+            particles.add(p);
+        }
     }
 
     public static void add(Vector2f location, PolygonParticle.PolygonParams params) {

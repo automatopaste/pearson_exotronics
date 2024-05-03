@@ -3,7 +3,7 @@
   "hullId": "PSE_armstrong",
   "displayName": "Close Support",
   "goalVariant": true,
-  "fluxCapacitors": 17,
+  "fluxCapacitors": 15,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
@@ -45,8 +45,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "pdlaser",
-        "WS0002": "pdlaser"
+        "WS0001": "PSE_spectrumpd",
+        "WS0002": "PSE_spectrumpd"
       }
     }
   ],

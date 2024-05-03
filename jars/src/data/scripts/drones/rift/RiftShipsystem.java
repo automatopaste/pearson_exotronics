@@ -1,8 +1,10 @@
 package data.scripts.drones.rift;
 
+import cmu.CMUtils;
 import cmu.drones.systems.DroneShipsystem;
 import cmu.drones.systems.ForgeSpec;
 import cmu.drones.systems.ForgeTracker;
+import cmu.plugins.renderers.PolygonParticleRenderer;
 import cmu.shaders.particles.PolygonParticle;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
@@ -16,15 +18,21 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
+import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
+
 public class RiftShipsystem extends DroneShipsystem implements ForgeSpec {
 
-    public static final float FIELD_EFFECT_RADIUS = 1000f;
+    private static final String DATA_KEY_1 = "PSE_RiftShipsystem";
+
+    public static final float FIELD_EFFECT_RADIUS = 1600f;
     private static final float FIELD_EFFECT_BONUS_PERCENT = 35f;
     private static final float MISSILE_FX_RADIUS = 0f;
     private static final float FIGHTER_FX_RADIUS = 10f;
-    private static final Color FIELD_EFFECT_COLOUR = new Color(0, 255, 144, 255);
-    private static final Color FIELD_ENEMY_EFFECT_COLOUR = new Color(255, 102, 0, 255);
-    private final IntervalUtil fieldParticleInterval = new IntervalUtil(3f, 3f);
+    private static final Color FIELD_EFFECT_COLOUR = new Color(0, 255, 144, 80);
+    private static final Color FIELD_EFFECT_COLOUR_EDGE = new Color(0, 255, 136, 255);
+    private static final Color FIELD_ENEMY_EFFECT_COLOUR = new Color(255, 102, 0, 80);
+    private static final Color FIELD_ENEMY_EFFECT_COLOUR_EDGE = new Color(255, 102, 0, 255);
+    private final IntervalUtil fieldParticleInterval = new IntervalUtil(0.5f, 0.5f);
     private final IntervalUtil missileParticleInterval = new IntervalUtil(0.6f, 0.6f);
 
     private static final float[] mode2Speed = new float[]{20f, -20f, -20f, 20f};
@@ -51,6 +59,22 @@ public class RiftShipsystem extends DroneShipsystem implements ForgeSpec {
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+        Map<String, Object> data = Global.getCombatEngine().getCustomData();
+
+        PolygonParticleRenderer rendererBelow = (PolygonParticleRenderer) data.get(DATA_KEY_1);
+        if (rendererBelow == null) {
+            rendererBelow = (PolygonParticleRenderer) CMUtils.initBuiltinParticleRenderer(CMUtils.BuiltinParticleRenderers.POLYGON, CombatEngineLayers.BELOW_SHIPS_LAYER);
+            rendererBelow.setBlendEquation(GL_FUNC_ADD);
+            data.put(DATA_KEY_1, rendererBelow);
+        }
+
+        PolygonParticleRenderer rendererFighter = (PolygonParticleRenderer) data.get(DATA_KEY_1);
+        if (rendererFighter == null) {
+            rendererFighter = (PolygonParticleRenderer) CMUtils.initBuiltinParticleRenderer(CMUtils.BuiltinParticleRenderers.POLYGON, CombatEngineLayers.UNDER_SHIPS_LAYER);
+            rendererFighter.setBlendEquation(GL_FUNC_ADD);
+            data.put(DATA_KEY_1, rendererFighter);
+        }
+
         super.apply(stats, id, state, effectLevel);
 
         float amount = Global.getCombatEngine().getElapsedInLastFrame();
@@ -69,6 +93,8 @@ public class RiftShipsystem extends DroneShipsystem implements ForgeSpec {
             case RECALL:
                 fieldParticleInterval.setElapsed(0f);
                 missileParticleInterval.setElapsed(0f);
+                fieldParticleInterval.forceIntervalElapsed();
+                missileParticleInterval.forceIntervalElapsed();
 
                 break;
             case ECCM_ARRAY:
@@ -85,23 +111,27 @@ public class RiftShipsystem extends DroneShipsystem implements ForgeSpec {
                         params.sizeInit = new Vector2f(0f, 0f);
                         params.sizeFinal = new Vector2f(100f, 50f);
 
-                        params.lifetime = 2f;
+                        params.lifetime = 1f;
+                        params.edgeWidth = 0.1f;
 
-                        params.color = FIELD_ENEMY_EFFECT_COLOUR.darker().darker();
+                        params.color = new Color(0, 0, 0, 0);
+                        params.edgeColor = FIELD_ENEMY_EFFECT_COLOUR_EDGE;
 
-                        PSE_PolygonParticlePlugin.add(drone.getLocation(), params);
+                        rendererFighter.addParticle(drone.getLocation(), params);
                     }
                 }
 
                 if (fieldParticleInterval.intervalElapsed()) {
                     PolygonParticle.PolygonParams params = new PolygonParticle.PolygonParams(24, CombatEngineLayers.UNDER_SHIPS_LAYER, FIELD_EFFECT_COLOUR.darker(), 0.05f);
                     params.computeFunction = new PSE_PolygonParticlePlugin.FollowComputeFunction(ship);
-                    params.sizeInit = new Vector2f(0f, 0f);
-                    params.sizeFinal = new Vector2f(FIELD_EFFECT_RADIUS, 10f);
-                    params.color = FIELD_EFFECT_COLOUR.darker().darker().darker();
-                    params.lifetime = 6f;
+                    params.sizeInit = new Vector2f(FIELD_EFFECT_RADIUS * 0.95f, FIELD_EFFECT_RADIUS * 0.95f);
+                    params.sizeFinal = new Vector2f(FIELD_EFFECT_RADIUS, FIELD_EFFECT_RADIUS);
+                    params.color = new Color(0, 0, 0, 0);
+                    params.edgeColor = FIELD_EFFECT_COLOUR_EDGE;
+                    params.lifetime = 2f;
+                    params.edgeWidth = 0.05f;
 
-                    PSE_PolygonParticlePlugin.add(ship.getLocation(), params);
+                    rendererBelow.addParticle(ship.getLocation(), params);
                 }
 
                 List<ShipAPI> shipsWithBuffedMissiles = new ArrayList<>();
@@ -135,14 +165,15 @@ public class RiftShipsystem extends DroneShipsystem implements ForgeSpec {
 
                                 params.computeFunction = new PSE_PolygonParticlePlugin.FollowComputeFunction(missile);
 
-                                params.sizeInit = new Vector2f(MISSILE_FX_RADIUS + missile.getCollisionRadius(), 5f);
-                                params.sizeFinal = new Vector2f(0f, 1f);
+                                params.sizeInit = new Vector2f(MISSILE_FX_RADIUS + missile.getCollisionRadius(), MISSILE_FX_RADIUS + missile.getCollisionRadius());
+                                params.sizeFinal = new Vector2f(0f, 0f);
 
                                 params.color = c.darker();
+                                params.edgeColor = c;
 
                                 params.lifetime = 0.5f;
 
-                                PSE_PolygonParticlePlugin.add(missile.getLocation(), params);
+                                rendererFighter.addParticle(missile.getLocation(), params);
                             }
                         }
                     }
@@ -164,14 +195,15 @@ public class RiftShipsystem extends DroneShipsystem implements ForgeSpec {
 
                             params.computeFunction = new PSE_PolygonParticlePlugin.FollowComputeFunction(s);
 
-                            params.sizeInit = new Vector2f(FIGHTER_FX_RADIUS + s.getShieldRadiusEvenIfNoShield(), 5f);
-                            params.sizeFinal = new Vector2f(0f, 1f);
+                            params.sizeInit = new Vector2f(FIGHTER_FX_RADIUS + s.getShieldRadiusEvenIfNoShield(), FIGHTER_FX_RADIUS + s.getShieldRadiusEvenIfNoShield());
+                            params.sizeFinal = new Vector2f(0f, 0f);
 
-                            params.color = c.darker().darker();
+                            params.color = c.darker().darker().darker();
+                            params.edgeColor = c.darker().darker();
 
                             params.lifetime = 1.8f;
 
-                            PSE_PolygonParticlePlugin.add(s.getLocation(), params);
+                            rendererFighter.addParticle(s.getLocation(), params);
                         }
                     }
                 }

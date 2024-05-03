@@ -3,8 +3,8 @@
   "hullId": "PSE_serrano",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 18,
-  "fluxVents": 11,
+  "fluxCapacitors": 16,
+  "fluxVents": 16,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -15,7 +15,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "hellbore"
+        "WS0001": "hellbore",
+        "WS0012": "amblaster"
       }
     },
     {
@@ -38,9 +39,10 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0002": "PSE_novaburst_mini",
+        "WS0003": "PSE_novaburst_mini",
         "WS0010": "PSE_novaburst_mini",
-        "WS0011": "PSE_novaburst_mini",
-        "WS0012": "PSE_novaburst_mini"
+        "WS0011": "PSE_novaburst_mini"
       }
     },
     {
@@ -50,5 +52,8 @@
     }
   ],
   "modules": [],
-  "wings": ["PSE_hale_wing", "PSE_hale_wing"],
+  "wings": [
+    "PSE_hale_wing",
+    "PSE_hale_wing"
+  ]
 }

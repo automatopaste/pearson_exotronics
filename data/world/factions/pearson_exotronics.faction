@@ -3,7 +3,7 @@
 	"color":[58,197,150,255],
 	"baseUIColor":[58,197,150,255],
 	"darkUIColor":[65,135,115,255],
-    	"gridUIColor":[65,135,115,155],
+    "gridUIColor":[65,135,115,155],
 	"displayName":"Pearson",
 	"displayNameWithArticle":"Pearson",
 	"displayNameLong":"Pearson Exotronics Corporation",
@@ -36,6 +36,7 @@
 			"PSE_denmark":2,
 			"PSE_richmond":3,
 			"PSE_armstrong":2,
+			"PSE_kilroy":2,
 			"PSE_serrano":3,
 			"PSE_kingston":1,
 			"PSE_leyland":2,
@@ -47,7 +48,6 @@
 		"tags":["base_bp", "midline_bp"],
 		"hulls":[
 		    "enforcer",
-		    #"dominator",
 		    "eagle",
 		    "falcon",
 		],
@@ -65,14 +65,17 @@
 			"PSE_cassius",
 			"PSE_torrens",
 			"PSE_kiruna",
+			"PSE_hamis",
 			"PSE_denmark",
 			"PSE_richmond",
 			"PSE_armstrong",
+			"PSE_kilroy",
 			"PSE_serrano",
 			"PSE_leyland",
 			"PSE_kingston",
+			"PSE_bannerman",
 			"PSE_buffalo_pe"
-			],
+		],
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available
 	"priorityShips":{
@@ -81,13 +84,16 @@
 			"PSE_cassius",
 			#"PSE_torrens",
 			"PSE_kiruna",
+			"PSE_hamis",
 			"PSE_denmark",
 			"PSE_richmond",
 			"PSE_armstrong",
+			"PSE_kilroy",
 			"PSE_serrano",
 			"PSE_leyland",
 			"PSE_penrith",
 			"PSE_kingston",
+			"PSE_bannerman",
 			"PSE_buffalo_pe",
 		],
 	},
@@ -167,9 +173,11 @@
 			"ionpulser",
 			"ionbeam",
 			"gravitonbeam",
+			"irautolance",
 
 			"tachyonlance",
 			"hil",
+			"plasma",
 
 			"PSE_cascade_accelerator",
 		],
@@ -222,6 +230,7 @@
 
 			"PSE_ConvertedDroneHangars", #PSE
 			"PSE_OverclockedForgeVats",
+			"PSE_PulveriserDrone",
 		],
 	},
 	"factionDoctrine":{
@@ -233,7 +242,7 @@
 		"shipQuality":3,
 		"numShips":1,
 		
-		"shipSize":4,
+		"shipSize":3,
 		
 		"aggression":2,
 		

@@ -26,7 +26,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         // These show up as items in the bulleted list under
         // "Tactical Objectives" on the mission detail screen
-        api.addBriefingItem("Dick around with these ships for science.");
+        api.addBriefingItem("science.");
 
         // Set up the player's fleet
         //capitals
@@ -43,23 +43,19 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         }*/
 
         api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Assault", FleetMemberType.SHIP, true);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Elite", FleetMemberType.SHIP, true);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_kingston_Strike", FleetMemberType.SHIP, true);
         //cruisers
         api.addToFleet(FleetSide.PLAYER, "PSE_leyland_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Assault", FleetMemberType.SHIP, false);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_serrano_Overdriven", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_bannerman_Assault", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_penrith_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_kilroy_Assault", FleetMemberType.SHIP, false);
         //destroyers
         api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Assault", FleetMemberType.SHIP, false);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_denmark_Elite", FleetMemberType.SHIP, false);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_denmark_CloseSupport", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Assault", FleetMemberType.SHIP, false);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_richmond_Overdriven", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_armstrong_Assault", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "PSE_hamis_Standard", FleetMemberType.SHIP, false);
         //frigates
         api.addToFleet(FleetSide.PLAYER, "PSE_cassius_Assault", FleetMemberType.SHIP, false);
-        //api.addToFleet(FleetSide.PLAYER, "PSE_cassius_CloseSupport", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "PSE_kiruna_Assault", FleetMemberType.SHIP, false);
         //civilian
         api.addToFleet(FleetSide.PLAYER, "PSE_eyre_Standard", FleetMemberType.SHIP, false);

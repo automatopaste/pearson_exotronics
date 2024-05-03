@@ -900,10 +900,6 @@ public class PSE_BaseRandomPSEMissionDefinition implements MissionDefinitionPlug
     protected void randomizeVariant(CoreAutofitPlugin auto, AutofitPlugin.AutofitPluginDelegate inflater, FleetMemberAPI member,
                                     CampaignFleetAPI fleet, FactionAPI faction, int index, Random random)
     {
-        if (member.getHullSpec().hasTag(Items.TAG_NO_AUTOFIT))
-        {
-            return;
-        }
 
         ShipVariantAPI currVariant = Global.getSettings().createEmptyVariant(fleet.getId() + "_" + index, member.getHullSpec());
         ShipVariantAPI target = member.getVariant();

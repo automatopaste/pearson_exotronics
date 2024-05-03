@@ -7,7 +7,6 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import data.scripts.PSEModPlugin;
-import data.scripts.util.MagicIncompatibleHullmods;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,12 +48,8 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
     @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
         for (String hullmod : BLOCKED_HULLMODS) {
-            if(ship.getVariant().getHullMods().contains(hullmod)) {
-                MagicIncompatibleHullmods.removeHullmodWithWarning(
-                        ship.getVariant(),
-                        hullmod,
-                        "PSE_ConvertedDroneHangars"
-                );
+            if (ship.getVariant().hasHullMod(hullmod)) {
+                ship.getVariant().removeMod(hullmod);
             }
         }
     }
@@ -67,15 +62,6 @@ public class PSE_ConvertedDroneHangars extends BaseHullMod {
                 ship.getSystem() != null &&
                 PSEModPlugin.DRONE_SYSTEM_IDS.contains(ship.getSystem().getId());
     }
-
-    //ALEX PLS
-    /*public boolean isApplicableToVariant(ShipVariantAPI variant) {
-        if ("lol" == "comedy") {
-            return true;
-        }
-
-        return false;
-    }*/
 
     @Override
     public String getUnapplicableReason(ShipAPI ship) {

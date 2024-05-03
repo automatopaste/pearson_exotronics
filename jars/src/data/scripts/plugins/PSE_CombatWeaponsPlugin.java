@@ -4,6 +4,7 @@ import cmu.misc.MiscUtils;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
+import com.fs.starfarer.combat.entities.PlasmaShot;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
@@ -11,6 +12,7 @@ import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
@@ -31,8 +33,8 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
     private static final DamageType HELSING_FLAK_DAMAGE_TYPE = DamageType.HIGH_EXPLOSIVE;
 
     private static final String CASCADE_PROJECTILE_ID = "PSE_cascade_accelerator_shot";
-    private static final float CASCADE_PROJECTILE_ACCELERATION = 750f;
-    private static final float CASCADE_PROJECTILE_MIN_DISTANCE = 500f;
+    private static final float CASCADE_PROJECTILE_ACCELERATION = 2000f;
+    private static final float CASCADE_PROJECTILE_MAX_DISTANCE = 600f;
 
     private CombatEngineAPI engine;
     private PSE_ExplosionEffectsPlugin effectsPlugin;
@@ -288,31 +290,46 @@ public class PSE_CombatWeaponsPlugin extends BaseEveryFrameCombatPlugin {
                     }
                     break;
                 case CASCADE_PROJECTILE_ID:
-                    proj2 = null;
-                    dist = Float.MAX_VALUE;
-                    for (DamagingProjectileAPI p : engine.getProjectiles()) {
-                        if (p.getProjectileSpecId() == null || !p.getProjectileSpecId().equals(CASCADE_PROJECTILE_ID) || p.equals(projectile)) continue;
+                    final float f = CASCADE_PROJECTILE_MAX_DISTANCE * 4f;
+                    Iterator<Object> iter = engine.getAllObjectGrid().getCheckIterator(projectile.getLocation(), f, f);
 
-                        float d = MathUtils.getDistanceSquared(projectile, p);
-                        if (d < dist && d > CASCADE_PROJECTILE_MIN_DISTANCE) {
-                            dist = d;
-                            proj2 = p;
+                    List<PlasmaShot> p = new ArrayList<>();
+
+                    while (iter.hasNext()) {
+                        Object o = iter.next();
+                        if (!(o instanceof PlasmaShot)) continue;
+
+                        PlasmaShot d = (PlasmaShot) o;
+
+                        if (o != projectile && d.getProjectileSpecId() != null && d.getProjectileSpecId().equals(CASCADE_PROJECTILE_ID)) {
+                            p.add(d);
                         }
                     }
-                    if (proj2 == null) break;
+                    for (PlasmaShot s : p) {
+                        float d2 = MathUtils.getDistanceSquared(s.getLocation(), projectile.getLocation());
+                        float m = Math.min(d2, CASCADE_PROJECTILE_MAX_DISTANCE);
+                        float z = m / CASCADE_PROJECTILE_MAX_DISTANCE;
+                        z -= 0.5f;
+                        float e = (-4f * z * z) + 1f;
 
-                    acc = Vector2f.sub(proj2.getLocation(), location, new Vector2f());
-                    if (VectorUtils.isZeroVector(acc)) break;
+                        acc = Vector2f.sub(s.getLocation(), location, new Vector2f());
+                        if (VectorUtils.isZeroVector(acc)) break;
 
-                    acc.normalise();
-                    acc.scale(CASCADE_PROJECTILE_ACCELERATION * amount);
-                    Vector2f.add(acc, projectile.getVelocity(), projectile.getVelocity());
-
-                    if (MathUtils.getDistance(projectile.getLocation(), projectile.getSpawnLocation()) > projectile.getWeapon().getRange()) {
-                        remove.add(projectile);
-
-                        spawnCascadeEffects(projectile);
+                        acc.normalise();
+                        acc.scale(CASCADE_PROJECTILE_ACCELERATION * amount * e);
+                        Vector2f.add(acc, projectile.getVelocity(), projectile.getVelocity());
+//                        VectorUtils.clampLength(projectile.getVelocity(), 10000f, projectile.getVelocity());
                     }
+                    float d = projectile.getWeapon().getRange() * 1.1f;
+                    if (MathUtils.getDistanceSquared(projectile.getLocation(), projectile.getSource().getLocation()) > d * d) {
+                        remove.add(projectile);
+                    }
+
+//                    float r = projectile.getWeapon().getRange();
+//                    if (MathUtils.getDistanceSquared(projectile.getLocation(), projectile.getSpawnLocation()) > r * r) {
+//                        remove.add(projectile);
+//                        spawnCascadeEffects(projectile);
+//                    }
                     break;
                 default:
                     break;

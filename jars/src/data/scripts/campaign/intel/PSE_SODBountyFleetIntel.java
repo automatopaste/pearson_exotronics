@@ -24,7 +24,6 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import data.scripts.util.MagicCampaign;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
 

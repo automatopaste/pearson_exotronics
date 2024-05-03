@@ -1,10 +1,7 @@
 package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEngineLayers;
-import com.fs.starfarer.api.combat.CombatLayeredRenderingPlugin;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import org.lazywizard.lazylib.MathUtils;
@@ -12,9 +9,8 @@ import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.ListIterator;
 
 public class PSE_ExplosionEffectsPlugin extends BaseEveryFrameCombatPlugin {
     public static final String ENGINE_DATA_KEY = "PSE_EngineData";
@@ -33,6 +29,8 @@ public class PSE_ExplosionEffectsPlugin extends BaseEveryFrameCombatPlugin {
     private static final float HELSING_FLAK_ANGLE_RANGE = 360f;
     private static final Color HELSING_FLAK_EXPLOSION_COLOUR = new Color(248, 153, 116, 210);
     private static final Color HELSING_FLAK_PARTICLE_COLOUR = new Color(255, 93, 93, 255);
+
+    private Set<ShipAPI> ships = new HashSet<>();
 
     @Override
     public void init(CombatEngineAPI engine) {
@@ -63,6 +61,13 @@ public class PSE_ExplosionEffectsPlugin extends BaseEveryFrameCombatPlugin {
         if (engine == null || engine.isPaused()) {
             return;
         }
+
+//        for (ShipAPI ship : engine.getShips()) {
+//            if (!ships.contains(ship)) {
+//                engine.addLayeredRenderingPlugin(new HaloRenderer(ship));
+//                ships.add(ship);
+//            }
+//        }
 
         PSE_EngineData data = (PSE_EngineData) engine.getCustomData().get(ENGINE_DATA_KEY);
         if (data == null) {

@@ -3,8 +3,8 @@
   "hullId": "PSE_armstrong",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 11,
-  "fluxVents": 10,
+  "fluxCapacitors": 15,
+  "fluxVents": 8,
   "quality": 1,
   "permaMods": [],
   "hullMods": [

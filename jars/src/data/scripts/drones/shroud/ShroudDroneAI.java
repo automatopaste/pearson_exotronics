@@ -88,7 +88,9 @@ public class ShroudDroneAI extends BasicDroneAI {
 
                 landing = null;
 
-                drone.getShield().toggleOn();
+                if (!drone.getFluxTracker().isOverloadedOrVenting()) {
+                    drone.getShield().toggleOn();
+                }
 
                 break;
             case RECALL:
@@ -99,7 +101,9 @@ public class ShroudDroneAI extends BasicDroneAI {
                 destLocation = new Vector2f(landing.computePosition(mothership));
                 destFacing = MathUtils.clampAngle(landing.getAngle() + mothership.getFacing());
 
-                drone.getShield().toggleOff();
+                if (!drone.getFluxTracker().isOverloadedOrVenting()) {
+                    drone.getShield().toggleOff();
+                }
 
                 break;
         }

@@ -10,7 +10,8 @@
   "hullMods": [
     "targetingunit",
     "pointdefenseai",
-    "adaptiveshields"
+    "adaptiveshields",
+    "advancedshieldemitter"
   ],
   "weaponGroups": [
     {
@@ -24,7 +25,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "lightag"
+        "WS0002": "PSE_corsair_mk1"
       }
     },
     {

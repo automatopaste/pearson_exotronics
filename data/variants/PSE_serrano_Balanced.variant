@@ -3,7 +3,7 @@
   "hullId": "PSE_serrano",
   "displayName": "Balanced",
   "goalVariant": true,
-  "fluxCapacitors": 20,
+  "fluxCapacitors": 23,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],

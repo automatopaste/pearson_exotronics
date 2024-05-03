@@ -3,7 +3,7 @@
   "hullId": "PSE_cassius",
   "displayName": "Close Support",
   "goalVariant": true,
-  "fluxCapacitors": 5,
+  "fluxCapacitors": 9,
   "fluxVents": 10,
   "quality": 0.8,
   "permaMods": [],
