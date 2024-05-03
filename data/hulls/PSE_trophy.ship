@@ -1,0 +1,41 @@
+{
+  "hullName": "Trophy",
+  "hullId": "PSE_trophy",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_trophy.png",
+  "style": "PEARSON_EXOTRONICS_SHIELD_DRONE_HULL",
+  "height": 36,
+  "width": 44,
+  "center": [22, 18],
+  "collisionRadius": 101,
+  "shieldCenter": [-40.5, -0],
+  "shieldRadius": 82.5,
+  "viewOffset": 0,
+  "weaponSlots": [],
+  "engineSlots": [
+    {
+      "location": [-12, 15],
+      "length": 6,
+      "width": 10,
+      "angle": 140,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    },
+    {
+      "location": [-12, -15],
+      "length": 6,
+      "width": 10,
+      "angle": -140,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_specOpsFlare"
+    }
+  ],
+  "bounds": [
+    10.5, -12,
+    -14.5, -15,
+    -14.5, 15,
+    10.5, 12
+  ]
+}

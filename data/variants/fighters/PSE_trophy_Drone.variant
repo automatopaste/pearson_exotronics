@@ -1,0 +1,14 @@
+{
+  "variantId": "PSE_trophy_Drone",
+  "hullId": "PSE_trophy",
+  "displayName": "Drone",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [],
+  "modules": [],
+  "wings": []
+}

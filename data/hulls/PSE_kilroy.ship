@@ -1,0 +1,175 @@
+{
+  "hullName": "Kilroy",
+  "hullId": "PSE_kilroy",
+  "hullSize": "CRUISER",
+  "spriteName": "graphics/PSE/ships/PSE_kilroy.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 160,
+  "width": 164,
+  "center": [82, 80],
+  "collisionRadius": 145.5,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 123,
+  "viewOffset": 0,
+  "builtInMods": [
+    "ballistic_rangefinder",
+    "PSE_PulveriserDrone"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 105,
+      "angle": 45,
+      "locations": [26, 35]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 105,
+      "angle": -45,
+      "locations": [26, -35]
+    },
+    {
+      "id": "WS0007",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [72, 37]
+    },
+    {
+      "id": "WS0008",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": -0,
+      "locations": [72, -37]
+    },
+    {
+      "id": "WS0009",
+      "size": "LARGE",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 150,
+      "angle": 0,
+      "locations": [44, -0]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 167,
+      "angle": 115,
+      "locations": [12, 60]
+    },
+    {
+      "id": "WS0010",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 167,
+      "angle": -115,
+      "locations": [12, -60]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 145,
+      "angle": 45,
+      "locations": [51, 46]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 145,
+      "angle": -45,
+      "locations": [51, -46]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 150,
+      "locations": [-23, 34]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -150,
+      "locations": [-23, -34]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-78, 8],
+      "length": 40,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-78, -8],
+      "length": 40,
+      "width": 16,
+      "angle": -180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-37, 51],
+      "length": 32,
+      "width": 12,
+      "angle": 175,
+      "contrailSize": 12,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-37, -51],
+      "length": 32,
+      "width": 12,
+      "angle": -175,
+      "contrailSize": 12,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": [
+    71, -9,
+    64.5, -20,
+    64, -46,
+    29, -79.5,
+    -33, -57,
+    -22, -45,
+    -26, -33.5,
+    -72.5, -23,
+    -72.5, 23,
+    -26, 33.5,
+    -22, 45,
+    -33, 57,
+    29, 79.5,
+    64, 46,
+    64.5, 20,
+    71, 9
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "variantId": "PSE_bannerman_Elite",
+  "hullId": "PSE_bannerman",
+  "displayName": "Elite",
+  "goalVariant": true,
+  "fluxCapacitors": 15,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "blast_doors",
+    "armoredweapons",
+    "heavyarmor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "gauss"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "hil"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "PSE_douglas"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "PSE_novaburst_mini",
+        "WS0004": "flak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "PSE_spectrumpd",
+        "WS0007": "PSE_spectrumpd",
+        "WS0008": "PSE_spectrumpd"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

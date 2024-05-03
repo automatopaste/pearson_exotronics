@@ -1,0 +1,124 @@
+{
+  "hullName": "Hamis",
+  "hullId": "PSE_hamis",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/PSE/ships/PSE_hamis.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 138,
+  "width": 118,
+  "center": [59, 69],
+  "collisionRadius": 134.5,
+  "shieldCenter": [-15, -0],
+  "shieldRadius": 107,
+  "viewOffset": 0,
+  "builtInMods": [
+    "PSE_NeuralCycler"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 215,
+      "angle": 40,
+      "locations": [12, 29]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 215,
+      "angle": -40,
+      "locations": [12, -29]
+    },
+    {
+      "id": "WS0003y",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [60, -0]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 300,
+      "angle": -80,
+      "locations": [-17, -33]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 300,
+      "angle": 80,
+      "locations": [-17, 33]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-55, 17],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-55, -17],
+      "length": 30,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 30,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-66, 31],
+      "length": 40,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-66, -31],
+      "length": 40,
+      "width": 16,
+      "angle": -180,
+      "contrailSize": 16,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": [
+    59.5, -11,
+    52.5, -18.5,
+    49.5, -29.5,
+    28, -49,
+    -2.5, -49.5,
+    -15.5, -56,
+    -36.5, -44,
+    -52, -42.5,
+    -66.5, -30,
+    -35, -8,
+    -35, 8,
+    -66.5, 30,
+    -52, 42.5,
+    -36.5, 44,
+    -15.5, 56,
+    -2.5, 49.5,
+    28, 49,
+    49.5, 29.5,
+    52.5, 18.5,
+    59.5, 11
+  ]
+}

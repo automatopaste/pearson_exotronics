@@ -1,0 +1,58 @@
+{
+  "hullName": "Sepherum",
+  "hullId": "PSE_sepherum",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_sepherum.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 38,
+  "width": 34,
+  "center": [17, 19],
+  "collisionRadius": 41,
+  "shieldCenter": [0, 0],
+  "shieldRadius": 30.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "no_weapon_flux",
+    "advancedoptics"
+  ],
+  "builtInWeapons": {
+    "WS0001": "tachyonlance"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [15, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-15, 5.5],
+      "length": 16,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-15, -5.5],
+      "length": 16,
+      "width": 8,
+      "angle": -180,
+      "contrailSize": 8,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": [
+    12.5, -10.5,
+    -8, -15,
+    -8, 15,
+    12.5, 10.5
+  ]
+}

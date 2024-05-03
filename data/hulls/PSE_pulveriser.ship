@@ -1,0 +1,59 @@
+{
+  "hullName": "Pulveriser",
+  "hullId": "PSE_pulveriser",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/PSE/ships/PSE_pulveriser.png",
+  "style": "PEARSON_EXOTRONICS_BASE_HULL",
+  "height": 54,
+  "width": 56,
+  "center": [28, 22],
+  "collisionRadius": 47.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 40.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "advancedcore"
+  ],
+  "builtInWeapons": {
+    "WS0001": "PSE_hardlux"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 0,
+      "angle": 0,
+      "locations": [0, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-17, 11],
+      "length": 12,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    },
+    {
+      "location": [-17, -11],
+      "length": 12,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 10,
+      "style": "CUSTOM",
+      "styleId": "PSE_baseFlare"
+    }
+  ],
+  "bounds": [
+    22.5, -10.5,
+    4, -22,
+    -17.5, -20,
+    -17.5, 20,
+    4, 22,
+    22.5, 10.5
+  ]
+}

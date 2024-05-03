@@ -1,0 +1,3 @@
+name,id,hotkey,inTime,activeTime,outTime,cooldownTime,isToggle,fluxPerSecondPercentMaxCapacity,fluxPerSecondFlat
+Sepherum Drone,PSE_SepherumDrone,B,0.2,,,,,0,0
+Pulveriser Drone,PSE_PulveriserSubsystem,B,0.2,,,,,0,0

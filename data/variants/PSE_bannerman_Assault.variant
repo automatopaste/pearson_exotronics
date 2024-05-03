@@ -1,0 +1,58 @@
+{
+  "variantId": "PSE_bannerman_Assault",
+  "hullId": "PSE_bannerman",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 11,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "extendedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "plasma"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "multineedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "PSE_helsing_flak_rifle"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "dualflak",
+        "WS0004": "dualflak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "PSE_spectrumpd",
+        "WS0005": "PSE_spectrumpd",
+        "WS0006": "PSE_spectrumpd",
+        "WS0007": "PSE_spectrumpd",
+        "WS0008": "PSE_spectrumpd"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
